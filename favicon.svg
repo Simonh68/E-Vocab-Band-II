@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">E-Vocab Band II</title>
+  <desc id="description">A white open book with the Roman numeral II on a blue three-dimensional tile.</desc>
+  <defs>
+    <linearGradient id="tile" x1="104" y1="70" x2="414" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7edaf0"/>
+      <stop offset="0.5" stop-color="#42a9cd"/>
+      <stop offset="1" stop-color="#176b8a"/>
+    </linearGradient>
+    <linearGradient id="book" x1="256" y1="142" x2="256" y2="372" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e5f7fd"/>
+    </linearGradient>
+  </defs>
+  <rect x="42" y="42" width="428" height="428" rx="108" fill="#0f536e" opacity="0.32"/>
+  <g>
+    <rect x="42" y="30" width="428" height="428" rx="108" fill="#0f536e"/>
+    <rect x="42" y="20" width="428" height="420" rx="108" fill="url(#tile)"/>
+    <rect x="55" y="33" width="402" height="394" rx="96" fill="none" stroke="#ffffff" stroke-width="10" stroke-opacity="0.23"/>
+    <path d="M88 116C145 55 238 37 333 57c51 11 89 34 112 59-39-30-92-43-156-37-82 7-149 34-201 82z" fill="#ffffff" opacity="0.16"/>
+  </g>
+  <g>
+    <path d="M105 157c54-25 108-20 151 17v202c-43-31-97-35-151-13z" fill="url(#book)" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M407 157c-54-25-108-20-151 17v202c43-31 97-35 151-13z" fill="url(#book)" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M256 174v202" fill="none" stroke="#b8e8f5" stroke-width="10" stroke-linecap="round"/>
+    <path d="M133 203c33-10 63-8 91 5M133 244c33-10 63-8 91 5M288 208c28-13 58-15 91-5M288 249c28-13 58-15 91-5" fill="none" stroke="#8fd0e4" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <circle cx="256" cy="281" r="77" fill="#0f536e" opacity="0.28"/>
+  <g>
+    <circle cx="256" cy="270" r="77" fill="#176b8a" stroke="#ffffff" stroke-width="9"/>
+    <rect x="222" y="217" width="23" height="109" rx="5" fill="#ffffff"/>
+    <rect x="267" y="217" width="23" height="109" rx="5" fill="#ffffff"/>
+  </g>
+</svg>
