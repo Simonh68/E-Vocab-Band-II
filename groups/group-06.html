@@ -97,8 +97,12 @@ window.addEventListener("DOMContentLoaded",()=>{
     const wordElement=document.getElementById("wordEn");
     const letters=Array.from(wordElement.querySelectorAll(".word-letter"));
     spellButton.disabled=true;
-    wordElement.classList.add("spelling");
     announce("Spelling started.");
+
+    await speakLetter(item.en,runId);
+    if(runId!==spellingRunId||startingIndex!==currentIndex||card.classList.contains("flipped"))return;
+    await sleep(180);
+    wordElement.classList.add("spelling");
 
     for(const letter of letters){
       if(runId!==spellingRunId||startingIndex!==currentIndex||card.classList.contains("flipped"))return;
@@ -110,6 +114,11 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     if(runId===spellingRunId&&startingIndex===currentIndex){
       clearLetterHighlight();
+      await sleep(180);
+      await speakLetter(item.en,runId);
+    }
+
+    if(runId===spellingRunId&&startingIndex===currentIndex){
       spellButton.disabled=false;
       announce("Spelling complete.");
     }
