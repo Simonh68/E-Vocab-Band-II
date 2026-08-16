@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b12">
+  <title>Irregular Verbs Challenge</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080a11;
+      --panel: rgba(20, 24, 38, .84);
+      --panel-strong: #171b2b;
+      --line: rgba(255, 255, 255, .1);
+      --text: #f7f8fc;
+      --muted: #9da5bc;
+      --purple: #8b7cff;
+      --cyan: #4bdcff;
+      --green: #48f0a0;
+      --red: #ff6b7d;
+      --amber: #ffb84d;
+      --shadow: 0 28px 80px rgba(0, 0, 0, .42);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; background: var(--bg); }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      overflow-x: hidden;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(75, 220, 255, .12), transparent 28rem),
+        radial-gradient(circle at 88% 88%, rgba(139, 124, 255, .16), transparent 30rem),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+
+    button { -webkit-tap-highlight-color: transparent; }
+
+    .shell {
+      width: min(100% - 28px, 720px);
+      margin: 0 auto;
+      padding: max(22px, env(safe-area-inset-top)) 0 max(28px, env(safe-area-inset-bottom));
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(75, 220, 255, .35);
+      border-radius: 11px;
+      color: var(--cyan);
+      background: rgba(75, 220, 255, .09);
+      box-shadow: 0 0 24px rgba(75, 220, 255, .1);
+    }
+
+    .stats { display: flex; gap: 8px; }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 72px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .045);
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .stat strong { color: var(--text); font-size: .94rem; }
+    .flame { display: inline-block; filter: grayscale(.35); }
+    .hot .flame { filter: none; animation: flamePulse .72s ease-in-out infinite alternate; }
+
+    .progress-track {
+      height: 5px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      box-shadow: 0 0 18px rgba(75, 220, 255, .45);
+      transition: width .35s ease;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(24px, 5vw, 44px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(26, 31, 48, .96), rgba(14, 17, 29, .94));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .card::before {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      content: "";
+      background: linear-gradient(90deg, transparent, rgba(75, 220, 255, .75), transparent);
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .pattern {
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      margin: 23px 0 14px;
+      padding: 7px 11px;
+      border: 1px solid rgba(139, 124, 255, .3);
+      border-radius: 999px;
+      color: #c9c2ff;
+      background: rgba(139, 124, 255, .1);
+      font-size: .75rem;
+      font-weight: 750;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.25rem, 13vw, 6rem);
+      line-height: .95;
+      letter-spacing: -.075em;
+    }
+
+    .prompt {
+      margin: 13px 0 28px;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field-wrap { position: relative; }
+
+    label {
+      display: block;
+      margin: 0 0 8px 2px;
+      color: #c6ccdb;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 15px;
+      outline: none;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 14px;
+      color: #fff;
+      background: rgba(3, 5, 12, .45);
+      font-size: 1.1rem;
+      font-weight: 700;
+      transition: border-color .18s, box-shadow .18s, background .18s, transform .18s;
+    }
+
+    input::placeholder { color: #626b82; font-weight: 500; }
+    input:focus { border-color: var(--cyan); box-shadow: 0 0 0 4px rgba(75, 220, 255, .11); }
+    input.correct { border-color: var(--green); background: rgba(72, 240, 160, .1); box-shadow: 0 0 0 4px rgba(72, 240, 160, .08); }
+    input.incorrect { border-color: var(--red); background: rgba(255, 107, 125, .09); }
+    input.shake { animation: shake .34s ease; }
+
+    .answer {
+      min-height: 20px;
+      margin: 7px 3px 0;
+      color: var(--red);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .actions { display: flex; gap: 10px; margin-top: 24px; }
+
+    .button {
+      min-height: 53px;
+      flex: 1;
+      cursor: pointer;
+      border: 0;
+      border-radius: 14px;
+      color: #090b12;
+      background: linear-gradient(135deg, var(--cyan), #75f5ca);
+      box-shadow: 0 12px 26px rgba(75, 220, 255, .17);
+      font-weight: 850;
+      transition: transform .15s, filter .15s;
+    }
+
+    .button:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .button:active { transform: translateY(1px) scale(.99); }
+    .button:focus-visible { outline: 3px solid rgba(75, 220, 255, .34); outline-offset: 3px; }
+    .button.secondary { color: #fff; background: rgba(255, 255, 255, .09); box-shadow: none; }
+    .hidden { display: none !important; }
+
+    .status {
+      min-height: 24px;
+      margin: 16px 0 -4px;
+      text-align: center;
+      color: var(--green);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .success-pop { animation: successPop .42s cubic-bezier(.2, .8, .25, 1.35); }
+
+    .particles { position: absolute; inset: 0; pointer-events: none; }
+    .particle {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--green);
+      animation: burst .8s ease-out forwards;
+    }
+
+    .results { text-align: center; }
+
+    .result-ring {
+      position: relative;
+      display: grid;
+      width: 132px;
+      height: 132px;
+      margin: 4px auto 22px;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--green) calc(var(--accuracy) * 1%), rgba(255,255,255,.07) 0);
+      box-shadow: 0 0 44px rgba(72, 240, 160, .12);
+    }
+
+    .result-ring::before {
+      position: absolute;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      content: "";
+      background: #151927;
+    }
+
+    .result-ring strong { position: relative; font-size: 2rem; letter-spacing: -.05em; }
+    .results h2 { margin: 0; font-size: clamp(1.8rem, 7vw, 2.7rem); letter-spacing: -.04em; }
+    .results .subtitle { margin: 9px 0 24px; color: var(--muted); }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .result-stat { padding: 15px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.035); }
+    .result-stat strong { display: block; font-size: 1.35rem; }
+    .result-stat span { color: var(--muted); font-size: .78rem; }
+
+    .review {
+      margin: 0 0 22px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      text-align: left;
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .review h3 { margin: 0 0 12px; font-size: .84rem; color: #c8cedd; text-transform: uppercase; letter-spacing: .08em; }
+    .review-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .review-list li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.07); color: var(--muted); font-size: .9rem; }
+    .review-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+    .review-list b { color: #fff; }
+
+    @keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+    @keyframes successPop { 50% { transform: scale(1.015); box-shadow: 0 26px 90px rgba(72, 240, 160, .14); } }
+    @keyframes flamePulse { to { transform: scale(1.25) rotate(4deg); filter: drop-shadow(0 0 7px var(--amber)); } }
+    @keyframes burst { to { transform: translate(var(--x), var(--y)) rotate(180deg); opacity: 0; } }
+
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 20px, 720px); padding-top: max(14px, env(safe-area-inset-top)); }
+      .brand span:last-child { display: none; }
+      .stat { min-width: auto; padding: 8px 9px; }
+      .card { padding: 23px 18px; border-radius: 21px; }
+      .fields { grid-template-columns: 1fr; gap: 10px; }
+      h1 { margin-top: 2px; }
+      .prompt { margin-bottom: 22px; }
+      .answer { min-height: 17px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">V³</span><span>Irregular Verbs</span></div>
+      <div class="stats" aria-label="Session statistics">
+        <div class="stat" id="streakStat"><span class="flame">🔥</span><strong id="streak">0</strong></div>
+        <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+      </div>
+    </header>
+
+    <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+    <section class="card" id="challenge" aria-labelledby="verbHeading">
+      <div class="particles" id="particles"></div>
+      <div class="question-meta"><span>Complete the forms</span><span id="counter">1 / 10</span></div>
+      <div class="pattern" id="pattern">Pattern</div>
+      <h1 id="verbHeading">begin</h1>
+      <p class="prompt">Type the Past Simple (V2) and Past Participle (V3).</p>
+
+      <form id="answerForm" novalidate>
+        <div class="fields">
+          <div class="field-wrap">
+            <label for="v2">V2 · Past Simple</label>
+            <input id="v2" name="v2" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Type V2" aria-describedby="v2Answer">
+            <div class="answer" id="v2Answer" aria-live="polite"></div>
+          </div>
+          <div class="field-wrap">
+            <label for="v3">V3 · Past Participle</label>
+            <input id="v3" name="v3" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Type V3" aria-describedby="v3Answer">
+            <div class="answer" id="v3Answer" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="status" id="status" aria-live="polite"></div>
+        <div class="actions">
+          <button class="button" id="checkButton" type="submit">Check</button>
+          <button class="button secondary hidden" id="nextButton" type="button">Next</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card results hidden" id="results" aria-labelledby="resultsHeading">
+      <div class="result-ring" id="resultRing"><strong id="accuracy">0%</strong></div>
+      <h2 id="resultsHeading">Session complete</h2>
+      <p class="subtitle" id="resultMessage">Nice work. Keep building accuracy.</p>
+      <div class="result-stats">
+        <div class="result-stat"><strong id="finalScore">0</strong><span>Total score</span></div>
+        <div class="result-stat"><strong id="bestStreak">0</strong><span>Best streak</span></div>
+      </div>
+      <div class="review" id="reviewBox">
+        <h3>Review these verbs</h3>
+        <ul class="review-list" id="reviewList"></ul>
+      </div>
+      <button class="button" id="playAgain" type="button">Play Again</button>
+    </section>
+  </main>
+
+  <script>
+    const verbs = [
+      { v1: "cut", v2: "cut", v3: "cut", group: "The Constants · cut / cut / cut" },
+      { v1: "hit", v2: "hit", v3: "hit", group: "The Constants · hit / hit / hit" },
+      { v1: "hurt", v2: "hurt", v3: "hurt", group: "The Constants · hurt / hurt / hurt" },
+      { v1: "let", v2: "let", v3: "let", group: "The Constants · let / let / let" },
+      { v1: "put", v2: "put", v3: "put", group: "The Constants · put / put / put" },
+      { v1: "set", v2: "set", v3: "set", group: "The Constants · set / set / set" },
+      { v1: "shut", v2: "shut", v3: "shut", group: "The Constants · shut / shut / shut" },
+      { v1: "cost", v2: "cost", v3: "cost", group: "The Constants · cost / cost / cost" },
+
+      { v1: "sleep", v2: "slept", v3: "slept", group: "The Twins · sleep / slept / slept" },
+      { v1: "keep", v2: "kept", v3: "kept", group: "The Twins · keep / kept / kept" },
+      { v1: "feel", v2: "felt", v3: "felt", group: "The Twins · feel / felt / felt" },
+      { v1: "leave", v2: "left", v3: "left", group: "The Twins · leave / left / left" },
+      { v1: "meet", v2: "met", v3: "met", group: "The Twins · meet / met / met" },
+      { v1: "send", v2: "sent", v3: "sent", group: "The Twins · send / sent / sent" },
+      { v1: "build", v2: "built", v3: "built", group: "The Twins · build / built / built" },
+      { v1: "buy", v2: "bought", v3: "bought", group: "The Twins · buy / bought / bought" },
+      { v1: "bring", v2: "brought", v3: "brought", group: "The Twins · bring / brought / brought" },
+      { v1: "teach", v2: "taught", v3: "taught", group: "The Twins · teach / taught / taught" },
+      { v1: "think", v2: "thought", v3: "thought", group: "The Twins · think / thought / thought" },
+      { v1: "catch", v2: "caught", v3: "caught", group: "The Twins · catch / caught / caught" },
+
+      { v1: "run", v2: "ran", v3: "run", group: "The Boomerangs · run / ran / run" },
+      { v1: "come", v2: "came", v3: "come", group: "The Boomerangs · come / came / come" },
+      { v1: "become", v2: "became", v3: "become", group: "The Boomerangs · become / became / become" },
+
+      { v1: "sing", v2: "sang", v3: "sung", group: "Vowel Shifters · sing / sang / sung" },
+      { v1: "ring", v2: "rang", v3: "rung", group: "Vowel Shifters · ring / rang / rung" },
+      { v1: "drink", v2: "drank", v3: "drunk", group: "Vowel Shifters · drink / drank / drunk" },
+      { v1: "swim", v2: "swam", v3: "swum", group: "Vowel Shifters · swim / swam / swum" },
+      { v1: "begin", v2: "began", v3: "begun", group: "Vowel Shifters · begin / began / begun" },
+
+      { v1: "break", v2: "broke", v3: "broken", group: "The -en Finishers · break / broke / broken" },
+      { v1: "choose", v2: "chose", v3: "chosen", group: "The -en Finishers · choose / chose / chosen" },
+      { v1: "speak", v2: "spoke", v3: "spoken", group: "The -en Finishers · speak / spoke / spoken" },
+      { v1: "steal", v2: "stole", v3: "stolen", group: "The -en Finishers · steal / stole / stolen" },
+      { v1: "write", v2: "wrote", v3: "written", group: "The -en Finishers · write / wrote / written" },
+      { v1: "drive", v2: "drove", v3: "driven", group: "The -en Finishers · drive / drove / driven" },
+      { v1: "take", v2: "took", v3: "taken", group: "The -en Finishers · take / took / taken" },
+      { v1: "give", v2: "gave", v3: "given", group: "The -en Finishers · give / gave / given" },
+
+      { v1: "go", v2: "went", v3: "gone", group: "Wild Cards · unique forms" },
+      { v1: "see", v2: "saw", v3: "seen", group: "Wild Cards · unique forms" },
+      { v1: "do", v2: "did", v3: "done", group: "Wild Cards · unique forms" },
+      { v1: "be", v2: "was / were", v3: "been", group: "Wild Cards · unique forms" }
+    ];
+
+    const SESSION_LENGTH = 10;
+    const $ = (selector) => document.querySelector(selector);
+    const ui = {
+      challenge: $("#challenge"), results: $("#results"), form: $("#answerForm"),
+      v2: $("#v2"), v3: $("#v3"), v2Answer: $("#v2Answer"), v3Answer: $("#v3Answer"),
+      verb: $("#verbHeading"), pattern: $("#pattern"), counter: $("#counter"),
+      progress: $("#progressBar"), streak: $("#streak"), score: $("#score"),
+      streakStat: $("#streakStat"), status: $("#status"), check: $("#checkButton"),
+      next: $("#nextButton"), particles: $("#particles"), accuracy: $("#accuracy"),
+      resultRing: $("#resultRing"), finalScore: $("#finalScore"), bestStreak: $("#bestStreak"),
+      reviewBox: $("#reviewBox"), reviewList: $("#reviewList"), resultMessage: $("#resultMessage"),
+      playAgain: $("#playAgain")
+    };
+
+    let session = [];
+    let index = 0;
+    let score = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let correctCount = 0;
+    let mistakes = [];
+    let locked = false;
+
+    function shuffled(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function acceptedAnswers(answer) {
+      return answer.split("/").map(part => part.trim().toLowerCase());
+    }
+
+    function normalize(value) {
+      return value.trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function matches(value, answer) {
+      const typed = normalize(value);
+      const accepted = acceptedAnswers(answer);
+      if (accepted.includes(typed)) return true;
+      return accepted.length > 1 && accepted.every(form => typed.split(/\s*(?:\/|,|or)\s*/).includes(form));
+    }
+
+    function startSession() {
+      session = shuffled(verbs).slice(0, SESSION_LENGTH);
+      index = score = streak = maxStreak = correctCount = 0;
+      mistakes = [];
+      ui.challenge.classList.remove("hidden");
+      ui.results.classList.add("hidden");
+      updateStats();
+      showVerb();
+    }
+
+    function showVerb() {
+      locked = false;
+      const verb = session[index];
+      ui.verb.textContent = verb.v1;
+      ui.pattern.textContent = verb.group;
+      ui.counter.textContent = `${index + 1} / ${SESSION_LENGTH}`;
+      ui.progress.style.width = `${(index / SESSION_LENGTH) * 100}%`;
+      ui.status.textContent = "";
+      ui.v2.value = "";
+      ui.v3.value = "";
+      [ui.v2, ui.v3].forEach(input => {
+        input.disabled = false;
+        input.classList.remove("correct", "incorrect", "shake");
+      });
+      ui.v2Answer.textContent = "";
+      ui.v3Answer.textContent = "";
+      ui.check.classList.remove("hidden");
+      ui.next.classList.add("hidden");
+      requestAnimationFrame(() => ui.v2.focus({ preventScroll: true }));
+    }
+
+    function updateStats() {
+      ui.streak.textContent = streak;
+      ui.score.textContent = score;
+      ui.streakStat.classList.toggle("hot", streak > 5);
+    }
+
+    function makeParticles() {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      ui.particles.innerHTML = "";
+      for (let i = 0; i < 18; i++) {
+        const particle = document.createElement("i");
+        particle.className = "particle";
+        particle.style.left = `${45 + Math.random() * 10}%`;
+        particle.style.top = `${52 + Math.random() * 8}%`;
+        particle.style.setProperty("--x", `${(Math.random() - .5) * 360}px`);
+        particle.style.setProperty("--y", `${(Math.random() - .72) * 280}px`);
+        particle.style.background = i % 3 === 0 ? "var(--cyan)" : i % 2 ? "var(--green)" : "var(--purple)";
+        ui.particles.appendChild(particle);
+      }
+      setTimeout(() => { ui.particles.innerHTML = ""; }, 900);
+    }
+
+    function checkAnswer(event) {
+      event.preventDefault();
+      if (locked) return;
+      if (!ui.v2.value.trim()) { ui.v2.focus(); return; }
+      if (!ui.v3.value.trim()) { ui.v3.focus(); return; }
+
+      locked = true;
+      const verb = session[index];
+      const v2Correct = matches(ui.v2.value, verb.v2);
+      const v3Correct = matches(ui.v3.value, verb.v3);
+      ui.v2.disabled = ui.v3.disabled = true;
+
+      if (v2Correct && v3Correct) {
+        streak++;
+        maxStreak = Math.max(maxStreak, streak);
+        correctCount++;
+        const multiplier = streak >= 8 ? 3 : streak >= 5 ? 2 : 1;
+        const points = 100 * multiplier;
+        score += points;
+        ui.v2.classList.add("correct");
+        ui.v3.classList.add("correct");
+        ui.status.textContent = multiplier > 1 ? `Correct · +${points} (${multiplier}× streak bonus)` : "Correct · +100";
+        ui.challenge.classList.add("success-pop");
+        makeParticles();
+        updateStats();
+        setTimeout(() => {
+          ui.challenge.classList.remove("success-pop");
+          advance();
+        }, 1000);
+      } else {
+        streak = 0;
+        mistakes.push(verb);
+        updateStats();
+        [
+          [ui.v2, ui.v2Answer, v2Correct, verb.v2],
+          [ui.v3, ui.v3Answer, v3Correct, verb.v3]
+        ].forEach(([input, answerEl, isCorrect, answer]) => {
+          input.classList.add(isCorrect ? "correct" : "incorrect");
+          if (!isCorrect) {
+            input.classList.add("shake");
+            answerEl.textContent = `Correct: ${answer}`;
+          }
+        });
+        ui.status.textContent = "Check the correction, then continue.";
+        ui.status.style.color = "var(--red)";
+        ui.check.classList.add("hidden");
+        ui.next.classList.remove("hidden");
+        ui.next.focus();
+      }
+    }
+
+    function advance() {
+      ui.status.style.color = "var(--green)";
+      index++;
+      if (index >= SESSION_LENGTH) showResults();
+      else showVerb();
+    }
+
+    function showResults() {
+      const accuracy = Math.round((correctCount / SESSION_LENGTH) * 100);
+      ui.progress.style.width = "100%";
+      ui.challenge.classList.add("hidden");
+      ui.results.classList.remove("hidden");
+      ui.accuracy.textContent = `${accuracy}%`;
+      ui.resultRing.style.setProperty("--accuracy", accuracy);
+      ui.finalScore.textContent = score;
+      ui.bestStreak.textContent = maxStreak;
+      ui.resultMessage.textContent = accuracy === 100 ? "Perfect session. Every form was correct." : accuracy >= 80 ? "Strong work. One more round will lock it in." : "Good practice. Review the forms below and try again.";
+      ui.reviewList.innerHTML = "";
+      ui.reviewBox.classList.toggle("hidden", mistakes.length === 0);
+      mistakes.forEach(verb => {
+        const li = document.createElement("li");
+        const name = document.createElement("b");
+        const forms = document.createElement("span");
+        name.textContent = verb.v1;
+        forms.textContent = `${verb.v2} · ${verb.v3}`;
+        li.append(name, forms);
+        ui.reviewList.appendChild(li);
+      });
+      ui.playAgain.focus();
+    }
+
+    ui.form.addEventListener("submit", checkAnswer);
+    ui.next.addEventListener("click", advance);
+    ui.playAgain.addEventListener("click", startSession);
+    ui.v2.addEventListener("keydown", event => {
+      if (event.key === "Enter" && ui.v2.value.trim()) {
+        event.preventDefault();
+        ui.v3.focus();
+      }
+    });
+
+    startSession();
+  </script>
+</body>
+</html>
