@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>One Safe Choice — Interactive English Story</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Heebo:wght@400;600;700&display=swap');
+    :root{--ink:#f8fafc;--muted:#b8c4d8;--panel:#182235;--panel2:#22304a;--yellow:#ffd166;--cyan:#61dafb;--green:#72e3a6;--shadow:0 18px 55px #03071266}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#0c1322;color:var(--ink)}
+    body{font-family:Andika,system-ui,sans-serif;background:radial-gradient(circle at 15% 0,#19365c 0,transparent 38%),linear-gradient(145deg,#0c1322,#10192b);overflow-x:hidden}
+    button{font:inherit}
+    .app{width:min(1100px,100%);min-height:100dvh;margin:auto;padding:max(14px,env(safe-area-inset-top)) clamp(14px,3vw,34px) max(16px,env(safe-area-inset-bottom));display:grid;grid-template-rows:auto 1fr auto;gap:14px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em}.brand-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--yellow);color:#172033;font-size:21px}
+    .progress-wrap{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.9rem}.progress{width:min(26vw,230px);height:8px;background:#27334a;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .35s}
+    main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:18px;align-items:stretch;min-height:0}
+    .art-card,.reading-card{border:1px solid #ffffff14;background:#151f32cc;border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+    .art-card{position:relative;min-height:360px;background:#22304a}.art-card img{width:100%;height:100%;object-fit:cover;display:block}.art-shade{position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,#101827aa)}
+    .reading-card{padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;justify-content:center;gap:22px}
+    .eyebrow{color:var(--yellow);font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.13em}
+    .sentence{margin:0;font-size:clamp(1.55rem,3.3vw,2.65rem);line-height:1.33;cursor:pointer;border-radius:16px;padding:10px 12px;margin-left:-12px;transition:.2s}
+    .sentence:hover,.sentence:focus-visible{background:#ffffff0d;outline:none}.sentence::after{content:' 🔊';font-size:.55em;opacity:.75;white-space:nowrap}
+    .instruction{margin:0;color:var(--muted);font-size:.96rem}
+    .chunks{display:flex;flex-wrap:wrap;gap:10px;min-height:46px}
+    .chunk{border:1px solid #ffffff25;background:var(--panel2);color:var(--ink);border-radius:13px;padding:9px 12px;cursor:pointer;transition:.16s}.chunk:hover{transform:translateY(-2px);border-color:var(--cyan)}.chunk.active{background:var(--yellow);color:#172033;border-color:var(--yellow);box-shadow:0 0 0 4px #ffd16622}
+    .translation{min-height:74px;border-left:4px solid var(--cyan);background:#111a2b;border-radius:0 14px 14px 0;padding:12px 15px;display:flex;flex-direction:column;justify-content:center}.translation small{color:var(--cyan);font-size:.75rem;font-weight:700}.translation strong{font-family:Heebo,Arial,sans-serif;font-size:1.3rem;direction:rtl;text-align:right}.translation.idle strong{color:var(--muted);font-weight:400;font-size:1rem}
+    nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}.nav-btn{border:1px solid #ffffff22;background:#1b2940;color:var(--ink);border-radius:14px;padding:11px 18px;cursor:pointer;min-height:48px}.nav-btn:hover:not(:disabled){border-color:var(--cyan);background:#243754}.nav-btn:disabled{opacity:.28;cursor:not-allowed}.next{justify-self:end}.dots{display:flex;gap:7px}.dot{width:8px;height:8px;border-radius:9px;background:#58657a;transition:.2s}.dot.current{width:24px;background:var(--yellow)}
+    .audio-status{position:fixed;left:50%;bottom:76px;transform:translate(-50%,20px);background:#07101eee;border:1px solid #ffffff22;border-radius:99px;padding:8px 14px;color:var(--muted);opacity:0;pointer-events:none;transition:.2s}.audio-status.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:760px){.app{gap:10px}.brand span:last-child{display:none}.progress{width:34vw}main{grid-template-columns:1fr;grid-template-rows:minmax(240px,42dvh) auto}.art-card{min-height:240px;border-radius:20px}.reading-card{border-radius:20px;gap:14px;padding:18px}.sentence{font-size:clamp(1.45rem,6.4vw,2rem)}.translation{min-height:62px}.dots{display:none}nav{grid-template-columns:1fr 1fr}.nav-btn{width:100%}.next{grid-column:2}.instruction{font-size:.88rem}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><span class="brand-icon">🚦</span><span>One Safe Choice</span></div>
+    <div class="progress-wrap"><span id="counter">1 / 10</span><span class="progress"><i id="progress"></i></span></div>
+  </header>
+  <main>
+    <section class="art-card"><img id="art" alt=""><div class="art-shade"></div></section>
+    <section class="reading-card">
+      <div class="eyebrow">Road Safety Story</div>
+      <h1 class="sentence" id="sentence" tabindex="0" role="button" aria-label="Play the sentence in meaningful parts"></h1>
+      <p class="instruction">Tap the sentence to hear it in parts. Then tap any part to hear it again and see its Hebrew meaning.</p>
+      <div class="chunks" id="chunks" aria-label="Sentence parts"></div>
+      <div class="translation idle" id="translation" aria-live="polite"><small>HEBREW</small><strong>לחצו על חלק מהמשפט כדי לראות את תרגומו</strong></div>
+    </section>
+  </main>
+  <nav>
+    <button class="nav-btn" id="prev" type="button">← Previous</button><div class="dots" id="dots" aria-hidden="true"></div><button class="nav-btn next" id="next" type="button">Next →</button>
+  </nav>
+</div>
+<div class="audio-status" id="audioStatus">Playing…</div>
+<script>
+const slides=[
+ {s:'After school, Maya walked toward the busiest street in her neighborhood.',p:[['After school,','אחרי הלימודים'],['Maya walked','מאיה הלכה'],['toward the busiest street','לעבר הרחוב העמוס ביותר'],['in her neighborhood.','בשכונה שלה']],alt:'Maya leaving school near a busy city street'},
+ {s:'As she approached the crossing, she paid close attention to the traffic.',p:[['As she approached the crossing,','כשהתקרבה למעבר החצייה'],['she paid close attention','היא שמה לב היטב'],['to the traffic.','לתנועה בכביש']],alt:'Maya approaching a pedestrian crossing carefully'},
+ {s:'Her friend Daniel almost stepped forward while the pedestrian light was still red.',p:[['Her friend Daniel','החבר שלה, דניאל'],['almost stepped forward','כמעט צעד קדימה'],['while the pedestrian light','בזמן שהרמזור להולכי הרגל'],['was still red.','עדיין היה אדום']],alt:'Maya stopping Daniel at a red pedestrian light'},
+ {s:'Maya stopped him, and a large bus passed directly in front of them.',p:[['Maya stopped him,','מאיה עצרה אותו'],['and a large bus','ואוטובוס גדול'],['passed directly','עבר ממש'],['in front of them.','לפניהם']],alt:'The teens waiting safely while a bus passes'},
+ {s:'They put their phones away so that nothing could distract them.',p:[['They put their phones away','הם הכניסו את הטלפונים'],['so that nothing','כדי ששום דבר'],['could distract them.','לא יסיח את דעתם']],alt:'The teens putting their phones away before crossing'},
+ {s:'When the light turned green, they looked left, right, and left again.',p:[['When the light turned green,','כשהרמזור התחלף לירוק'],['they looked left,','הם הביטו שמאלה'],['right,','ימינה'],['and left again.','ושוב שמאלה']],alt:'The teens checking both directions at a green light'},
+ {s:'They crossed briskly on the marked crossing while the cars waited.',p:[['They crossed briskly','הם חצו בזריזות'],['on the marked crossing','במעבר החצייה המסומן'],['while the cars waited.','בזמן שהמכוניות המתינו']],alt:'The teens crossing safely on a zebra crossing'},
+ {s:'A cyclist rang his bell, so they paused and allowed him to pass.',p:[['A cyclist rang his bell,','רוכב אופניים צלצל בפעמון'],['so they paused','ולכן הם עצרו לרגע'],['and allowed him','ואפשרו לו'],['to pass.','לעבור']],alt:'The teens pausing safely for a cyclist'},
+ {s:'On the other side, they saw a younger child waiting safely with an adult.',p:[['On the other side,','בצד השני'],['they saw a younger child','הם ראו ילד צעיר יותר'],['waiting safely','ממתין בבטחה'],['with an adult.','עם מבוגר']],alt:'The teens reaching the opposite sidewalk'},
+ {s:'One careful decision had protected them and set a good example for others.',p:[['One careful decision','החלטה זהירה אחת'],['had protected them','הגנה עליהם'],['and set a good example','והציבה דוגמה טובה'],['for others.','לאחרים']],alt:'Maya and Daniel continuing home safely at sunset'}
+];
+let index=0,run=0,voice=null;const $=id=>document.getElementById(id);
+function chooseVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/^en-US/i.test(v.lang)&&/Google|Samantha|Microsoft|Natural/i.test(v.name))||vs.find(v=>/^en-US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}
+chooseVoice();speechSynthesis.onvoiceschanged=chooseVoice;
+function say(text,onstart,onend){speechSynthesis.cancel();return new Promise(resolve=>{const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.8;u.pitch=1;if(voice)u.voice=voice;u.onstart=()=>{showStatus(true);onstart?.()};u.onend=()=>{showStatus(false);onend?.();resolve()};u.onerror=()=>{showStatus(false);resolve()};speechSynthesis.speak(u)})}
+function showStatus(show){$('audioStatus').classList.toggle('show',show)}
+function setTranslation(text){$('translation').classList.remove('idle');$('translation').querySelector('strong').textContent=text}
+function clearActive(){document.querySelectorAll('.chunk').forEach(b=>b.classList.remove('active'))}
+async function playPart(i){const token=++run,part=slides[index].p[i],btn=$('chunks').children[i];clearActive();btn.classList.add('active');setTranslation(part[1]);await say(part[0]);if(token===run)btn.classList.remove('active')}
+async function playSequence(){speechSynthesis.cancel();const token=++run;for(let i=0;i<slides[index].p.length;i++){if(token!==run)return;const part=slides[index].p[i],btn=$('chunks').children[i];clearActive();btn.classList.add('active');setTranslation(part[1]);await say(part[0]);await new Promise(r=>setTimeout(r,180))}if(token===run)clearActive()}
+ function render(autoPlay=true){speechSynthesis.cancel();run++;const slide=slides[index];$('sentence').textContent=slide.s;$('art').src=`../images/scene-${String(index+1).padStart(2,'0')}.webp`;$('art').alt=slide.alt;$('chunks').replaceChildren(...slide.p.map((p,i)=>{const b=document.createElement('button');b.className='chunk';b.type='button';b.textContent=p[0];b.onclick=()=>playPart(i);return b}));$('translation').classList.add('idle');$('translation').querySelector('strong').textContent='לחצו על חלק מהמשפט כדי לראות את תרגומו';$('counter').textContent=`${index+1} / ${slides.length}`;$('progress').style.width=`${(index+1)/slides.length*100}%`;$('prev').disabled=index===0;$('next').disabled=index===slides.length-1;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('current',i===index));if(autoPlay)setTimeout(()=>say(slide.s),420)}
+$('sentence').onclick=playSequence;$('sentence').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();playSequence()}};$('prev').onclick=()=>{if(index){index--;render()}};$('next').onclick=()=>{if(index<slides.length-1){index++;render()}};
+$('dots').replaceChildren(...slides.map(()=>{const d=document.createElement('span');d.className='dot';return d}));
+let touchX=0;document.querySelector('main').addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});document.querySelector('main').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>70){if(dx<0&&index<slides.length-1){index++;render()}else if(dx>0&&index){index--;render()}}},{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&index<slides.length-1){index++;render()}if(e.key==='ArrowLeft'&&index){index--;render()}});render();
+</script>
+</body>
+</html>
