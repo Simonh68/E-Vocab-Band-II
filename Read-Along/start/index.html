@@ -37,9 +37,11 @@
     .audio-status{position:fixed;left:50%;bottom:76px;transform:translate(-50%,20px);background:#07101eee;border:1px solid #ffffff22;border-radius:99px;padding:8px 14px;color:var(--muted);opacity:0;pointer-events:none;transition:.2s}.audio-status.show{opacity:1;transform:translate(-50%,0)}
     @media(max-width:760px){.app{gap:10px}.brand span:last-child{display:none}.progress{width:34vw}main{grid-template-columns:1fr;grid-template-rows:minmax(240px,42dvh) auto}.art-card{min-height:240px;border-radius:20px}.reading-card{border-radius:20px;gap:14px;padding:18px}.sentence{font-size:clamp(1.45rem,6.4vw,2rem)}.translation{min-height:62px}.dots{display:none}nav{grid-template-columns:1fr 1fr}.nav-btn{width:100%}.next{grid-column:2}.instruction{font-size:.88rem}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+    .home-fab{position:fixed;z-index:30;top:max(12px,env(safe-area-inset-top));left:12px;width:46px;height:46px;display:grid;place-items:center;border:1px solid #ffffff2c;border-radius:15px;background:#111e31e8;color:white;text-decoration:none;box-shadow:0 8px 24px #0006}
   </style>
 </head>
 <body>
+<a href="../index.html" class="home-fab" aria-label="Home">🏠</a>
 <div class="app">
   <header>
     <div class="brand"><span class="brand-icon">🚦</span><span>One Safe Choice</span></div>
