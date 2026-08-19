@@ -17,7 +17,9 @@ function expand(core,count,simple){
   if(count===6)return [core[0],core[1],x[0],x[1],core[2],core[3]];
   return [core[0],core[1],x[0],x[1],core[2],x[2],x[3],core[3]];
 }
-const C=(id,level,group,en,he,descEn,descHe,core)=>({id,level,group,en,he,descEn,descHe,image:`covers/${id}.webp`,simple:group==='ES',scenes:expand(core,level===1?4:level===2?6:8,group==='ES')});
+const coverRules=[[2,/injur|recover|accident|hospital|absence/i],[4,/sport|team|coach|match|race|runner|athlet|captain|player|winning/i],[5,/elder|neighbor|shopping|community food|mr\. cohen/i],[6,/plastic|litter|rubbish|waste|clean|river|recycl/i],[7,/garden|plant|soil|water|green|environment|energy/i],[8,/phone|message|image|photograph|account|online|digital/i],[9,/repair|reuse|workshop|café/i],[10,/park|neighborhood|housing|transport|campaign|plan/i],[11,/rain|storm|weather|emergency/i],[3,/wallet|bus stop|money|lost dog|honest/i],[1,/new student|appearance|different|welcome|alone/i]];
+function conservativeCover(id,en,desc){const text=`${id} ${en} ${desc}`;const n=(coverRules.find(([,rx])=>rx.test(text))||[Math.abs([...id].reduce((a,c)=>a+c.charCodeAt(0),0))%12])[0];return`scenes/scene-${String(n).padStart(2,'0')}.webp`}
+const C=(id,level,group,en,he,descEn,descHe,core)=>({id,level,group,en,he,descEn,descHe,image:conservativeCover(id,en,descEn),simple:group==='ES',scenes:expand(core,level===1?4:level===2?6:8,group==='ES')});
 
 window.STORIES=[
  C('l1-a1-new-student',1,'A1','The New Student','התלמיד החדש','A small invitation changes a difficult first day.','הזמנה קטנה משנה יום ראשון קשה.',[
