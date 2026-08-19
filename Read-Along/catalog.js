@@ -2,8 +2,8 @@ const S=(a,ha,b,hb)=>[[a,ha],[b,hb]];
 const extraHe=[
  S('They listened to different opinions,','הם הקשיבו לדעות שונות','before making a decision.','לפני שקיבלו החלטה'),
  S('They considered several choices,','הם שקלו כמה אפשרויות','and discussed the possible results.','ודנו בתוצאות האפשריות'),
- S('Their first plan was not perfect,','התכנית הראשונה שלהם לא הייתה מושלמת','but they did not give up.','אבל הם לא ויתרו'),
- S('They changed their approach,','הם שינו את דרכי הפעולה שלהם','after learning from the experience.','לאחר שלמדו מן הניסיון')
+ S('Their first plan had problems,','בתכנית הראשונה שלהם היו בעיות','but they continued their work.','אך הם המשיכו בעבודתם'),
+ S('They selected a different method,','הם בחרו בשיטה אחרת','after learning from the experience.','לאחר שלמדו מן הניסיון')
 ];
 const extraSimple=[
  S('They listened to different opinions,','They heard what other people thought','before making a decision.','before they chose what to do'),
@@ -17,9 +17,11 @@ function expand(core,count,simple){
   if(count===6)return [core[0],core[1],x[0],x[1],core[2],core[3]];
   return [core[0],core[1],x[0],x[1],core[2],x[2],x[3],core[3]];
 }
+const CUSTOM_SCENES={'l1-a1-new-student':4,'l1-a1-lost-dog':4,'l1-a1-back-to-school':4,'l1-a1-broken-pencil':4};
+const customScenes=id=>CUSTOM_SCENES[id]?Array.from({length:CUSTOM_SCENES[id]},(_,i)=>`story-scenes/${id}/${String(i).padStart(2,'0')}.webp`):null;
 const coverRules=[[2,/injur|recover|accident|hospital|absence/i],[4,/sport|team|coach|match|race|runner|athlet|captain|player|winning/i],[5,/elder|neighbor|shopping|community food|mr\. cohen/i],[6,/plastic|litter|rubbish|waste|clean|river|recycl/i],[7,/garden|plant|soil|water|green|environment|energy/i],[8,/phone|message|image|photograph|account|online|digital/i],[9,/repair|reuse|workshop|café/i],[10,/park|neighborhood|housing|transport|campaign|plan/i],[11,/rain|storm|weather|emergency/i],[3,/wallet|bus stop|money|lost dog|honest/i],[1,/new student|appearance|different|welcome|alone/i]];
 function conservativeCover(id,en,desc){const text=`${id} ${en} ${desc}`;const n=(coverRules.find(([,rx])=>rx.test(text))||[Math.abs([...id].reduce((a,c)=>a+c.charCodeAt(0),0))%12])[0];return`scenes/scene-${String(n).padStart(2,'0')}.webp`}
-const C=(id,level,group,en,he,descEn,descHe,core)=>({id,level,group,en,he,descEn,descHe,image:conservativeCover(id,en,descEn),simple:group==='ES',scenes:expand(core,level===1?4:level===2?6:8,group==='ES')});
+const C=(id,level,group,en,he,descEn,descHe,core)=>{const sceneImages=customScenes(id);return{id,level,group,en,he,descEn,descHe,image:sceneImages?.[0]||conservativeCover(id,en,descEn),sceneImages,simple:group==='ES',scenes:expand(core,level===1?4:level===2?6:8,group==='ES')}};
 
 window.STORIES=[
  C('l1-a1-new-student',1,'A1','The New Student','התלמיד החדש','A small invitation changes a difficult first day.','הזמנה קטנה משנה יום ראשון קשה.',[
@@ -37,7 +39,7 @@ window.STORIES=[
   S('His injured leg was improving,','הרגל הפצועה שלו השתפרה','but the stairs were difficult.','אבל המדרגות היו קשות'),
   S('His classmates shared their notes,','חבריו לכיתה שיתפו את הסיכומים שלהם','and carried his heavy books.','ונשאו את ספריו הכבדים'),
   S('Their steady support','התמיכה הקבועה שלהם','helped Eli return with confidence.','עזרה לאלי לחזור בביטחון')]),
- C('l1-a2-no-phone',1,'A2','A Day Without a Phone','יום בלי טלפון','Friends discover what happens when screens are put away.','חברים מגלים מה קורה כשהמסכים בצד.',[
+ C('l1-a2-no-phone',1,'A2','A Day Without a Phone','יום בלי טלפון','Friends discover what happens when they do not use their phones.','חברים מגלים מה קורה כאשר אינם משתמשים בטלפונים.',[
   S('The class accepted a challenge,','הכיתה קיבלה על עצמה אתגר','to put every phone away.','להכניס את כל הטלפונים'),
   S('At first, the students felt restless,','בהתחלה התלמידים הרגישו חסרי מנוחה','and kept checking their pockets.','והמשיכו לבדוק את הכיסים'),
   S('Soon they began talking,','עד מהרה הם התחילו לשוחח','and invented a new game.','והמציאו משחק חדש'),
