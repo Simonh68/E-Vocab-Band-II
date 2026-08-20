@@ -295,6 +295,9 @@ const upgradedCovers={
  'l1-a1-lost-dog':'story-covers-v3/lost-dog.webp',
  'new-1-a2-one-scooter-two-friends':'story-covers-v3/one-scooter-two-friends.webp',
  'new-2-a2-false-emergency-message':'story-covers-v3/false-emergency-message.webp'
+ ,'l1-a1-back-to-school':'story-covers-v3/back-to-school.webp'
+ ,'l1-a2-no-phone':'story-covers-v3/day-without-phone.webp'
+ ,'l1-a2-last-runner':'story-covers-v3/last-runner.webp'
 };
 const lessonByArc={
  'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
