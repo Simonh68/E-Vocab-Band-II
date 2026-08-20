@@ -288,7 +288,7 @@ function rebuild(s,arc){
  return out.map(scene=>scene.map(part=>[part[0].replace(/, to\b/g,' to'),part[1]]));
 }
 const counters={},previousArc={};
-// Legacy cover normalization: 20 portrait files converted to 1200x800 WebP.
+// Legacy cover normalization: all 24 portrait files converted to 1200x800 WebP.
 const upgradedCovers={
  'l1-a1-new-student':'story-covers-v3/new-student.webp',
  'new-1-a1-helmet-handlebar':'story-covers-v3/helmet-handlebar.webp',
