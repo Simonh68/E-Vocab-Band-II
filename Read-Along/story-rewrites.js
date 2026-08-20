@@ -291,7 +291,10 @@ const counters={},previousArc={};
 const upgradedCovers={
  'l1-a1-new-student':'story-covers-v3/new-student.webp',
  'new-1-a1-helmet-handlebar':'story-covers-v3/helmet-handlebar.webp',
- 'new-2-a1-homework-could-not-explain':'story-covers-v3/homework-could-not-explain.webp'
+ 'new-2-a1-homework-could-not-explain':'story-covers-v3/homework-could-not-explain.webp',
+ 'l1-a1-lost-dog':'story-covers-v3/lost-dog.webp',
+ 'new-1-a2-one-scooter-two-friends':'story-covers-v3/one-scooter-two-friends.webp',
+ 'new-2-a2-false-emergency-message':'story-covers-v3/false-emergency-message.webp'
 };
 const lessonByArc={
  'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
