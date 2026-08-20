@@ -361,6 +361,7 @@ const upgradedCovers={
  ,'new-3-a1-week-without-movement':'story-covers-v3/week-without-movement.webp'
  ,'new-3-a1-emergency-team':'story-covers-v3/emergency-team.webp'
  ,'new-3-a1-public-meeting':'story-covers-v3/public-meeting.webp'
+ ,'new-3-es-good-intention':'story-covers-v3/good-intention.webp'
 };
 const lessonByArc={
  'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
