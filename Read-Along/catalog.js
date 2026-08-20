@@ -1,28 +1,33 @@
 const S=(a,ha,b,hb)=>[[a,ha],[b,hb]];
-const extraHe=[
- S('They listened to different opinions,','הם הקשיבו לדעות שונות','before making a decision.','לפני שקיבלו החלטה'),
- S('They considered several choices,','הם שקלו כמה אפשרויות','and discussed the possible results.','ודנו בתוצאות האפשריות'),
- S('Their first plan had problems,','בתכנית הראשונה שלהם היו בעיות','but they continued their work.','אך הם המשיכו בעבודתם'),
- S('They selected a different method,','הם בחרו בשיטה אחרת','after learning from the experience.','לאחר שלמדו מן הניסיון')
-];
-const extraSimple=[
- S('They listened to different opinions,','They heard what other people thought','before making a decision.','before they chose what to do'),
- S('They considered several choices,','They thought about different things they could do','and discussed the possible results.','and talked about what might happen'),
- S('Their first plan was not perfect,','Their first idea had some problems','but they did not give up.','but they kept trying'),
- S('They changed their approach,','They tried a different way','after learning from the experience.','after they understood what happened')
-];
-function expand(core,count,simple){
-  if(count===4)return core;
-  const x=simple?extraSimple:extraHe;
-  if(count===6)return [core[0],core[1],x[0],x[1],core[2],core[3]];
-  return [core[0],core[1],x[0],x[1],core[2],x[2],x[3],core[3]];
+const P=(a,h)=>[[a,h]];
+const PED={
+ A1:{base:[
+  P('At first, the students were not sure what to do.','בהתחלה התלמידים לא היו בטוחים מה לעשות'),P('They stopped and looked at the situation carefully.','הם עצרו ובחנו את המצב בזהירות'),P('One student asked a clear question.','תלמיד אחד שאל שאלה ברורה'),P('The others listened before they answered.','האחרים הקשיבו לפני שענו'),P('They chose one simple action.','הם בחרו פעולה פשוטה אחת'),P('The first step did not solve everything.','הצעד הראשון לא פתר הכול'),P('They checked the result together.','הם בדקו יחד את התוצאה'),P('Then they made a small change.','לאחר מכן הם עשו שינוי קטן'),P('Their careful work began to help.','העבודה הזהירה שלהם התחילה לעזור')],
+  l2:[P('They also thought about other people.','הם חשבו גם על אנשים אחרים'),P('They explained the plan in direct words.','הם הסבירו את התכנית במילים ישירות'),P('Each person accepted a clear responsibility.','כל אחד קיבל אחריות ברורה')],
+  l3:[P('They compared the benefits and the possible problems.','הם השוו בין היתרונות לבין הבעיות האפשריות'),P('The experience showed why steady effort matters.','הניסיון הראה מדוע מאמץ קבוע חשוב')]},
+ A2:{base:[
+  P('The situation seemed simple at first, but it required attention.','המצב נראה פשוט בהתחלה, אך דרש תשומת לב'),P('The students gathered the important facts before reacting.','התלמידים אספו את העובדות החשובות לפני שהגיבו'),P('They described the problem from more than one point of view.','הם תיארו את הבעיה מיותר מנקודת מבט אחת'),P('A quick solution could have created another difficulty.','פתרון מהיר היה עלול ליצור קושי נוסף'),P('They discussed several practical choices.','הם דנו בכמה אפשרויות מעשיות'),P('Each choice had a different possible result.','לכל אפשרות הייתה תוצאה אפשרית שונה'),P('The group selected a fair and realistic plan.','הקבוצה בחרה תכנית הוגנת ומעשית'),P('They divided the work according to ability.','הם חילקו את העבודה לפי היכולת'),P('When a problem appeared, they adjusted the plan.','כאשר הופיעה בעיה, הם התאימו את התכנית'),P('Their final action reflected both care and responsibility.','הפעולה הסופית שלהם ביטאה גם אכפתיות וגם אחריות')],
+  l2:[P('Reliable information helped them separate facts from assumptions.','מידע אמין עזר להם להפריד בין עובדות להנחות'),P('They considered who might be affected by the decision.','הם שקלו מי עלול להיות מושפע מן ההחלטה'),P('They measured the result instead of relying on impressions.','הם מדדו את התוצאה במקום להסתמך על רושם')],
+  l3:[P('The students recognized that responsibility continues after a decision is made.','התלמידים הבינו שהאחריות נמשכת גם לאחר קבלת ההחלטה'),P('They revised their approach when the evidence changed.','הם שינו את גישתם כאשר הראיות השתנו'),P('The outcome demonstrated the value of informed cooperation.','התוצאה המחישה את ערכו של שיתוף פעולה המבוסס על מידע')]},
+ ES:{base:[
+  P('The initial situation invited an immediate response, yet the students paused.','The problem made them want to act at once, but they stopped first'),P('They distinguished what they knew from what they merely assumed.','They separated confirmed facts from ideas that might not be true'),P('Several interpretations appeared plausible.','More than one explanation seemed possible'),P('The students examined how each interpretation might influence their judgment.','They considered how each explanation could affect their decision'),P('One convenient option would have ignored an important concern.','The easiest choice would have failed to address a serious issue'),P('Another option protected people but created a practical obstacle.','A different choice kept people safe but caused a real difficulty'),P('They sought evidence rather than defending their first opinion.','They looked for facts instead of trying to prove their first idea'),P('A respectful disagreement exposed a weakness in the original plan.','A polite argument showed a problem in their first proposal'),P('The group revised its approach without treating revision as failure.','They changed their method and did not view the change as defeat'),P('They assigned responsibilities and established a clear sequence of action.','They decided who would do each task and in what order'),P('Unexpected results required further adjustment.','Results they had not expected made another change necessary'),P('Their response balanced principle with practical limitations.','Their action respected their values as well as real limits'),P('The experience altered how they understood the original problem.','What happened changed their view of the problem they first faced')],
+  l2:[P('They evaluated the reliability and relevance of the available evidence.','They judged whether the facts could be trusted and whether they mattered'),P('Possible consequences were considered for both individuals and the wider community.','They thought about effects on particular people and on everyone around them'),P('The final proposal included a method for reviewing its effectiveness.','Their plan explained how they would later check whether it worked')],
+  l3:[P('Competing obligations prevented the issue from having a perfectly simple solution.','Different duties made a completely easy answer impossible'),P('They acknowledged uncertainty while still accepting responsibility for a decision.','They admitted that they could not know everything but still chose responsibly'),P('The outcome revealed that integrity depends on sustained action, not a single gesture.','The result showed that honesty requires continuing effort, not one act')]}
+};
+const TARGETS={1:{A1:[8,9,10,11,12,13],A2:[9,10,11,12,13,14],ES:[11,12,14,15,16,17]},2:{A1:[10,11,13,14,15,16],A2:[11,12,14,15,16,17],ES:[13,14,16,17,19,20]},3:{A1:[12,13,15,16,17,18],A2:[13,14,16,17,19,20],ES:[15,17,18,20,21,23]}};
+const storyNumber={};
+function develop(core,target,level,group,id){
+ const bank=[...PED[group].base,...(level>1?PED[group].l2:[]),...(level>2?PED[group].l3:[])],extras=bank.slice(0,target-core.length);
+ const anchors=[0,Math.round((target-1)/3),Math.round((target-1)*2/3),target-1],out=[];let ci=0,ei=0;
+ for(let i=0;i<target;i++)out.push(i===anchors[ci]?core[ci++]:extras[ei++]);
+ return out;
 }
 const CUSTOM_SCENES={'l1-a1-new-student':4,'l1-a1-lost-dog':4,'l1-a1-back-to-school':4,'l1-a1-broken-pencil':4,'l1-es-school-garden':4,'l3-a2-repair-cafe':8,'l3-a2-anonymous-account':8};
 const customScenes=id=>CUSTOM_SCENES[id]?Array.from({length:CUSTOM_SCENES[id]},(_,i)=>`story-scenes/${id}/${String(i).padStart(2,'0')}.webp`):null;
 const coverRules=[[2,/injur|recover|accident|hospital|absence/i],[4,/sport|team|coach|match|race|runner|athlet|captain|player|winning/i],[5,/elder|neighbor|shopping|community food|mr\. cohen/i],[6,/plastic|litter|rubbish|waste|clean|river|recycl/i],[7,/garden|plant|soil|water|green|environment|energy/i],[8,/phone|message|image|photograph|account|online|digital/i],[9,/repair|reuse|workshop|café/i],[10,/park|neighborhood|housing|transport|campaign|plan/i],[11,/rain|storm|weather|emergency/i],[3,/wallet|bus stop|money|lost dog|honest/i],[1,/new student|appearance|different|welcome|alone/i]];
 function conservativeCover(id,en,desc){const text=`${id} ${en} ${desc}`;const n=(coverRules.find(([,rx])=>rx.test(text))||[Math.abs([...id].reduce((a,c)=>a+c.charCodeAt(0),0))%12])[0];return`scenes/scene-${String(n).padStart(2,'0')}.webp`}
 const vocabularyTrack=(level,group)=>level!==3||group==='A1'?'Band II':group==='A2'?'Lists A–D':'Lists A–D · advanced';
-const C=(id,level,group,en,he,descEn,descHe,core)=>{const sceneImages=customScenes(id);return{id,level,group,en,he,descEn,descHe,image:sceneImages?.[0]||conservativeCover(id,en,descEn),sceneImages,simple:group==='ES',vocabularyTrack:vocabularyTrack(level,group),scenes:expand(core,level===1?4:level===2?6:8,group==='ES')}};
+const C=(id,level,group,en,he,descEn,descHe,core)=>{const sceneImages=customScenes(id),key=level+'-'+group,n=storyNumber[key]||0,target=TARGETS[level][group][n];storyNumber[key]=n+1;return{id,level,group,en,he,descEn,descHe,image:sceneImages?.[0]||conservativeCover(id,en,descEn),sceneImages,simple:group==='ES',vocabularyTrack:vocabularyTrack(level,group),scenes:develop(core,target,level,group,id)}};
 
 window.STORIES=[
  C('l1-a1-new-student',1,'A1','The New Student','התלמיד החדש','A small invitation changes a difficult first day.','הזמנה קטנה משנה יום ראשון קשה.',[
