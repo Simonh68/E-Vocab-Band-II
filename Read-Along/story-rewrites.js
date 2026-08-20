@@ -151,6 +151,11 @@ function pair(row,group){return [[row[0],group==='ES'?row[2]:row[1]]]}
 function anchors(s){const n=s.scenes.length;if(s.id.startsWith('new-'))return[s.scenes[0],s.scenes[1],s.scenes[n-2],s.scenes[n-1]];return[s.scenes[0],s.scenes[Math.round((n-1)/3)],s.scenes[Math.round((n-1)*2/3)],s.scenes[n-1]]}
 function details(s){
  const t=(s.id+' '+s.en+' '+s.descEn).toLowerCase();
+ if(/new.student|spare.seat|lunch.table|empty.seat|new.glasses|appearance|welcome|helping.neighbor/.test(t))return[
+  ['An empty chair stood beside the noisiest table in the room.','כיסא ריק עמד ליד השולחן הרועש ביותר בחדר.','An empty chair stood beside a busy table.'],
+  ['The new student held a lunch box but did not open it.','התלמיד החדש החזיק קופסת אוכל אך לא פתח אותה.','The new student held a closed lunch box.'],
+  ['A classmate pulled the empty chair back and pointed to it.','חבר לכיתה משך את הכיסא הריק לאחור והצביע עליו.','A classmate pulled out the empty chair.'],
+  ['The first smile appeared when somebody made room at the table.','החיוך הראשון הופיע כאשר מישהו פינה מקום ליד השולחן.','The new student smiled when someone made room.']];
  if(/helmet|bicycle|scooter|ride/.test(t))return[
   ['The loose strap tapped against the handlebar as the wheels moved.','הרצועה הרופפת טפחה על הכידון בזמן שהגלגלים נעו.','The loose strap hit the handlebar while the rider moved.'],
   ['The sudden sound of the brake made nearby students turn around.','קול הבלימה הפתאומי גרם לתלמידים סמוכים להסתובב.','Nearby students turned when they heard the brake.'],
@@ -190,17 +195,97 @@ function details(s){
   ['A folded note remained in the student’s hand.','פתק מקופל נשאר בידו של התלמיד.','The student kept holding a folded note.'],
   ['An empty chair made the absence impossible to ignore.','כיסא ריק הפך את החסר לבלתי אפשרי להתעלמות.','An empty chair made the absence clear.'],
   ['The student looked at the floor before answering.','התלמיד הביט ברצפה לפני שענה.','The student looked down before answering.'],
-  ['One ordinary object became connected to the difficult moment.','חפץ רגיל אחד נקשר לרגע הקשה.','An ordinary object became part of the difficult memory.']];
+  ['The folded note was opened before the student answered.','הפתק המקופל נפתח לפני שהתלמיד ענה.','The student opened the folded note before answering.']];
+}
+function concreteFollow(s){
+ const t=(s.id+' '+s.en+' '+s.descEn).toLowerCase();
+ if(/helmet|bicycle|scooter|ride/.test(t))return[
+  ['A friend pointed at the empty helmet before the rider reached the gate.','חבר הצביע על הקסדה הריקה לפני שהרוכב הגיע לשער.','A friend pointed to the helmet before the rider reached the gate.'],
+  ['“Stop here,” the friend called when the front wheel began to turn.','״עצור כאן,״ קרא החבר כאשר הגלגל הקדמי התחיל להסתובב.','The friend called for the rider to stop.'],
+  ['The rider put both feet on the ground and checked the loose strap.','הרוכב הניח את שתי רגליו על הקרקע ובדק את הרצועה הרופפת.','The rider stopped and checked the strap.'],
+  ['A second helmet was brought from the shelf near the door.','קסדה נוספת הובאה מן המדף ליד הדלת.','They brought another helmet from a nearby shelf.'],
+  ['The friend waited while the buckle clicked under the rider’s chin.','החבר המתין עד שהאבזם נסגר מתחת לסנטרו של הרוכב.','The friend waited until the helmet was fastened.'],
+  ['They walked the scooter across the busy crossing instead of riding through it.','הם הובילו את הקורקינט ברגל במעבר החצייה העמוס במקום לרכוב בו.','They walked across the busy crossing.'],
+  ['At the corner, a police officer looked at both helmets and nodded.','בפינה שוטר הביט בשתי הקסדות והנהן.','A police officer saw both helmets and nodded.'],
+  ['The next afternoon, the helmet was already on before the wheels moved.','למחרת אחר הצהריים הקסדה כבר הייתה על הראש לפני שהגלגלים נעו.','The next ride began with the helmet already on.']];
+ if(/screen|video|feed|phone|algorithm|digital tool|homework|project|answer|computer/.test(t))return[
+  ['The student read the question again and covered the ready-made answer with one hand.','התלמיד קרא שוב את השאלה וכיסה בידו את התשובה המוכנה.','The student reread the question and covered the prepared answer.'],
+  ['The teacher asked, “What does this sentence mean in your own words?”','המורה שאלה: ״מה משמעות המשפט הזה במילים שלך?״','The teacher asked for the meaning in the student’s own words.'],
+  ['No answer came, and the student’s face became red.','לא הגיעה תשובה, ופניו של התלמיד האדימו.','The student could not answer and became embarrassed.'],
+  ['After class, the student opened the source beside a blank page.','לאחר השיעור התלמיד פתח את המקור ליד דף ריק.','After class, the student opened the source beside a blank page.'],
+  ['Three useful words were copied and explained one by one.','שלוש מילים שימושיות הועתקו והוסברו בזו אחר זו.','The student copied and explained three useful words.'],
+  ['The phone was placed in a drawer for twenty minutes.','הטלפון הונח במגירה לעשרים דקות.','The phone was put in a drawer for twenty minutes.'],
+  ['This time, the student wrote one paragraph without copying it.','הפעם התלמיד כתב פסקה אחת בלי להעתיק אותה.','This time, the student wrote one paragraph independently.'],
+  ['The next question was answered before the screen lit up again.','על השאלה הבאה ניתנה תשובה לפני שהמסך נדלק שוב.','The student answered the next question before checking the screen.']];
+ if(/photo|headline|rumor|report|account|message|consent|evidence|image|privacy|witness/.test(t))return[
+  ['One student held the phone closer and read the date under the picture.','תלמיד אחד קירב את הטלפון וקרא את התאריך שמתחת לתמונה.','One student checked the date below the picture.'],
+  ['The original page showed a wider picture with two more people in it.','העמוד המקורי הציג תמונה רחבה יותר ובה שני אנשים נוספים.','The original page showed a wider picture.'],
+  ['“We shared only half the story,” a student said quietly.','״שיתפנו רק חצי מהסיפור,״ אמר תלמיד בשקט.','A student admitted that they had shared only part of the story.'],
+  ['The group deleted the post and wrote the correction in the same place.','הקבוצה מחקה את הפרסום וכתבה את התיקון באותו מקום.','The group deleted the post and added a clear correction.'],
+  ['They sent the person in the photograph a private apology.','הם שלחו לאדם שבתמונה התנצלות פרטית.','They sent a private apology to the person in the photograph.'],
+  ['The next message stayed in draft form until two sources were checked.','ההודעה הבאה נשארה כטיוטה עד שנבדקו שני מקורות.','They checked two sources before sending the next message.'],
+  ['A small “source” line was added below every later report.','שורת ״מקור״ קטנה נוספה מתחת לכל דיווח מאוחר יותר.','Later reports included a source line.'],
+  ['The corrected picture received fewer shares, but it remained online.','התמונה המתוקנת זכתה לפחות שיתופים, אך נשארה ברשת.','The corrected picture remained available even though fewer people shared it.']];
+ if(/team|group|credit|captain|runner|selection|sports|race/.test(t))return[
+  ['The coach placed the list on the bench where everyone could read it.','המאמן הניח את הרשימה על הספסל במקום שכולם יכלו לקרוא אותה.','The coach placed the list where everyone could read it.'],
+  ['One student folded their arms and moved away from the group.','תלמיד אחד שילב את זרועותיו והתרחק מן הקבוצה.','One student folded their arms and stepped away.'],
+  ['A notebook showed who had planned, measured, corrected, and practiced.','מחברת הראתה מי תכנן, מדד, תיקן והתאמן.','A notebook showed each student’s work.'],
+  ['The captain read every name aloud, including the quiet student’s name.','הקפטן קרא כל שם בקול, כולל שמו של התלמיד השקט.','The captain read every name aloud.'],
+  ['During the final task, the quiet student noticed the open space first.','במשימה האחרונה התלמיד השקט הבחין ראשון במקום הפנוי.','The quiet student noticed the open space first.'],
+  ['A short pass reached the last player just before the whistle.','מסירה קצרה הגיעה לשחקן האחרון רגע לפני השריקה.','A short pass reached the final player before the whistle.'],
+  ['The group changed the names on the poster before displaying it.','הקבוצה שינתה את השמות על הכרזה לפני שהציגה אותה.','The group corrected the names on the poster.'],
+  ['At the next meeting, tasks were written beside names from the start.','במפגש הבא המשימות נכתבו ליד השמות כבר מן ההתחלה.','At the next meeting, every task had a name beside it.']];
+ if(/water|garden|waste|energy|environment|plastic|transport|park|river/.test(t))return[
+  ['The class filled one clear bag with the rubbish collected before lunch.','הכיתה מילאה שקית שקופה אחת בפסולת שנאספה לפני ארוחת הצהריים.','The class filled one clear bag with rubbish.'],
+  ['A student marked the water level on a bottle with a blue pen.','תלמיד סימן בעט כחול את גובה המים בבקבוק.','A student marked the water level on a bottle.'],
+  ['The next morning, the mark was lower by two fingers.','למחרת בבוקר הסימן היה נמוך ברוחב שתי אצבעות.','The water level was clearly lower the next morning.'],
+  ['They closed one leaking tap and placed a bucket under another.','הם סגרו ברז דולף אחד והניחו דלי מתחת לאחר.','They closed one leaking tap and placed a bucket under another.'],
+  ['Dry leaves were moved away from the small drain.','עלים יבשים הורחקו מפתח הניקוז הקטן.','They moved dry leaves away from the drain.'],
+  ['By Friday, the bucket stayed almost empty.','עד יום שישי הדלי נשאר כמעט ריק.','By Friday, little water had collected in the bucket.'],
+  ['A green shoot appeared beside the stone marked on their map.','נבט ירוק הופיע ליד האבן שסומנה במפה שלהם.','A green shoot appeared beside a marked stone.'],
+  ['The measurement chart remained on the classroom wall.','טבלת המדידות נשארה על קיר הכיתה.','The measurement chart stayed on the classroom wall.']];
+ if(/emergency|hospital|first aid|injur|safety|workplace/.test(t))return[
+  ['One student moved the chairs away and called an adult.','תלמיד אחד הרחיק את הכיסאות וקרא למבוגר.','One student moved the chairs and called an adult.'],
+  ['Another student read the emergency number from the card on the wall.','תלמיד אחר קרא את מספר החירום מן הכרטיס שעל הקיר.','Another student read the emergency number from the wall.'],
+  ['“Stay with me,” the calmest student said from beside the door.','״הישאר איתי,״ אמר התלמיד הרגוע ביותר ליד הדלת.','A calm student stayed nearby and spoke clearly.'],
+  ['The injured person answered with a small nod.','האדם שנפגע ענה בהנהון קטן.','The injured person answered with a small nod.'],
+  ['Nobody touched the bag or tool that had caused the fall.','איש לא נגע בתיק או בכלי שגרם לנפילה.','Nobody moved the object that had caused the fall.'],
+  ['The teacher arrived carrying the red first-aid box.','המורה הגיעה כשהיא נושאת את תיק העזרה הראשונה האדום.','The teacher arrived with the red first-aid box.'],
+  ['Afterward, the loose cable was fixed to the wall.','לאחר מכן הכבל הרופף חובר לקיר.','Afterward, the loose cable was fixed.'],
+  ['At the next practice, the same students knew where to stand.','בתרגול הבא אותם תלמידים ידעו היכן לעמוד.','At the next practice, the students knew what to do.']];
+ if(/bus|route|classroom|school|notebook|library|form|application|letter|interview|job/.test(t))return[
+  ['The student compared the number on the paper with the number above the door.','התלמיד השווה את המספר שעל הדף למספר שמעל הדלת.','The student compared the paper with the number above the door.'],
+  ['A teacher circled one line and wrote the correct time beside it.','מורה הקיפה שורה אחת וכתבה לידה את השעה הנכונה.','A teacher circled one line and added the correct time.'],
+  ['The student whispered the new room number twice.','התלמיד לחש פעמיים את מספר הכיתה החדש.','The student repeated the new room number twice.'],
+  ['At the stairs, a classmate pointed left instead of simply walking away.','במדרגות חבר לכיתה הצביע שמאלה במקום להמשיך בדרכו.','A classmate stopped and pointed toward the correct place.'],
+  ['They reached the door while the teacher was still writing the date.','הם הגיעו לדלת בזמן שהמורה עדיין כתבה את התאריך.','They arrived while the teacher was writing the date.'],
+  ['The missing line was added to the form in blue ink.','השורה החסרה נוספה לטופס בדיו כחול.','The missing line was added to the form.'],
+  ['The paper was checked once more before it was handed in.','הדף נבדק פעם נוספת לפני שנמסר.','The paper was checked again before being submitted.'],
+  ['The corrected note stayed inside the front cover of the notebook.','הפתק המתוקן נשאר בתוך הכריכה הקדמית של המחברת.','The corrected note stayed inside the notebook.']];
+ return[
+  ['The student unfolded the note and read the last line again.','התלמיד פתח את הפתק וקרא שוב את השורה האחרונה.','The student opened the note and reread the last line.'],
+  ['A classmate pulled an empty chair closer to the table.','חבר לכיתה קירב כיסא ריק אל השולחן.','A classmate moved an empty chair closer.'],
+  ['“Sit here,” the classmate said, pointing to the chair.','״שב כאן,״ אמר החבר והצביע על הכיסא.','The classmate invited the student to sit down.'],
+  ['The student stopped twisting the corner of the paper.','התלמיד הפסיק לסובב את פינת הדף.','The student stopped twisting the paper.'],
+  ['They read the difficult line together, one word at a time.','הם קראו יחד את השורה הקשה, מילה אחר מילה.','They read the difficult line together.'],
+  ['A pencil was passed across the table.','עיפרון הועבר מעבר לשולחן.','A pencil was passed across the table.'],
+  ['The student wrote a short answer and looked up.','התלמיד כתב תשובה קצרה והרים את מבטו.','The student wrote a short answer and looked up.'],
+  ['The empty chair was filled before the bell rang.','הכיסא הריק התמלא לפני הצלצול.','Someone sat in the empty chair before the bell.']];
 }
 function rebuild(s,arc){
- const core=anchors(s),need=s.scenes.length-4,fill=[],specific=details(s),source=[...arc.lines.slice(0,2),...specific,...arc.lines.slice(2),...extra];
- for(let i=0;i<need;i++)fill.push(pair(source[i%source.length],s.group));
+ const core=anchors(s),need=s.scenes.length-4,fill=[],specific=[...details(s),...concreteFollow(s)];
+ // Younger/support readers see concrete actions first. Abstract interpretation
+ // is reserved for longer, higher-level stories after the event is visible.
+ const source=s.level===1||s.group==='A1'?[...specific,...arc.lines,...extra]:[...specific,...arc.lines.slice(0,8),...extra,...arc.lines.slice(8)];
+ const first=core[0]?.[0]?.[0]||'',match=first.match(/^([A-Z][a-z]+)\b/),name=match&&!/^(The|A|An|Students|Teenagers|People)$/.test(match[1])?match[1]:'';
+ const personalize=row=>name?row.map(x=>x.replace(/\bOne student\b/g,name).replace(/\bThe student\b/g,name).replace(/\bthe student\b/g,name)):row;
+ for(let i=0;i<need;i++)fill.push(pair(personalize(source[i%source.length]),s.group));
  // Preserve the original opening, disruption, decisive action and result.
  // These anchors keep the retained cover tied to an event in the new plot.
  const positions=[0,1,Math.round((s.scenes.length-1)*.75),s.scenes.length-1];
  const out=[];let ci=0,fi=0;
  for(let i=0;i<s.scenes.length;i++)out.push(ci<4&&i===positions[ci]?core[ci++]:fill[fi++]);
- return out;
+ return out.map(scene=>scene.map(part=>[part[0].replace(/, to\b/g,' to'),part[1]]));
 }
 const counters={},previousArc={};
 const lessonByArc={
