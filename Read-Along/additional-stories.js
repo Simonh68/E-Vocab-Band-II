@@ -139,4 +139,125 @@ Object.entries(data).forEach(([key,items])=>{
  });
 });
 window.STORIES.push(...added);
+
+const newcomerStories=[
+ {id:'new-3-a2-first-bell',level:3,group:'A2',en:'The First Bell',he:'הצלצול הראשון',
+  descEn:'A confident student from Manchester discovers that fluent English does not make a new school simple.',descHe:'תלמידה שהגיעה ממנצ׳סטר מגלה שגם עם אנגלית מצוינת עדיין קשה להבין בית ספר חדש.',
+  image:'story-covers-v2/simple-first-bell.svg',sceneImages:null,simple:false,vocabularyTrack:'Lists A–D',
+  parentSummary:'תלמידה שהגיעה ממנצ׳סטר מתקשה להבין את סדר היום ואת ההודעות בבית הספר, וחברה לכיתה עוזרת לה להתמצא בלי להביך אותה.',
+  parentLesson:'גם תלמיד בעל שפה חזקה עשוי להזדקק לעזרה שקטה ומעשית במקום חדש.',scenes:[
+   A('The first bell rang while Lucy was still studying the Hebrew timetable.','הצלצול הראשון נשמע כאשר לוסי עדיין בחנה את מערכת השעות בעברית.'),
+   A('She had arrived from Manchester only two weeks earlier.','היא הגיעה ממנצ׳סטר רק שבועיים קודם לכן.'),
+   A('Her classmates heard her fluent English and assumed that school would be easy for her.','חבריה שמעו את האנגלית השוטפת שלה והניחו שבית הספר יהיה קל עבורה.'),
+   A('Lucy smiled whenever somebody asked whether she needed help.','לוסי חייכה בכל פעם שמישהו שאל אם היא זקוקה לעזרה.'),
+   A('In fact, the abbreviations beside each classroom number meant nothing to her.','למעשה, הקיצורים ליד כל מספר כיתה לא אמרו לה דבר.'),
+   A('She followed a group upstairs, hoping that they were going to science.','היא הלכה בעקבות קבוצה במעלה המדרגות וקיוותה שהם בדרכם למדעים.'),
+   A('When she entered, thirty younger students turned toward her.','כאשר נכנסה, שלושים תלמידים צעירים יותר הפנו אליה את מבטם.'),
+   A('Lucy froze beside the door as the teacher gently explained that she was in the wrong room.','לוסי קפאה ליד הדלת כאשר המורה הסבירה בעדינות שהיא בכיתה הלא נכונה.'),
+   A('By the time she reached science, the experiment had already begun.','כאשר הגיעה למדעים, הניסוי כבר התחיל.'),
+   A('She hid the timetable under her notebook and pretended to understand the instructions.','היא הסתירה את המערכת מתחת למחברת והעמידה פנים שהיא מבינה את ההוראות.'),
+   A('Maya noticed that Lucy copied every movement but never touched the equipment first.','מאיה הבחינה שלוסי מחקה כל תנועה אך לעולם אינה נוגעת ראשונה בציוד.'),
+   A('During the break, Maya offered to mark the timetable with three simple colors.','בהפסקה הציעה מאיה לסמן את המערכת בשלושה צבעים פשוטים.'),
+   A('Lucy almost refused, because she did not want to look helpless again.','לוסי כמעט סירבה מפני שלא רצתה להיראות שוב חסרת אונים.'),
+   A('Then another bell rang, and she quietly handed Maya the folded page.','אז נשמע צלצול נוסף, והיא הושיטה בשקט למאיה את הדף המקופל.'),
+   A('Only after Maya had explained the symbols did Lucy understand why she had been lost.','רק לאחר שמאיה הסבירה את הסמלים הבינה לוסי מדוע הלכה לאיבוד.'),
+   A('The next morning, Lucy reached every classroom before the bell.','למחרת בבוקר הגיעה לוסי לכל כיתה לפני הצלצול.'),
+   A('When a student from Leeds arrived a month later, Lucy recognized his careful smile.','כאשר תלמיד מלידס הגיע חודש לאחר מכן, לוסי זיהתה את חיוכו הזהיר.'),
+   A('She placed a colored timetable on his desk without making an announcement.','היא הניחה מערכת צבעונית על שולחנו בלי להכריז על כך.'),
+   A('“The blue rooms are upstairs,” she said, as if it were the most ordinary thing in the world.','״הכיתות הכחולות למעלה,״ אמרה כאילו היה זה הדבר הרגיל ביותר בעולם.'),
+   A('This time, the first bell did not leave anyone behind.','הפעם הצלצול הראשון לא השאיר איש מאחור.') ]},
+ {id:'new-3-es-unanswered-message',level:3,group:'ES',en:'The Message No One Answered',he:'ההודעה שאיש לא ענה עליה',
+  descEn:'A student from Toronto misreads silence in the class group until one friend notices what the messages conceal.',descHe:'תלמיד שהגיע מטורונטו מפרש לא נכון את השתיקה בקבוצה הכיתתית, עד שחבר מבחין בקושי.',
+  image:'story-covers-v2/simple-unanswered-message.svg',sceneImages:null,simple:true,vocabularyTrack:'Lists A–D · advanced',
+  parentSummary:'תלמיד שהגיע מטורונטו מתקשה להבין את הקיצורים והשיחות בקבוצה הכיתתית וחושב בטעות שאינו רצוי.',
+  parentLesson:'עזרה בהשתלבות דורשת לשים לב גם לקשיים שאדם מסתיר היטב.',scenes:[
+   A('At 9:14 p.m., Noah typed, “Is anyone studying together tomorrow?”','Noah asked the class group whether anyone planned to study together.'),
+   A('He had arrived from Toronto before the school year began.','He had come from Toronto shortly before classes started.'),
+   A('In English lessons, he spoke with such confidence that classmates often asked him for help.','His strong English made other students view him as confident and capable.'),
+   A('The class group was different: Hebrew abbreviations, private jokes, and rapid voice notes filled the screen.','The online group used short Hebrew forms and shared references he did not understand.'),
+   A('Noah read his question again after ten minutes of silence.','He checked the unanswered message and began to feel uncomfortable.'),
+   A('Several new messages appeared below it, but none answered him directly.','The conversation continued without responding to his invitation.'),
+   A('He deleted the second message he had begun to write.','He chose not to ask again because he feared appearing needy.'),
+   A('By morning, embarrassment had hardened into certainty: they did not want him there.','He interpreted the silence as rejection.'),
+   A('During lunch, he returned a grammar book to Amit and declined a seat at the table.','He avoided the group even when a classmate made space for him.'),
+   A('Amit noticed the same careful phrase Noah used whenever he was disappointed: “No problem.”','Amit recognized that Noah’s polite answer was hiding discomfort.'),
+   A('He scrolled back through the class group and found Noah’s unanswered question between two long voice notes.','Amit located the message and saw how easily it had been overlooked.'),
+   A('Only then did he realize that everyone had assumed somebody else would reply.','The silence had resulted from shared carelessness, not a deliberate refusal.'),
+   A('Amit could have sent a private apology and ended the discomfort quietly.','A private response would have been easier and less embarrassing for the group.'),
+   A('Instead, he wrote publicly: “We missed Noah’s question. That was not fair.”','Amit accepted responsibility in front of the class.'),
+   A('The typing dots appeared, disappeared, and returned across Noah’s screen.','Several students hesitated before responding.'),
+   A('Not only did three students invite Noah, but one also rewrote the plan without abbreviations.','The group offered both an invitation and information he could understand.'),
+   A('Noah stood outside the library the next afternoon, unsure whether anyone would actually come.','He still feared that the online response might not become real action.'),
+   A('When the lift doors opened, Amit arrived carrying four books and two cups of chocolate milk.','Amit’s arrival proved that the invitation was sincere.'),
+   A('Noah laughed before Amit had time to apologize again.','Relief replaced the tension between them.'),
+   A('A week later, the group added a simple rule: important plans had to be written clearly.','The class changed its communication so that fewer people would be excluded.'),
+   A('Noah still corrected their English, but now they also paused to explain what he could not yet read.','Help became mutual rather than one-sided.'),
+   A('The message remained in the chat as a quiet reminder that silence can say something nobody intended.','The unanswered question reminded them to notice the effect of accidental silence.') ]},
+ {id:'new-3-es-winter-stage',level:3,group:'ES',en:'The Winter Stage',he:'במת החורף',
+  descEn:'A skilled speaker from Melbourne accepts help with unfamiliar stage cues—and unexpectedly returns it.',descHe:'תלמידה שהגיעה ממלבורן נעזרת בחברה כדי להבין הוראות במה לא מוכרות, ובהמשך מחזירה את העזרה.',
+  image:'story-covers-v2/simple-winter-stage.svg',sceneImages:null,simple:true,vocabularyTrack:'Lists A–D · advanced',
+  parentSummary:'תלמידה שהגיעה ממלבורן נבחרת להנחות אירוע באנגלית, אך מגלה שהיא מתקשה להבין את הוראות הבמה המקומיות.',
+  parentLesson:'קבלת עזרה אינה מפחיתה מיכולתנו; לעיתים היא מאפשרת לנו לעזור לאחרים ברגע החשוב.',scenes:[
+   A('Sophie’s name was printed in large letters at the top of the winter ceremony program.','Sophie had been chosen for an important role in the school event.'),
+   A('She had arrived from Melbourne with years of experience speaking on stage.','She was already a confident and experienced public speaker.'),
+   A('The English script caused her no concern.','The words she had to read were easy for her.'),
+   A('The handwritten Hebrew cues in the margin were another matter.','The short stage instructions beside the script were difficult to understand.'),
+   A('Sophie mistook the instruction to pause for one telling her to leave the stage.','She misunderstood an important direction during rehearsal.'),
+   A('When she walked away too early, the music began over an empty microphone.','Her mistake became visible and embarrassing.'),
+   A('A few students laughed before the director stopped the rehearsal.','The public reaction increased her discomfort.'),
+   A('Sophie closed the folder so quickly that one page tore near the clip.','Her physical reaction showed how deeply the mistake affected her.'),
+   A('She considered giving the role to somebody else and blaming a sore throat.','She was tempted to escape without revealing the real difficulty.'),
+   A('Rivka, the quiet student managing the lights, found her behind the curtain.','A classmate noticed that Sophie needed support.'),
+   A('Rather than translating every word, Rivka drew four symbols beside the difficult cues.','Rivka offered practical help that preserved Sophie’s independence.'),
+   A('They rehearsed until Sophie could follow the light changes without looking down.','Repeated practice turned the unfamiliar system into a usable one.'),
+   A('Had Rivka simply taken the microphone herself, Sophie’s embarrassment would have remained hidden.','Doing the task for Sophie would not have solved the real problem.'),
+   A('On the evening of the ceremony, heavy rain struck the roof above the hall.','An unexpected problem created new pressure during the live event.'),
+   A('Halfway through the program, a power failure erased every cue light.','The system they depended on suddenly stopped working.'),
+   A('For one long second, neither Sophie nor Rivka could see the next instruction.','Both students faced the same uncertainty.'),
+   A('Then Sophie remembered the order they had practiced and continued without the screen.','Her preparation allowed her to act calmly.'),
+   A('From the dark control desk, Rivka whispered that the emergency lamp would take a minute.','Rivka now depended on Sophie to hold the event together.'),
+   A('Sophie stepped forward and invited the audience to finish the song with her.','She transformed the delay into a shared moment.'),
+   A('By the time the lights returned, the entire hall was singing.','Her response succeeded before the technical problem was repaired.'),
+   A('Not only had Rivka helped Sophie read the stage, but Sophie had also given Rivka time to restore it.','Their different abilities supported each other.'),
+   A('After the applause, Sophie taped the torn page instead of hiding it.','She kept a visible reminder of the difficulty she had overcome.'),
+   A('Beside Rivka’s four symbols, she wrote one English word: “Together.”','The final note expressed their changed relationship.') ]}
+];
+window.STORIES.push(...newcomerStories);
+
+function parentLessonFor(s){
+ const t=(s.id+' '+s.en).toLowerCase();
+ if(/helmet|bicycle|scooter|safety|emergency/.test(t))return 'כללי בטיחות מגינים עלינו רק כאשר מקיימים אותם בפועל ובאופן עקבי.';
+ if(/screen|video|feed|phone|attention|social/.test(t))return 'שימוש מאוזן ומכוון במסכים עוזר לשמור על זמן, בריאות וריכוז.';
+ if(/homework|project|answer|ai-/.test(t))return 'כלים דיגיטליים צריכים לתמוך בלמידה ולא להחליף הבנה ועבודה אישית.';
+ if(/photo|message|account|consent|privacy|confidential/.test(t))return 'חשוב לשמור על פרטיות, לבדוק הסכמה ולחשוב לפני שמפרסמים או מעבירים מידע.';
+ if(/team|group|credit|selection|captain|runner/.test(t))return 'שיתוף הוגן והכרה בתרומתו של כל אדם מחזקים את הקבוצה כולה.';
+ if(/rumor|headline|report|evidence|truth|witness/.test(t))return 'לפני שמאמינים או משתפים מידע, חשוב לבדוק את המקור ואת העובדות.';
+ if(/student|school|glasses|appearance|lunch|welcome/.test(t))return 'תשומת לב ועזרה מכבדת יכולות לעזור לאדם חדש או בודד למצוא את מקומו.';
+ if(/water|waste|garden|energy|environment|transport/.test(t))return 'פעולות קטנות המבוססות על אחריות יכולות ליצור שינוי סביבתי ממשי.';
+ return 'התמודדות אחראית כוללת תשומת לב לאחרים, בדיקת העובדות ונכונות לקבל עזרה.';
+}
+function parentPedagogyFor(s){
+ const count=s.scenes.length;
+ if(s.group==='ES')return `This ${count}-sentence story is designed for advanced English speakers. It develops precise vocabulary, inference, emotional interpretation, and varied sentence structure. Complex grammar, including Past Perfect or inversion, is used only where it clarifies time, emphasis, or cause—not as decoration.`;
+ if(s.group==='A1')return `הסיפור כולל ${count} משפטים קצרים וישירים. הוא מבוסס על אוצר מילים שימושי, רצף זמנים ברור וחזרה טבעית על מילים חשובות. העלילה נשארת מעניינת, אך העומס הלשוני והתחבירי נשמר נמוך ומתאים לקבוצת התמיכה.`;
+ return `הסיפור כולל ${count} משפטים ברמת ביניים־גבוהה. הוא מתרגל אוצר מילים ישיר, קשרי סיבה ותוצאה, הסקת מסקנות ומשפטים מורכבים במידה מבוקרת. בכיתות הגבוהות משולב דקדוק מתקדם רק כאשר הוא משרת את העלילה והמשמעות.`;
+}
+function parentLessonEnFor(s){
+ const t=(s.id+' '+s.en).toLowerCase();
+ if(/helmet|bicycle|scooter|safety|emergency/.test(t))return 'Safety rules protect people only when they are followed consistently.';
+ if(/screen|video|feed|phone|attention|social/.test(t))return 'Deliberate, balanced screen use protects time, health, and concentration.';
+ if(/homework|project|answer|ai-/.test(t))return 'Digital tools should support learning rather than replace understanding and independent work.';
+ if(/photo|message|account|consent|privacy|confidential/.test(t))return 'Responsible communication requires consent, privacy, and careful thought before sharing.';
+ if(/team|group|credit|selection|captain|runner/.test(t))return 'Fair participation and recognition strengthen the entire group.';
+ if(/rumor|headline|report|evidence|truth|witness/.test(t))return 'Claims should be checked against reliable evidence before they are accepted or shared.';
+ if(/student|school|glasses|appearance|lunch|welcome/.test(t))return 'Quiet, respectful support can help a new or isolated student find a place in the community.';
+ return 'Responsible action combines awareness of others, sound judgment, and willingness to accept help.';
+}
+window.STORIES.forEach(s=>{
+ if(!s.parentSummary)s.parentSummary=/[א-ת]/.test(s.descHe||'')?s.descHe:`הסיפור עוסק ב${s.he} ובדרך שבה הדמויות מתמודדות עם מצב חדש.`;
+ if(!s.parentLesson)s.parentLesson=parentLessonFor(s);
+ if(!s.parentPedagogy)s.parentPedagogy=parentPedagogyFor(s);
+ if(!s.parentSummaryEn)s.parentSummaryEn=s.descEn;
+ if(!s.parentLessonEn)s.parentLessonEn=parentLessonEnFor(s);
+});
 })();
