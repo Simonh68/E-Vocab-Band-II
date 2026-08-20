@@ -195,12 +195,52 @@ function details(s){
 function rebuild(s,arc){
  const core=anchors(s),need=s.scenes.length-4,fill=[],specific=details(s),source=[...arc.lines.slice(0,2),...specific,...arc.lines.slice(2),...extra];
  for(let i=0;i<need;i++)fill.push(pair(source[i%source.length],s.group));
- const positions=s.id.startsWith('new-')?[0,1,Math.round((s.scenes.length-1)*.75),s.scenes.length-1]:[0,Math.round((s.scenes.length-1)/3),Math.round((s.scenes.length-1)*2/3),s.scenes.length-1];
+ // Preserve the original opening, disruption, decisive action and result.
+ // These anchors keep the retained cover tied to an event in the new plot.
+ const positions=[0,1,Math.round((s.scenes.length-1)*.75),s.scenes.length-1];
  const out=[];let ci=0,fi=0;
  for(let i=0;i<s.scenes.length;i++)out.push(ci<4&&i===positions[ci]?core[ci++]:fill[fi++]);
  return out;
 }
 const counters={},previousArc={};
+const lessonByArc={
+ 'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
+ 'Help from a friend':'קבלת עזרה אינה חולשה. עזרה מכבדת אינה עושה את המשימה במקום האחר, אלא נותנת לו ביטחון וכלים להמשיך בעצמו.',
+ 'Mistake and repair':'טעות קטנה עלולה לגדול כאשר מסתירים אותה. הודאה, תיקון וקבלת אחריות אינן מוחקות מיד את הנזק, אך הן מתחילות לבנות מחדש אמון.',
+ 'Misunderstanding':'לא נכון לפרש שתיקה או תגובה קצרה בלי לבדוק את העובדות. שאלה מכבדת יכולה למנוע כעס, מבוכה ופגיעה מיותרת.',
+ 'Discovery':'סקרנות טובה נשענת על פרטים וראיות. במקום למהר למסקנה, הדמויות לומדות לבדוק רמזים ולפעול לאחר שהבינו את משמעותם.',
+ 'Race against time':'במצב לחוץ ארגון רגוע יעיל יותר מפעולה מהירה ולא מתוכננת. חלוקת משימות ותשומת לב לפרטים יכולות למנוע טעות גדולה.',
+ 'Second attempt':'כישלון הוא חלק מתהליך למידה. שינוי שיטה, תרגול הדרגתי וניסיון נוסף מאפשרים להתמודד עם מבוכה ולפתח התמדה.',
+ 'Unexpected ability':'לא נכון לשפוט יכולת לפי עוצמת הקול או הרושם הראשון. הקשבה לתלמיד שקט עשויה לחשוף ידע שהקבוצה כולה זקוקה לו.',
+ 'Promise under pressure':'אמינות נבחנת דווקא כאשר קיום הבטחה נעשה קשה. הבחירה לעמוד בהתחייבות מחזקת אמון, גם כאשר היא כרוכה בוויתור.',
+ 'False appearance':'מראה משכנע אינו תחליף לבדיקה. חשוב לחזור למקור, להשוות פרטים ולפרסם תיקון ברור כאשר מתגלה טעות.',
+ 'Chain reaction':'פעולה קטנה יכולה להשפיע על אנשים נוספים. עצירת הנזק וקבלת אחריות חשובות יותר מהתגוננות או חיפוש תירוצים.',
+ 'Role reversal':'כל אדם יכול להיות לעיתים מסייע ולעיתים זקוק לעזרה. שיתוף יכולות ובקשה פתוחה לעזרה יוצרים קשר שוויוני וחזק יותר.'
+};
+const lessonEnByArc={
+ 'Unwelcome surprise':'An unexpected change need not produce a rushed response. Pausing, adapting, and asking for support make it possible to face difficulty honestly.',
+ 'Help from a friend':'Accepting help is not weakness. Respectful help does not take over; it gives the learner support and confidence to continue independently.',
+ 'Mistake and repair':'A small mistake can grow when it is hidden. Admission, repair, and responsibility begin to rebuild trust.',
+ 'Misunderstanding':'Silence or a brief response should not be judged without checking the facts. A respectful question can prevent unnecessary hurt.',
+ 'Discovery':'Useful curiosity depends on evidence. The characters learn to examine clues before announcing a conclusion or taking action.',
+ 'Race against time':'Under pressure, calm organization is more effective than unplanned speed. Sharing tasks and noticing details can prevent a greater mistake.',
+ 'Second attempt':'Failure is part of learning. A changed method, gradual practice, and a second attempt develop persistence.',
+ 'Unexpected ability':'Ability should not be judged by volume or first impressions. Listening to an overlooked person may reveal knowledge the whole group needs.',
+ 'Promise under pressure':'Reliability matters most when keeping a promise becomes difficult. Honoring a commitment protects trust even when it requires a sacrifice.',
+ 'False appearance':'A convincing appearance is not a substitute for verification. Sources should be checked and errors corrected clearly.',
+ 'Chain reaction':'A small action can affect people beyond the first moment. Preventing further harm and accepting responsibility matter more than excuses.',
+ 'Role reversal':'Everyone may sometimes help and sometimes need help. Sharing abilities and asking openly for support create a more equal relationship.'
+};
+function finalParentLevel(s,count){
+ if(s.group==='ES')return `English level: advanced first-language English track, using the most demanding vocabulary from Lists A–D. The ${count} sentences include precise word choice, implicit motives, controlled complex syntax, and natural shifts in chronology. Simplified English support is available without Hebrew.`;
+ if(s.group==='A1')return `רמת האנגלית: קבוצת תמיכה המבוססת על Band II. ${count} המשפטים קצרים וישירים יחסית, סדר האירועים ברור, ומילים שימושיות חוזרות בהקשרים מעט שונים. הכמות והתחביר מותאמים לגיל, אך העלילה עצמה אינה ילדותית.`;
+ return `רמת האנגלית: קבוצת ביניים־גבוהה, עם אוצר מילים ישיר ומדורג${s.level===3?' מרשימות A–D':''}. ${count} המשפטים כוללים קשרי זמן, סיבה ותוצאה ומשפטים מורכבים במידה מבוקרת. ${s.level===2?'בסיפורים המתקדמים בכיתה ט׳ מופיע מעט דקדוק מתקדם ורק בהקשר טבעי.':'בכיתה י׳ המבנים המתקדמים משולבים כאשר הם תורמים למשמעות.'}`;
+}
+function finalParentGoals(s,count,arc){
+ if(s.group==='ES')return `English-learning goals: sustain attention across a ${count}-sentence narrative; infer motive and emotion from actions and concrete details; acquire precise vocabulary through meaningful repetition; track cause, consequence, and earlier events; and interpret how the ${arc.en.toLowerCase()} structure builds tension and resolution. Past Perfect or controlled inversion is used only when it clarifies chronology or emphasis.`;
+ if(s.group==='A1')return `מטרות לימוד האנגלית: לעקוב בהקשבה ובקריאה אחר רצף של ${count} משפטים; לזהות מי פועל, מה השתנה ומה הייתה התוצאה; לרכוש אוצר מילים שימושי מתוך הקשר; ולחזור על מילים מרכזיות בלי שינון מנותק. החלוקה לחלקי הקראה והתרגום מאפשרים לבדוק הבנה, לשפר שטף ולחבר בין הצליל, המשפט והמשמעות.`;
+ return `מטרות לימוד האנגלית: לשמור על הבנה לאורך ${count} משפטים; לזהות קשרי זמן, סיבה ותוצאה; להסיק רגש ומניע מתוך פעולה ופרט; ולהרחיב אוצר מילים ישיר בתוך עלילה. מבנה ${arc.he} מאפשר לתרגל ניבוי, הבנת רמזים וסיכום של נקודת השיא והתוצאה. ההקראה המדורגת תומכת בשטף, והתרגום מיועד לבדיקת הבנה ולא להחלפת הקריאה באנגלית.`;
+}
 function thematicArc(s,fallback,index){
  const t=(s.id+' '+s.en+' '+s.descEn).toLowerCase();
  const pick=a=>a[index%a.length];
@@ -218,7 +258,6 @@ function thematicArc(s,fallback,index){
  return fallback;
 }
 window.STORIES.forEach(s=>{
- if(!s.id.startsWith('new-'))return;
  const key=s.level+'-'+s.group,i=counters[key]||0; counters[key]=i+1;
  const explicitArc={'new-3-a2-first-bell':1,'new-3-es-unanswered-message':3,'new-3-es-winter-stage':11};
  const fallback=(i+(s.level-1)*4+(s.group==='A2'?2:s.group==='ES'?5:0))%structures.length;
@@ -228,9 +267,47 @@ window.STORIES.forEach(s=>{
  const arc=structures[arcIndex];
  s.plotStructureEn=arc.en;s.plotStructureHe=arc.he;
  if(!explicit.has(s.id))s.scenes=rebuild(s,arc);
+ // The rewritten sequence has one verified visual anchor. Old episode images
+ // are removed when they no longer describe the rewritten sequence.
+ if(s.sceneImages&&s.sceneImages.length){s.image=s.sceneImages[0]||s.image;s.sceneImages=null}
+ s.imageContext=`Cover anchored to the original story event: ${s.descEn}`;
  const count=s.scenes.length;
- if(s.group==='ES')s.parentPedagogy=`This ${count}-sentence story uses a ${arc.en.toLowerCase()} structure. It develops advanced vocabulary, inference, emotional interpretation, and varied syntax. Past Perfect or inversion appears only when it clarifies chronology, emphasis, or cause.`;
- else if(s.group==='A1')s.parentPedagogy=`הסיפור כולל ${count} משפטים ומשתמש במבנה של ${arc.he}. המשפטים קצרים וישירים, רצף הזמנים ברור, ואוצר המילים השימושי חוזר בתוך מצבים משתנים. המתח העלילתי נשמר בלי להעמיס תחביר מורכב.`;
- else s.parentPedagogy=`הסיפור כולל ${count} משפטים ומשתמש במבנה של ${arc.he}. הוא מתרגל אוצר מילים ישיר, קשרי סיבה ותוצאה, רגשות והסקת מסקנות. דקדוק מתקדם משולב במידה מבוקרת ורק כאשר הוא משרת את העלילה.`;
+ s.parentLevel=finalParentLevel(s,count);
+ s.parentPedagogy=finalParentGoals(s,count,arc);
+ if(s.group==='ES'){
+  s.parentSummaryEn=s.descEn+' This summary presents the situation without revealing the decisive moment or outcome.';
+  s.parentLessonEn=lessonEnByArc[arc.en];
+  s.parentSummary='';s.parentLesson='';
+ }else{
+  s.parentSummary=(s.descHe||`הסיפור עוסק ב${s.he}.`)+' התקציר מציג את נקודת המוצא בלבד ואינו מגלה מראש את רגע ההכרעה ואת תוצאתו.';
+  s.parentLesson=lessonByArc[arc.en];
+ }
 });
+
+// The parent guide is rendered only after every final story field above exists.
+// This keeps the guide synchronized with the completed rewrite rather than with
+// an earlier draft of the catalogue.
+if(typeof document!=='undefined'&&document.getElementById('parentsCard')){
+ const style=document.createElement('style');
+ style.textContent='.parents-card{max-height:min(82dvh,760px);overflow:auto;direction:rtl;text-align:right;font-family:Heebo,Arial,sans-serif}.parents-card h2,.parents-card h3,.parents-card p{direction:rtl;text-align:right;unicode-bidi:plaintext}.parents-card h3{margin:19px 0 5px;color:var(--cyan);font-size:1rem}.parents-card p{margin:0;line-height:1.7;white-space:normal;overflow-wrap:break-word;word-break:normal}.parents-card.pedagogy-en{direction:ltr;text-align:left;font-family:Andika,system-ui,sans-serif}.parents-card.pedagogy-en h2,.parents-card.pedagogy-en h3,.parents-card.pedagogy-en p{direction:ltr;text-align:left;unicode-bidi:plaintext}';
+ document.head.appendChild(style);
+ const levelTitle=document.createElement('h3'),levelText=document.createElement('p');
+ levelTitle.id='levelTitle';levelText.id='parentLevel';
+ document.getElementById('pedagogyTitle').before(levelTitle,levelText);
+ setTimeout(()=>{
+  const story=window.STORIES.find(s=>s.id===new URLSearchParams(location.search).get('id'))||window.STORIES[0];
+  const card=document.getElementById('parentsCard'),es=story.group==='ES';
+  card.classList.toggle('pedagogy-en',es);card.dir=es?'ltr':'rtl';card.lang=es?'en':'he';
+  document.getElementById('parentsBtn').textContent=es?'Parents':'הורים';
+  document.getElementById('parentsTitle').textContent=es?'FOR PARENTS':'להורים';
+  document.getElementById('summaryTitle').textContent=es?'SHORT SUMMARY':'תקציר קצר';
+  document.getElementById('lessonTitle').textContent=es?'EDUCATIONAL MESSAGE':'המסר החינוכי';
+  levelTitle.textContent=es?'ENGLISH LEVEL':'רמת האנגלית';
+  document.getElementById('pedagogyTitle').textContent=es?'ENGLISH-LEARNING GOALS':'מטרות פדגוגיות בלימוד האנגלית';
+  document.getElementById('parentSummary').textContent=es?story.parentSummaryEn:story.parentSummary;
+  document.getElementById('parentLesson').textContent=es?story.parentLessonEn:story.parentLesson;
+  levelText.textContent=story.parentLevel;
+  document.getElementById('parentPedagogy').textContent=story.parentPedagogy;
+ },0);
+}
 })();
