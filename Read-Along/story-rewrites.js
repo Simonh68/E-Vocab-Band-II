@@ -351,6 +351,11 @@ const upgradedCovers={
  ,'new-2-a2-sitting-all-afternoon':'story-covers-v3/sitting-all-afternoon.webp'
  ,'new-2-es-answer-behind-answer':'story-covers-v3/answer-behind-answer.webp'
  ,'new-2-es-selective-report':'story-covers-v3/selective-report.webp'
+ ,'new-2-es-algorithm-recommendation':'story-covers-v3/algorithm-recommendation.webp'
+ ,'new-2-es-confidential-conversation':'story-covers-v3/confidential-conversation.webp'
+ ,'new-2-es-late-evidence':'story-covers-v3/late-evidence.webp'
+ ,'new-2-es-designed-attention':'story-covers-v3/designed-attention.webp'
+ ,'new-3-a1-first-job-interview':'story-covers-v3/first-job-interview.webp'
 };
 const lessonByArc={
  'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
