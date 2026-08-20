@@ -288,6 +288,11 @@ function rebuild(s,arc){
  return out.map(scene=>scene.map(part=>[part[0].replace(/, to\b/g,' to'),part[1]]));
 }
 const counters={},previousArc={};
+const upgradedCovers={
+ 'l1-a1-new-student':'story-covers-v3/new-student.webp',
+ 'new-1-a1-helmet-handlebar':'story-covers-v3/helmet-handlebar.webp',
+ 'new-2-a1-homework-could-not-explain':'story-covers-v3/homework-could-not-explain.webp'
+};
 const lessonByArc={
  'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
  'Help from a friend':'קבלת עזרה אינה חולשה. עזרה מכבדת אינה עושה את המשימה במקום האחר, אלא נותנת לו ביטחון וכלים להמשיך בעצמו.',
@@ -355,6 +360,7 @@ window.STORIES.forEach(s=>{
  // The rewritten sequence has one verified visual anchor. Old episode images
  // are removed when they no longer describe the rewritten sequence.
  if(s.sceneImages&&s.sceneImages.length){s.image=s.sceneImages[0]||s.image;s.sceneImages=null}
+ if(upgradedCovers[s.id])s.image=upgradedCovers[s.id];
  s.imageContext=`Cover anchored to the original story event: ${s.descEn}`;
  const count=s.scenes.length;
  s.parentLevel=finalParentLevel(s,count);
