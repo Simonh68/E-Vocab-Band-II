@@ -331,6 +331,11 @@ const upgradedCovers={
  ,'new-1-es-cost-of-convenience':'story-covers-v3/cost-of-convenience.webp'
  ,'new-2-a1-hospital-visit':'story-covers-v3/hospital-visit.webp'
  ,'new-2-a1-emergency-practice':'story-covers-v3/emergency-practice.webp'
+ ,'new-2-a1-weekend-volunteer':'story-covers-v3/weekend-volunteer.webp'
+ ,'new-2-a1-missed-practice-screen':'story-covers-v3/missed-practice-screen.webp'
+ ,'new-2-a1-shared-computer':'story-covers-v3/shared-computer.webp'
+ ,'new-2-a2-perfect-project':'story-covers-v3/perfect-project.webp'
+ ,'new-2-a2-missing-permission':'story-covers-v3/missing-permission.webp'
 };
 const lessonByArc={
  'Unwelcome surprise':'שינוי לא צפוי אינו חייב לגרום לפעולה פזיזה. עצירה, הסתגלות ובקשת עזרה מאפשרות להתמודד עם קושי בלי להסתיר אותו.',
