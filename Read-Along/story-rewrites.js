@@ -114,12 +114,12 @@ const structures=[
  {en:'Chain reaction',he:'תגובת שרשרת',lines:[
   ['One small action produced an effect nobody had planned.','פעולה קטנה אחת יצרה תוצאה שאיש לא תכנן.','A small action caused an unexpected result.'],
   ['The first result triggered another, less harmless one.','התוצאה הראשונה הובילה לתוצאה נוספת ופחות תמימה.','The first result caused a more serious problem.'],
-  ['By the time the connection was noticed, several people were involved.','כאשר הבחינו בקשר כבר היו מעורבים כמה אנשים.','Several people became involved before anyone saw the pattern.'],
-  ['Each person had seen only one part of the sequence.','כל אדם ראה רק חלק אחד מן הרצף.','Each person knew only one part of what had happened.'],
+  ['By the time the connection was noticed, the effect had spread.','כאשר הבחינו בקשר התוצאה כבר התפשטה.','The effect had spread before anyone saw the pattern.'],
+  ['Each part of the sequence had seemed harmless on its own.','כל חלק ברצף נראה חסר חשיבות בפני עצמו.','Each step had seemed harmless by itself.'],
   ['Putting the events in order revealed where the chain had begun.','סידור האירועים חשף היכן התחילה השרשרת.','The order of events showed the starting point.'],
-  ['The student responsible felt the room become suddenly quiet.','התלמיד האחראי חש שהחדר השתתק לפתע.','The responsible student felt everyone waiting.'],
+  ['The room became quiet when the connection was explained.','החדר השתתק כאשר הקשר בין האירועים הוסבר.','Everyone became quiet when they understood the connection.'],
   ['Stopping the next effect mattered more than defending the first action.','עצירת התוצאה הבאה הייתה חשובה יותר מהגנה על הפעולה הראשונה.','Preventing more harm became more important than making excuses.'],
-  ['Several people worked together to interrupt the sequence.','כמה אנשים פעלו יחד כדי לעצור את הרצף.','The group worked together to stop the chain.'],
+  ['They interrupted the sequence one step at a time.','הם עצרו את הרצף צעד אחר צעד.','They stopped the chain one step at a time.'],
   ['The final consequence was smaller than everyone had feared.','התוצאה הסופית הייתה קטנה ממה שכולם חששו.','They prevented the worst possible result.'],
   ['Afterward, one small preventive step was added at the beginning.','לאחר מכן נוסף צעד מניעה קטן בתחילת התהליך.','A small early safeguard prevented the chain from returning.']]},
  {en:'Role reversal',he:'היפוך תפקידים',lines:[
@@ -132,7 +132,29 @@ const structures=[
   ['Both students recognized the words and smiled despite the tension.','שני התלמידים זיהו את המילים וחייכו למרות המתח.','They recognized the advice and smiled.'],
   ['The new leader acted carefully rather than proudly.','המוביל החדש פעל בזהירות ולא בגאווה.','The new leader helped without showing pride.'],
   ['Together, they solved what neither could have solved alone.','יחד הם פתרו את מה שאיש מהם לא יכול היה לפתור לבדו.','They succeeded by combining their abilities.'],
-  ['Afterward, asking for help no longer belonged to only one of them.','לאחר מכן בקשת עזרה כבר לא הייתה שייכת רק לאחד מהם.','Afterward, both felt free to ask for support.']]}
+  ['Afterward, asking for help no longer belonged to only one of them.','לאחר מכן בקשת עזרה כבר לא הייתה שייכת רק לאחד מהם.','Afterward, both felt free to ask for support.']]},
+ {en:'Moral dilemma',he:'דילמה בין ערכים',lines:[
+  ['Two reasonable choices protected different values.','שתי אפשרויות סבירות הגנו על ערכים שונים.','Both choices protected something important.'],
+  ['Choosing either one would create a real cost.','בחירה בכל אחת מהן הייתה יוצרת מחיר ממשי.','Each choice also had a serious cost.'],
+  ['The easiest answer ignored the person most affected.','התשובה הקלה ביותר התעלמה מן האדם שיושפע יותר מכולם.','The easiest answer ignored an affected person.'],
+  ['The group separated facts from fear and personal advantage.','הקבוצה הפרידה בין עובדות, פחד ויתרון אישי.','They separated facts from fear and self-interest.'],
+  ['They asked who would carry the cost of each decision.','הם שאלו מי יישא במחיר של כל החלטה.','They considered who would pay each cost.'],
+  ['No option removed every difficulty.','שום אפשרות לא הסירה את כל הקושי.','No choice solved everything.'],
+  ['The final choice protected the more important duty.','הבחירה הסופית הגנה על החובה החשובה יותר.','They chose the more important responsibility.'],
+  ['They explained the decision without hiding its disadvantage.','הם הסבירו את ההחלטה בלי להסתיר את חסרונה.','They explained both the choice and its cost.'],
+  ['Someone still felt disappointed after the decision.','מישהו עדיין חש אכזבה לאחר ההחלטה.','The right choice still disappointed someone.'],
+  ['Accepting that cost made the decision credible.','קבלת המחיר הזה הפכה את ההחלטה לאמינה.','Accepting the cost showed that the choice was sincere.']]},
+ {en:'Preparation pays off',he:'הכנה מוקדמת מוכיחה את עצמה',lines:[
+  ['A routine exercise had once seemed unimportant.','תרגול שגרתי נראה בעבר חסר חשיבות.','A routine exercise had not seemed important.'],
+  ['The students repeated it until each step became familiar.','התלמידים חזרו עליו עד שכל צעד נעשה מוכר.','They practiced until they knew every step.'],
+  ['Some wondered whether the preparation would ever be useful.','כמה מהם תהו אם ההכנה תהיה אי פעם שימושית.','Some students doubted that the practice would matter.'],
+  ['Then a real situation demanded a calm response.','ואז מצב אמיתי דרש תגובה רגועה.','A real situation suddenly required calm action.'],
+  ['The first familiar step gave everyone time to think.','הצעד המוכר הראשון נתן לכולם זמן לחשוב.','The first practiced step created time to think.'],
+  ['Each person completed the role practiced earlier.','כל אדם ביצע את התפקיד שתרגל קודם.','Everyone used a role practiced earlier.'],
+  ['The preparation did not remove the difficulty.','ההכנה לא הסירה את הקושי.','Preparation did not make the problem disappear.'],
+  ['It prevented confusion from making the situation worse.','היא מנעה מן הבלבול להחמיר את המצב.','It stopped confusion from making things worse.'],
+  ['Afterward, the group improved one weak part of the routine.','לאחר מכן הקבוצה שיפרה חלק חלש אחד בשגרה.','Later they improved one weak part of the routine.'],
+  ['The next practice felt connected to a real purpose.','התרגול הבא הרגיש מחובר למטרה אמיתית.','The next practice had a clear purpose.']]}
 ];
 
 const extra=[
@@ -296,6 +318,18 @@ function pedagogicalScene(scene,group){
  }
  return parts;
 }
+function normalizeSceneEnglish(scene){
+ const noCommaBefore=/^(to|at|in|into|on|under|over|near|beside|inside|outside|among|during|after|before|because|when|while|using|with|without|from|for|that|rather\s+than)\b/i;
+ return scene.map((part,index)=>{
+  let english=part[0]
+   .replace(/,\s+(to|at|in|into|on|under|over|near|beside|inside|outside|among|during|after|before|because|when|while|using|with|without|from|for|that)\b/gi,' $1')
+   .replace(/,\s+rather than\b/gi,' rather than')
+   .replace(/\s{2,}/g,' ');
+  const next=scene[index+1]?.[0]?.trim()||'';
+  if(/,$/.test(english)&&noCommaBefore.test(next))english=english.slice(0,-1);
+  return[english,part[1]];
+ });
+}
 // Carefully authored revisions keep the educational message inside a specific
 // event. Dialogue supplies natural first- and second-person language, while
 // the final action shows what the character learned without stating a moral.
@@ -370,6 +404,100 @@ const narrativeRevisions={
   [['“We need Amit on the court,”','״אנחנו צריכים את עמית על המגרש,״'],['Ron told the coach.','אמר רון למאמן.']],
   [['Amit did not score the winning basket;','עמית לא קלע את סל הניצחון;'],['he passed to the open player.','הוא מסר לשחקן הפנוי.']],
   [['At the next practice, Coach Eyal gave Amit the marker first','באימון הבא המאמן אייל נתן לעמית ראשון את הטוש'],['and said, “Show us the plan.”','ואמר: ״תראה לנו את התכנית.״']]
+ ],
+ 'l1-a1-broken-pencil':[
+  [['Nadav’s pencil broke just before the lesson began.','העיפרון של נדב נשבר ממש לפני תחילת השיעור.']],
+  [['He searched his bag,','הוא חיפש בתיק שלו,'],['but found only an empty pencil case.','אבל מצא רק קלמר ריק.']],
+  [['Sara noticed the half-finished answer on his page.','שרה הבחינה בתשובה שלא הושלמה בדף שלו.']],
+  [['“Do you need a pencil?” she asked quietly.','״אתה צריך עיפרון?״ היא שאלה בשקט.']],
+  [['Nadav nodded,','נדב הנהן,'],['but looked down because he felt embarrassed.','אבל השפיל מבט כי הרגיש נבוך.']],
+  [['Sara placed a sharp pencil beside his notebook.','שרה הניחה עיפרון מחודד ליד המחברת שלו.']],
+  [['“What will you use?” Nadav asked.','״במה את תשתמשי?״ שאל נדב.']],
+  [['She showed him a second, shorter pencil.','היא הראתה לו עיפרון שני וקצר יותר.']],
+  [['Nadav finished the page before the bell.','נדב סיים את הדף לפני הצלצול.']],
+  [['At break, he sharpened his broken pencil','בהפסקה הוא חידד את העיפרון השבור שלו'],['and returned Sara’s pencil.','והחזיר לשרה את העיפרון שלה.']],
+  [['The next day, he added a spare pencil to the class supply box.','למחרת הוא הוסיף עיפרון נוסף לקופסת הציוד הכיתתית.']]
+ ],
+ 'l1-a2-spare-seat':[
+  [['The crowded bus had one empty seat beside Amir.','באוטובוס הצפוף היה מושב פנוי אחד ליד אמיר.']],
+  [['Amir had placed his schoolbag on it','אמיר הניח עליו את תיק בית הספר שלו'],['after a long day.','אחרי יום ארוך.']],
+  [['At the next stop, an older passenger entered','בתחנה הבאה נכנסה נוסעת מבוגרת'],['with a heavy shopping bag.','עם שקית קניות כבדה.']],
+  [['She held the rail while the bus moved.','היא אחזה במעקה בזמן שהאוטובוס נסע.']],
+  [['Amir looked at his bag,','אמיר הביט בתיק שלו,'],['then at the passenger’s shaking hand.','ואז בידה הרועדת של הנוסעת.']],
+  [['He lifted the bag onto his knees.','הוא הרים את התיק אל ברכיו.']],
+  [['“Please sit here,” he said.','״בבקשה שבי כאן,״ אמר.']],
+  [['The passenger sat down and thanked him.','הנוסעת התיישבה והודתה לו.']],
+  [['When her shopping bag slipped,','כאשר שקית הקניות שלה החליקה,'],['Amir caught it before it fell.','אמיר תפס אותה לפני שנפלה.']],
+  [['At his stop, he carried the bag to the door for her.','בתחנה שלו הוא נשא עבורה את השקית עד הדלת.']],
+  [['“This is my stop too,” she said with a smile.','״זאת גם התחנה שלי,״ אמרה בחיוך.']],
+  [['On the next crowded ride, Amir kept his schoolbag on his knees.','בנסיעה הצפופה הבאה אמיר השאיר את תיקו על ברכיו.']]
+ ],
+ 'new-1-a1-safe-bicycle-ride':[
+  [['Ari checked his bicycle before leaving.','ארי בדק את אופניו לפני שיצא.']],
+  [['He wore a helmet and tested the brakes.','הוא חבש קסדה ובדק את הבלמים.']],
+  [['A loose reflector moved near the back wheel.','מחזיר אור רופף זז ליד הגלגל האחורי.']],
+  [['“We are already late,” his friend said.','״אנחנו כבר מאחרים,״ אמר חברו.']],
+  [['“We will be later if the bicycle is not safe,” Ari replied.','״נאחר יותר אם האופניים אינם בטוחים,״ השיב ארי.']],
+  [['They used a small tool to tighten the reflector.','הם השתמשו בכלי קטן כדי לחזק את מחזיר האור.']],
+  [['Ari tested the brakes once more.','ארי בדק שוב את הבלמים.']],
+  [['They rode on the bicycle path','הם רכבו בשביל האופניים'],['and kept space between them.','ושמרו מרחק ביניהם.']],
+  [['At the crossing, Ari stopped and looked both ways.','במעבר החצייה ארי עצר והביט לשני הכיוונים.']],
+  [['They arrived a few minutes late, but safely.','הם הגיעו באיחור של כמה דקות, אבל בבטחה.']],
+  [['Before the next ride, his friend checked the bicycle first.','לפני הרכיבה הבאה חברו בדק ראשון את האופניים.']]
+ ],
+ 'l2-es-accessible-trip':[
+  [['The class chose a mountain trail for its annual trip.','The class selected a mountain walk for the yearly trip.']],
+  [['Part of the route was inaccessible to Maya,','Maya could not use part of the route,'],['who used a wheelchair.','because she used a wheelchair.']],
+  [['One student suggested carrying her over the steep section.','One student suggested lifting her over the difficult part.']],
+  [['“I want a real way to take part,','Maya said that she wanted to participate fully,'],['not a dangerous favor,” Maya replied.','not receive unsafe help.']],
+  [['The group studied three trail maps.','The class compared three maps.']],
+  [['A second trail reached the same viewpoint','Another trail reached the same view'],['with a longer but smoother path.','by a longer, smoother route.']],
+  [['Two students tested it with Maya after school.','Two students tried the route with Maya.']],
+  [['A narrow gate still blocked one section.','One narrow gate still blocked the path.']],
+  [['The park ranger opened an accessible side gate','The ranger showed them a wider side entrance'],['that had not appeared on the map.','that was missing from the map.']],
+  [['The revised route still included hills and uneven ground.','The new route was still physically challenging.']],
+  [['The class added rest points','The class planned places to rest'],['without shortening the whole experience.','without reducing the trip.']],
+  [['Maya chose to lead the map team.','Maya led the students using the map.']],
+  [['On the trip, sudden rain made one turn slippery.','Rain made one turn difficult during the trip.']],
+  [['Maya noticed a covered path beside the visitor center.','Maya saw a covered path nearby.']],
+  [['Her direction kept the group moving safely.','Her idea helped everyone continue safely.']],
+  [['At the viewpoint, nobody had arrived by being carried.','Everyone reached the viewpoint independently.']],
+  [['The class shared the same climb, view, and tired laughter.','The whole class shared the challenge and the view.']],
+  [['Afterward, they added the side gate to the school map.','Later they corrected the school’s trail map.']],
+  [['The adapted trip challenged everyone and excluded nobody.','The changed trip remained challenging and included everyone.']]
+ ],
+ 'new-3-a1-first-job-interview':[
+  [['Noa prepared for her first job interview.','נועה התכוננה לריאיון העבודה הראשון שלה.']],
+  [['She studied the role and practiced direct answers.','היא למדה על התפקיד ותרגלה תשובות ישירות.']],
+  [['While she waited,','בזמן שהמתינה,'],['she read the job description once more.','היא קראה שוב את תיאור התפקיד.']],
+  [['The first question was different from the questions she had practiced.','השאלה הראשונה הייתה שונה מן השאלות שתרגלה.']],
+  [['Noa paused and asked the interviewer to repeat it.','נועה עצרה וביקשה מן המראיין לחזור עליה.']],
+  [['Then she answered with a clear example from school.','אחר כך היא ענתה בעזרת דוגמה ברורה מבית הספר.']],
+  [['When he asked about unfamiliar software,','כאשר שאל על תוכנה שלא הכירה,'],['Noa did not pretend to know it.','נועה לא העמידה פנים שהיא מכירה אותה.']],
+  [['“I have not used it yet,','״עדיין לא השתמשתי בה,'],['but I can learn,” she said.','אבל אני יכולה ללמוד,״ אמרה.']],
+  [['The interviewer asked how she usually learned a new task.','המראיין שאל כיצד היא לומדת בדרך כלל משימה חדשה.']],
+  [['Noa described the steps she had used to prepare.','נועה תיארה את הצעדים שבהם השתמשה כדי להתכונן.']],
+  [['Two days later, the shop invited her to a training shift.','כעבור יומיים החנות הזמינה אותה למשמרת הכשרה.']],
+  [['Before that shift, she practiced one new skill instead of memorizing more answers.','לפני המשמרת היא תרגלָה מיומנות חדשה אחת במקום לשנן עוד תשובות.']]
+ ],
+ 'new-3-a1-emergency-team':[
+  [['Residents created a local emergency team.','התושבים הקימו צוות חירום מקומי.']],
+  [['They mapped skills, equipment, and people who might need help.','הם מיפו מיומנויות, ציוד ואנשים שעשויים להזדקק לעזרה.']],
+  [['At the first meeting, everyone wanted to help,','במפגש הראשון כולם רצו לעזור,'],['but nobody had a clear role.','אבל לאיש לא היה תפקיד ברור.']],
+  [['Lina pointed to an apartment on the map.','לינה הצביעה על דירה במפה.']],
+  [['“Who calls Mr. Barak if the power fails?” she asked.','״מי מתקשר למר ברק אם החשמל נפסק?״ שאלה.']],
+  [['The room became quiet.','החדר השתתק.']],
+  [['The team divided the street into small areas.','הצוות חילק את הרחוב לאזורים קטנים.']],
+  [['Each pair received a contact list and one simple task.','כל זוג קיבל רשימת קשר ומשימה פשוטה אחת.']],
+  [['During the first practice, one phone did not answer.','במהלך התרגול הראשון טלפון אחד לא נענה.']],
+  [['The pair used the backup contact instead of guessing.','הזוג השתמש באיש הקשר החלופי במקום לנחש.']],
+  [['Another volunteer discovered that a flashlight had no batteries.','מתנדב אחר גילה שבפנס לא היו סוללות.']],
+  [['They added batteries and checked every equipment box.','הם הוסיפו סוללות ובדקו כל קופסת ציוד.']],
+  [['A second practice began without a long speech.','תרגול שני התחיל בלי נאום ארוך.']],
+  [['Messages moved from house to house in the planned order.','ההודעות עברו מבית לבית לפי הסדר המתוכנן.']],
+  [['Lina marked one slow point on the map.','לינה סימנה נקודה אטית אחת במפה.']],
+  [['The team changed that route before the next practice.','הצוות שינה את המסלול לפני התרגול הבא.']],
+  [['Clear roles turned willing neighbors into a useful emergency team.','תפקידים ברורים הפכו שכנים שרצו לעזור לצוות חירום יעיל.']]
  ]
 };
 const narrativeMetadata={
@@ -507,6 +635,22 @@ const arcVoices={
   ['After a long pause, the student accepted one clear task from them.','לאחר הפסקה ארוכה התלמיד קיבל מהם משימה ברורה אחת.','The student finally accepted help.'],
   ['“We can do different parts,” the group agreed.','״אנחנו יכולים לעשות חלקים שונים,״ הסכימה הקבוצה.','The group shared the work.'],
   ['The next task began with nobody called only “the helper.”','המשימה הבאה התחילה בלי שאדם אחד נקרא רק ״המסייע״.','The next task used more equal roles.']
+ ],
+ 'Moral dilemma':[
+  ['“Both choices protect something important,” one person said.','״שתי האפשרויות מגנות על דבר חשוב,״ אמר אדם אחד.','One person recognized the value on both sides.'],
+  ['“Then we must ask who pays the cost.”','״אז עלינו לשאול מי משלם את המחיר.״','They asked who would carry the cost.'],
+  ['The easiest option protected the group making the decision.','האפשרות הקלה ביותר הגנה על הקבוצה שקיבלה את ההחלטה.','The easiest choice favored the decision makers.'],
+  ['They invited the affected person to explain the missing need.','הם הזמינו את האדם שיושפע להסביר את הצורך החסר.','They listened to the person most affected.'],
+  ['“We cannot remove every cost, but we can name it honestly.”','״איננו יכולים להסיר כל מחיר, אבל אנחנו יכולים לציין אותו בכנות.״','They accepted that no choice was perfect.'],
+  ['The final explanation included both the reason and the sacrifice.','ההסבר הסופי כלל גם את הסיבה וגם את הוויתור.','They explained the reason and the remaining cost.']
+ ],
+ 'Preparation pays off':[
+  ['“Start with the step we practiced,” one student said.','״תתחילו בצעד שתרגלנו,״ אמר תלמיד אחד.','One student recalled the practiced first step.'],
+  ['“I know my role; you check the next one.”','״אני יודע את התפקיד שלי; אתה תבדוק את הבא.״','The students used their practiced roles.'],
+  ['A familiar instruction made the unexpected moment less confusing.','הנחיה מוכרת הפכה את הרגע הבלתי צפוי לפחות מבלבל.','A familiar instruction reduced confusion.'],
+  ['“The practice did not feel important until now.”','״התרגול לא הרגיש חשוב עד עכשיו.״','The purpose of the practice became clear.'],
+  ['They completed the difficult step without rushing.','הם השלימו את הצעד הקשה בלי למהר.','They acted carefully instead of rushing.'],
+  ['Later, they practiced again and improved the weakest step.','לאחר מכן הם תרגלו שוב ושיפרו את הצעד החלש ביותר.','Later they improved the practice.']
  ]
 };
 function voiceBeats(s){
@@ -1313,28 +1457,42 @@ function storyRows(rows,s,salt,count=rows.length){
 }
 function rebuild(s,arc){
  const core=anchors(s),need=s.scenes.length-4,fill=[];
- // Every generated story now begins with personal speech tied to its topic.
- // Concrete details and visible actions follow; distant scaffold sentences are
- // no longer used as filler. Each story starts at a different point in the
- // relevant banks, so related themes do not receive an identical scaffold.
- const voiceRows=storyRows(voiceBeats(s),s,'voice'),detailRows=storyRows(details(s),s,'detail');
- const source=[
-  ...voiceRows.slice(0,4),
-  ...detailRows.slice(0,3),
-  ...storyRows(concreteFollow(s),s,'action'),
-  ...voiceRows.slice(4),
-  ...detailRows.slice(3),
-  ...storyRows(arcVoices[arc.en]||[],s,'arc')
- ];
- const first=core[0]?.[0]?.[0]||'',match=first.match(/^([A-Z][a-z]+)\b/),knownNames=new Set(['Noam','Leah','Eli','Yoni','Maya','Daniel','Rina','Amit','Aaron','Nadav','Lior','Ethan','Ruth','Tal','Dan','Ari','Dana','Eitan','Roni','Yossi','Amir','Gil','Noa','Sophie']),name=match&&knownNames.has(match[1])?match[1]:'';
- const personalize=row=>name?row.map(x=>x.replace(/\bOne student\b/g,name).replace(/\bThe student\b/g,name).replace(/\bthe student\b/g,name)):row;
- for(let i=0;i<need;i++)fill.push(pair(personalize(source[i%source.length]),s.group));
- // Preserve the original opening, disruption, decisive action and result.
- // These anchors keep the retained cover tied to an event in the new plot.
- const positions=[0,2,Math.round((s.scenes.length-1)*.72),s.scenes.length-1];
+ // Keep every generated scene inside one narrative logic. Earlier versions
+ // mixed broad topic banks (for example, "water", "school", or "team") and
+ // could import food-waste dialogue into a bottle-station story or classroom
+ // directions into a missing-notebook story. The four original event anchors
+ // remain story-specific; the intervening scenes now follow one complete plot
+ // structure in order. This is deliberately less flashy than a mismatched
+ // concrete detail, but it preserves cause, reference, and consequence.
+ const simpleArc=arc.lines.map(row=>[row[2],row[1],row[2]]);
+ const simpleExtra=extra.map(row=>[row[2],row[1],row[2]]);
+ const orderedArc=s.group==='ES'
+  ?[...arc.lines,...(arcVoices[arc.en]||[]),...extra]
+  :s.group==='A1'
+   ?[...(arcVoices[arc.en]||[]),...simpleArc,...simpleExtra]
+   :[...(arcVoices[arc.en]||[]),...arc.lines,...extra];
+ // Very long stories may need more scenes than the structure and its dialogue
+ // supply together. Neutral reflective beats extend only those long stories;
+ // they contain no props, settings, or actions borrowed from another story.
+ const source=orderedArc;
+ // Do not replace a neutral noun phrase with a name mechanically. That created
+ // broken forms such as "Roni responsible" from "the student responsible"
+ // and could leave a named character followed by singular they. Story-specific
+ // anchors carry the names; neutral bridge scenes remain gender-safe.
+ for(let i=0;i<need;i++)fill.push(pair(source[i%source.length],s.group));
+ // Preserve the original opening and disruption before the arc develops, then
+ // keep the story-specific decisive action and result as the final two scenes.
+ // This prevents a generic setup from appearing after the problem was solved.
+ const positions=[0,1,s.scenes.length-2,s.scenes.length-1];
  const out=[];let ci=0,fi=0;
  for(let i=0;i<s.scenes.length;i++)out.push(ci<4&&i===positions[ci]?core[ci++]:fill[fi++]);
- return out.map(scene=>scene.map(part=>[part[0].replace(/, to\b/g,' to'),part[1]]));
+ return out.map(scene=>scene.map(part=>[
+  part[0]
+   .replace(/,\s+(to|near|beside|inside|during|after|before|because|when|while|using|that)\b/gi,' $1')
+   .replace(/,\s+rather than\b/gi,' rather than')
+   .replace(/\s{2,}/g,' '),
+  part[1]
+ ]));
 }
 const counters={},previousArc={};
 // Legacy cover normalization: all 24 portrait files converted to 1200x800 WebP.
@@ -1430,7 +1588,9 @@ const lessonByArc={
  'Promise under pressure':'אמינות נבחנת דווקא כאשר קיום הבטחה נעשה קשה. הבחירה לעמוד בהתחייבות מחזקת אמון, גם כאשר היא כרוכה בוויתור.',
  'False appearance':'מראה משכנע אינו תחליף לבדיקה. חשוב לחזור למקור, להשוות פרטים ולפרסם תיקון ברור כאשר מתגלה טעות.',
  'Chain reaction':'פעולה קטנה יכולה להשפיע על אנשים נוספים. עצירת הנזק וקבלת אחריות חשובות יותר מהתגוננות או חיפוש תירוצים.',
- 'Role reversal':'כל אדם יכול להיות לעיתים מסייע ולעיתים זקוק לעזרה. שיתוף יכולות ובקשה פתוחה לעזרה יוצרים קשר שוויוני וחזק יותר.'
+ 'Role reversal':'כל אדם יכול להיות לעיתים מסייע ולעיתים זקוק לעזרה. שיתוף יכולות ובקשה פתוחה לעזרה יוצרים קשר שוויוני וחזק יותר.',
+ 'Moral dilemma':'לעיתים שתי אפשרויות מגנות על ערכים חשובים אך יוצרות מחירים שונים. החלטה אחראית בודקת מי יושפע, בוחרת בחובה החשובה יותר ומציגה ביושר גם את המחיר שנותר.',
+ 'Preparation pays off':'תרגול מוקדם והרגלי בטיחות נראים לעיתים שגרתיים, אך הם מאפשרים לפעול בשקט כאשר מגיע רגע אמיתי. לאחר האירוע חוזרים לתרגול ומשפרים את החלק החלש.'
 };
 const lessonEnByArc={
  'Unwelcome surprise':'An unexpected change need not produce a rushed response. Pausing, adapting, and asking for support make it possible to face difficulty honestly.',
@@ -1444,7 +1604,9 @@ const lessonEnByArc={
  'Promise under pressure':'Reliability matters most when keeping a promise becomes difficult. Honoring a commitment protects trust even when it requires a sacrifice.',
  'False appearance':'A convincing appearance is not a substitute for verification. Sources should be checked and errors corrected clearly.',
  'Chain reaction':'A small action can affect people beyond the first moment. Preventing further harm and accepting responsibility matter more than excuses.',
- 'Role reversal':'Everyone may sometimes help and sometimes need help. Sharing abilities and asking openly for support create a more equal relationship.'
+ 'Role reversal':'Everyone may sometimes help and sometimes need help. Sharing abilities and asking openly for support create a more equal relationship.',
+ 'Moral dilemma':'Sometimes two choices protect important values while creating different costs. A responsible decision considers who is affected, protects the stronger duty, and states the remaining cost honestly.',
+ 'Preparation pays off':'Practice and safety habits can seem routine, but they make calm action possible when a real challenge arrives. Afterward, the group improves the weakest part of the routine.'
 };
 function finalParentLevel(s,count){
  if(s.group==='ES')return `English level: advanced first-language English track, using the most demanding vocabulary from Lists A–D. The ${count} sentences include precise word choice, implicit motives, controlled complex syntax, and natural shifts in chronology. Simplified English support is available without Hebrew.`;
@@ -1458,18 +1620,40 @@ function finalParentGoals(s,count,arc){
 }
 function thematicArc(s,fallback,index){
  const t=(s.id+' '+s.en).toLowerCase();
- const pick=a=>a[index%a.length];
- if(/wrong|damaged|cheat|mistake|sent by mistake|missing permission/.test(t))return pick([2,3,6]);
- if(/lost|missing|hidden|discovery|evidence|leak|nest/.test(t))return pick([4,5,0]);
- if(/help|neighbor|hospital|new student|lunch table|glasses|welcome|donation/.test(t))return pick([1,11,3]);
- if(/race|emergency|first aid|deadline/.test(t))return pick([5,0,6]);
- if(/practice|runner|interview|return|back to school/.test(t))return pick([6,1,8]);
- if(/team|group|credit|captain|quiet|selection|appearance/.test(t))return pick([7,11,3]);
- if(/promise|shift|commitment|volunteer/.test(t))return pick([8,6,11]);
- if(/photo|headline|rumor|report|account|image|false|unverified|consent/.test(t))return pick([9,4,2]);
- if(/screen|video|feed|phone|algorithm|homework|artificial|digital tool|good intention|waste|convenience/.test(t))return pick([10,9,2]);
- if(/conflict|role|leader|workplace|public meeting|whistleblower/.test(t))return pick([11,8,3]);
- if(/helmet|bicycle|scooter|ride|water|weather|shortage|transport/.test(t))return pick([0,5,6]);
+ // Choose only structures that fit the actual event. Do not rotate to an
+ // unrelated structure merely to avoid two neighboring stories sharing an
+ // arc; coherence is more important than cosmetic variety.
+ if(/conflict[- ]of[- ]interest/.test(t))return 12;
+ if(/scholarship[- ]application|volunteer[- ]truth|truth about the volunteer|incomplete[- ]consent/.test(t))return 2;
+ if(/sent by mistake|damaged library book|friend who cheated|missing permission|good intention/.test(t))return 2;
+ if(/photo|photograph|headline|rumor|anonymous account|selective report|biased selection|false emergency/.test(t))return 9;
+ if(/silent[- ]witness/.test(t))return 12;
+ if(/answer[- ]behind[- ]answer/.test(t))return 9;
+ if(/lost dog|wallet|wrong classroom|missing notebook|school map|hidden water leak|evidence/.test(t))return 4;
+ if(/new student|back to school|broken pencil|helping|empty seat|quiet lunch table|hospital visit/.test(t))return 1;
+ if(/confidential conversation/.test(t))return 12;
+ if(/new glasses|unanswered message|incomplete consent/.test(t))return 3;
+ if(/missed practice/.test(t))return 3;
+ if(/first job interview|emergency[- ]practice|first aid|safe[- ]bicycle[- ]ride/.test(t))return 13;
+ if(/runner|homework he could not explain|perfect homework|perfect project/.test(t))return 6;
+ if(/injured captain/.test(t))return 11;
+ if(/different kind of strength/.test(t))return 7;
+ if(/price of winning/.test(t))return 8;
+ if(/final place|water[- ]shortage|captain.*decision/.test(t))return 12;
+ if(/emergency[- ]team/.test(t))return 0;
+ if(/team|group credit|who did the work|uncredited idea|appearance|captain|unfair team/.test(t))return 7;
+ if(/recommendation[- ]letter|private[- ]donation|limited[- ]community[- ]budget/.test(t))return 12;
+ if(/l3-es-promise|promise to a friend/.test(t))return 12;
+ if(/promise|shift exchange|weekend volunteer/.test(t))return 8;
+ if(/community race|accessible[- ]trip|accessible sports day/.test(t))return 0;
+ if(/unsafe[- ]workplace/.test(t))return 0;
+ if(/whistleblower/.test(t))return 12;
+ if(/helmet|bicycle|scooter|ride|rainy walk|emergency|first aid|safety rule/.test(t))return 0;
+ if(/phone|video|feed|screen|algorithm|attention|movement|sitting all afternoon|online challenge|controls[- ]next[- ]hour/.test(t))return 10;
+ if(/spare seat/.test(t))return 0;
+ if(/bird[- ]nest|nest near the window/.test(t))return 0;
+ if(/river after the storm/.test(t))return 10;
+ if(/safety[- ]rule|plant|garden|nest|class pet|playground|bottle|food project|food[- ]waste|river|energy|water[- ]shortage|community survey|park|library|transport|budget|long[- ]term solution|repair café|neighborhood[- ]plan|public[- ]meeting/.test(t))return 4;
  return fallback;
 }
 window.STORIES.forEach(s=>{
@@ -1477,7 +1661,6 @@ window.STORIES.forEach(s=>{
  const explicitArc={'new-3-a2-first-bell':1,'new-3-es-unanswered-message':3,'new-3-es-winter-stage':11};
  const fallback=(i+(s.level-1)*4+(s.group==='A2'?2:s.group==='ES'?5:0))%structures.length;
  let arcIndex=explicitArc[s.id]??thematicArc(s,fallback,i);
- if(explicitArc[s.id]===undefined&&previousArc[key]===arcIndex)arcIndex=fallback!==arcIndex?fallback:(arcIndex+1)%structures.length;
  previousArc[key]=arcIndex;
  const meta=narrativeMetadata[s.id];
  const baseArc=structures[arcIndex],arc=meta?{en:meta.arcEn,he:meta.arcHe}:baseArc;
@@ -1488,7 +1671,15 @@ window.STORIES.forEach(s=>{
  if(corrections)Object.entries(corrections).forEach(([index,scene])=>{s.scenes[Number(index)]=scene});
  // Every tappable unit is a short constituent. A small set of high-value focus
  // adverbs may stand alone; support text is aligned to the same unit.
- s.scenes=s.scenes.map(scene=>pedagogicalScene(scene,s.group));
+ s.scenes=s.scenes.map(scene=>pedagogicalScene(normalizeSceneEnglish(scene),s.group));
+ // Added-story cards originally reused the final sentence as their premise,
+ // revealing the solution before the reader opened the story. Build a concise
+ // spoiler-free premise from the two story-specific setup scenes instead. The
+ // three fully authored newcomer stories already have tailored card copy.
+ if(s.id.startsWith('new-')&&!explicit.has(s.id)){
+  s.descEn=s.scenes.slice(0,2).map(scene=>scene.map(part=>part[0]).join(' ')).join(' ');
+  if(s.group!=='ES')s.descHe=s.scenes.slice(0,2).map(scene=>scene[0]?.[2]||'').join(' ');
+ }
  // The rewritten sequence has one verified visual anchor. Old episode images
  // are removed when they no longer describe the rewritten sequence.
  if(s.sceneImages&&s.sceneImages.length){s.image=s.sceneImages[0]||s.image;s.sceneImages=null}
