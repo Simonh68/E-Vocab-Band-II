@@ -148,6 +148,154 @@ const extra=[
  ['A later choice showed that the lesson had lasted.','בחירה מאוחרת הראתה שהלקח נשמר.','A later action showed lasting change.']
 ];
 function pair(row,group){return [[row[0],group==='ES'?row[2]:row[1]]]}
+const chunkCoordinators=new Set(['and','but','or','so','yet']);
+const chunkSubordinators=new Set(['although','because','before','after','while','when','whenever','where','whereas','if','unless','until','though']);
+const chunkPrepositions=new Set(['from','with','without','beside','near','during','through','into','inside','outside','under','over','between','among','against','toward','towards','around','across','behind','beyond','instead']);
+const chunkDeterminers=new Set(['a','an','the','this','that','these','those','my','your','his','her','our','their','each','every','another','two','three','several','some','any','no']);
+const chunkPronouns=new Set(['i','you','he','she','we','they','it','who','which','someone','anyone','everyone','nobody']);
+const chunkAuxiliaries=new Set(['am','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','can','could','should','must','may','might']);
+const chunkIncompleteEnds=new Set(['one','two','three','its','most','entire','both','all','either','neither','only']);
+// These adverbial focus items carry a complete, highly teachable meaning on
+// their own. Isolate them only at a natural phrase edge; other words remain in
+// short multiword constituents.
+const pedagogicalFocusWords=new Set(['yet','still','already','again','together']);
+const cleanChunkWord=word=>word.toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g,'');
+const chunkWordCount=text=>(text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length;
+const isPedagogicalFocus=text=>chunkWordCount(text)===1&&pedagogicalFocusWords.has(cleanChunkWord(text));
+function chunkBoundaryScore(tokens,index){
+ if(index===tokens.length)return 12;
+ const previous=tokens[index-1]||'',prev=cleanChunkWord(previous),next=cleanChunkWord(tokens[index]||'');
+ let score=0;
+ if(/[;:!?][”’"']?$/.test(previous))score+=10;
+ else if(/,[”’"']?$/.test(previous))score+=8;
+ else if(/[—–-][”’"']?$/.test(previous))score+=7;
+ if(chunkCoordinators.has(next))score+=7;
+ if(chunkSubordinators.has(next))score+=7;
+ if(chunkPrepositions.has(next))score+=5;
+ if(chunkDeterminers.has(next))score+=2;
+ if(chunkPronouns.has(next))score+=1;
+ // Keep grammatical glue inside the same listening unit.
+ if(chunkDeterminers.has(prev)||chunkIncompleteEnds.has(prev)||chunkPrepositions.has(prev)||chunkAuxiliaries.has(prev)||prev==='not'||prev==='to')score-=12;
+ if(chunkAuxiliaries.has(next)&&chunkPronouns.has(prev))score-=8;
+ if(next==='not'&&chunkAuxiliaries.has(prev))score-=12;
+ return score;
+}
+function isolatePedagogicalFocus(parts){
+ const out=[];
+ parts.forEach(part=>{
+  const tokens=part.trim().split(/\s+/);
+  const first=cleanChunkWord(tokens[0]||''),last=cleanChunkWord(tokens.at(-1)||'');
+  // Sentence-final focus adverbs receive nuclear stress in ordinary speech.
+  if(tokens.length>=3&&pedagogicalFocusWords.has(last)){
+   out.push(tokens.slice(0,-1).join(' '),tokens.at(-1));return;
+  }
+  // A punctuation-marked sentence adverb is also a complete listening unit.
+  if(tokens.length>=3&&pedagogicalFocusWords.has(first)&&/[,;:—–-]$/.test(tokens[0])){
+   out.push(tokens[0],tokens.slice(1).join(' '));return;
+  }
+  out.push(part);
+ });
+ return out;
+}
+function splitEnglishConstituents(text,maxWords=6){
+ const tokens=text.trim().split(/\s+/),n=tokens.length;
+ if(chunkWordCount(text)<=maxWords)return isolatePedagogicalFocus([text.trim()]);
+ const best=Array(n+1).fill(null);best[n]={score:0,parts:[]};
+ for(let i=n-1;i>=0;i--){
+  for(let j=i+2;j<=Math.min(n,i+maxWords);j++){
+   if(!best[j])continue;
+   const length=tokens.slice(i,j).reduce((sum,token)=>sum+chunkWordCount(token),0);
+   if(length<2||length>maxWords)continue;
+   const rhythm=length===4?0:length===5?-.5:length===3?-1:length===6?-1.5:-3;
+   const candidate={score:rhythm+chunkBoundaryScore(tokens,j)+best[j].score,parts:[tokens.slice(i,j).join(' '),...best[j].parts]};
+   if(!best[i]||candidate.score>best[i].score)best[i]=candidate;
+  }
+ }
+ if(best[0])return isolatePedagogicalFocus(best[0].parts);
+ // A final six-word unit is preferable to a one-word fragment.
+ const out=[];for(let i=0;i<n;){let take=Math.min(maxWords,n-i);if(n-i-take===1)take--;if(take<2&&out.length){out[out.length-1]+=' '+tokens[i++];continue}out.push(tokens.slice(i,i+take).join(' '));i+=take}return isolatePedagogicalFocus(out);
+}
+const supportCuePatterns={
+ from:/^(מן|מאת|מה|מ־)$/u,with:/^(עם|בעזרת|ביחד)$/u,without:/^(בלי|ללא)$/u,and:/^ו/u,
+ before:/^לפני/u,after:/^(אחרי|לאחר)/u,because:/^(כי|מפני|בגלל)$/u,but:/^(אבל|אך|אולם)$/u,
+ while:/^(בעוד|בזמן|כאשר)/u,when:/^(כאשר|כש)/u,until:/^עד/u,instead:/^במקום/u,
+ near:/^(ליד|בסמוך)/u,beside:/^(ליד|לצד)/u,during:/^(במהלך|בעת)/u,between:/^בין/u,among:/^בין/u
+};
+const cleanSupportWord=word=>word.replace(/^[\s״“”'",.;:!?()\[\]{}—–-]+|[\s״“”'",.;:!?()\[\]{}—–-]+$/gu,'');
+function supportBoundary(tokens,expected,previousEnglish,nextEnglish,min,max){
+ const next=cleanChunkWord(nextEnglish.split(/\s+/)[0]||''),pattern=supportCuePatterns[next];
+ const candidates=[];for(let i=min;i<=max;i++)candidates.push(i);candidates.sort((a,b)=>Math.abs(a-expected)-Math.abs(b-expected));
+ if(pattern){const found=candidates.find(i=>pattern.test(cleanSupportWord(tokens[i]||'')));if(found!==undefined)return found}
+ if(/,[”’"']?$/.test(previousEnglish)){const found=candidates.find(i=>/,[״”’"']?$/.test(tokens[i-1]||''));if(found!==undefined)return found}
+ return Math.max(min,Math.min(max,expected));
+}
+function englishSupportBoundary(tokens,expected,min,max){
+ let best=expected,bestScore=-Infinity;
+ for(let index=min;index<=max;index++){
+  const score=chunkBoundaryScore(tokens,index)*2-Math.abs(index-expected);
+  if(score>bestScore){best=index;bestScore=score}
+ }
+ return best;
+}
+function moveTerminalFocus(englishParts,supportParts){
+ const focuses={yet:'עדיין',still:'עדיין',again:'שוב',already:'כבר',together:'יחד'};
+ englishParts.forEach((english,index)=>{
+  const last=cleanChunkWord(english.trim().split(/\s+/).at(-1)||''),focus=focuses[last];if(!focus)return;
+  if(isPedagogicalFocus(english)){
+   // Give an isolated English focus word its exact one-word gloss. Any support
+   // words assigned here by proportional alignment belong with the neighboring
+   // phrase and are moved there before the gloss is replaced.
+   const displaced=supportParts[index].split(/\s+/).map(cleanSupportWord).filter(word=>word&&word!==focus).join(' ');
+   if(displaced&&supportParts.length>1){
+    const receiver=index===0?1:index-1;
+    supportParts[receiver]=receiver<index?supportParts[receiver]+' '+displaced:displaced+' '+supportParts[receiver];
+   }
+   supportParts.forEach((part,partIndex)=>{
+    if(partIndex===index)return;
+    supportParts[partIndex]=part.split(/\s+/).filter(word=>cleanSupportWord(word)!==focus).join(' ');
+   });
+   supportParts[index]=focus;return;
+  }
+  let source=-1,token=-1;
+  for(let i=0;i<supportParts.length;i++){const words=supportParts[i].split(/\s+/),found=words.findIndex(word=>cleanSupportWord(word)===focus);if(found>=0){source=i;token=found;break}}
+  if(source<0||source===index)return;
+  const words=supportParts[source].split(/\s+/),original=words[token],prefix=original.match(/^[״“”'"(\[]+/u)?.[0]||'',suffix=original.match(/[״“”'"),.;:!?\]]+$/u)?.[0]||'';
+  words[token]=prefix+suffix;supportParts[source]=words.filter(word=>cleanSupportWord(word)||/[״“”'"()[\]]/u.test(word)).join(' ').replace(/^([״“”'"(\[])\s+/u,'$1').replace(/\s+([,.;:!?])/g,'$1');
+  const end=supportParts[index].match(/[״“”'"),.;:!?\]]+$/u)?.[0]||'';
+  supportParts[index]=supportParts[index].slice(0,end? -end.length:undefined).trimEnd()+' '+focus+end;
+ });
+ return supportParts;
+}
+function alignSupportToChunks(english,englishParts,support,group){
+ if(englishParts.length===1)return[support];
+ const target=support.trim().split(/\s+/),totalEnglish=chunkWordCount(english),boundaries=[];let usedEnglish=0,last=0;
+ for(let i=0;i<englishParts.length-1;i++){
+  usedEnglish+=chunkWordCount(englishParts[i]);
+  const expected=Math.round(usedEnglish/totalEnglish*target.length),min=last+1,max=target.length-(englishParts.length-i-1);
+  const boundary=group==='ES'?englishSupportBoundary(target,expected,min,max):supportBoundary(target,expected,englishParts[i],englishParts[i+1],min,max);
+  boundaries.push(boundary);last=boundary;
+ }
+ const parts=[];last=0;for(const boundary of [...boundaries,target.length]){parts.push(target.slice(last,boundary).join(' '));last=boundary}
+ return group==='ES'?parts:moveTerminalFocus(englishParts,parts);
+}
+function pedagogicalScene(scene,group){
+ const parts=[],fullSupport=scene.map(part=>part[1]).join(' ');
+ scene.forEach(([english,support])=>{
+  const englishParts=splitEnglishConstituents(english,6),supportParts=alignSupportToChunks(english,englishParts,support,group);
+  englishParts.forEach((part,index)=>parts.push([part,group==='ES'?fullSupport:(supportParts[index]||support),fullSupport]));
+ });
+ // Only intentional focus words may remain isolated. Attach accidental
+ // one-word fragments to the closest phrase.
+ for(let i=0;i<parts.length;i++)if(chunkWordCount(parts[i][0])<2&&!isPedagogicalFocus(parts[i][0])&&parts.length>1){
+  const neighbor=i===0?1:i-1;if(chunkWordCount(parts[i][0])+chunkWordCount(parts[neighbor][0])<=6){
+   const support=group==='ES'?fullSupport:(neighbor<i?parts[neighbor][1]+' '+parts[i][1]:parts[i][1]+' '+parts[neighbor][1]);
+   if(neighbor<i)parts[neighbor]=[parts[neighbor][0]+' '+parts[i][0],support,fullSupport];
+   else parts[neighbor]=[parts[i][0]+' '+parts[neighbor][0],support,fullSupport];
+   parts.splice(i,1);i--;
+  }
+ }
+ return parts;
+}
 // Carefully authored revisions keep the educational message inside a specific
 // event. Dialogue supplies natural first- and second-person language, while
 // the final action shows what the character learned without stating a moral.
@@ -1338,6 +1486,9 @@ window.STORIES.forEach(s=>{
  if(narrativeRevisions[s.id])s.scenes=narrativeRevisions[s.id];
  const corrections=sceneCorrections[s.id];
  if(corrections)Object.entries(corrections).forEach(([index,scene])=>{s.scenes[Number(index)]=scene});
+ // Every tappable unit is a short constituent. A small set of high-value focus
+ // adverbs may stand alone; support text is aligned to the same unit.
+ s.scenes=s.scenes.map(scene=>pedagogicalScene(scene,s.group));
  // The rewritten sequence has one verified visual anchor. Old episode images
  // are removed when they no longer describe the rewritten sequence.
  if(s.sceneImages&&s.sceneImages.length){s.image=s.sceneImages[0]||s.image;s.sceneImages=null}
