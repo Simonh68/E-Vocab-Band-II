@@ -207,6 +207,21 @@ const narrativeRevisions={
   [['On race day, Yoni fell behind after the first turn,','ביום המרוץ יוני נשאר מאחור לאחר הפנייה הראשונה,'],['but he heard the finishers cheering.','אבל הוא שמע את המסיימים מעודדים.']],
   [['“Keep going—you are almost there!”','״המשך—אתה כמעט שם!״'],['they called.','הם קראו.']],
   [['Yoni crossed the line last, looked at the stopwatch,','יוני חצה את הקו אחרון, הביט בשעון העצר,'],['and whispered, “I beat my time.”','ולחש: ״שיפרתי את הזמן שלי.״']]
+ ],
+ 'l2-a1-team-place':[
+  [['“Choose five players,” Coach Eyal said,','״בחרו חמישה שחקנים,״ אמר המאמן אייל,'],['placing the basketball on the bench.','והניח את כדור הכדורסל על הספסל.']],
+  [['Amit raised his hand,','עמית הרים את ידו,'],['but Ron and the taller boys called out first.','אבל רון והבנים הגבוהים יותר קראו ראשונים.']],
+  [['Amit ran more slowly and rarely scored,','עמית רץ לאט יותר ולעיתים רחוקות קלע,'],['so he lowered his hand.','ולכן הוריד את ידו.']],
+  [['During practice, the other team scored','במהלך האימון הקבוצה השנייה קלעה'],['three times from the same corner.','שלוש פעמים מאותה פינה.']],
+  [['Amit noticed that number seven','עמית הבחין ששחקן מספר שבע'],['stepped back before every pass.','צעד לאחור לפני כל מסירה.']],
+  [['He touched the coach’s arm and said,','הוא נגע בזרועו של המאמן ואמר:'],['“I think I know their next move.”','״אני חושב שאני יודע מה יהיה המהלך הבא שלהם.״']],
+  [['Coach Eyal turned the board toward him.','המאמן אייל סובב אליו את הלוח.'],['“Show us.”','״תראה לנו.״']],
+  [['Amit drew one short line.','עמית צייר קו קצר אחד.'],['“Ron, you stand here. I will watch number seven.”','״רון, אתה תעמוד כאן. אני אשמור על מספר שבע.״']],
+  [['Ron looked at the board.','רון הביט בלוח.'],['“Will this really work?”','״זה באמת יעבוד?״']],
+  [['On the next play, Amit shouted, “Left!”','במהלך הבא עמית צעק: ״שמאלה!״'],['and Ron stopped the pass.','ורון עצר את המסירה.']],
+  [['“We need Amit on the court,”','״אנחנו צריכים את עמית על המגרש,״'],['Ron told the coach.','אמר רון למאמן.']],
+  [['Amit did not score the winning basket;','עמית לא קלע את סל הניצחון;'],['he passed to the open player.','הוא מסר לשחקן הפנוי.']],
+  [['At the next practice, Coach Eyal gave Amit the marker first','באימון הבא המאמן אייל נתן לעמית ראשון את הטוש'],['and said, “Show us the plan.”','ואמר: ״תראה לנו את התכנית.״']]
  ]
 };
 const narrativeMetadata={
@@ -229,6 +244,10 @@ const narrativeMetadata={
  'l1-a2-last-runner':{
   arcEn:'Second attempt',arcHe:'כישלון וניסיון שני',
   lesson:'התקדמות נמדדת לא רק במקום מול אחרים אלא גם בשיפור אישי. עידוד והתמדה הופכים מאמץ להישג.'
+ },
+ 'l2-a1-team-place':{
+  arcEn:'Unexpected ability',arcHe:'יכולת מפתיעה',
+  lesson:'קבוצה מתחזקת כאשר היא מזהה סוגים שונים של יכולת. שחקן שקט או אטי יותר עשוי לראות מה שאחרים מחמיצים.'
  }
 };
 function anchors(s){const n=s.scenes.length;if(s.id.startsWith('new-'))return[s.scenes[0],s.scenes[1],s.scenes[n-2],s.scenes[n-1]];return[s.scenes[0],s.scenes[Math.round((n-1)/3)],s.scenes[Math.round((n-1)*2/3)],s.scenes[n-1]]}
