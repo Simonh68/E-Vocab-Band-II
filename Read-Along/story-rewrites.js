@@ -148,6 +148,89 @@ const extra=[
  ['A later choice showed that the lesson had lasted.','בחירה מאוחרת הראתה שהלקח נשמר.','A later action showed lasting change.']
 ];
 function pair(row,group){return [[row[0],group==='ES'?row[2]:row[1]]]}
+// Carefully authored revisions keep the educational message inside a specific
+// event. Dialogue supplies natural first- and second-person language, while
+// the final action shows what the character learned without stating a moral.
+const narrativeRevisions={
+ 'l1-a1-new-student':[
+  [['Noam arrived at a new school,','נועם הגיע לבית ספר חדש,'],['and kept his backpack on during break.','והשאיר את התיק על גבו בזמן ההפסקה.']],
+  [['He watched a ball game near the library,','הוא צפה במשחק כדור ליד הספרייה,'],['but did not know how to join.','אבל לא ידע איך להצטרף.']],
+  [['Ari noticed Noam standing alone,','ארי הבחין בנועם עומד לבדו,'],['and rolled the ball toward him.','וגלגל את הכדור לעברו.']],
+  [['“You can play with us,” Ari said.','״אתה יכול לשחק איתנו,״ אמר ארי.']],
+  [['“I do not know the rules,” Noam admitted.','״אני לא מכיר את הכללים,״ הודה נועם.']],
+  [['“We will show you,” Ari replied,','״אנחנו נראה לך,״ השיב ארי,'],['and the others made room.','והאחרים פינו מקום.']],
+  [['Noam passed the ball to a teammate,','נועם מסר את הכדור לחבר לקבוצה,'],['and heard the group call his name.','ושמע את חברי הקבוצה קוראים בשמו.']],
+  [['At lunch, he pulled out a chair for another new student','בארוחת הצהריים הוא משך כיסא עבור תלמיד חדש אחר'],['and said, “You can sit with us.”','ואמר: ״אתה יכול לשבת איתנו.״']]
+ ],
+ 'l1-a1-lost-dog':[
+  [['Leah and Tamar found a wet dog','לאה ותמר מצאו כלב רטוב'],['beside the school gate.','ליד שער בית הספר.']],
+  [['Its collar had no phone number,','על הקולר שלו לא היה מספר טלפון,'],['and one paw was hurt.','ואחת מכפותיו הייתה פצועה.']],
+  [['“I want to stay with him,” Leah said.','״אני רוצה להישאר איתו,״ אמרה לאה.']],
+  [['“We can help him,','״אנחנו יכולות לעזור לו,'],['but we must tell an adult,” Tamar replied.','אבל אנחנו חייבות לספר למבוגר,״ השיבה תמר.']],
+  [['“You hold the umbrella,” she added,','״את תחזיקי את המטרייה,״ הוסיפה,'],['“and I will call the guard.”','״ואני אתקשר לשומר.״']],
+  [['The guard brought water','השומר הביא מים'],['and called the animal rescue center.','והתקשר למרכז להצלת בעלי חיים.']],
+  [['While they waited, the girls spoke softly,','בזמן שהמתינו הבנות דיברו בשקט,'],['and the dog stopped shaking.','והכלב הפסיק לרעוד.']],
+  [['When the owner arrived, she said,','כאשר בעלת הכלב הגיעה, היא אמרה:'],['“You kept him safe, and you stayed safe too.”','״שמרתן עליו, וגם שמרתן על עצמכן.״']],
+  [['The next day, Leah wrote the rescue center’s number','למחרת לאה כתבה את המספר של מרכז ההצלה'],['inside her school notebook.','בתוך מחברת בית הספר שלה.']]
+ ],
+ 'l1-a1-back-to-school':[
+  [['Eli returned to school','אלי חזר לבית הספר'],['after several weeks at home.','לאחר כמה שבועות בבית.']],
+  [['At the stairs, he held the rail','ליד המדרגות הוא אחז במעקה'],['and tried to lift his heavy bag.','וניסה להרים את התיק הכבד שלו.']],
+  [['“I can carry it,” Eli insisted,','״אני יכול לשאת אותו,״ התעקש אלי,'],['although the bag pulled him off balance.','אף שהתיק הוציא אותו משיווי משקל.']],
+  [['Noa stopped below him and said,','נועה עצרה מתחתיו ואמרה:'],['“You carry your notebook; we will carry the books.”','״אתה תיקח את המחברת שלך; אנחנו ניקח את הספרים.״']],
+  [['Eli hesitated,','אלי היסס,'],['then handed her two books.','ואז מסר לה שני ספרים.']],
+  [['In class, the teacher asked','בכיתה המורה שאלה'],['who had notes from the missed lessons.','למי יש סיכומים מהשיעורים שהחסיר.']],
+  [['Three classmates placed their folders','שלושה חברים לכיתה הניחו את התיקיות שלהם'],['on Eli’s desk.','על שולחנו של אלי.']],
+  [['“I missed more than homework,” Eli said','״התגעגעתי ליותר מאשר לשיעורי הבית,״ אמר אלי'],['when the group laughed over a science mistake.','כאשר הקבוצה צחקה מטעות במדעים.']],
+  [['At break, his friends walked beside him','בהפסקה חבריו הלכו לצדו'],['without pulling him or rushing him.','בלי למשוך אותו ובלי לזרז אותו.']],
+  [['A week later, Eli reached the top of the stairs','שבוע לאחר מכן אלי הגיע לראש המדרגות'],['and waited there for the friends who had waited for him.','והמתין שם לחברים שהמתינו לו.']]
+ ],
+ 'l1-a2-no-phone':[
+  [['On Monday, the class placed every phone','ביום שני הכיתה הניחה את כל הטלפונים'],['in a closed box until the final bell.','בקופסה סגורה עד הצלצול האחרון.']],
+  [['“I will not last ten minutes,” Omer joked,','״אני לא אחזיק מעמד עשר דקות,״ התבדח עומר,'],['reaching toward his empty pocket.','ושלח את ידו אל הכיס הריק.']],
+  [['At the first break, they stood together,','בהפסקה הראשונה הם עמדו יחד,'],['but nobody knew what to say.','אבל איש לא ידע מה לומר.']],
+  [['Maya bounced a paper ball and asked,','מאיה הקפיצה כדור נייר ושאלה:'],['“What did we do before screens?”','״מה עשינו לפני המסכים?״']],
+  [['“We talked,” Lior replied.','״דיברנו,״ השיב ליאור.'],['“You start.”','״את תתחילי.״']],
+  [['Maya invented a question game,','מאיה המציאה משחק שאלות,'],['and everyone added one rule.','וכולם הוסיפו כלל אחד.']],
+  [['When two students argued,','כאשר שני תלמידים התווכחו,'],['the group had to listen instead of checking phones.','הקבוצה נאלצה להקשיב במקום לבדוק את הטלפונים.']],
+  [['“I thought I would miss my messages,” Omer said,','״חשבתי שאתגעגע להודעות שלי,״ אמר עומר,'],['“but I heard all of you.”','״אבל שמעתי את כולכם.״']],
+  [['The next day, the phones were returned,','למחרת הטלפונים הוחזרו,'],['but at break the students placed them face down and continued the game.','אבל בהפסקה התלמידים הניחו אותם כשפניהם מטה והמשיכו במשחק.']]
+ ],
+ 'l1-a2-last-runner':[
+  [['Yoni finished last in every practice run,','יוני סיים אחרון בכל ריצת אימון,'],['and the beep of the stopwatch followed him.','וצפצוף שעון העצר ליווה אותו.']],
+  [['After another slow lap,','לאחר עוד הקפה אטית,'],['he pulled at his shoelace and turned away.','הוא משך בשרוך נעלו והסתובב.']],
+  [['“I slow everyone down,”','״אני מאט את כולם,״'],['he told the coach.','הוא אמר למאמן.']],
+  [['The coach held up the stopwatch and said,','המאמן הרים את שעון העצר ואמר:'],['“You are racing yesterday’s time, not the other runners.”','״אתה מתחרה בזמן של אתמול, לא ברצים האחרים.״']],
+  [['Dani stepped forward.','דני צעד קדימה.'],['“We can train one lap together.”','״אנחנו יכולים להתאמן יחד בהקפה אחת.״']],
+  [['During the first week, Yoni’s time did not improve,','במהלך השבוע הראשון הזמן של יוני לא השתפר,'],['and he nearly stopped trying.','והוא כמעט הפסיק לנסות.']],
+  [['On a rainy morning, Dani waited for him,','בבוקר גשום דני המתין לו,'],['and Yoni finished three seconds faster.','ויוני סיים מהר יותר בשלוש שניות.']],
+  [['On race day, Yoni fell behind after the first turn,','ביום המרוץ יוני נשאר מאחור לאחר הפנייה הראשונה,'],['but he heard the finishers cheering.','אבל הוא שמע את המסיימים מעודדים.']],
+  [['“Keep going—you are almost there!”','״המשך—אתה כמעט שם!״'],['they called.','הם קראו.']],
+  [['Yoni crossed the line last, looked at the stopwatch,','יוני חצה את הקו אחרון, הביט בשעון העצר,'],['and whispered, “I beat my time.”','ולחש: ״שיפרתי את הזמן שלי.״']]
+ ]
+};
+const narrativeMetadata={
+ 'l1-a1-new-student':{
+  arcEn:'Help from a friend',arcHe:'קבלת עזרה מחבר',
+  lesson:'הזמנה קטנה יכולה לפתוח דלת לשייכות. קבלת פנים אמיתית ניכרת כאשר מי שקיבל מקום מפנה מקום לאחר.'
+ },
+ 'l1-a1-lost-dog':{
+  arcEn:'Rescue or intervention',arcHe:'חילוץ והתערבות אחראית',
+  lesson:'חמלה כלפי בעל חיים צריכה לבוא יחד עם שמירה על בטיחות, פנייה למבוגר וחלוקת אחריות.'
+ },
+ 'l1-a1-back-to-school':{
+  arcEn:'Help from a friend',arcHe:'קבלת עזרה מחבר',
+  lesson:'עזרה מכבדת מאפשרת לאדם לשמור על עצמאותו. החברים מסייעים במה שנדרש וממתינים לקצב שלו.'
+ },
+ 'l1-a2-no-phone':{
+  arcEn:'Discovery through experience',arcHe:'גילוי באמצעות התנסות',
+  lesson:'שימוש מאוזן בטלפון מאפשר לשמור על קשר דיגיטלי בלי לאבד שיחה, הקשבה ונוכחות.'
+ },
+ 'l1-a2-last-runner':{
+  arcEn:'Second attempt',arcHe:'כישלון וניסיון שני',
+  lesson:'התקדמות נמדדת לא רק במקום מול אחרים אלא גם בשיפור אישי. עידוד והתמדה הופכים מאמץ להישג.'
+ }
+};
 function anchors(s){const n=s.scenes.length;if(s.id.startsWith('new-'))return[s.scenes[0],s.scenes[1],s.scenes[n-2],s.scenes[n-1]];return[s.scenes[0],s.scenes[Math.round((n-1)/3)],s.scenes[Math.round((n-1)*2/3)],s.scenes[n-1]]}
 function details(s){
  const t=(s.id+' '+s.en+' '+s.descEn).toLowerCase();
@@ -430,9 +513,11 @@ window.STORIES.forEach(s=>{
  let arcIndex=explicitArc[s.id]??thematicArc(s,fallback,i);
  if(explicitArc[s.id]===undefined&&previousArc[key]===arcIndex)arcIndex=fallback!==arcIndex?fallback:(arcIndex+1)%structures.length;
  previousArc[key]=arcIndex;
- const arc=structures[arcIndex];
+ const meta=narrativeMetadata[s.id];
+ const baseArc=structures[arcIndex],arc=meta?{en:meta.arcEn,he:meta.arcHe}:baseArc;
  s.plotStructureEn=arc.en;s.plotStructureHe=arc.he;
- if(!explicit.has(s.id))s.scenes=rebuild(s,arc);
+ if(!explicit.has(s.id))s.scenes=rebuild(s,baseArc);
+ if(narrativeRevisions[s.id])s.scenes=narrativeRevisions[s.id];
  // The rewritten sequence has one verified visual anchor. Old episode images
  // are removed when they no longer describe the rewritten sequence.
  if(s.sceneImages&&s.sceneImages.length){s.image=s.sceneImages[0]||s.image;s.sceneImages=null}
@@ -447,7 +532,7 @@ window.STORIES.forEach(s=>{
   s.parentSummary='';s.parentLesson='';
  }else{
   s.parentSummary=(s.descHe||`הסיפור עוסק ב${s.he}.`)+' התקציר מציג את נקודת המוצא בלבד ואינו מגלה מראש את רגע ההכרעה ואת תוצאתו.';
-  s.parentLesson=lessonByArc[arc.en];
+  s.parentLesson=meta?.lesson||lessonByArc[arc.en];
  }
 });
 
