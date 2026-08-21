@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1422">
+  <title>מדריך למורה · Read Along</title>
+  <meta name="description" content="מדריך פדגוגי למורי אנגלית המשתמשים בסיפורי Read Along בכיתות ז׳–י׳.">
+  <link rel="canonical" href="https://simonh68.github.io/E-Vocab-Band-II/Read-Along/teacher-guide.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Heebo:wght@400;600;700&display=swap');
+    :root{--bg:#0b1422;--panel:#152238;--panel2:#101c2e;--ink:#f8fafc;--muted:#bdc8d8;--yellow:#ffe166;--cyan:#70dfff;--green:#79e2ad;--line:#ffffff20;--shadow:0 18px 52px #02061166}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 82% -8%,#1b5b85,transparent 34%),linear-gradient(165deg,#08111e,var(--bg) 55%);color:var(--ink);font-family:Heebo,Arial,sans-serif;line-height:1.65}
+    a{color:inherit}.skip{position:fixed;z-index:20;top:8px;right:8px;transform:translateY(-150%);background:var(--yellow);color:#152036;padding:9px 13px;border-radius:10px}.skip:focus{transform:none}
+    .wrap{width:min(1080px,calc(100% - 24px));margin:auto}
+    header{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:Andika,system-ui,sans-serif;font-weight:700;direction:ltr}.logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--yellow);color:#142033}
+    .back{padding:8px 12px;border:1px solid var(--line);border-radius:11px;background:#142238;text-decoration:none;white-space:nowrap}
+    .hero{padding:44px 0 28px;text-align:center}.kicker{color:var(--yellow);font-family:Andika,system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em}.hero h1{margin:8px 0;font-size:clamp(2.1rem,7vw,4.6rem);line-height:1.05}.lead{max-width:820px;margin:12px auto;color:var(--muted);font-size:1.08rem}.lead-en{direction:ltr;font-family:Andika,system-ui,sans-serif;font-size:1rem}
+    .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:760px;margin:24px auto 0}.fact{background:#0e192a;border:1px solid var(--line);border-radius:15px;padding:12px}.fact b{display:block;color:var(--yellow);font-family:Andika,system-ui,sans-serif;font-size:1.45rem}.fact span{color:var(--muted);font-size:.82rem}
+    .toc{margin:10px 0 25px;padding:15px;background:#101c2ecc;border:1px solid var(--line);border-radius:18px}.toc strong{color:var(--green)}.toc nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.toc a{padding:6px 10px;border-radius:999px;background:#1b2a42;text-decoration:none;font-size:.88rem}
+    .section{margin:0 0 26px;scroll-margin-top:12px}.section>h2{margin:0 0 12px;font-size:clamp(1.5rem,4vw,2.1rem);color:var(--yellow)}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:linear-gradient(150deg,#17263d,#121e31);border:1px solid var(--line);border-radius:20px;padding:21px;box-shadow:var(--shadow)}.card h3{margin:0 0 8px;color:var(--green);font-size:1.2rem}.card p{margin:7px 0;color:var(--muted)}.card strong{color:var(--ink)}.en{direction:ltr;text-align:left;font-family:Andika,system-ui,sans-serif}.en h3{color:var(--cyan)}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--panel2)}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:12px 14px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#182840;color:var(--yellow)}td{color:var(--muted)}tr:last-child td{border-bottom:0}.ltr{direction:ltr;text-align:left;font-family:Andika,system-ui,sans-serif}
+    .terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.term{background:#0f1b2d;border:1px solid var(--line);border-radius:14px;padding:13px}.term b{display:block;color:var(--cyan);direction:ltr;text-align:left;font-family:Andika,system-ui,sans-serif}.term span{display:block;color:var(--muted)}
+    ul,ol{margin:8px 0;padding-right:21px}li{margin:5px 0;color:var(--muted)}.en ul,.en ol{padding-right:0;padding-left:21px}
+    .note{margin:22px 0;padding:18px;border:1px solid #ffe16655;border-radius:18px;background:linear-gradient(135deg,#302b1d,#172236)}.note h2{margin:0 0 6px;color:var(--yellow);font-size:1.25rem}.note p{margin:5px 0;color:var(--muted)}
+    footer{border-top:1px solid var(--line);padding:25px 0 38px;text-align:center;color:var(--muted)}footer a{display:inline-block;margin-top:8px;color:var(--yellow)}
+    :focus-visible{outline:3px solid white;outline-offset:3px}
+    @media(max-width:760px){.hero{padding-top:24px}.pair{grid-template-columns:1fr}.terms{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.fact:last-child{grid-column:1/-1}.card{padding:18px}.toc nav{gap:6px}.toc a{font-size:.8rem}}
+    @media(max-width:420px){.wrap{width:calc(100% - 16px)}header{min-height:56px}.logo{width:36px;height:36px}.back{font-size:.8rem;padding:7px 9px}.hero h1{font-size:2rem}.facts{grid-template-columns:1fr}.fact:last-child{grid-column:auto}.lead{font-size:1rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">דלגו לתוכן</a>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="index.html" aria-label="Read Along home"><span class="logo" aria-hidden="true">📖</span><span>Read Along</span></a>
+      <a class="back" href="index.html">דף הבית · Home</a>
+    </header>
+
+    <main id="content">
+      <section class="hero" aria-labelledby="guide-title">
+        <div class="kicker">TEACHER GUIDE · מדריך למורה</div>
+        <h1 id="guide-title">לקרוא, להקשיב<br>ולהבין מתוך סיפור</h1>
+        <p class="lead">Read Along הוא מרחב קריאה מדורג לתלמידים ישראלים בכיתות ז׳–י׳. הוא מחבר בין סיפור קצר, הקראה איטית, חלוקה ליחידות משמעות ואיור שמבהיר את האירוע.</p>
+        <p class="lead lead-en" lang="en">Read Along gives Israeli students short English stories. They can listen slowly, read one meaning group at a time, and use a picture to understand the event.</p>
+        <div class="facts" aria-label="נתוני המיזם">
+          <div class="fact"><b>111</b><span>סיפורים פעילים · active stories</span></div>
+          <div class="fact"><b>3</b><span>שכבות גיל · age bands</span></div>
+          <div class="fact"><b>3</b><span>קבוצות בכל שכבה · groups in each band</span></div>
+        </div>
+      </section>
+
+      <aside class="toc" aria-label="תוכן המדריך">
+        <strong>במדריך:</strong>
+        <nav>
+          <a href="#purpose">מטרה וקהל</a><a href="#levels">רמות ותמיכה</a><a href="#reader">אופן הקריאה</a><a href="#phrases">יחידות משמעות</a><a href="#literary">עיצוב ספרותי</a><a href="#knowledge">תחומי הידע</a><a href="#classroom">שימוש בכיתה</a>
+        </nav>
+      </aside>
+
+      <section class="section" id="purpose">
+        <h2>מטרה חינוכית וקהל היעד</h2>
+        <div class="pair">
+          <article class="card">
+            <h3>עברית</h3>
+            <p>המיזם נועד לתלמידים שיכולים להפיק תועלת מסיפור אמיתי וקצר, אך זקוקים לשליטה בעומס הלשוני. המטרה היא לאפשר להם לעקוב אחר אירוע, להבין בחירה ותוצאה, ולחבר בין צליל, מבנה ומשמעות.</p>
+            <p>הקהל הוא תלמידים ישראלים בכיתות <strong>ז׳–י׳</strong>, בשלוש שכבות חופפות: ז׳–ח׳, ח׳–ט׳ וט׳–י׳. החפיפה מאפשרת למורה לבחור לפי הכיתה ולפי התלמידים בפועל.</p>
+          </article>
+          <article class="card en" lang="en">
+            <h3>Simple English</h3>
+            <p>The site is for students who need clear language but still need a real story. They follow an event, a choice, and a result. They connect sound, sentence form, and meaning.</p>
+            <p>The readers are Israeli students in grades 7–10. The age bands overlap, so a teacher can choose the best band for the class.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="levels">
+        <h2>שלוש שכבות גיל ושלוש קבוצות</h2>
+        <div class="table-wrap" role="region" aria-label="טבלת שכבות וקבוצות" tabindex="0">
+          <table>
+            <thead><tr><th>בחירה באתר</th><th>מה משתנה בפועל</th><th class="ltr">Simple English</th></tr></thead>
+            <tbody>
+              <tr><td><strong>שכבה 1 · כיתות ז׳–ח׳</strong></td><td>סיפורים קצרים יותר, רצף ברור ומשפטים ישירים יחסית. בסיפורים הפעילים יש 8–17 סצנות, לפי הקבוצה.</td><td class="ltr">Shorter stories. The order of events is clear. Active stories have 8–17 scenes, based on the group.</td></tr>
+              <tr><td><strong>שכבה 2 · כיתות ח׳–ט׳</strong></td><td>סיפורים ארוכים יותר, בחירות חברתיות, יותר סיבה ותוצאה. יש 10–20 סצנות.</td><td class="ltr">Longer stories. Students meet social choices and more cause and result. There are 10–20 scenes.</td></tr>
+              <tr><td><strong>שכבה 3 · כיתות ט׳–י׳</strong></td><td>סיפורים מורחבים ושאלות מוסריות מורכבות יותר. יש 12–23 סצנות.</td><td class="ltr">Longer stories with harder choices. There are 12–23 scenes.</td></tr>
+              <tr><td><strong>קבוצת A1</strong></td><td>קבוצת התמיכה באתר: אוצר מילים שימושי, תחביר ישיר יותר, רצף מפורש וחזרה טבעית. לכל יחידת הקראה מוצגת עזרה בעברית.</td><td class="ltr">The support group: useful words, clearer sentence form, and Hebrew help for each meaning group.</td></tr>
+              <tr><td><strong>קבוצת A2</strong></td><td>קבוצה עצמאית יותר: טקסטים מעט ארוכים ומורכבים יותר, קשרי זמן, סיבה ותוצאה והסקת מסקנות. גם כאן הסיוע הוא בעברית.</td><td class="ltr">A more independent group: longer text, time links, cause and result, and Hebrew help.</td></tr>
+              <tr><td><strong>דוברי אנגלית</strong></td><td>אוצר מילים ותחביר תובעניים יותר, מניעים סמויים ורצף מורכב יותר. במקום עברית מוצג הסבר ב־Simple English.</td><td class="ltr">Harder English, less direct ideas, and more complex events. Help is in Simple English, not Hebrew.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <h2>דיוק חשוב</h2>
+          <p>השמות A1 ו־A2 הם שמות הקבוצות בתוך האתר. הם אינם הצהרה על הסמכה רשמית לפי CEFR. גם בתוך אותה קבוצה הסיפורים אינם זהים באורכם או בקושי שלהם; המורה צריך לבדוק את הסיפור המסוים.</p>
+        </div>
+      </section>
+
+      <section class="section" id="reader">
+        <h2>איך הקורא עובד</h2>
+        <div class="pair">
+          <article class="card">
+            <h3>מה התלמיד עושה</h3>
+            <ul>
+              <li>פותח סיפור ורואה תחילה את הכותרת, העטיפה ומספר הסצנות.</li>
+              <li>לוחץ על המשפט כדי לשמוע את כל המשפט <strong>ברצף של יחידות קצרות</strong>.</li>
+              <li>לוחץ על יחידה מסוימת כדי לשמוע רק אותה ולראות את העזרה המתאימה.</li>
+              <li>עובר קדימה ואחורה בכפתורים; בטלפון אפשר גם להחליק על התמונה.</li>
+              <li>ההקראה משתמשת בקול האנגלי הזמין בדפדפן, בקצב אטי של 0.8.</li>
+            </ul>
+          </article>
+          <article class="card en" lang="en">
+            <h3>What the student does</h3>
+            <ul>
+              <li>Open a story and see its title, cover, and number of scenes.</li>
+              <li>Tap the sentence to hear all its short meaning groups in order.</li>
+              <li>Tap one group to hear only that part and see help for it.</li>
+              <li>Use the buttons. On a phone, swipe on the picture.</li>
+              <li>The browser reads English slowly at rate 0.8.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="phrases">
+        <h2>חלוקה ליחידות משמעות, לא לספירת מילים</h2>
+        <div class="pair">
+          <article class="card">
+            <h3>העיקרון הפדגוגי</h3>
+            <p>כל משפט מחולק ליחידות קצרות שניתנות להקשה. הגבול נבחר לפי <strong>משמעות, תחביר וקצב דיבור</strong>, ולא באמצעות חיתוך מכני אחרי מספר קבוע של מילים. בפועל המערכת מגבילה יחידה לעד שש מילים, אך בתוך הגבול הזה היא מעדיפה צירוף שלם.</p>
+            <p>התרגום או ההסבר מוצמדים לאותו גבול. בקבוצות A1 ו־A2 מוצגת עזרה עברית ממוקדת ליחידה; בתצוגת המשפט מוצגת גם המשמעות המלאה. לדוברי אנגלית מוצג הסבר מלא ב־Simple English.</p>
+            <p>מילות תפקוד נשמרות בתוך הצירוף שלהן: <span lang="en" dir="ltr">determiners, auxiliaries, not, infinitive to</span> ומילות יחס אינן נשארות בדרך כלל בקצה יחידה לא שלמה. מילות מוקד עצמאיות — <span lang="en" dir="ltr">yet, still, already, again, together</span> — יכולות לעמוד לבדן רק כאשר הדבר טבעי ומסייע להבנה.</p>
+          </article>
+          <article class="card en" lang="en">
+            <h3>Meaning groups</h3>
+            <p>A sentence is not cut after a fixed number of words. Each part should hold one useful piece of meaning. A part can have up to six words, but a complete phrase is more important than equal size.</p>
+            <p>Help follows the same boundary. A1 and A2 have Hebrew help for the part. English Speakers have a full Simple English explanation.</p>
+            <p>Small grammar words stay with their phrase. A focus word such as <em>still</em> or <em>again</em> may stand alone when it has a clear job in speech.</p>
+          </article>
+        </div>
+        <div class="terms" aria-label="מילון מונחים מקצועיים">
+          <div class="term"><b>noun phrase</b><span>צירוף שמרכזו שם עצם: <span lang="en" dir="ltr">the quiet student</span>.</span></div>
+          <div class="term"><b>verb phrase</b><span>הפועל והמילים ששייכות אליו: <span lang="en" dir="ltr">did not answer</span>.</span></div>
+          <div class="term"><b>prepositional phrase</b><span>צירוף שמתחיל במילת יחס: <span lang="en" dir="ltr">after the lesson</span>.</span></div>
+          <div class="term"><b>clause</b><span>יחידה שיש בה נושא ופועל, ולעיתים היא חלק ממשפט גדול יותר.</span></div>
+          <div class="term"><b>collocation</b><span>מילים שנוהגות להופיע יחד, כמו <span lang="en" dir="ltr">make a choice</span>.</span></div>
+          <div class="term"><b>formulaic language</b><span>ביטוי שימושי שנלמד כיחידה, למשל <span lang="en" dir="ltr">No problem</span>.</span></div>
+          <div class="term"><b>determiner</b><span>מילה כמו <span lang="en" dir="ltr">the, a, this, my</span>, שמציגה את שם העצם.</span></div>
+          <div class="term"><b>auxiliary</b><span>פועל עזר כמו <span lang="en" dir="ltr">is, have, can, will</span>.</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="literary">
+        <h2>היגיון ספרותי ועיצוב נרטיבי</h2>
+        <div class="pair">
+          <article class="card">
+            <h3>סיפור לפני מסר</h3>
+            <p>כל סיפור מבקש להציג אירוע ממשי: משהו משתבש או משתנה, נוצר קונפליקט, הדמות נדרשת לבחור, ולבחירה יש תוצאה. התנועה הרגשית נבנית דרך פעולה, פרט, היסוס ודיאלוג. המסר הערכי נובע ממה שהדמויות עושות ומה שקורה אחר כך; הוא אינו נאמר כדרשה.</p>
+            <p>הסיפורים משתמשים בגוף ראשון ושני בתוך דיאלוג, בגוף רבים ובקולות שונים כדי לקרב את האנגלית לעולם החברתי של בני נוער. נשמרים נושא מרכזי ורצף ערכי, אך מבני העלילה משתנים: אי־הבנה, טעות ותיקון, ניסיון שני, גילוי, מרוץ נגד הזמן, היפוך תפקידים ועוד.</p>
+          </article>
+          <article class="card en" lang="en">
+            <h3>Story before lesson</h3>
+            <p>Each story has a real event. A problem or change creates conflict. A person makes a choice, and the choice has a result. Feelings appear through action, detail, silence, and dialogue.</p>
+            <p>The lesson comes from what happens. It is not a speech to the reader. Stories use <em>I</em>, <em>you</em>, <em>we</em>, and dialogue, so the English feels close to teen life. Story forms are different, so the collection does not repeat one plot.</p>
+          </article>
+        </div>
+        <div class="note">
+          <h2>האיור הוא עוגן</h2>
+          <p>העטיפה צריכה להציג אירוע, דמות, חפץ או מתח מרכזי מן הסיפור. מטרתה לעזור לתלמיד לבנות הקשר לפני הקריאה ובמהלכה — לא רק לקשט את הכרטיס.</p>
+        </div>
+      </section>
+
+      <section class="section" id="knowledge">
+        <h2>המיומנויות והידע ששימשו ביצירה</h2>
+        <div class="pair">
+          <article class="card">
+            <h3>שפה, קריאה וסיפור</h3>
+            <p><strong>EFL/ESL</strong> — הוראת אנגלית כשפה זרה או נוספת; <strong>graded readers</strong> — טקסטים מדורגים לפי עומס לשוני; <strong>applied linguistics</strong> — שימוש בידע על שפה לצורכי הוראה; <strong>phraseology</strong> — חקר צירופים וביטויים; <strong>syntax</strong> — מבנה המשפט; <strong>discourse analysis</strong> — הקשר בין משפטים בתוך טקסט שלם.</p>
+            <p>נוספו עקרונות של רכישת אוצר מילים, שטף קריאה, הבנת הנשמע, כתיבה ספרותית ועיצוב נרטיבי.</p>
+          </article>
+          <article class="card en" lang="en">
+            <h3>Pictures, access, and use</h3>
+            <p><strong>Visual literacy</strong> means reading meaning from a picture. <strong>Accessibility</strong> means making the site easier to use for more people. <strong>Mobile UX</strong> means planning a clear experience for a phone.</p>
+            <p>These fields work with reading fluency, listening, word learning, literary writing, and narrative design.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="classroom">
+        <h2>הצעות לשימוש בכיתה</h2>
+        <div class="pair">
+          <article class="card">
+            <h3>פעילות קצרה או רצף שיעור</h3>
+            <ol>
+              <li><strong>קריאה מודרכת:</strong> לנבא מן העטיפה, לקרוא סצנה ולבדוק הבנה.</li>
+              <li><strong>האזנה חוזרת:</strong> פעם אחת עם הטקסט ופעם נוספת בלי להביט בתרגום.</li>
+              <li><strong>חיקוי הגייה:</strong> להקשיב ליחידה ולחזור אחריה בקצב ובאינטונציה דומים.</li>
+              <li><strong>זיהוי צירופים:</strong> לסמן noun phrase, verb phrase או collocation שימושי.</li>
+              <li><strong>דיון קצר:</strong> מה הייתה הבחירה? מי הושפע? האם הייתה אפשרות אחרת?</li>
+              <li><strong>המחזה:</strong> לבחור דיאלוג קצר ולהציג אותו בזוגות.</li>
+              <li><strong>כתיבת המשך:</strong> לכתוב סצנה נוספת שמראה אם השינוי נשמר.</li>
+              <li><strong>השוואה בין רמות:</strong> להשוות אורך, אוצר מילים, תחביר וסוג הסיוע — בלי להניח שכל הסיפורים באותה קבוצה זהים.</li>
+            </ol>
+          </article>
+          <article class="card en" lang="en">
+            <h3>Simple lesson ideas</h3>
+            <ol>
+              <li>Look at the cover and guess the event.</li>
+              <li>Listen again and copy the sound and rhythm.</li>
+              <li>Find useful word groups.</li>
+              <li>Talk about the choice and its result.</li>
+              <li>Act out a short dialogue.</li>
+              <li>Write one more scene.</li>
+              <li>Compare two levels with care.</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="note" aria-labelledby="living-title">
+        <h2 id="living-title">מיזם מתעדכן · A living project</h2>
+        <p>הסיפורים אינם מוצר סגור. הם נבדקים ומתעדכנים באופן מתמשך לפי סקירה פדגוגית ולפי משוב שמתקבל ממורים ומתלמידים בשטח. שינוי עתידי עשוי לחדד שפה, חלוקה ליחידות, תרגום, סיוע או איור.</p>
+        <p class="en" lang="en">The stories are not a closed product. They are reviewed and updated with teaching feedback from real classrooms. A later update may improve language, meaning groups, support, or pictures.</p>
+      </section>
+    </main>
+
+    <footer>
+      Read Along · מדריך למורה · עודכן באוגוסט 2026<br>
+      <a href="index.html">חזרה לבחירת הסיפורים · Back to the stories</a>
+    </footer>
+  </div>
+</body>
+</html>
