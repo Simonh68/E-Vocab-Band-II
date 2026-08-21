@@ -2,7 +2,7 @@
 
 > Internal document. Do not link this file from any public page.
 >
-> Last verified: 2026-08-21 against the runtime produced by `catalog.js`, `additional-stories.js`, and `story-rewrites.js` on commit `6a2237127cb21c6b7e424aba8a870f43e0ee03f4`.
+> Last verified: 2026-08-21 against the runtime produced by `catalog.js`, `additional-stories.js`, and `story-rewrites.js` during the full 111-story language and narrative audit.
 
 ## 1. Purpose and non-negotiable principles
 
@@ -37,14 +37,14 @@ Both `index.html` and `reader.html` load the data in this exact order:
 ```html
 <script src="catalog.js?v=17"></script>
 <script src="additional-stories.js?v=17"></script>
-<script src="story-rewrites.js?v=18"></script>
+<script src="story-rewrites.js?v=19"></script>
 ```
 
 The order is part of the data model:
 
 1. `catalog.js` creates `window.STORIES`, `window.LEVELS`, and `window.GROUPS`.
 2. `additional-stories.js` pushes more stories into `window.STORIES`, adds the three newcomer stories, and supplies initial parent guidance where needed.
-3. `story-rewrites.js` mutates the complete array. It assigns narrative structures, replaces or rebuilds story scenes, applies corrections, splits scenes into pedagogical units, selects active covers, and writes final parent-facing metadata.
+3. `story-rewrites.js` mutates the complete array. It assigns narrative structures, replaces or rebuilds story scenes, normalizes punctuation, applies corrections, splits scenes into pedagogical units, selects active covers, and writes final parent-facing metadata.
 
 Never inspect only one source file and assume it represents the published story. The source of truth for the live catalogue is the final in-memory `window.STORIES` after all three files have executed.
 
@@ -259,7 +259,7 @@ Keep the tone respectful and age-appropriate, but do not make the plot childish.
 
 ### Narrative structures
 
-The rewrite layer currently varies stories among 12 structures:
+The rewrite layer currently varies stories among 14 structures:
 
 1. Unwelcome surprise
 2. Help from a friend
@@ -273,8 +273,12 @@ The rewrite layer currently varies stories among 12 structures:
 10. False appearance
 11. Chain reaction
 12. Role reversal
+13. Moral dilemma
+14. Preparation pays off
 
-Do not assign the same arc repeatedly inside one group when another structure fits. Story variety is a content requirement, not decoration.
+Assign the structure that fits the specific conflict, even when a nearby story uses the same one. Story variety is a content requirement, but it must never be created by forcing an unrelated plot engine onto a story.
+
+The generic rebuild path must preserve four story-specific anchors: the opening, the disruption, the decisive action, and the result. Fill only the middle with lines from the selected coherent structure. Do not mix broad topic banks merely because two stories mention school, water, food, sport, technology, or another shared keyword; that approach can introduce objects, dialogue, or consequences that do not belong to the story.
 
 ### Level control
 
@@ -282,6 +286,7 @@ Do not assign the same arc repeatedly inside one group when another structure fi
 - Repeat useful words in new contexts, not through isolated drills inside the story.
 - Advanced grammar may appear only when it clarifies chronology, cause, contrast, or emphasis. Do not add Past Perfect or inversion as decoration.
 - Keep `descEn`/`descHe` spoiler-light: state the premise, not the decisive moment or outcome.
+- For an added story, never reuse its final scene as the card description. Derive the premise from the setup before the decisive action.
 - Preserve one central narrative and value. Remove attractive details that create a second unrelated plot.
 
 ## 10. Image production and review
@@ -487,6 +492,8 @@ If the catalogue later grows beyond 111, update the expected count intentionally
 - [ ] Ending shows the message through action
 - [ ] No sermon, generic moral paragraph, or institutional voice
 - [ ] Plot structure differs appropriately from nearby stories
+- [ ] Generic rebuild preserves the original opening, disruption, decisive action, and result
+- [ ] No keyword-based detail has leaked in from a different story topic
 - [ ] Premise/summary does not spoil the decisive moment
 
 ### Language and level review
