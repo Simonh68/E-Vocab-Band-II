@@ -55,7 +55,9 @@ Read-Along/
 ├── index.html                    Public story chooser and public teacher-guide link
 ├── reader.html                   Story reader, TTS, unit interaction, support, navigation
 ├── about.html                    Older public overview; not a current story-count source
-├── teacher-guide.html            Public bilingual teacher guide
+├── teacher-guide.html            Public English teacher guide and format/language hub
+├── teacher-guide-he.html         Public Hebrew translation of the teacher guide
+├── teacher-guide.pdf             Public printable English teacher guide
 ├── AI-MAINTENANCE-GUIDE.md       This internal maintenance guide; never link publicly
 ├── STORY-CATALOG.md              Internal stable-number catalogue of all 111 stories
 ├── catalog.js                    Original story definitions, base constructors, levels/groups
@@ -421,6 +423,7 @@ Rules:
 git diff --check
 git diff --stat
 git diff -- Read-Along/index.html Read-Along/teacher-guide.html \
+  Read-Along/teacher-guide-he.html Read-Along/teacher-guide.pdf \
   Read-Along/AI-MAINTENANCE-GUIDE.md Read-Along/STORY-CATALOG.md
 git status --short
 git fetch --prune origin
@@ -526,8 +529,9 @@ If the catalogue later grows beyond 111, update the expected count intentionally
 ### Technical and link review
 
 - [ ] Home cards use complete IDs in `reader.html?id=...`
-- [ ] Teacher-guide link works on phone and desktop
-- [ ] Teacher guide returns to `index.html`
+- [ ] The English `Teacher guide` link works on phone and desktop
+- [ ] The English guide links to `teacher-guide.pdf` and `teacher-guide-he.html`
+- [ ] Both HTML teacher guides return to `index.html`
 - [ ] No public link points to `AI-MAINTENANCE-GUIDE.md` or `STORY-CATALOG.md`
 - [ ] Keyboard activation works on reading units and native controls
 - [ ] TTS reads the exact visible English unit
