@@ -90,5 +90,5 @@ $('dots').replaceChildren(...slides.map(()=>{const d=document.createElement('spa
 let touchX=0;document.querySelector('main').addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});document.querySelector('main').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>70){if(dx<0&&index<slides.length-1){index++;render()}else if(dx>0&&index){index--;render()}}},{passive:true});
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&index<slides.length-1){index++;render()}if(e.key==='ArrowLeft'&&index){index--;render()}});render();
 </script>
-</body>
+<script src="../../analytics.js"></script></body>
 </html>
