@@ -2,7 +2,7 @@
 
 > **מסמך פנימי — אין לקשר אליו מן האתר הציבורי.**
 >
-> עודכן: 21.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js` בקומיט בסיס `6a2237127cb21c6b7e424aba8a870f43e0ee03f4`.
+> עודכן: 23.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js` בקומיט בסיס `42b6bd62bc38773520a216a5d6592066909f5dec` ובתוספת תיקוני אצוות הביקורת המתועדות בענף העבודה.
 
 ## כללי זהות וסטטוס
 
@@ -30,9 +30,9 @@
 
 | מס׳ קבוע | מזהה מלא | כותרת באנגלית | כותרת בעברית | שכבת גיל | קבוצה | סצנות | עטיפה פעילה | upgradedCovers | סיוע | ביקורת לשונית | ביקורת חזותית | הערה פנימית |
 |---|---|---|---|---|---|---:|---|:---:|---|---|---|---|
-| RA-001 | `l1-a1-new-student` | The New Student | התלמיד החדש | ז׳–ח׳ | A1 | 8 | `story-covers-v3/new-student.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-002 | `l1-a1-lost-dog` | The Lost Dog | הכלב שאבד | ז׳–ח׳ | A1 | 9 | `story-covers-v3/lost-dog.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-003 | `l1-a1-back-to-school` | Back to School | חוזרים לבית הספר | ז׳–ח׳ | A1 | 10 | `story-covers-v3/back-to-school.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-001 | `l1-a1-new-student` | The New Student | התלמיד החדש | ז׳–ח׳ | A1 | 8 | `story-covers-v3/new-student.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-002 | `l1-a1-lost-dog` | The Lost Dog | הכלב שאבד | ז׳–ח׳ | A1 | 9 | `story-covers-v3/lost-dog.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-003 | `l1-a1-back-to-school` | Back to School | חוזרים לבית הספר | ז׳–ח׳ | A1 | 10 | `story-covers-v3/back-to-school.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-028 | `l1-a1-broken-pencil` | The Broken Pencil | העיפרון שנשבר | ז׳–ח׳ | A1 | 11 | `story-scenes/l1-a1-broken-pencil/00.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפת legacy ייעודית; 627×627 |
 | RA-029 | `l1-a1-rainy-walk` | The Rainy Walk Home | הדרך הגשומה הביתה | ז׳–ח׳ | A1 | 12 | `scenes/scene-11.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-030 | `l1-a1-class-plant` | The Class Plant | הצמח הכיתתי | ז׳–ח׳ | A1 | 13 | `scenes/scene-07.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
@@ -47,9 +47,9 @@
 
 | מס׳ קבוע | מזהה מלא | כותרת באנגלית | כותרת בעברית | שכבת גיל | קבוצה | סצנות | עטיפה פעילה | upgradedCovers | סיוע | ביקורת לשונית | ביקורת חזותית | הערה פנימית |
 |---|---|---|---|---|---|---:|---|:---:|---|---|---|---|
-| RA-004 | `l1-a2-no-phone` | A Day Without a Phone | יום בלי טלפון | ז׳–ח׳ | A2 | 9 | `story-covers-v3/day-without-phone.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-005 | `l1-a2-last-runner` | The Last Runner | הרץ האחרון | ז׳–ח׳ | A2 | 10 | `story-covers-v3/last-runner.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-006 | `l1-a2-clean-playground` | The Clean Playground | מגרש המשחקים הנקי | ז׳–ח׳ | A2 | 11 | `story-covers-v3/clean-playground.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-004 | `l1-a2-no-phone` | A Day Without a Phone | יום בלי טלפון | ז׳–ח׳ | A2 | 9 | `story-covers-v3/day-without-phone.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-005 | `l1-a2-last-runner` | The Last Runner | הרץ האחרון | ז׳–ח׳ | A2 | 10 | `story-covers-v3/last-runner.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-006 | `l1-a2-clean-playground` | The Clean Playground | מגרש המשחקים הנקי | ז׳–ח׳ | A2 | 11 | `story-covers-v3/clean-playground.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-031 | `l1-a2-spare-seat` | The Spare Seat | המושב הפנוי | ז׳–ח׳ | A2 | 12 | `scenes/scene-03.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-032 | `l1-a2-missed-practice` | The Missed Practice | האימון שהוחמץ | ז׳–ח׳ | A2 | 13 | `scenes/scene-04.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-033 | `l1-a2-reusable-bottle` | The Reusable Bottle | הבקבוק לשימוש חוזר | ז׳–ח׳ | A2 | 14 | `scenes/scene-06.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
@@ -64,9 +64,9 @@
 
 | מס׳ קבוע | מזהה מלא | כותרת באנגלית | כותרת בעברית | שכבת גיל | קבוצה | סצנות | עטיפה פעילה | upgradedCovers | סיוע | ביקורת לשונית | ביקורת חזותית | הערה פנימית |
 |---|---|---|---|---|---|---:|---|:---:|---|---|---|---|
-| RA-007 | `l1-es-wrong-message` | The Message Sent by Mistake | ההודעה שנשלחה בטעות | ז׳–ח׳ | ES | 11 | `story-covers-v3/wrong-message.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-008 | `l1-es-appearance` | More Than an Appearance | מעבר למראה החיצוני | ז׳–ח׳ | ES | 12 | `story-covers-v3/appearance.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-009 | `l1-es-school-garden` | The Garden Behind the School | הגינה שמאחורי בית הספר | ז׳–ח׳ | ES | 14 | `story-covers-v3/school-garden.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-007 | `l1-es-wrong-message` | The Message Sent by Mistake | ההודעה שנשלחה בטעות | ז׳–ח׳ | ES | 11 | `story-covers-v3/wrong-message.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-008 | `l1-es-appearance` | More Than an Appearance | מעבר למראה החיצוני | ז׳–ח׳ | ES | 12 | `story-covers-v3/appearance.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-009 | `l1-es-school-garden` | The Garden Behind the School | הגינה שמאחורי בית הספר | ז׳–ח׳ | ES | 14 | `story-covers-v3/school-garden.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-034 | `l1-es-new-glasses` | The New Glasses | המשקפיים החדשים | ז׳–ח׳ | ES | 15 | `scenes/scene-08.webp` | לא | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-035 | `l1-es-school-map` | The School Map | מפת בית הספר | ז׳–ח׳ | ES | 16 | `scenes/scene-10.webp` | לא | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-036 | `l1-es-bird-nest` | The Nest Near the Window | הקן שליד החלון | ז׳–ח׳ | ES | 17 | `scenes/scene-11.webp` | לא | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
@@ -81,7 +81,7 @@
 
 | מס׳ קבוע | מזהה מלא | כותרת באנגלית | כותרת בעברית | שכבת גיל | קבוצה | סצנות | עטיפה פעילה | upgradedCovers | סיוע | ביקורת לשונית | ביקורת חזותית | הערה פנימית |
 |---|---|---|---|---|---|---:|---|:---:|---|---|---|---|
-| RA-010 | `l2-a1-wallet` | The Wallet at the Bus Stop | הארנק בתחנת האוטובוס | ח׳–ט׳ | A1 | 10 | `story-covers-v3/wallet.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-010 | `l2-a1-wallet` | The Wallet at the Bus Stop | הארנק בתחנת האוטובוס | ח׳–ט׳ | A1 | 10 | `story-covers-v3/wallet.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-011 | `l2-a1-helping-neighbor` | Helping Mr. Cohen | עוזרים למר כהן | ח׳–ט׳ | A1 | 11 | `story-covers-v3/helping-neighbor.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-012 | `l2-a1-team-place` | A Place on the Team | מקום בנבחרת | ח׳–ט׳ | A1 | 13 | `story-covers-v3/team-place.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-037 | `l2-a1-library-book` | The Damaged Library Book | ספר הספרייה שניזוק | ח׳–ט׳ | A1 | 14 | `scenes/scene-02.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
