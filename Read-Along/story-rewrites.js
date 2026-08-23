@@ -607,18 +607,169 @@ const narrativeRevisions={
   [['At the public meeting,','במפגש הציבורי,'],['the students presented','התלמידים הציגו'],['both the solution and its cost.','גם את הפתרון וגם את מחירו.']],
   [['Months later,','כעבור חודשים,'],['Mrs. Levi parked','גברת לוי חנתה'],['in the repaired lot','במגרש המתוקן'],['while children played','בזמן שילדים שיחקו'],['under the same trees.','מתחת לאותם עצים.']]
  ],
+ 'l3-a1-empty-seat':[
+  [['After David’s accident,','לאחר התאונה של דוד,'],['he stayed in hospital','הוא נשאר בבית החולים'],['for several weeks.','במשך כמה שבועות.']],
+  [['His empty seat','המקום הריק שלו'],['remained beside the classroom window.','נשאר ליד חלון הכיתה.']],
+  [['The class sent homework photos','הכיתה שלחה תמונות של שיעורי הבית'],['and many long messages.','והודעות ארוכות רבות.']],
+  [['David tried to answer everything,','דוד ניסה לענות על הכול,'],['but soon closed his eyes.','אך עד מהרה עצם את עיניו.']],
+  [['Noa noticed his short replies.','נועה הבחינה בתשובות הקצרות שלו.']],
+  [['She called and asked,','היא התקשרה ושאלה:'],['“What would help today?”','״מה יעזור לך היום?״']],
+  [['“One clear page,” David said,','״דף ברור אחד,״ אמר דוד,'],['“and one short call.”','״ושיחה קצרה אחת.״']],
+  [['The class changed its plan.','הכיתה שינתה את התכנית שלה.']],
+  [['Eli sent neat notes,','אלי שלח סיכומים מסודרים,'],['and Noa explained one exercise.','ונועה הסבירה תרגיל אחד.']],
+  [['The others sent one greeting,','האחרים שלחו ברכה אחת,'],['not ten questions.','ולא עשר שאלות.']],
+  [['During the video call,','במהלך שיחת הווידאו,'],['David solved the last step himself.','דוד פתר בעצמו את השלב האחרון.']],
+  [['He smiled and held up','הוא חייך והרים'],['the finished page.','את הדף שהשלים.']],
+  [['Students divided notes and visits','התלמידים חילקו ביניהם סיכומים וביקורים'],['without tiring him.','בלי לעייף אותו.']],
+  [['When David returned,','כאשר דוד חזר,'],['he walked slowly to his seat.','הוא הלך לאט אל מקומו.']],
+  [['A classmate missed the instructions.','חבר לכיתה החמיץ את ההוראות.'],['David shared his notes and said,','דוד שיתף את הסיכומים שלו ואמר:'],['“One clear page at a time.”','״דף ברור אחד בכל פעם.״']]
+ ],
+ 'l3-a2-anonymous-account':[
+  [['Four friends created an anonymous account','ארבעה חברים יצרו חשבון אנונימי'],['for jokes about school life.','לבדיחות על חיי בית הספר.']],
+  [['At first, the jokes stayed general,','בתחילה הבדיחות נשארו כלליות,'],['and the account gained followers.','והחשבון צבר עוקבים.']],
+  [['Then Lior uploaded a video','אחר כך ליאור העלה סרטון'],['of Amir falling during basketball practice.','שבו אמיר נופל באימון כדורסל.']],
+  [['The comments became cruel,','התגובות נעשו אכזריות,'],['and Amir stopped coming to school.','ואמיר הפסיק להגיע לבית הספר.']],
+  [['Dana knew the password,','דנה ידעה את הסיסמה,'],['but deleted only the worst comment.','אך מחקה רק את התגובה הגרועה ביותר.']],
+  [['The next day, the teacher said','למחרת המורה אמרה'],['Amir had asked to study from home.','שאמיר ביקש ללמוד מן הבית.']],
+  [['Dana turned her phone face down','דנה הפכה את הטלפון על פניו'],['when the others prepared another post.','כאשר האחרים הכינו פרסום נוסף.']],
+  [['“I helped create this account,”','״עזרתי ליצור את החשבון הזה,״'],['she said. “We have to stop.”','אמרה. ״אנחנו חייבים לעצור.״']],
+  [['“Nobody knows it is us,”','״איש אינו יודע שאלה אנחנו,״'],['one friend replied.','השיב אחד החברים.']],
+  [['Dana and two creators','דנה ושניים מיוצרי החשבון'],['showed the full account','הראו את החשבון המלא'],['to the counselor','ליועצת'],['and admitted their own roles.','והודו בחלקם.']],
+  [['With the counselor, they posted a clear correction,','יחד עם היועצת הם פרסמו תיקון ברור,'],['removed the video and closed the account.','הסירו את הסרטון וסגרו את החשבון.']],
+  [['Amir accepted a written apology,','אמיר קיבל התנצלות כתובה,'],['but did not agree to meet them.','אך לא הסכים לפגוש אותם.']],
+  [['Weeks later, Dana waited for permission','כעבור שבועות דנה חיכתה לקבל רשות'],['before sharing a team photo.','לפני ששיתפה תמונת נבחרת.'],['The photo stayed in her draft','התמונה נשארה בטיוטה שלה'],['until everyone answered.','עד שכולם ענו.']]
+ ],
+ 'l3-a2-volunteer-truth':[
+  [['A school group entered a competition','קבוצת בית ספר השתתפה בתחרות'],['for community service projects.','של מיזמי התנדבות קהילתית.']],
+  [['Their grocery visits had helped','ביקורי חלוקת המזון שלהם עזרו'],['twelve older residents.','לשנים־עשר תושבים מבוגרים.']],
+  [['Roni opened the final report','רוני פתח את הדו״ח הסופי'],['and saw twenty visits','וראה עשרים ביקורים'],['and sixty volunteer hours.','ושישים שעות התנדבות.']],
+  [['The spreadsheet counted travel twice','הגיליון ספר את זמן הנסיעה פעמיים'],['and included canceled visits.','וכלל ביקורים שבוטלו.']],
+  [['“Every group presents its strongest numbers,”','״כל קבוצה מציגה את המספרים החזקים ביותר שלה,״'],['the team leader said.','אמר ראש הקבוצה.']],
+  [['When the judges named them finalists,','כאשר השופטים הכריזו שהם בגמר,'],['Roni tightened his grip','רוני הידק את אחיזתו'],['on the folder.','בתיקייה.']],
+  [['The coordinator’s signed log','היומן החתום של הרכזת'],['listed only twelve visits.','ציין רק שנים־עשר ביקורים.']],
+  [['“If we correct this now,','״אם נתקן זאת עכשיו,'],['we may lose,” a teammate warned.','אנחנו עלולים להפסיד,״ הזהיר חבר לקבוצה.']],
+  [['During the presentation, a judge asked,','במהלך ההצגה שאל שופט:'],['“Did you complete all twenty visits?”','״האם השלמתם את כל עשרים הביקורים?״']],
+  [['Roni closed the slides.','רוני סגר את המצגת.'],['“No. Our report is wrong.”','״לא. הדו״ח שלנו שגוי.״']],
+  [['The group explained the double count','הקבוצה הסבירה את הספירה הכפולה'],['and submitted the correct record.','והגישה את הרישום הנכון.']],
+  [['They lost the prize,','הם הפסידו את הפרס,'],['and one teammate left angrily.','וחבר אחד עזב בכעס.']],
+  [['On Sunday, Roni and that teammate','ביום ראשון רוני ואותו חבר'],['delivered groceries without cameras','חילקו מזון בלי מצלמות'],['or competition badges.','או תגי תחרות.']],
+  [['Their next project','המיזם הבא שלהם'],['used a daily log','השתמש ביומן יומי'],['checked by two students.','שנבדק בידי שני תלמידים.']]
+ ],
+ 'l3-a2-repair-cafe':[
+  [['Teenagers and older volunteers opened','בני נוער ומתנדבים מבוגרים פתחו'],['a monthly repair café.','סדנת תיקונים חודשית.']],
+  [['The first table filled with lamps,','השולחן הראשון התמלא במנורות,'],['torn bags and a wooden chair.','תיקים קרועים וכיסא עץ.']],
+  [['Mrs. Ben-David touched a carved star','גברת בן־דוד נגעה בכוכב מגולף'],['on the chair her husband had built.','שעל הכיסא שבנה בעלה.']],
+  [['Yonatan picked up a drill.','יונתן הרים מקדחה.'],['“It only needs a screw.”','״הוא צריך רק בורג.״']],
+  [['Mr. Barak turned the chair over','מר ברק הפך את הכיסא'],['and showed him a split joint.','והראה לו חיבור סדוק.']],
+  [['Yonatan looked away.','יונתן הסיט את מבטו.'],['The older method seemed too slow.','השיטה הישנה נראתה לו אטית מדי.']],
+  [['Their first clamp slipped,','המהדק הראשון שלהם החליק,'],['and the chair leaned farther.','והכיסא נטה עוד יותר.']],
+  [['Mrs. Ben-David touched the star again','גברת בן־דוד נגעה שוב בכוכב'],['as closing time approached.','כאשר שעת הסגירה התקרבה.']],
+  [['Other volunteers began packing their tools.','מתנדבים אחרים החלו לארוז את כליהם.']],
+  [['“I know this joint,” Mr. Barak said,','״אני מכיר את החיבור הזה,״ אמר מר ברק,'],['“but my hands are unsteady today.”','״אבל הידיים שלי אינן יציבות היום.״']],
+  [['“Show me where to hold it,”','״תראה לי היכן להחזיק אותו,״'],['Yonatan replied.','השיב יונתן.']],
+  [['They cut a support','הם חתכו תמיכה'],['from scrap wood','משארית עץ'],['and fitted it into the joint.','והתאימו אותה לחיבור.']],
+  [['Yonatan used the drill','יונתן השתמש במקדחה'],['after Mr. Barak checked the angle.','לאחר שמר ברק בדק את הזווית.']],
+  [['Mrs. Ben-David sat down carefully.','גברת בן־דוד התיישבה בזהירות.'],['The chair stayed steady,','הכיסא נשאר יציב,'],['and the carved star remained untouched.','והכוכב המגולף נשאר ללא פגע.']],
+  [['Yonatan added their repair steps','יונתן הוסיף את שלבי התיקון שלהם'],['to the workshop folder.','לתיקיית הסדנה.']],
+  [['The next month,','בחודש הבא,'],['Mr. Barak handed him','מר ברק הושיט לו'],['a broken shelf.','מדף שבור.'],['Yonatan asked, “What do you see?”','יונתן שאל: ״מה אתה רואה?״']]
+ ],
+ 'l3-es-promise':[
+  [['Tom asked Aaron to keep a secret before showing him the school bicycle.','Tom asked Aaron not to tell anyone before he showed him a bicycle that belonged to the school.']],
+  [['Aaron agreed, expecting a personal problem that belonged only to his friend.','Aaron thought the secret would be private information about Tom.']],
+  [['Behind the workshop, Tom revealed a brake cable he had snapped while attempting a repair.','Tom showed Aaron that he had broken the cable that made the bicycle brakes work.']],
+  [['A younger class','Younger students'],['was scheduled to use','were going to use'],['that bicycle','that bicycle'],['in a safety lesson','during a safety lesson'],['the next morning.','the next day.']],
+  [['“Another mistake will remove me from the repair club,” Tom whispered.','Tom feared that he would lose his place in the club if he admitted another mistake.']],
+  [['Aaron offered to report the damage with him, but Tom refused.','Aaron said they could tell the teacher together, but Tom said no.']],
+  [['The promise now protected Tom while the silence endangered somebody else.','Keeping the secret could help Tom but could put another student in danger.']],
+  [['“Tell the teacher before school starts,” Aaron said. “I will wait until then.”','Aaron gave Tom time to admit the damage before the lesson.']],
+  [['The next morning, the bicycle had already been moved beside the gym door.','Aaron saw that the unsafe bicycle was ready for the younger class.']],
+  [['Aaron gripped the cold handlebar, then called the workshop teacher.','Aaron felt afraid but contacted the teacher.']],
+  [['He described the danger privately and shared no unnecessary details.','Aaron told only the responsible adult and did not spread the secret.']],
+  [['The teacher removed the bicycle, replaced the cable and used another one for the lesson.','The dangerous bicycle was repaired, and the lesson continued safely with a different bicycle.']],
+  [['Tom admitted the damage and lost his tool privileges for two weeks.','Tom told the truth and could not use the workshop tools for two weeks.']],
+  [['He did not speak to Aaron for several days.','Tom remained angry, so the friendship did not improve immediately.']],
+  [['When Tom returned, he asked Aaron to test the brakes; both boys nodded when the lever held.','Later Tom asked Aaron to check the repaired brakes, and trust began to return.']]
+ ],
+ 'l3-es-winning':[
+  [['The school relay team crossed the championship finish line first by less than a second.','The school team won the final running race by a very small amount.']],
+  [['During the last handoff, Liam had seen Ravi receive the baton beyond the marked exchange zone.','Liam saw that Ravi took the baton outside the area allowed by the rules.']],
+  [['The official missed the violation, and the scoreboard displayed first place.','The judge did not see the broken rule, so the team was shown as the winner.']],
+  [['“It did not change the race,” Ravi whispered.','Ravi claimed that the mistake had not affected the result.']],
+  [['The medal ceremony was only five minutes away.','The team had very little time before receiving the medals.']],
+  [['White chalk from the boundary line still marked Ravi’s shoe.','A white mark on Ravi’s shoe reminded Liam where the handoff had happened.']],
+  [['The captain warned that a report could disqualify all four runners.','The team leader explained that every runner could lose the result.']],
+  [['Liam watched the second-place team fold its flag in silence.','Liam saw the other team quietly accept that it had lost.']],
+  [['“The exchange was outside the zone, wasn’t it?” Liam asked.','Liam asked Ravi to confirm what had happened.']],
+  [['Ravi nodded. “Please let it go.”','Ravi admitted the violation but asked Liam to hide it.']],
+  [['“If the line matters when we lose, it matters now,” Liam told the captain.','Liam said that the rule must matter both in defeat and in victory.']],
+  [['The team approached the referee before the medals were presented.','The runners reported the violation before receiving their awards.']],
+  [['Video confirmed the illegal exchange, and the team was disqualified.','A recording proved the rule had been broken, so the team lost first place.']],
+  [['Two teammates walked away without speaking to Liam.','Some teammates were angry with Liam after the decision.']],
+  [['Ravi later apologized','Ravi admitted'],['for asking Liam','that asking Liam'],['to carry the secret.','to hide the truth had been unfair.']],
+  [['At the next practice, bright tape marked the exchange zone, and every handoff was repeated.','The team practiced the difficult part carefully with a clear boundary.']],
+  [['At their next meet, they finished second; Liam checked the clean exchange before cheering.','Later the team did not win, but Liam celebrated only after seeing that every handoff was legal.']]
+ ],
+ 'l3-es-neighborhood-plan':[
+  [['The city council asked students to review a plan for sixty apartments and a new bus route.','The local government invited students to examine a plan for new homes and public transportation.']],
+  [['The first proposal removed fourteen mature trees to reduce construction costs.','The original plan cut down fourteen old trees so building would cost less.']],
+  [['Maya argued that the trees protected the street from summer heat.','Maya explained that the trees gave important shade during hot weather.']],
+  [['Natan replied','Natan said'],['that his family had waited','that his family urgently needed'],['three years','one of'],['for an affordable home.','the planned homes.']],
+  [['Their argument stopped the planning session until the teacher asked them to map actual needs.','The students could not continue until they agreed to collect evidence.']],
+  [['At 7:30 one morning, forty-three people waited beside the narrow bus stop.','The students counted many people waiting for the bus early in the morning.']],
+  [['After school, they found a parking area behind the shops that was half empty.','They discovered that part of a nearby parking lot was not being used.']],
+  [['A shop owner showed them why delivery trucks still needed two lanes at noon.','A local business owner explained that deliveries required part of the parking area.']],
+  [['A resident','A resident showed'],['who used a wheelchair','that the route'],['pointed to the high curb','from the parking lot'],['between the lot and the street.','was not accessible.']],
+  [['The students moved one apartment block','They changed the plan'],['onto the empty section','so one building used'],['of the parking lot.','the empty section.']],
+  [['They kept the delivery lanes and added an accessible bus stop.','The revised plan protected deliveries and made the bus stop easier to use.']],
+  [['An architect rejected underground parking because it would exceed the housing budget.','Building parking below the ground would make the homes too expensive.']],
+  [['The revised design kept all fourteen trees and included fifty-four homes.','The new plan protected every old tree but provided six fewer homes.']],
+  [['It also removed twenty parking spaces and postponed the proposed sports court.','The plan required fewer parking spaces and delayed another community project.']],
+  [['At the public meeting, Maya presented the benefits, and Natan stated every remaining cost.','The two students honestly explained both the advantages and the disadvantages.']],
+  [['The council approved a detailed study rather than immediate construction.','The local government agreed to investigate the revised plan before building.']],
+  [['Residents requested a transport trial and a delivery review before the final vote.','Local people asked for tests to see whether the changes would work.']],
+  [['Months later,','Later the students'],['Maya and Natan counted riders','continued collecting evidence together'],['beneath the same trees','while the old trees'],['at the trial accessible bus stop.','still stood.']]
+ ],
  'l1-a1-broken-pencil':[
   [['Nadav’s pencil broke just before the lesson began.','העיפרון של נדב נשבר ממש לפני תחילת השיעור.']],
-  [['He searched his bag,','הוא חיפש בתיק שלו,'],['but found only an empty pencil case.','אבל מצא רק קלמר ריק.']],
-  [['Sara noticed the half-finished answer on his page.','שרה הבחינה בתשובה שלא הושלמה בדף שלו.']],
-  [['“Do you need a pencil?” she asked quietly.','״אתה צריך עיפרון?״ היא שאלה בשקט.']],
+  [['He searched his bag,','הוא חיפש בתיק שלו,'],['but found an empty pencil case.','אבל מצא קלמר ריק.']],
+  [['Sara noticed','שרה הבחינה'],['the half-finished answer','בתשובה שלא הושלמה'],['on his page.','בדף שלו.']],
+  [['“Do you need a pencil?”','״אתה צריך עיפרון?״'],['she asked quietly.','היא שאלה בשקט.']],
   [['Nadav nodded,','נדב הנהן,'],['but looked down because he felt embarrassed.','אבל השפיל מבט כי הרגיש נבוך.']],
   [['Sara placed a sharp pencil beside his notebook.','שרה הניחה עיפרון מחודד ליד המחברת שלו.']],
   [['“What will you use?” Nadav asked.','״במה את תשתמשי?״ שאל נדב.']],
-  [['She showed him a second, shorter pencil.','היא הראתה לו עיפרון שני וקצר יותר.']],
+  [['She showed him','היא הראתה לו'],['a second, shorter pencil.','עיפרון שני וקצר יותר.']],
   [['Nadav finished the page before the bell.','נדב סיים את הדף לפני הצלצול.']],
-  [['At break, he sharpened his broken pencil','בהפסקה הוא חידד את העיפרון השבור שלו'],['and returned Sara’s pencil.','והחזיר לשרה את העיפרון שלה.']],
-  [['The next day, he added a spare pencil to the class supply box.','למחרת הוא הוסיף עיפרון נוסף לקופסת הציוד הכיתתית.']]
+  [['At break,','בהפסקה,'],['he sharpened his broken pencil','הוא חידד את העיפרון השבור שלו'],['and returned Sara’s pencil.','והחזיר לשרה את העיפרון שלה.']],
+  [['The next day,','למחרת,'],['he added a spare pencil','הוא הוסיף עיפרון נוסף'],['to the class supply box.','לקופסת הציוד הכיתתית.']]
+ ],
+ 'l1-a1-rainy-walk':[
+  [['Heavy rain began after school,','גשם כבד החל לאחר הלימודים,'],['and water covered the usual path.','ומים כיסו את הדרך הרגילה.']],
+  [['Ben wanted to reach home','בן רצה להגיע הביתה'],['before his brother blew out','לפני שאחיו יכבה'],['the birthday candles.','את נרות יום ההולדת.']],
+  [['Brown water covered the curb','מים חומים כיסו את שפת המדרכה'],['on the short street.','ברחוב הקצר.']],
+  [['“It is only one block,”','״זה רק רחוב אחד,״'],['Ben said.','אמר בן.']],
+  [['Aya watched a leaf spin','איה ראתה עלה מסתובב'],['toward the storm drain.','לעבר פתח הניקוז.']],
+  [['“We cannot see the curb,” she said.','״אנחנו לא יכולים לראות את שפת המדרכה,״ אמרה.'],['Ben gripped his backpack strap','בן אחז ברצועת התיק שלו'],['and stepped back.','וצעד לאחור.']],
+  [['They tried the footbridge,','הם ניסו את הגשר להולכי רגל,'],['but a closed gate blocked it.','אך שער סגור חסם אותו.']],
+  [['The phone showed ten minutes','הטלפון הראה שנותרו עשר דקות'],['until the birthday began.','עד תחילת יום ההולדת.']],
+  [['Ben looked at the flooded street,','בן הביט ברחוב המוצף,'],['then called his mother.','ואז התקשר לאמו.']],
+  [['They waited together','הם המתינו יחד'],['under the library awning.','מתחת לסככת הספרייה.']],
+  [['Ben reached home','בן הגיע הביתה'],['after the candles were out,','לאחר שכובו הנרות,'],['but his brother had saved','אך אחיו שמר'],['the first slice of cake.','את פרוסת העוגה הראשונה.']],
+  [['On the next rainy day,','ביום הגשום הבא,'],['Ben checked the safe route first.','בן בדק תחילה את הדרך הבטוחה.'],['“The long way is fine,”','״הדרך הארוכה בסדר,״'],['he told his friends.','אמר לחבריו.']]
+ ],
+ 'l1-a1-class-plant':[
+  [['The class bean plant bent low','צמח השעועית הכיתתי התכופף'],['during a hot week.','במהלך שבוע חם.']],
+  [['The water chart had been empty','טבלת ההשקיה נשארה ריקה'],['since Thursday.','מאז יום חמישי.']],
+  [['Everyone thought someone else','כולם חשבו שמישהו אחר'],['would remember the plant.','יזכור את הצמח.']],
+  [['Sami poured a full bottle,','סמי שפך בקבוק מלא,'],['and water ran under the pot.','ומים זרמו מתחת לעציץ.']],
+  [['Leah moved the books away.','לאה הרחיקה את הספרים.'],['“More water is not always better.”','״יותר מים אינם תמיד טובים יותר.״']],
+  [['The teacher emptied the tray','המורה רוקנה את המגש'],['and brought a small measuring cup.','והביאה כוס מדידה קטנה.']],
+  [['The class checked the soil','הכיתה בדקה את האדמה'],['each morning','בכל בוקר'],['and watered the plant','והשקתה את הצמח'],['only when the soil was dry.','רק כאשר האדמה הייתה יבשה.']],
+  [['They chose two plant carers','הם בחרו שני מטפלים בצמח'],['and one backup for each day.','ומחליף אחד לכל יום.']],
+  [['On Monday, the leaves still hung low.','ביום שני העלים עדיין היו שמוטים.'],['Sami reached for the full bottle.','סמי הושיט יד לבקבוק המלא.']],
+  [['Leah touched the damp soil,','לאה נגעה באדמה הלחה,'],['and they waited.','והם המתינו.']],
+  [['On Tuesday, one leaf lifted.','ביום שלישי עלה אחד התרומם.'],['They measured half a cup.','הם מדדו חצי כוס.']],
+  [['By Friday, a new green leaf','עד יום שישי עלה ירוק חדש'],['had appeared.','הופיע.']],
+  [['When Leah was absent,','כאשר לאה נעדרה,'],['the backup checked the soil','המחליף בדק את האדמה'],['and recorded the amount.','ורשם את הכמות.']]
  ],
  'l1-a2-spare-seat':[
   [['The crowded bus had one empty seat beside Amir.','באוטובוס הצפוף היה מושב פנוי אחד ליד אמיר.']],
@@ -802,6 +953,56 @@ const narrativeMetadata={
   arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
   lesson:'מאבק ציבורי משתפר כאשר מקשיבים גם לצורך שמנגד ואוספים נתונים אמינים. פתרון משותף עשוי לשמור על הערך המרכזי ובכל זאת לדרוש ויתור גלוי.',
   lessonEn:'Public advocacy improves when people listen to the competing need and gather reliable evidence. A shared solution may protect the central value while still requiring an honest sacrifice.'
+ },
+ 'l3-a1-empty-seat':{
+  arcEn:'Help from a friend',arcHe:'קבלת עזרה מחבר',
+  lesson:'תמיכה טובה מתחילה בשאלה מה באמת יעזור. עזרה קצרה, ברורה ומתואמת יכולה לשמור על קשר ועל עצמאות בלי להציף את מי שמחלים.',
+  lessonEn:'Useful support begins by asking what the person actually needs. Clear, coordinated help can preserve both connection and independence during recovery.'
+ },
+ 'l3-a2-anonymous-account':{
+  arcEn:'Secret revealed',arcHe:'סוד שנחשף',
+  lesson:'אנונימיות אינה מבטלת אחריות. תיקון אמיתי דורש לעצור את הפגיעה, להודות בחלק האישי, לפרסם תיקון ברור ולכבד את זכותו של הנפגע לקבוע את גבולות הקשר.',
+  lessonEn:'Anonymity does not remove responsibility. Repair requires stopping the harm, admitting one’s role, correcting the record clearly, and respecting the harmed person’s boundaries.'
+ },
+ 'l3-a2-volunteer-truth':{
+  arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
+  lesson:'התנדבות מאבדת את משמעותה כאשר המספרים חשובים יותר מן האנשים. דיווח נכון, קבלת מחיר ממשי והמשך עשייה גם בלי פרס מחזירים את המטרה למרכז.',
+  lessonEn:'Service loses its meaning when numbers become more important than people. Correct reporting, acceptance of a real cost, and continued work without a prize restore its purpose.'
+ },
+ 'l3-a2-repair-cafe':{
+  arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
+  lesson:'שיתוף פעולה בין דורות אינו מבוסס על כך שצד אחד יודע הכול. ניסיון, ידיים יציבות, הקשבה וכלים חדשים מתחברים כאשר כל משתתף מכיר גם ביכולתו וגם במגבלתו.',
+  lessonEn:'Intergenerational cooperation does not require one side to know everything. Experience, steady hands, listening, and newer tools become stronger when each person recognizes both ability and limitation.'
+ },
+ 'l3-es-promise':{
+  arcEn:'Promise under pressure',arcHe:'הבטחה תחת לחץ',
+  lesson:'הבטחה לשמור סוד אינה גוברת על סכנה ממשית. אפשר להגן על פרטיות ככל האפשר, לפנות רק למבוגר האחראי ולקבל את המחיר שהבחירה הבטוחה מטילה על החברות.',
+  lessonEn:'A promise of secrecy does not outweigh a concrete safety risk. Privacy can still be protected by telling only the responsible adult and accepting the cost that the safer choice may place on a friendship.'
+ },
+ 'l3-es-winning':{
+  arcEn:'Moral dilemma',arcHe:'דילמה בין ערכים',
+  lesson:'משחק הוגן נבחן כאשר האמת עלולה למחוק ניצחון. דיווח עצמי עשוי לעלות במדליה וביחסים עם חברי הקבוצה, אך הוא שומר על משמעותם של הכללים.',
+  lessonEn:'Fair play is tested when honesty may erase a victory. Self-reporting can cost a medal and strain team relationships, yet it preserves the meaning of the rules.'
+ },
+ 'l3-es-neighborhood-plan':{
+  arcEn:'Search for an explanation',arcHe:'חיפוש אחר פתרון מבוסס־ראיות',
+  lesson:'תכנון ציבורי טוב אינו בוחר סיסמה אחת ומסתיר את המחיר. ספירה, נגישות, דיור, תחבורה וצרכים מסחריים צריכים להיבדק יחד, והחלופה המשופרת חייבת להציג גם את מה שלא פתרה.',
+  lessonEn:'Sound public planning does not choose one slogan and hide the cost. Housing, transport, access, trees, and local business needs must be examined together, and an improved plan must state what it still does not solve.'
+ },
+ 'l1-a1-broken-pencil':{
+  arcEn:'Help from a friend',arcHe:'קבלת עזרה מחבר',
+  lesson:'הצעה שקטה יכולה לשמור על כבודו של מי שנתקע. קבלת העזרה, החזרת הציוד והוספת עיפרון משותף הופכות רגע אישי להרגל של אחריות הדדית.',
+  lessonEn:'A quiet offer can protect the dignity of a person who is stuck. Accepting help, returning the item, and adding a shared pencil turn one kind moment into mutual responsibility.'
+ },
+ 'l1-a1-rainy-walk':{
+  arcEn:'Unwelcome surprise',arcHe:'הפתעה לא צפויה',
+  lesson:'לחץ להגיע בזמן אינו הופך דרך מסוכנת לבטוחה. עצירה, ויתור על קיצור הדרך והודעה לבית עשויים לגרום לאיחור, אך הם מונעים סיכון מיותר.',
+  lessonEn:'Pressure to arrive on time does not make a dangerous route safe. Pausing, rejecting a shortcut, and informing home may cause a delay, but they prevent an unnecessary risk.'
+ },
+ 'l1-a1-class-plant':{
+  arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
+  lesson:'אחריות משותפת דורשת תפקידים ברורים ומדידה, לא רק כוונה טובה. גם לאחר טעות חשוב לבדוק, להמתין ולפעול לפי מצבו של הצמח במקום להגיב בפזיזות.',
+  lessonEn:'Shared responsibility needs clear roles and measurement, not only good intentions. After a mistake, checking and waiting can be wiser than reacting too quickly.'
  }
 };
 const sceneCorrections={
