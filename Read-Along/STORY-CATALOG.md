@@ -2,7 +2,7 @@
 
 > **מסמך פנימי — אין לקשר אליו מן האתר הציבורי.**
 >
-> עודכן: 23.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js` בקומיט בסיס `de6cbc66c4e29e665afaa9563f9e09c0b6a86dd1` ובתוספת תיקוני אצוות הביקורת המתועדות בענף העבודה.
+> עודכן: 23.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js` בקומיט בסיס `f3e7a7e44e4be23de756684df0bd57ffba076d03` ובתוספת תיקוני אצוות הביקורת המתועדות בענף העבודה.
 
 ## כללי זהות וסטטוס
 
@@ -50,9 +50,9 @@
 | RA-004 | `l1-a2-no-phone` | A Day Without a Phone | יום בלי טלפון | ז׳–ח׳ | A2 | 9 | `story-covers-v3/day-without-phone.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-005 | `l1-a2-last-runner` | The Last Runner | הרץ האחרון | ז׳–ח׳ | A2 | 10 | `story-covers-v3/last-runner.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-006 | `l1-a2-clean-playground` | The Clean Playground | מגרש המשחקים הנקי | ז׳–ח׳ | A2 | 11 | `story-covers-v3/clean-playground.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-031 | `l1-a2-spare-seat` | The Spare Seat | המושב הפנוי | ז׳–ח׳ | A2 | 12 | `scenes/scene-03.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-032 | `l1-a2-missed-practice` | The Missed Practice | האימון שהוחמץ | ז׳–ח׳ | A2 | 13 | `scenes/scene-04.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-033 | `l1-a2-reusable-bottle` | The Reusable Bottle | הבקבוק לשימוש חוזר | ז׳–ח׳ | A2 | 14 | `scenes/scene-06.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-031 | `l1-a2-spare-seat` | The Spare Seat | המושב הפנוי | ז׳–ח׳ | A2 | 12 | `scenes/scene-03.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-032 | `l1-a2-missed-practice` | The Missed Practice | האימון שהוחמץ | ז׳–ח׳ | A2 | 13 | `scenes/scene-04.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-033 | `l1-a2-reusable-bottle` | The Reusable Bottle | הבקבוק לשימוש חוזר | ז׳–ח׳ | A2 | 14 | `scenes/scene-06.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-061 | `new-1-a2-one-scooter-two-friends` | One Scooter, Two Friends | קורקינט אחד, שני חברים | ז׳–ח׳ | A2 | 9 | `story-covers-v3/one-scooter-two-friends.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-062 | `new-1-a2-unequal-group` | The Unequal Group | הקבוצה הלא שוויונית | ז׳–ח׳ | A2 | 10 | `story-covers-v3/unequal-group.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-063 | `new-1-a2-new-bus-route` | The New Bus Route | קו האוטובוס החדש | ז׳–ח׳ | A2 | 11 | `story-covers-v3/new-bus-route.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
@@ -67,9 +67,9 @@
 | RA-007 | `l1-es-wrong-message` | The Message Sent by Mistake | ההודעה שנשלחה בטעות | ז׳–ח׳ | ES | 11 | `story-covers-v3/wrong-message.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-008 | `l1-es-appearance` | More Than an Appearance | מעבר למראה החיצוני | ז׳–ח׳ | ES | 12 | `story-covers-v3/appearance.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-009 | `l1-es-school-garden` | The Garden Behind the School | הגינה שמאחורי בית הספר | ז׳–ח׳ | ES | 14 | `story-covers-v3/school-garden.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-034 | `l1-es-new-glasses` | The New Glasses | המשקפיים החדשים | ז׳–ח׳ | ES | 15 | `scenes/scene-08.webp` | לא | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-035 | `l1-es-school-map` | The School Map | מפת בית הספר | ז׳–ח׳ | ES | 16 | `scenes/scene-10.webp` | לא | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-036 | `l1-es-bird-nest` | The Nest Near the Window | הקן שליד החלון | ז׳–ח׳ | ES | 17 | `scenes/scene-11.webp` | לא | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-034 | `l1-es-new-glasses` | The New Glasses | המשקפיים החדשים | ז׳–ח׳ | ES | 15 | `scenes/scene-08.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-035 | `l1-es-school-map` | The School Map | מפת בית הספר | ז׳–ח׳ | ES | 16 | `scenes/scene-10.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-036 | `l1-es-bird-nest` | The Nest Near the Window | הקן שליד החלון | ז׳–ח׳ | ES | 17 | `scenes/scene-11.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-067 | `new-1-es-ride-changed-plans` | The Ride That Changed His Plans | הרכיבה ששינתה את תכניותיו | ז׳–ח׳ | ES | 11 | `story-covers-v3/ride-changed-plans.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-068 | `new-1-es-misleading-headline` | The Misleading Headline | הכותרת המטעה | ז׳–ח׳ | ES | 12 | `story-covers-v3/misleading-headline.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-069 | `new-1-es-uncredited-idea` | The Uncredited Idea | הרעיון שלא זכה להכרה | ז׳–ח׳ | ES | 14 | `story-covers-v3/uncredited-idea.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
@@ -84,9 +84,9 @@
 | RA-010 | `l2-a1-wallet` | The Wallet at the Bus Stop | הארנק בתחנת האוטובוס | ח׳–ט׳ | A1 | 10 | `story-covers-v3/wallet.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-011 | `l2-a1-helping-neighbor` | Helping Mr. Cohen | עוזרים למר כהן | ח׳–ט׳ | A1 | 11 | `story-covers-v3/helping-neighbor.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-012 | `l2-a1-team-place` | A Place on the Team | מקום בנבחרת | ח׳–ט׳ | A1 | 13 | `story-covers-v3/team-place.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-037 | `l2-a1-library-book` | The Damaged Library Book | ספר הספרייה שניזוק | ח׳–ט׳ | A1 | 14 | `scenes/scene-02.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-038 | `l2-a1-lunch-table` | The Quiet Lunch Table | שולחן האוכל השקט | ח׳–ט׳ | A1 | 15 | `scenes/scene-01.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-039 | `l2-a1-water-leak` | The Hidden Water Leak | דליפת המים הנסתרת | ח׳–ט׳ | A1 | 16 | `scenes/scene-06.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-037 | `l2-a1-library-book` | The Damaged Library Book | ספר הספרייה שניזוק | ח׳–ט׳ | A1 | 14 | `scenes/scene-02.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-038 | `l2-a1-lunch-table` | The Quiet Lunch Table | שולחן האוכל השקט | ח׳–ט׳ | A1 | 15 | `scenes/scene-01.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-039 | `l2-a1-water-leak` | The Hidden Water Leak | דליפת המים הנסתרת | ח׳–ט׳ | A1 | 16 | `scenes/scene-06.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-073 | `new-2-a1-homework-could-not-explain` | The Homework He Could Not Explain | שיעורי הבית שלא ידע להסביר | ח׳–ט׳ | A1 | 10 | `story-covers-v3/homework-could-not-explain.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-074 | `new-2-a1-hospital-visit` | The Hospital Visit | הביקור בבית החולים | ח׳–ט׳ | A1 | 11 | `story-covers-v3/hospital-visit.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-075 | `new-2-a1-emergency-practice` | The Emergency Practice | תרגול החירום | ח׳–ט׳ | A1 | 13 | `story-covers-v3/emergency-practice.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
@@ -101,7 +101,7 @@
 | RA-013 | `l2-a2-photo-spread` | The Photograph That Spread | התמונה שהופצה | ח׳–ט׳ | A2 | 11 | `story-covers-v3/photo-spread.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-014 | `l2-a2-cheating` | The Friend Who Cheated | החבר שהעתיק | ח׳–ט׳ | A2 | 12 | `story-covers-v3/cheating.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-015 | `l2-a2-injured-captain` | The Injured Captain | הקפטן שנפצע | ח׳–ט׳ | A2 | 14 | `story-covers-v3/injured-captain.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-040 | `l2-a2-group-credit` | Who Did the Work? | מי עשה את העבודה? | ח׳–ט׳ | A2 | 15 | `scenes/scene-00.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
+| RA-040 | `l2-a2-group-credit` | Who Did the Work? | מי עשה את העבודה? | ח׳–ט׳ | A2 | 15 | `scenes/scene-00.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; ממתין לאישור | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-041 | `l2-a2-rumor` | The Unverified Rumor | השמועה שלא נבדקה | ח׳–ט׳ | A2 | 16 | `scenes/scene-00.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-042 | `l2-a2-community-race` | The Community Race | המרוץ הקהילתי | ח׳–ט׳ | A2 | 17 | `scenes/scene-04.webp` | לא | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-079 | `new-2-a2-perfect-project` | The Perfect Project | הפרויקט המושלם | ח׳–ט׳ | A2 | 11 | `story-covers-v3/perfect-project.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |

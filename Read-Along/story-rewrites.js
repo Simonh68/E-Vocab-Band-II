@@ -772,18 +772,171 @@ const narrativeRevisions={
   [['When Leah was absent,','כאשר לאה נעדרה,'],['the backup checked the soil','המחליף בדק את האדמה'],['and recorded the amount.','ורשם את הכמות.']]
  ],
  'l1-a2-spare-seat':[
-  [['The crowded bus had one empty seat beside Amir.','באוטובוס הצפוף היה מושב פנוי אחד ליד אמיר.']],
-  [['Amir had placed his schoolbag on it','אמיר הניח עליו את תיק בית הספר שלו'],['after a long day.','אחרי יום ארוך.']],
-  [['At the next stop, an older passenger entered','בתחנה הבאה נכנסה נוסעת מבוגרת'],['with a heavy shopping bag.','עם שקית קניות כבדה.']],
-  [['She held the rail while the bus moved.','היא אחזה במעקה בזמן שהאוטובוס נסע.']],
-  [['Amir looked at his bag,','אמיר הביט בתיק שלו,'],['then at the passenger’s shaking hand.','ואז בידה הרועדת של הנוסעת.']],
-  [['He lifted the bag onto his knees.','הוא הרים את התיק אל ברכיו.']],
-  [['“Please sit here,” he said.','״בבקשה שבי כאן,״ אמר.']],
-  [['The passenger sat down and thanked him.','הנוסעת התיישבה והודתה לו.']],
-  [['When her shopping bag slipped,','כאשר שקית הקניות שלה החליקה,'],['Amir caught it before it fell.','אמיר תפס אותה לפני שנפלה.']],
-  [['At his stop, he carried the bag to the door for her.','בתחנה שלו הוא נשא עבורה את השקית עד הדלת.']],
-  [['“This is my stop too,” she said with a smile.','״זאת גם התחנה שלי,״ אמרה בחיוך.']],
-  [['On the next crowded ride, Amir kept his schoolbag on his knees.','בנסיעה הצפופה הבאה אמיר השאיר את תיקו על ברכיו.']]
+  [['The bus was crowded','האוטובוס היה צפוף'],['after soccer practice.','אחרי אימון הכדורגל.']],
+  [['Amir found the last empty seat','אמיר מצא את המושב הפנוי האחרון'],['and rested his tired legs.','והניח לרגליו העייפות לנוח.']],
+  [['At the next stop,','בתחנה הבאה,'],['an older woman boarded','עלתה אישה מבוגרת'],['with a heavy shopping bag.','עם שקית קניות כבדה.']],
+  [['The bus moved suddenly,','האוטובוס נע לפתע,'],['and the bag struck the floor.','והשקית פגעה ברצפה.']],
+  [['Amir looked at his aching legs,','אמיר הביט ברגליו הכואבות,'],['then at the woman.','ואז באישה.']],
+  [['He stood','הוא קם'],['and held the rail.','ואחז במעקה.']],
+  [['“Please take this seat,”','״בבקשה שבי כאן,״'],['he said.','אמר.']],
+  [['She sat down,','היא התיישבה,'],['and Amir lifted her bag.','ואמיר הרים את השקית שלה.']],
+  [['At the next turn,','בסיבוב הבא,'],['the bag slipped again,','השקית החליקה שוב,'],['but Amir steadied it.','אך אמיר ייצב אותה.']],
+  [['When the bus reached Amir’s stop,','כאשר האוטובוס הגיע לתחנה של אמיר,'],['the woman stood too.','גם האישה קמה.']],
+  [['“I can carry it now,” she said,','״עכשיו אני יכולה לשאת אותה,״ אמרה,'],['“but thank you for noticing.”','״אבל תודה ששמת לב.״']],
+  [['On the next crowded ride,','בנסיעה הצפופה הבאה,'],['Amir looked up at every stop','אמיר הרים את מבטו בכל תחנה'],['before opening his phone.','לפני שפתח את הטלפון.']]
+ ],
+ 'l1-a2-missed-practice':[
+  [['Lior missed the final practice','ליאור החמיץ את האימון האחרון'],['before the school basketball match.','לפני משחק הכדורסל של בית הספר.']],
+  [['His younger brother became ill,','אחיו הצעיר חלה,'],['and Lior stayed at the clinic.','וליאור נשאר איתו במרפאה.']],
+  [['His phone battery died','הסוללה בטלפון שלו התרוקנה'],['before he could message the team.','לפני שהספיק לשלוח הודעה לנבחרת.']],
+  [['The next day,','למחרת,'],['Yarden asked,','ירדן שאל:'],['“Did the team stop mattering?”','״הנבחרת כבר לא חשובה לך?״']],
+  [['Lior gripped','ליאור אחז בחוזקה'],['his practice shirt.','בחולצת האימון שלו.']],
+  [['“My family needed me,” he said,','״המשפחה שלי הייתה זקוקה לי,״ אמר,'],['“but I should have warned you.”','״אבל הייתי צריך להודיע לכם.״']],
+  [['Yarden lowered his voice.','ירדן הנמיך את קולו.'],['“We thought you had quit.”','״חשבנו שפרשת.״']],
+  [['The captain listened','הקפטן הקשיב'],['to both of them','לשניהם'],['before anyone answered again.','לפני שמישהו ענה שוב.']],
+  [['Missing practice still had a cost:','להחמצת האימון עדיין היה מחיר:'],['Lior began the match','ליאור התחיל את המשחק'],['on the bench.','על הספסל.']],
+  [['He arrived early','הוא הגיע מוקדם'],['for extra practice','לאימון נוסף'],['and learned the new play.','ולמד את המהלך החדש.']],
+  [['During the match,','במהלך המשחק,'],['Yarden called for Lior','ירדן קרא לליאור'],['when the new play began.','כאשר המהלך החדש התחיל.']],
+  [['Their pass created an open shot,','המסירה שלהם יצרה זריקה פנויה,'],['but the team lost by one point.','אך הנבחרת הפסידה בנקודה אחת.']],
+  [['The next time family plans changed,','בפעם הבאה שהתכניות המשפחתיות השתנו,'],['Lior sent one clear message,','ליאור שלח הודעה ברורה אחת,'],['and Yarden asked before guessing.','וירדן שאל לפני שהניח הנחות.']]
+ ],
+ 'l1-a2-reusable-bottle':[
+  [['After Monday’s sports lesson,','אחרי שיעור הספורט ביום שני,'],['the classroom bin overflowed','פח הכיתה עלה על גדותיו'],['with plastic water bottles.','מבקבוקי מים מפלסטיק.']],
+  [['Miri counted eighty-seven bottles','מירי ספרה שמונים ושבעה בקבוקים'],['before the cleaner emptied it.','לפני שעובד הניקיון רוקן את הפח.']],
+  [['“We use more than we think,”','״אנחנו משתמשים ביותר ממה שנדמה לנו,״'],['she told the class.','אמרה לכיתה.']],
+  [['Everyone promised to bring','כולם הבטיחו להביא'],['a reusable bottle on Tuesday.','בקבוק לשימוש חוזר ביום שלישי.']],
+  [['By first break,','עד ההפסקה הראשונה,'],['nine students had forgotten theirs.','תשעה תלמידים שכחו את הבקבוקים שלהם.']],
+  [['The refill tap also ran slowly,','גם ברז המילוי זרם לאט,'],['so the line reached the stairs.','ולכן התור הגיע עד המדרגות.']],
+  [['Several students bought','כמה תלמידים קנו'],['plastic bottles again.','שוב בקבוקי פלסטיק.']],
+  [['Miri’s first plan had failed.','התכנית הראשונה של מירי נכשלה.'],['She crossed out the word “reminder.”','היא מחקה את המילה ״תזכורת״.']],
+  [['She asked the office','היא ביקשה מן ההנהלה'],['for a one-week refill trial','ניסיון של שבוע עם תחנת מילוי'],['near the sports hall.','ליד אולם הספורט.']],
+  [['Students placed their bottles','התלמידים הניחו את הבקבוקים שלהם'],['beside their schoolbags each evening.','ליד תיקי בית הספר בכל ערב.']],
+  [['They also reported the slow tap,','הם גם דיווחו על הברז האטי,'],['and it was repaired.','והוא תוקן.']],
+  [['One week later,','שבוע לאחר מכן,'],['Miri counted twenty-one plastic bottles.','מירי ספרה עשרים ואחד בקבוקי פלסטיק.']],
+  [['The number was lower,','המספר היה נמוך יותר,'],['but visitors still needed','אך מבקרים עדיין נזקקו'],['an easy refill point.','לנקודת מילוי נוחה.']],
+  [['The school kept the refill station;','בית הספר השאיר את תחנת המילוי;'],['that evening, Miri set her bottle','באותו ערב מירי הניחה את הבקבוק שלה'],['beside her schoolbag.','ליד תיק בית הספר.']]
+ ],
+ 'l1-es-new-glasses':[
+  [['Ethan paused outside the classroom and cleaned his new glasses for the third time.','Ethan waited outside and cleaned the glasses again because he was nervous.']],
+  [['Through the lenses, every word on the distant board looked sharply defined.','The new glasses made the writing on the far board clear.']],
+  [['Before the bell, Lev glanced at the thick blue frames and made a joke.','Lev looked at the blue glasses and joked about them.']],
+  [['A few students laughed, and Ethan felt a quick reply forming.','Some students laughed, and Ethan wanted to answer angrily.']],
+  [['He folded the cleaning cloth into a tiny square before answering.','Ethan paused and folded the cloth while he controlled his response.']],
+  [['“I need them to see,” he said. “They are not a costume.”','Ethan said that the glasses helped him see and were not a toy.']],
+  [['Maya asked about yesterday’s game, giving Ethan a way to move on.','Maya changed the subject so Ethan could continue his day.']],
+  [['At lunch, Lev reached toward the frames and asked to try them.','Later Lev tried to touch the glasses and asked to wear them.']],
+  [['Ethan stepped back. “No. You can ask without touching.”','Ethan moved away and set a clear physical boundary.']],
+  [['The science teacher later asked whether Ethan wanted her to address the class.','The teacher privately asked if Ethan wanted her to speak to everyone.']],
+  [['“No announcement,” he said. “I just want a normal day.”','Ethan did not want public attention; he wanted ordinary treatment.']],
+  [['After school, Lev apologized without explaining away the joke.','Lev gave a direct apology and did not make excuses.']],
+  [['Ethan did not say it was fine; he asked Lev not to repeat it.','Ethan accepted the apology without pretending that the joke had been harmless.']],
+  [['The next morning, the blue frames still drew a few glances.','Some people still looked at the glasses the next day.']],
+  [['Ethan entered without hiding them and read the first line on the board with ease.','Ethan wore the glasses openly and used them comfortably.']]
+ ],
+ 'l1-es-school-map':[
+  [['Three new students arrived late to science because the school map ended at the main stairs.','The map did not show the full route, so three new students were late.']],
+  [['The design club assumed that brighter colors would solve the problem.','The club believed stronger colors would make the map clear.']],
+  [['Their first prototype used red, green, and blue routes.','The first test map separated routes only by color.']],
+  [['Omar stared at it and asked, “Which line is green?”','Omar could not tell which route was shown in green.']],
+  [['Only then did the group learn that color alone excluded some readers.','The group learned that some people cannot use color as the only guide.']],
+  [['A newcomer named Sofia also pointed to symbols she could not understand.','Sofia showed that several map signs were unclear to new students.']],
+  [['Instead of defending the map, the club invited both students to test it.','The club listened and asked Omar and Sofia to help.']],
+  [['They added shapes, room numbers, high-contrast arrows, and short bilingual labels.','The new map used several clear ways to show each route.']],
+  [['The second test began at the front entrance during a busy break.','They tested the new map while the school halls were crowded.']],
+  [['Sofia followed the triangle route until a locked door blocked it.','Sofia used one route, but a locked door stopped her.']],
+  [['The map had ignored the accessible lift on the other side of the building.','The map had left out the route that avoided the stairs.']],
+  [['The caretaker opened the route and explained when that door remained locked.','The caretaker showed when the door could and could not be used.']],
+  [['Omar replaced the color-only lines with patterns that also worked in gray.','Omar added patterns so the routes remained different without color.']],
+  [['Sofia reached the science room before the bell, but circled one confusing turn.','Sofia arrived on time and marked one part that still needed work.']],
+  [['The club corrected that turn instead of calling the map finished.','The designers improved the map again instead of claiming it was perfect.']],
+  [['A week later, Sofia welcomed another newcomer by handing over the map she had helped redesign.','Later Sofia used the improved map to help another new student.']]
+ ],
+ 'l1-es-bird-nest':[
+  [['A small bird built a nest on the ledge beside the classroom window.','A bird made a nest on the narrow shelf outside the window.']],
+  [['Students pressed close to the glass, and several phones appeared.','The students crowded near the window and began taking pictures.']],
+  [['The bird flew to a nearby tree but did not return while the crowd remained.','The bird stayed away because too many people were close to the nest.']],
+  [['Ella suggested moving the nest to a quieter branch.','Ella wanted to move the nest somewhere calmer.']],
+  [['The teacher stopped her and called a local wildlife volunteer before anyone touched it.','The teacher made sure nobody touched the nest and asked an expert for advice.']],
+  [['The volunteer explained that distance, silence, and an unopened window were the safest help.','The expert said that the bird needed quiet space and no human contact.']],
+  [['The class partly closed the blind and created two observation points farther back.','The students watched from two places away from the window.']],
+  [['For three mornings, the parent bird returned with grass and food.','The adult bird returned when the class followed the quiet plan.']],
+  [['On Thursday, a substitute cleaner rolled a bucket toward the window.','A different cleaner approached the window with cleaning equipment.']],
+  [['The agreed cleaning schedule had not reached him.','Nobody had told the substitute about the nest plan.']],
+  [['Ella noticed the open latch just before the cleaner raised the window.','Ella saw the danger before the cleaner opened the window.']],
+  [['She asked him to wait and showed the agreed cleaning plan.','Ella politely stopped him and explained what the class had arranged.']],
+  [['The teacher moved the cleaning to another window, and the nest stayed untouched.','They cleaned somewhere else and left the nest alone.']],
+  [['A storm that afternoon shook the ledge, yet the nest remained secure.','Strong weather moved the ledge, but the nest stayed safe.']],
+  [['The students watched from their marked places instead of rushing forward.','The class followed its plan even when the storm caused worry.']],
+  [['Weeks later, the young birds left the nest one at a time.','The baby birds eventually became ready to fly away.']],
+  [['After the ledge was empty, the class cleaned it and kept the quiet-viewing rule for future nests.','The students cleaned only after the birds left and remembered the safe rule.']]
+ ],
+ 'l2-a1-library-book':[
+  [['Neta carried a library book','נטע נשאה ספר ספרייה'],['beside a juice bottle','לצד בקבוק מיץ'],['inside her schoolbag.','בתוך תיק בית הספר שלה.']],
+  [['On the bus,','באוטובוס,'],['the bottle opened,','הבקבוק נפתח,'],['and juice covered the book.','ומיץ כיסה את הספר.']],
+  [['Several pages became wet,','כמה עמודים נרטבו,'],['and blue ink spread','ודיו כחול נמרח'],['across a picture.','על פני תמונה.']],
+  [['Neta dried the cover','נטע ייבשה את הכריכה'],['with her sleeve.','בשרוול שלה.']],
+  [['She planned to return the book','היא תכננה להחזיר את הספר'],['without saying anything.','בלי לומר דבר.']],
+  [['At the library,','בספרייה,'],['another student asked,','תלמידה אחרת שאלה:'],['“Is my reserved book ready?”','״הספר שהזמנתי מוכן?״']],
+  [['Neta saw the same title','נטע ראתה את אותה כותרת'],['on the reservation card.','בכרטיס ההזמנה.']],
+  [['She held the damaged book tighter,','היא אחזה חזק יותר בספר שניזוק,'],['then walked to the librarian.','ואז ניגשה לספרנית.']],
+  [['“The spill was my fault,”','״השפיכה הייתה באשמתי,״'],['she said.','אמרה.']],
+  [['The librarian removed the book','הספרנית הוציאה את הספר'],['from the return cart.','מעגלת ההחזרות.']],
+  [['She found another copy','היא מצאה עותק אחר'],['for the waiting student.','לתלמידה שהמתינה.']],
+  [['Neta helped dry the pages,','נטע עזרה לייבש את העמודים,'],['but some stayed wavy.','אך כמה מהם נשארו גליים.']],
+  [['The next Friday,','ביום שישי הבא,'],['she helped the librarian','היא עזרה לספרנית'],['cover the repaired book.','לעטוף את הספר שתוקן.']],
+  [['Her next library book traveled','ספר הספרייה הבא שלה נסע'],['in a dry folder,','בתיקייה יבשה,'],['away from her drink.','הרחק מן המשקה שלה.']]
+ ],
+ 'l2-a1-lunch-table':[
+  [['Every day, Yosef ate alone','בכל יום יוסף אכל לבדו'],['beside the lunchroom window.','ליד חלון חדר האוכל.']],
+  [['He often drew football shirts','לעיתים קרובות הוא צייר חולצות כדורגל'],['while he ate.','בזמן שאכל.']],
+  [['Dana thought he wanted silence,','דנה חשבה שהוא רוצה שקט,'],['so she did not ask.','ולכן לא שאלה.']],
+  [['On Wednesday,','ביום רביעי,'],['she carried her tray over','היא נשאה את המגש שלה אליו'],['and pointed to the empty chair.','והצביעה על הכיסא הפנוי.']],
+  [['“Can I sit here?”','״אפשר לשבת כאן?״'],['she asked.','שאלה.']],
+  [['Yosef nodded,','יוסף הנהן,'],['but left five minutes later.','אך יצא כעבור חמש דקות.']],
+  [['Dana wondered','דנה תהתה'],['if she had bothered him.','אם היא הפריעה לו.']],
+  [['The next day,','למחרת,'],['she asked him quietly.','היא שאלה אותו בשקט.']],
+  [['“I had library duty,”','״הייתה לי תורנות בספרייה,״'],['Yosef said.','אמר יוסף.']],
+  [['He turned his notebook','הוא סובב את המחברת שלו'],['and showed her','והראה לה'],['a new team shirt.','חולצת נבחרת חדשה.']],
+  [['Dana asked about the colors,','דנה שאלה על הצבעים,'],['and Yosef explained his design.','ויוסף הסביר את העיצוב שלו.']],
+  [['Two more students came over;','שני תלמידים נוספים ניגשו;'],['Yosef moved his bag','יוסף הזיז את התיק שלו'],['and made room.','ופינה מקום.']],
+  [['They talked for part of lunch,','הם שוחחו בחלק מארוחת הצהריים,'],['and Yosef kept drawing.','ויוסף המשיך לצייר.']],
+  [['On Friday,','ביום שישי,'],['Yosef saved one chair','יוסף שמר כיסא אחד'],['beside his notebook.','ליד המחברת שלו.']],
+  [['When a new student entered alone,','כאשר תלמיד חדש נכנס לבדו,'],['Yosef lifted his tray','יוסף הרים את המגש שלו'],['and asked, “Sit with us?”','ושאל: ״שב איתנו?״']]
+ ],
+ 'l2-a1-water-leak':[
+  [['After sports practice,','אחרי אימון הספורט,'],['Lina heard water running','לינה שמעה מים זורמים'],['behind the gym.','מאחורי אולם הספורט.']],
+  [['All the outdoor taps','כל הברזים החיצוניים'],['were closed.','היו סגורים.']],
+  [['Her friend said,','חברתה אמרה:'],['“It may be a sprinkler.”','״אולי זאת ממטרה.״']],
+  [['The ground was wet,','האדמה הייתה רטובה,'],['although it had not rained.','אף שלא ירד גשם.']],
+  [['Lina placed a chalk mark','לינה סימנה קו בגיר'],['at the edge of the puddle.','בקצה השלולית.']],
+  [['They told the school office','הן הודיעו למשרד בית הספר'],['and stayed away from the wall.','והתרחקו מן הקיר.']],
+  [['The caretaker checked the taps,','אב הבית בדק את הברזים,'],['but found no leak.','אך לא מצא דליפה.']],
+  [['The next morning,','למחרת בבוקר,'],['water had crossed the chalk line.','המים עברו את קו הגיר.']],
+  [['Lina heard the same sound','לינה שמעה את אותו קול'],['under a metal cover.','מתחת למכסה מתכת.']],
+  [['She called the caretaker again','היא קראה שוב לאב הבית'],['and showed both clues.','והראתה את שני הרמזים.']],
+  [['He closed the nearby water line','הוא סגר את קו המים הסמוך'],['and called a plumber.','והזמין שרברב.']],
+  [['The plumber found a cracked pipe','השרברב מצא צינור סדוק'],['under the path.','מתחת לשביל.']],
+  [['Sports practice moved indoors','אימון הספורט עבר פנימה'],['while the path was repaired.','בזמן שהשביל תוקן.']],
+  [['Some students complained,','כמה תלמידים התלוננו,'],['but the soft ground was unsafe.','אך האדמה הרכה לא הייתה בטוחה.']],
+  [['The next day,','למחרת,'],['the puddle became smaller,','השלולית הצטמצמה,'],['and the sound stopped.','וקול המים נפסק.']],
+  [['When Lina later heard','כאשר לינה שמעה מאוחר יותר'],['a dripping tap,','ברז מטפטף,'],['she reported it before leaving.','היא דיווחה עליו לפני שעזבה.']]
+ ],
+ 'l2-a2-group-credit':[
+  [['Ruth completed most of the research','רות השלימה את רוב המחקר'],['for the group’s science project.','לפרויקט המדעים של הקבוצה.']],
+  [['Ben and Yael designed the poster','בן ויעל עיצבו את הכרזה'],['and practiced the presentation.','ותרגלו את ההצגה.']],
+  [['On the final slide,','בשקופית האחרונה,'],['their names appeared first,','השמות שלהם הופיעו ראשונים,'],['and Ruth’s name was tiny.','ושמה של רות היה זעיר.']],
+  [['Ruth closed her data notebook','רות סגרה את מחברת הנתונים שלה'],['without saying anything.','בלי לומר דבר.']],
+  [['At the school exhibition,','בתערוכת בית הספר,'],['a judge praised Ben and Yael','שופט שיבח את בן ויעל'],['for the careful research.','על המחקר הזהיר.']],
+  [['Ben accepted the praise,','בן קיבל את השבח,'],['then noticed Ruth looking down.','ואז הבחין שרות משפילה את מבטה.']],
+  [['The judge asked','השופט שאל'],['why one result','מדוע תוצאה אחת'],['did not match the others.','אינה מתאימה לתוצאות האחרות.']],
+  [['Ben could not explain it.','בן לא הצליח להסביר זאת.']],
+  [['Ruth had repeated the experiment','רות חזרה על הניסוי'],['and found a measuring error.','ומצאה טעות במדידה.']],
+  [['Ben took a breath.','בן נשם עמוק.'],['“Ruth found and corrected it,”','״רות מצאה ותיקנה את הטעות,״'],['he told the judge.','אמר לשופט.']],
+  [['Ruth opened her notebook','רות פתחה את המחברת שלה'],['and explained the evidence.','והסבירה את הראיות.']],
+  [['Before the awards,','לפני חלוקת הפרסים,'],['the group changed the slide','הקבוצה שינתה את השקופית'],['and listed every person’s work.','ופירטה את עבודתו של כל אחד.']],
+  [['The project received a special mention,','הפרויקט קיבל ציון לשבח,'],['with all three names','ושלושת השמות הופיעו'],['on the certificate.','על התעודה.']],
+  [['For the next project,','בפרויקט הבא,'],['they kept a shared task record','הם ניהלו רישום משימות משותף'],['from the first day.','מן היום הראשון.']],
+  [['Ruth chose the data section','רות בחרה את חלק הנתונים'],['and presented its first sentence herself.','והציגה בעצמה את המשפט הראשון שלו.']]
  ],
  'new-1-a1-safe-bicycle-ride':[
   [['Ari checked his bicycle before leaving.','ארי בדק את אופניו לפני שיצא.']],
@@ -1003,6 +1156,56 @@ const narrativeMetadata={
   arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
   lesson:'אחריות משותפת דורשת תפקידים ברורים ומדידה, לא רק כוונה טובה. גם לאחר טעות חשוב לבדוק, להמתין ולפעול לפי מצבו של הצמח במקום להגיב בפזיזות.',
   lessonEn:'Shared responsibility needs clear roles and measurement, not only good intentions. After a mistake, checking and waiting can be wiser than reacting too quickly.'
+ },
+ 'l1-a2-spare-seat':{
+  arcEn:'Unwelcome surprise',arcHe:'הפתעה לא צפויה',
+  lesson:'עייפות ואי־נוחות אינן מבטלות את הצורך לשים לב לאחר. עזרה מכבדת מציעה מקום ותמיכה, אך משאירה לאדם האחר בחירה ועצמאות.',
+  lessonEn:'Tiredness and discomfort do not remove the need to notice another person. Respectful help offers space and support while preserving the other person’s choice and independence.'
+ },
+ 'l1-a2-missed-practice':{
+  arcEn:'Misunderstanding',arcHe:'אי־הבנה שמתבהרת',
+  lesson:'סיבה מוצדקת להיעדרות אינה מוחקת את השפעתה על הקבוצה. הודעה ברורה, הקשבה לפני האשמה וקבלת מחיר מעשי מאפשרות לתקן אי־הבנה בלי להתעלם מאחריות.',
+  lessonEn:'A justified absence does not erase its effect on a team. Clear communication, listening before blame, and accepting a practical consequence allow a misunderstanding to be repaired responsibly.'
+ },
+ 'l1-a2-reusable-bottle':{
+  arcEn:'Second attempt',arcHe:'כישלון וניסיון שני',
+  lesson:'כוונה טובה אינה מספיקה כאשר הבחירה החדשה אינה נוחה. מדידה, תיקון מכשול וניסיון נוסף הופכים הבטחה להרגל, וגם תוצאה טובה צריכה להציג את הבעיה שעדיין נותרה.',
+  lessonEn:'Good intentions are not enough when a new choice is inconvenient. Measurement, removal of an obstacle, and a second attempt can turn a promise into a habit while still acknowledging what remains unsolved.'
+ },
+ 'l1-es-new-glasses':{
+  arcEn:'Small courage',arcHe:'אומץ קטן',
+  lesson:'גבול אישי יכול להיאמר בשקט ובבהירות. התנצלות אמיתית אינה דורשת מן הנפגע להעמיד פנים שהפגיעה הייתה חסרת חשיבות, והמשך רגיל של היום יכול להיות מעשה של ביטחון.',
+  lessonEn:'A personal boundary can be stated calmly and clearly. A genuine apology does not require the hurt person to pretend that the harm was unimportant, and continuing an ordinary day can itself be an act of confidence.'
+ },
+ 'l1-es-school-map':{
+  arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
+  lesson:'מפה נגישה אינה נוצרת רק מן ההנחות של המעצבים. בדיקה עם משתמשים שונים, שימוש ביותר מצבע אחד ותיקון חוזר הופכים את מי שנתפס כזקוק לעזרה לשותף בתכנון.',
+  lessonEn:'An accessible map cannot be built only from its designers’ assumptions. Testing with different users, communicating through more than color, and revising repeatedly turn the supposed recipients of help into design partners.'
+ },
+ 'l1-es-bird-nest':{
+  arcEn:'Preparation pays off',arcHe:'הכנה מוקדמת מוכיחה את עצמה',
+  lesson:'טיפול אחראי בחיות בר דורש לעיתים מרחק ואיפוק ולא מגע. תכנית ברורה ותיאום עם כל המבוגרים בסביבה מונעים מהתלהבות או מכוונה טובה להפוך להפרעה.',
+  lessonEn:'Responsible care for wildlife may require distance and restraint rather than contact. A clear plan shared with every adult in the area prevents excitement or good intentions from becoming harmful interference.'
+ },
+ 'l2-a1-library-book':{
+  arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
+  lesson:'הסתרת נזק מעבירה את הבעיה לקורא הבא. דיווח מיידי, הגנה על מי שממתין וקבלת חלק בתיקון בונים אחריות גם כאשר אי־אפשר להחזיר את הספר למצבו הקודם.',
+  lessonEn:'Hiding damage passes the problem to the next reader. Prompt reporting, protecting the person who is waiting, and taking part in the repair build responsibility even when the book cannot be restored completely.'
+ },
+ 'l2-a1-lunch-table':{
+  arcEn:'Misunderstanding',arcHe:'אי־הבנה שמתבהרת',
+  lesson:'שתיקה או יציאה מוקדמת אינן מוכיחות שאדם רוצה להיות לבדו. שאלה פשוטה, זמן וקבלת בחירתו של האחר מאפשרים לקשר לצמוח בלי לדבר במקומו.',
+  lessonEn:'Silence or an early departure does not prove that someone wants to be alone. A simple question, time, and respect for the other person’s choice allow connection to grow without speaking for them.'
+ },
+ 'l2-a1-water-leak':{
+  arcEn:'Discovery',arcHe:'גילוי בעקבות רמזים',
+  lesson:'תצפית זהירה נעשית מועילה כאשר מתעדים שינוי, מדווחים שוב ומתרחקים מאזור שעלול להיות מסוכן. שני רמזים ברורים יכולים להפוך חשד קטן לתיקון שמונע בזבוז ונזק.',
+  lessonEn:'Careful observation becomes useful when changes are recorded, concerns are reported again, and people stay away from possible danger. Two clear clues can turn a small suspicion into a repair that prevents waste and damage.'
+ },
+ 'l2-a2-group-credit':{
+  arcEn:'Unexpected ability',arcHe:'יכולת שלא זכתה להכרה',
+  lesson:'הכרה הוגנת צריכה לשקף את העבודה בפועל ולא רק את מי שמדבר מול קהל. תיקון פומבי, רישום משימות ומתן בחירה אמיתית בתפקיד מאפשרים ליכולת שקטה לקבל מקום בלי להפוך אותה להצגה.',
+  lessonEn:'Fair recognition should reflect the work itself, not only the people who speak in public. A visible correction, a shared task record, and genuine role choice give quiet expertise room without turning it into a performance.'
  }
 };
 const sceneCorrections={
