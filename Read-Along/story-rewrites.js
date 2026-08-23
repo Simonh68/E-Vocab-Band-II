@@ -458,20 +458,154 @@ const narrativeRevisions={
   [['She caught the next bus','היא עלתה על האוטובוס הבא'],['and arrived home twenty minutes late.','והגיעה הביתה באיחור של עשרים דקות.']],
   [['The next afternoon,','למחרת אחר הצהריים,'],['a younger child found a key,','ילד צעיר יותר מצא מפתח,'],['and Rina showed him','ורינה הראתה לו'],['the same security desk.','את אותה עמדת אבטחה.']]
  ],
+ 'l2-a1-helping-neighbor':[
+  [['An orange rolled down the stairs','תפוז התגלגל במורד המדרגות'],['and stopped beside Yaara’s shoe.','ונעצר ליד הנעל של יערה.']],
+  [['Mr. Cohen stood above her','מר כהן עמד מעליה'],['with a torn shopping bag','עם שקית קניות קרועה'],['and one sore shoulder.','ועם כתף כואבת.']],
+  [['“I can carry it,” he said,','״אני יכול לשאת אותה,״ אמר,'],['but the full bag','אבל השקית המלאה'],['pulled at his arm.','משכה את זרועו.']],
+  [['Yaara lifted both bags','יערה הרימה את שתי השקיות'],['without asking,','בלי לשאול,'],['and Mr. Cohen stepped back.','ומר כהן צעד לאחור.']],
+  [['“Please ask me first,” he said.','״בבקשה תשאלי אותי קודם,״ אמר.'],['“I can still carry','״אני עדיין יכול לשאת'],['the light bag.”','את השקית הקלה.״']],
+  [['Yaara put the bags down','יערה הניחה את השקיות'],['and asked,','ושאלה:'],['“Which bag do you want me to take?”','״איזו שקית אתה רוצה שאקח?״']],
+  [['He gave her the bottles','הוא נתן לה את הבקבוקים'],['and kept the bread and eggs.','והשאיר אצלו את הלחם והביצים.']],
+  [['Shai held the stair door','שי החזיק את דלת חדר המדרגות'],['while Mr. Cohen climbed','בזמן שמר כהן עלה'],['at his own pace.','בקצב שלו.']],
+  [['Together, they made','יחד הם הכינו'],['a Friday schedule','לוח עזרה לימי שישי'],['after asking what help he wanted.','לאחר ששאלו איזו עזרה הוא רוצה.']],
+  [['Mr. Cohen added,','מר כהן הוסיף:'],['“Small repairs—ask me,”','״תיקונים קטנים—פנו אליי,״'],['below the students’ names.','מתחת לשמות התלמידים.']],
+  [['The next Friday,','ביום שישי הבא,'],['Yaara carried the bottles,','יערה נשאה את הבקבוקים,'],['and he fixed her bicycle light.','והוא תיקן את פנס האופניים שלה.']]
+ ],
  'l2-a1-team-place':[
-  [['“Choose five players,” Coach Eyal said,','״בחרו חמישה שחקנים,״ אמר המאמן אייל,'],['placing the basketball on the bench.','והניח את כדור הכדורסל על הספסל.']],
-  [['Amit raised his hand,','עמית הרים את ידו,'],['but Ron and the taller boys called out first.','אבל רון והבנים הגבוהים יותר קראו ראשונים.']],
-  [['Amit ran more slowly and rarely scored,','עמית רץ לאט יותר ולעיתים רחוקות קלע,'],['so he lowered his hand.','ולכן הוריד את ידו.']],
-  [['During practice, the other team scored','במהלך האימון הקבוצה השנייה קלעה'],['three times from the same corner.','שלוש פעמים מאותה פינה.']],
+  [['Coach Eyal asked the captains','המאמן אייל ביקש מראשי הקבוצות'],['to choose five players','לבחור חמישה שחקנים'],['for a practice game.','למשחק אימון.']],
+  [['Amit raised his hand,','עמית הרים את ידו,'],['but Ron chose','אבל רון בחר'],['the taller boys first.','קודם בבנים הגבוהים יותר.']],
+  [['Amit rarely scored,','עמית קלע לעיתים רחוקות,'],['so he sat beside the coach','ולכן ישב ליד המאמן'],['with the tactics board.','עם לוח התכנון.']],
+  [['The other team scored','הקבוצה השנייה קלעה'],['three times','שלוש פעמים'],['from the same left corner.','מאותה פינה שמאלית.']],
   [['Amit noticed that number seven','עמית הבחין ששחקן מספר שבע'],['stepped back before every pass.','צעד לאחור לפני כל מסירה.']],
-  [['He touched the coach’s arm and said,','הוא נגע בזרועו של המאמן ואמר:'],['“I think I know their next move.”','״אני חושב שאני יודע מה יהיה המהלך הבא שלהם.״']],
-  [['Coach Eyal turned the board toward him.','המאמן אייל סובב אליו את הלוח.'],['“Show us.”','״תראה לנו.״']],
-  [['Amit drew one short line.','עמית צייר קו קצר אחד.'],['“Ron, you stand here. I will watch number seven.”','״רון, אתה תעמוד כאן. אני אשמור על מספר שבע.״']],
-  [['Ron looked at the board.','רון הביט בלוח.'],['“Will this really work?”','״זה באמת יעבוד?״']],
-  [['On the next play, Amit shouted, “Left!”','במהלך הבא עמית צעק: ״שמאלה!״'],['and Ron stopped the pass.','ורון עצר את המסירה.']],
-  [['“We need Amit on the court,”','״אנחנו צריכים את עמית על המגרש,״'],['Ron told the coach.','אמר רון למאמן.']],
-  [['Amit did not score the winning basket;','עמית לא קלע את סל הניצחון;'],['he passed to the open player.','הוא מסר לשחקן הפנוי.']],
-  [['At the next practice, Coach Eyal gave Amit the marker first','באימון הבא המאמן אייל נתן לעמית ראשון את הטוש'],['and said, “Show us the plan.”','ואמר: ״תראה לנו את התכנית.״']]
+  [['He leaned toward Coach Eyal.','הוא רכן לעבר המאמן אייל.'],['“I know where','״אני יודע לאן'],['the next pass will go.”','תלך המסירה הבאה.״']],
+  [['The coach called a timeout','המאמן ביקש פסק זמן'],['and handed Amit the marker.','והושיט לעמית את הטוש.']],
+  [['Amit drew one line.','עמית צייר קו אחד.'],['“Ron, stand here.','״רון, תעמוד כאן.'],['I will watch number seven.”','אני אשמור על מספר שבע.״']],
+  [['Ron frowned,','רון קימט את מצחו,'],['but moved to the marked place.','אבל עבר למקום המסומן.']],
+  [['When number seven','כאשר שחקן מספר שבע'],['stepped back again,','צעד שוב לאחור,'],['Amit shouted, “Left!”','עמית צעק: ״שמאלה!״']],
+  [['Ron stopped the pass,','רון עצר את המסירה,'],['and the coach sent Amit','והמאמן שלח את עמית'],['onto the court.','אל המגרש.']],
+  [['Amit did not force a shot;','עמית לא ניסה לזרוק בכוח;'],['he passed to the open player.','הוא מסר לשחקן הפנוי.']],
+  [['At the next practice,','באימון הבא,'],['Ron handed Amit the marker','רון הושיט לעמית את הטוש'],['and asked, “What do you see?”','ושאל: ״מה אתה רואה?״']]
+ ],
+ 'l2-a2-photo-spread':[
+  [['A cropped photograph of Yael','תמונה חתוכה של יעל'],['appeared in the class group','הופיעה בקבוצה הכיתתית'],['during break.','בזמן ההפסקה.']],
+  [['It showed her eyes closed,','בתמונה נראו עיניה עצומות,'],['with the words','עם המילים'],['“Sleeping through science.”','״ישנה בשיעור מדעים.״']],
+  [['Laughing emojis arrived,','סמלי צחוק הופיעו,'],['and Amir’s thumb rested','והאגודל של אמיר נח'],['on “Forward.”','על ״העבר״.']],
+  [['Neta noticed yellow safety goggles','נטע הבחינה במשקפי מגן צהובים'],['at the edge of the picture.','בקצה התמונה.']],
+  [['“This came from our experiment,”','״זה הגיע מהניסוי שלנו,״'],['she said.','אמרה.'],['“Show us the original.”','״תראו לנו את התמונה המקורית.״']],
+  [['The full photograph showed Yael','התמונה המלאה הראתה את יעל'],['sneezing beside','מתעטשת ליד'],['a bubbling model volcano.','דגם הר געש מבעבע.']],
+  [['Amir lowered his phone.','אמיר הוריד את הטלפון שלו.'],['“I almost shared something false.”','״כמעט שיתפתי דבר לא נכון.״']],
+  [['He posted the full picture','הוא פרסם את התמונה המלאה'],['and a correction','ותיקון'],['in every class group.','בכל קבוצה כיתתית.']],
+  [['Then he asked classmates','אחר כך הוא ביקש מחבריו לכיתה'],['to delete the cropped copy','למחוק את העותק החתוך'],['instead of forwarding it.','במקום להעביר אותו.']],
+  [['Yael read his apology,','יעל קראה את ההתנצלות שלו,'],['but did not smile','אבל לא חייכה'],['or answer at once.','ולא ענתה מיד.']],
+  [['At the next lab,','בשיעור המעבדה הבא,'],['Amir showed her the team photo','אמיר הראה לה את תמונת הצוות'],['and waited for permission','והמתין לרשותה'],['before posting it.','לפני שפרסם אותה.']]
+ ],
+ 'l2-a2-cheating':[
+  [['During a difficult math test,','במהלך מבחן קשה במתמטיקה,'],['Omer saw Gil copy','עומר ראה את גיל מעתיק'],['one of his answers.','אחת מתשובותיו.']],
+  [['Omer covered his paper,','עומר כיסה את הדף שלו,'],['but Gil had already copied','אבל גיל כבר העתיק'],['the last two lines.','את שתי השורות האחרונות.']],
+  [['After class,','לאחר השיעור,'],['the teacher asked both boys','המורה ביקשה משני הבנים'],['to stay.','להישאר.']],
+  [['“You used the same unusual method','״השתמשתם באותה שיטה לא רגילה'],['and made the same error,”','ועשיתם אותה טעות,״'],['she said.','אמרה.']],
+  [['Gil whispered,','גיל לחש:'],['“Tell her we practiced it together.”','״תגיד לה שתרגלנו את זה יחד.״']],
+  [['Omer remembered','עומר נזכר'],['how Gil had helped him study','כיצד גיל עזר לו ללמוד'],['and looked at the floor.','והביט ברצפה.']],
+  [['“I will not lie for you,”','״אני לא אשקר למענך,״'],['Omer said.','אמר עומר.'],['“Tell her before she returns.”','״ספר לה לפני שהיא חוזרת.״']],
+  [['Gil waited','גיל המתין'],['until the teacher opened the door.','עד שהמורה פתחה את הדלת.']],
+  [['Then he said,','ואז אמר:'],['“I copied Omer’s answer.','״העתקתי את התשובה של עומר.'],['He did not help me.”','הוא לא עזר לי.״']],
+  [['Gil’s test was cancelled,','המבחן של גיל נפסל,'],['and he had to take','והוא נאלץ לעשות'],['a new one alone.','מבחן חדש לבדו.']],
+  [['Omer did not excuse him,','עומר לא הצדיק אותו,'],['but offered to study together','אבל הציע ללמוד יחד'],['after school.','לאחר הלימודים.']],
+  [['The next week,','בשבוע הבא,'],['Gil closed his notes','גיל סגר את הסיכומים שלו'],['before the practice quiz','לפני הבוחן לתרגול'],['and asked Omer','וביקש מעומר'],['to explain one problem.','להסביר תרגיל אחד.']]
+ ],
+ 'l2-a2-injured-captain':[
+  [['Before the accident,','לפני התאונה,'],['Ben led every warm-up','בן הוביל כל חימום'],['and carried the tactics board.','ונשא את לוח התכנון.']],
+  [['After a cycling crash,','לאחר תאונת אופניים,'],['he recovered at home','הוא החלים בבית'],['for two months.','במשך חודשיים.']],
+  [['At first,','בהתחלה,'],['his teammates sent messages','חבריו לנבחרת שלחו הודעות'],['after every practice.','לאחר כל אימון.']],
+  [['Soon the messages became shorter,','עד מהרה ההודעות התקצרו,'],['and Ben stopped asking questions.','ובן הפסיק לשאול שאלות.']],
+  [['During one video call,','במהלך שיחת וידאו אחת,'],['the phone faced the ceiling','הטלפון פנה אל התקרה'],['instead of the court.','במקום אל המגרש.']],
+  [['Ben watched for a minute,','בן צפה במשך דקה,'],['then left the call.','ואז עזב את השיחה.']],
+  [['Lior noticed his name disappear','ליאור הבחינה ששמו נעלם'],['and moved the phone','והעבירה את הטלפון'],['to the bench.','אל הספסל.']],
+  [['“We need your eyes','״אנחנו צריכים את העיניים שלך'],['on our defense,”','על ההגנה שלנו,״'],['she told him.','אמרה לו.']],
+  [['Ben saw that the left side','בן ראה שהצד השמאלי'],['opened whenever','נפתח בכל פעם'],['the center moved forward.','שהשחקן המרכזי התקדם.']],
+  [['He sent one short instruction,','הוא שלח הוראה קצרה אחת,'],['and the team stopped','והנבחרת עצרה'],['the next attack.','את ההתקפה הבאה.']],
+  [['Later, Ben admitted','בהמשך בן הודה'],['that he also needed class notes','שגם הוא זקוק לסיכומי שיעור'],['and help with homework.','ולעזרה בשיעורי הבית.']],
+  [['The teammates divided the work:','חברי הנבחרת חילקו את העבודה:'],['clips, notes, calls','סרטונים, סיכומים, שיחות'],['and short visits.','וביקורים קצרים.']],
+  [['On his first day back,','ביום הראשון לאחר שחזר,'],['Ben entered the gym slowly','בן נכנס לאולם לאט'],['with one crutch.','בעזרת קב אחד.']],
+  [['He handed Lior the whistle,','הוא הושיט לליאור את המשרוקית,'],['took the tactics board','לקח את לוח התכנון'],['and said,','ואמר:'],['“Let’s lead this together.”','״בואי נוביל את זה יחד.״']]
+ ],
+ 'l2-es-strength':[
+  [['Some classmates noticed Sam’s visible facial difference before they learned what he could do.','Some students noticed a visible difference in Sam’s face before they learned about his abilities.']],
+  [['During science club, they gave him the label sheet while they built the circuit.','They gave Sam a small paperwork task while they made an electrical system.']],
+  [['Sam read the red safety card and asked where the emergency switch was.','Sam read the safety instructions and asked where the power could be stopped in an emergency.']],
+  [['One student shrugged. “We will not need it.”','A student thought the emergency switch would not be needed.']],
+  [['Minutes later, a beaker tipped, and water ran toward the power strip.','Soon a glass container fell and water moved toward the electrical connection.']],
+  [['A student reached for a cloth, but Sam called, “Step back—do not touch it.”','Someone tried to clean it, but Sam told everyone to move away and not touch it.']],
+  [['He pointed the teacher toward the emergency switch and counted every student.','Sam showed the teacher the emergency switch and made sure every student was there.']],
+  [['The teacher cut the power before the water reached the cables.','The teacher stopped the electricity before the water reached the wires.']],
+  [['Nobody spoke until the teacher said the room was safe.','Everyone waited quietly until the teacher said there was no danger.']],
+  [['Sam explained the rule calmly, without trying to embarrass anyone.','Sam explained the safety rule calmly and did not try to make anyone feel ashamed.']],
+  [['“We gave you the smallest job,” a classmate admitted.','A classmate admitted that the group had given Sam the least important task.']],
+  [['At the next meeting, the group asked Sam to lead the safety check.','At the next science meeting, the students asked Sam to check safety before they began.']],
+  [['He handed Leila the meter and said, “You lead the measurements.”','Sam shared leadership by asking Leila to manage the measurements.']]
+ ],
+ 'l2-es-food-project':[
+  [['At closing time, Lina saw sealed sandwiches going into the market bin.','Lina saw safe packaged sandwiches being thrown away when the market closed.']],
+  [['Across the street, the community refrigerator was already empty.','The public food refrigerator nearby had no food left.']],
+  [['The students proposed collecting every leftover item that night.','The students first wanted to take all the extra food that night.']],
+  [['The food-bank coordinator stopped them. “Safe food still needs safe handling.”','A food-bank worker explained that food must be transported safely.']],
+  [['A public sign-up list would also reveal which families needed help.','Listing names in public would show which families needed support.']],
+  [['Lina compared the market’s closing time with the refrigerator’s delivery hours.','Lina compared when the market closed with when volunteers delivered food.']],
+  [['The surplus appeared after the last volunteer had gone home.','The extra food became available only after the volunteers had left.']],
+  [['The group arranged an earlier collection with insulated boxes and no family names.','The group planned an earlier collection using boxes that kept food cold and did not record family names.']],
+  [['On the first evening, a delivery van arrived late, and the yogurt became too warm.','A late vehicle made the yogurt too warm to use safely.']],
+  [['They discarded it, recorded the loss, and changed the route.','They did not give out unsafe food; they recorded the problem and changed the route.']],
+  [['The second collection included only sealed, labeled food kept at a safe temperature.','On the second collection, they took only sealed food with labels that stayed cold enough.']],
+  [['Families chose items privately at the community center, without signing a public list.','Families selected food in private and did not put their names on a public list.']],
+  [['The market began discounting extra food before closing, so less remained to collect.','The market reduced prices near closing, so less food was thrown away.']],
+  [['A small board reported “Thirty-four meals saved”—and displayed no names.','A public board showed the total meals saved but protected every family’s privacy.']]
+ ],
+ 'l2-es-river':[
+  [['After a powerful storm, cups and plastic bags covered the local riverbank.','After a strong storm, cups and plastic bags covered the ground beside the river.']],
+  [['Several residents blamed weekend visitors who had picnicked there.','Some local people blamed visitors who had eaten beside the river.']],
+  [['Mira noticed that many cups carried the same blue market logo.','Mira saw that many cups had the same blue store sign on them.']],
+  [['She photographed them and followed the muddy trail to a street drain upstream.','She took pictures and followed the muddy path to a street drain farther up the river.']],
+  [['Behind the shopping center, one waste container had lost its lid.','One trash container behind the stores no longer had a lid.']],
+  [['Wind had lifted the cups; rain had swept them into the street drain.','Wind moved the cups, and rain carried them into the drain.']],
+  [['The drain had carried them into the stream, and the stream had fed the river.','The drain led to a small stream that carried the cups into the river.']],
+  [['The manager looked at the open container. “One missing lid caused all this?”','The manager was surprised that one missing lid had caused so much pollution.']],
+  [['The students showed the sequence instead of blaming one careless person.','The students explained each step and did not blame one person without evidence.']],
+  [['A municipal crew used a temporary screen to catch waste and removed it safely.','City workers caught the trash with a temporary screen and removed it safely.']],
+  [['The shopping center replaced the lid and moved the containers under a shelter.','The stores added a new lid and moved the trash containers under a roof.']],
+  [['When a worker tested the new lid, it lifted without locking.','A worker discovered that the new lid could open because it did not lock.']],
+  [['The team added metal latches and a storm inspection checklist.','They added metal locks and a list of checks to complete before storms.']],
+  [['After the next heavy rain, Mira checked the river for blue cups.','Mira looked for cups with the blue store sign after the next strong rain.']],
+  [['She found none, but recorded two different bags from another drain.','She found no blue cups, but saw two other bags from a different drain.']],
+  [['The group marked the new source on its map and continued the investigation.','The students added the new source to their map and kept investigating.']]
+ ],
+ 'l3-a1-final-place':[
+  [['Only one place remained','נותר רק מקום אחד'],['on the school basketball team.','בנבחרת הכדורסל של בית הספר.']],
+  [['Daniel was the best scorer,','דניאל היה הקלע הטוב ביותר,'],['but he often kept the ball','אבל לעיתים קרובות שמר את הכדור'],['too long.','זמן רב מדי.']],
+  [['Oren scored less,','אורן קלע פחות,'],['yet he trained regularly','אך התאמן בקביעות'],['and passed to open players.','ומסר לשחקנים פנויים.']],
+  [['The tournament was one week away,','הטורניר עמד להתחיל בעוד שבוע,'],['and the team badly needed points.','והנבחרת הייתה זקוקה מאוד לנקודות.']],
+  [['In the final practice game,','במשחק האימון האחרון,'],['Daniel scored twice','דניאל קלע פעמיים'],['in one minute.','בדקה אחת.']],
+  [['Then he ignored','אחר כך הוא התעלם'],['an open teammate','מחבר לקבוצה שהיה פנוי'],['and lost the ball.','ואיבד את הכדור.']],
+  [['Oren missed his next shot,','אורן החטיא את הזריקה הבאה שלו,'],['but ran back','אבל רץ לאחור'],['and stopped an easy basket.','ומנע סל קל.']],
+  [['Coach Amir read','המאמן אמיר קרא'],['the three standards','את שלושת המדדים'],['from the selection sheet:','מדף הבחירה:'],['skill, effort and teamwork.','יכולת, מאמץ ועבודת צוות.']],
+  [['He chose Oren','הוא בחר באורן'],['and told Daniel,','ואמר לדניאל:'],['“I am choosing the player','״אני בוחר בשחקן'],['who shows all three.”','שמראה את שלושתם.״']],
+  [['At the tournament,','בטורניר,'],['the team struggled to score','הנבחרת התקשתה לקלוע'],['and lost by two points.','והפסידה בשתי נקודות.']],
+  [['Even so,','למרות זאת,'],['Oren made two assists','אורן מסר שתי מסירות לסל'],['and helped the players','ועזר לשחקנים'],['work together.','לעבוד יחד.']],
+  [['On Monday,','ביום שני,'],['Daniel returned for practice','דניאל חזר לאימון'],['with the coach’s teamwork plan','עם תכנית עבודת הצוות של המאמן'],['folded in his bag.','מקופלת בתיקו.']]
+ ],
+ 'l3-a1-park':[
+  [['A city notice','הודעת עירייה'],['on the park fence','על גדר הפארק'],['showed thirty new parking spaces.','הציגה שלושים מקומות חניה חדשים.']],
+  [['The plan would remove','לפי התכנית יוסרו'],['half the grass','מחצית מהדשא'],['and six old trees.','ושישה עצים ישנים.']],
+  [['The students began a petition','התלמידים פתחו עצומה'],['to save every part','כדי להציל כל חלק'],['of the park.','בפארק.']],
+  [['Mrs. Levi, a shop owner,','גברת לוי, בעלת חנות,'],['showed them delivery trucks','הראתה להם משאיות משלוחים'],['blocking the road.','שחסמו את הכביש.']],
+  [['“We need the park,” she said,','״אנחנו צריכים את הפארק,״ אמרה,'],['“but we also need safe parking.”','״אבל אנחנו צריכים גם חניה בטוחה.״']],
+  [['The students counted park users,','התלמידים ספרו משתמשים בפארק,'],['empty parking spaces','מקומות חניה פנויים'],['and delivery delays','ועיכובים במשלוחים'],['for one week.','במשך שבוע אחד.']],
+  [['Rami noticed','רמי הבחין'],['an unused paved lot','במגרש מרוצף שאינו בשימוש'],['behind the community center.','מאחורי המרכז הקהילתי.']],
+  [['Its broken gate','השער השבור שלו'],['and dark path explained','והשביל החשוך הסבירו'],['why drivers avoided it.','מדוע נהגים נמנעו ממנו.']],
+  [['The students walked the route','התלמידים הלכו במסלול'],['with an older resident','עם תושב מבוגר'],['and found a high curb.','וגילו שפת מדרכה גבוהה.']],
+  [['Their new plan kept the park','התכנית החדשה שמרה על הפארק'],['and used the budget','והשתמשה בתקציב'],['to repair the lot,','כדי לתקן את המגרש,'],['add lights','להוסיף תאורה'],['and build a ramp.','ולבנות כבש.']],
+  [['The budget could not include','התקציב לא היה יכול לכלול'],['the new playground equipment','את מתקני המשחק החדשים'],['they had wanted.','שהם רצו.']],
+  [['At the public meeting,','במפגש הציבורי,'],['the students presented','התלמידים הציגו'],['both the solution and its cost.','גם את הפתרון וגם את מחירו.']],
+  [['Months later,','כעבור חודשים,'],['Mrs. Levi parked','גברת לוי חנתה'],['in the repaired lot','במגרש המתוקן'],['while children played','בזמן שילדים שיחקו'],['under the same trees.','מתחת לאותם עצים.']]
  ],
  'l1-a1-broken-pencil':[
   [['Nadav’s pencil broke just before the lesson began.','העיפרון של נדב נשבר ממש לפני תחילת השיעור.']],
@@ -619,9 +753,55 @@ const narrativeMetadata={
   lesson:'יושר עשוי לדרוש ויתור ממשי, כמו החמצת אוטובוס. פנייה למבוגר אחראי מגינה על המציאה ועל מי שמצא אותה.',
   lessonEn:'Honesty may require a real sacrifice, such as missing a bus. Turning to a responsible adult protects both the lost property and the person who found it.'
  },
+ 'l2-a1-helping-neighbor':{
+  arcEn:'Help from a friend',arcHe:'קבלת עזרה מחבר',
+  lesson:'עזרה מכבדת מתחילה בשאלה ואינה לוקחת שליטה. כאשר כל אדם יכול גם לקבל וגם לתרום, העזרה הופכת לקשר הדדי ולא ליחס של תלות.',
+  lessonEn:'Respectful help begins with asking rather than taking control. When everyone can both receive and contribute, support becomes a mutual relationship rather than dependence.'
+ },
  'l2-a1-team-place':{
   arcEn:'Unexpected ability',arcHe:'יכולת מפתיעה',
-  lesson:'קבוצה מתחזקת כאשר היא מזהה סוגים שונים של יכולת. שחקן שקט או אטי יותר עשוי לראות מה שאחרים מחמיצים.'
+  lesson:'קבוצה מתחזקת כאשר היא מזהה סוגים שונים של יכולת. שחקן שקט או אטי יותר עשוי לראות מה שאחרים מחמיצים.',
+  lessonEn:'A team becomes stronger when it recognizes different forms of ability. A quieter or slower player may notice what others miss.'
+ },
+ 'l2-a2-photo-spread':{
+  arcEn:'False appearance',arcHe:'מראית עין מטעה',
+  lesson:'תמונה חתוכה עלולה ליצור סיפור שקרי ולפגוע גם לאחר שמתקנים אותו. יש לבדוק את המקור, לפרסם תיקון באותו מקום ולבקש רשות לפני שיתוף תמונה של אדם אחר.',
+  lessonEn:'A cropped image can create a false story and continue causing harm after a correction. Check the source, correct the claim in the same place, and ask permission before sharing another person’s image.'
+ },
+ 'l2-a2-cheating':{
+  arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
+  lesson:'נאמנות לחבר אינה מחייבת לשקר למענו. אמת, תוצאה ממשית והצעה לעזרה ישרה מאפשרות להתחיל לתקן את הפגיעה באמון.',
+  lessonEn:'Loyalty to a friend does not require lying for that friend. Truth, a real consequence, and an offer of honest help can begin to repair trust.'
+ },
+ 'l2-a2-injured-captain':{
+  arcEn:'Role reversal',arcHe:'היפוך תפקידים',
+  lesson:'גם מי שמוביל אחרים זקוק לעיתים לעזרה ולתחושת שייכות. חלוקת תפקידים גמישה מאפשרת לאדם להמשיך לתרום בלי להסתיר את צרכיו.',
+  lessonEn:'Even a person who usually leads may need help and reassurance of belonging. Flexible roles allow someone to keep contributing without hiding personal needs.'
+ },
+ 'l2-es-strength':{
+  arcEn:'Preparation pays off',arcHe:'הכנה מוקדמת מוכיחה את עצמה',
+  lesson:'אין להסיק יכולת ממראה חיצוני או מן התפקיד הקטן שניתן לאדם. הכנה שקטה, תשומת לב לכללי בטיחות והנהגה משותפת הן צורות ממשיות של כוח.',
+  lessonEn:'Ability cannot be inferred from appearance or from the small role someone receives. Quiet preparation, attention to safety, and shared leadership are genuine forms of strength.'
+ },
+ 'l2-es-food-project':{
+  arcEn:'Search for an explanation',arcHe:'חיפוש אחר הסבר',
+  lesson:'עזרה אחראית מגינה גם על בטיחות המזון וגם על פרטיות המשפחות. בדיקת שעות, תיעוד כשל ושינוי המסלול הופכים כוונה טובה למערכת שאפשר לסמוך עליה.',
+  lessonEn:'Responsible food support protects both food safety and family privacy. Checking schedules, recording a failure, and changing the route turn good intentions into a system people can trust.'
+ },
+ 'l2-es-river':{
+  arcEn:'Chain reaction',arcHe:'תגובת שרשרת',
+  lesson:'מפגע סביבתי עשוי להתחיל בכשל תחזוקה קטן ולהתפשט דרך רוח, גשם וניקוז. מיפוי רצף האירועים, בדיקת התיקון ומעקב מתמשך יעילים יותר מהאשמה מהירה.',
+  lessonEn:'Environmental damage may begin with a small maintenance failure and spread through wind, rain, and drainage. Mapping the chain, testing the repair, and monitoring later storms work better than quick blame.'
+ },
+ 'l3-a1-final-place':{
+  arcEn:'Moral dilemma',arcHe:'דילמה בין ערכים',
+  lesson:'החלטה הוגנת נשענת על כללים שנקבעו מראש ואינה מסתירה את המחיר שלה. בחירה בעבודת צוות עלולה לעלות בנקודות, אך היא מבהירה איזה סוג קבוצה רוצים לבנות.',
+  lessonEn:'A fair decision follows criteria set in advance and does not hide its cost. Choosing teamwork may cost points, but it clarifies the kind of team being built.'
+ },
+ 'l3-a1-park':{
+  arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
+  lesson:'מאבק ציבורי משתפר כאשר מקשיבים גם לצורך שמנגד ואוספים נתונים אמינים. פתרון משותף עשוי לשמור על הערך המרכזי ובכל זאת לדרוש ויתור גלוי.',
+  lessonEn:'Public advocacy improves when people listen to the competing need and gather reliable evidence. A shared solution may protect the central value while still requiring an honest sacrifice.'
  }
 };
 const sceneCorrections={
