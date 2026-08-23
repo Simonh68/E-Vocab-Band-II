@@ -1177,8 +1177,162 @@ const narrativeRevisions={
   [['A second practice began without a long speech.','תרגול שני התחיל בלי נאום ארוך.']],
   [['Messages moved from house to house in the planned order.','ההודעות עברו מבית לבית לפי הסדר המתוכנן.']],
   [['Lina marked one slow point on the map.','לינה סימנה נקודה אטית אחת במפה.']],
-  [['The team changed that route before the next practice.','הצוות שינה את המסלול לפני התרגול הבא.']],
-  [['Clear roles turned willing neighbors into a useful emergency team.','תפקידים ברורים הפכו שכנים שרצו לעזור לצוות חירום יעיל.']]
+ [['The team changed that route before the next practice.','הצוות שינה את המסלול לפני התרגול הבא.']],
+ [['Clear roles turned willing neighbors into a useful emergency team.','תפקידים ברורים הפכו שכנים שרצו לעזור לצוות חירום יעיל.']]
+ ],
+ 'l3-a2-food-waste':[
+  [['On Monday, Neta watched','ביום שני נטע ראתה'],['food from three full trays fall','מזון משלושה מגשים מלאים נופל'],['into the cafeteria bin.','אל פח חדר האוכל.']],
+  [['The eco committee had promised','הוועדה הסביבתית הבטיחה'],['to cut food waste','לצמצם את בזבוז המזון'],['before the spring fair.','לפני יריד האביב.']],
+  [['Their first idea was','הרעיון הראשון שלהם היה'],['to donate every leftover meal.','לתרום כל ארוחה שנותרה.']],
+  [['The kitchen manager shook his head:','מנהל המטבח הניד בראשו:'],['food already served could not','מזון שכבר הוגש לא יכול היה'],['leave the cafeteria safely.','לצאת בבטחה מחדר האוכל.']],
+  [['Neta’s cheeks warmed','לחייה של נטע התחממו'],['when classmates called','כאשר חברים לכיתה קראו'],['the project useless.','למיזם חסר תועלת.']],
+  [['Then she noticed','אז היא הבחינה'],['the same large serving','באותה מנה גדולה'],['on every tray.','על כל מגש.']],
+  [['She asked the kitchen staff','היא ביקשה מצוות המטבח'],['to weigh waste from','לשקול בנפרד פסולת'],['small and large portions separately.','ממנות קטנות וגדולות.']],
+  [['For one week, students chose','במשך שבוע התלמידים בחרו'],['a blue card for','כרטיס כחול'],['a small serving','למנה קטנה'],['or a green card','או כרטיס ירוק'],['for a full one.','למנה מלאה.']],
+  [['Nobody had to explain','איש לא נדרש להסביר'],['how hungry they were.','עד כמה היה רעב.']],
+  [['On the first test day,','ביום הניסוי הראשון,'],['the lunch line moved slowly,','התור לארוחה התקדם באטיות,'],['and several students chose','וכמה תלמידים בחרו'],['the wrong card.','בכרטיס הלא נכון.']],
+  [['Neta nearly canceled the test','נטע כמעט ביטלה את הניסוי'],['when the bin filled again.','כאשר הפח התמלא שוב.']],
+  [['Amir pointed to the tally sheet:','אמיר הצביע על דף הספירה:'],['most waste came from','רוב הפסולת הגיעה'],['one unpopular dish,','ממנה אחת שלא הייתה אהובה,'],['not from small servings.','לא ממנות קטנות.']],
+  [['The committee changed Friday’s menu','הוועדה שינתה את תפריט יום שישי'],['and added a station','והוסיפה עמדה'],['for second servings.','למנות נוספות.']],
+  [['They also placed unopened fruit cups','הם גם הניחו גביעי פירות סגורים'],['in a clean donation crate.','בארגז תרומה נקי.']],
+  [['At the final lunch,','בארוחה האחרונה,'],['the manager rolled the waste bin','המנהל גלגל את פח הפסולת'],['onto the scale.','אל המשקל.']],
+  [['The number had fallen','המספר ירד'],['from thirty-two kilograms','משלושים ושניים קילוגרמים'],['to thirteen.','לשלושה עשר.']],
+  [['A younger student quietly returned','תלמיד צעיר יותר חזר בשקט'],['for a second serving','למנה נוספת'],['instead of taking too much','במקום לקחת יותר מדי'],['the first time.','בפעם הראשונה.']],
+  [['The local shelter accepted','המקלט המקומי קיבל'],['the sealed fruit cups','את גביעי הפירות הסגורים'],['that afternoon.','באותו אחר צהריים.']],
+  [['The plan had not saved','התכנית לא הצילה'],['every meal,','כל ארוחה,'],['but it protected safety','אך היא שמרה על בטיחות'],['and personal choice.','ועל בחירה אישית.']],
+  [['Neta pinned the two weight tickets','נטע הצמידה את שני פתקי המשקל'],['beside the next week’s menu.','לצד תפריט השבוע הבא.']]
+ ],
+ 'l3-es-captain-choice':[
+  [['Eight minutes before the semifinal, Maya heard a sharp insult from the tunnel.','Shortly before the semifinal, Maya heard an insulting comment from the tunnel.']],
+  [['Eitan, the team’s leading scorer, had mocked reserve forward Gil after a missed shot.','Eitan was the team’s best scorer, and he insulted reserve player Gil after Gil missed a shot.']],
+  [['The team rule was explicit: a personal insult meant sitting out the next match.','The team had a clear rule that an insulting player could not play in the next game.']],
+  [['Two reserve players had already accepted that consequence earlier in the season.','Two reserve players had already received the same consequence.']],
+  [['Yet this match would decide whether the team reached the national final.','Winning this game would take the team to the national final.']],
+  [['Outside, supporters chanted Eitan’s name while Maya gripped the folded lineup.','People outside called Eitan’s name while Maya held the team list tightly.']],
+  [['Eitan apologized quickly, then added, “Gil knows I was under pressure.”','Eitan said sorry but also used the pressure as an excuse.']],
+  [['Gil studied the tape around his wrist and said nothing.','Gil looked at his wrist tape and stayed silent.']],
+  [['Ignoring the insult could protect the team’s best chance of winning.','Allowing Eitan to play would make a victory more likely.']],
+  [['Enforcing the rule could end their season.','Following the rule might cause the team to lose.']],
+  [['Maya asked Gil whether he wanted the incident discussed before the whole team.','Maya asked Gil whether he wanted everyone to discuss what happened.']],
+  [['“I want the rule to mean the same thing when we need him,” Gil replied.','Gil wanted the rule to apply even when the team needed its best player.']],
+  [['Only then did Maya recognize what an exception would tell every reserve player.','Maya understood that an exception would make the rule unfair to the reserve players.']],
+  [['She recommended that Eitan sit out, exactly as the others had.','She advised the coach to give Eitan the same consequence as the others.']],
+  [['The coach accepted her recommendation and signed the change himself.','The adult coach made the final decision and changed the team list.']],
+  [['Without Eitan, the team created chances but did not score.','The team played without Eitan and could not score.']],
+  [['Gil’s final shot struck the post, and they lost one–nil.','Gil almost scored at the end, but the team lost by one goal.']],
+  [['In the silent locker room, Eitan returned Gil’s fallen water bottle and said, “The rule was mine too.”','After the loss, Eitan helped Gil and accepted that the rule also applied to him.']],
+  [['At the next practice, he apologized again without using pressure as an excuse.','At the next practice, Eitan apologized without defending his behavior.']],
+  [['Maya placed the losing lineup beside the team rules instead of hiding it behind the trophies.','Maya kept the losing team list beside the rules as a visible reminder.']]
+ ],
+ 'l3-es-private-donation':[
+  [['The student council learned that a family at school needed groceries after an unexpected medical crisis.','The student council heard that a school family needed food after a sudden health problem.']],
+  [['The counselor shared no name and asked them to protect the family’s privacy.','The counselor did not name the family and asked the students to keep the family private.']],
+  [['Amir immediately designed a bright fundraiser poster for the front gate.','Amir quickly made a public poster to collect money.']],
+  [['He added a grade level, a hospital reference, and a family size gathered from hallway rumors.','Amir added identifying details that he had heard from other students.']],
+  [['Roni recognized the family from those details, although nobody else did.','Roni knew who the family was because of the details.']],
+  [['She said the poster should not be displayed, but she would not explain why.','Roni opposed the poster but did not give a reason.']],
+  [['Amir treated her silence as indifference.','Amir wrongly believed that Roni did not care.']],
+  [['“Doing nothing also causes harm,” he told her.','Amir said that refusing to act would also hurt the family.']],
+  [['Roni folded the poster until the family details disappeared inside it.','Roni folded the poster so its private details could no longer be seen.']],
+  [['During lunch, she asked Amir to meet the counselor privately.','Roni invited Amir to a private meeting with the counselor.']],
+  [['There, Roni explained that the family’s daughter had already stopped attending clubs to avoid questions.','Roni explained that the daughter was already avoiding activities because she feared questions.']],
+  [['Amir reread his poster and saw that a missing name did not make the family anonymous.','Amir realized that people could identify the family without seeing its name.']],
+  [['The council faced a deadline: the grocery card was needed by Friday.','The family needed a food card before Friday.']],
+  [['A public collection might raise money quickly, but it could expose the receiver.','Public fundraising could be fast but might reveal the family.']],
+  [['A private appeal might protect dignity, but it would reach fewer donors.','A private request would protect the family but reach fewer people.']],
+  [['They gave the counselor a short message describing the need without year-group or family clues.','They wrote a new message that explained the need without revealing identifying details.']],
+  [['A trusted community organization sent it to regular donors and held the funds.','A reliable organization shared the private request and collected the money.']],
+  [['By Thursday evening, enough money had arrived for the grocery card.','The organization collected enough money before Friday.']],
+  [['Amir wanted to announce the total at assembly, then stopped when Roni shook her head.','Amir nearly made a public announcement but remembered the need for privacy.']],
+  [['The counselor delivered the card in a plain envelope during a private meeting.','The counselor gave the food card privately in a simple envelope.']],
+  [['The original poster remained folded in Amir’s notebook as a measure of how easily help can become exposure.','Amir kept the folded poster as a reminder that public help can reveal private information.']]
+ ],
+ 'l3-es-clean-transport':[
+  [['At 7:55 each morning, cars filled the narrow street outside the school gate.','Every morning, many cars crowded the narrow street by the school.']],
+  [['Exhaust hung between the buildings, and students stepped between moving vehicles.','Dirty air remained near the buildings while students crossed between moving cars.']],
+  [['Yael’s science club recorded its highest pollution reading beside the crossing.','Yael’s group measured the worst air pollution near the crossing.']],
+  [['She proposed a thirty-minute ban on all private cars.','Yael suggested stopping all private cars for thirty minutes.']],
+  [['Omer opposed it because the accessible taxi carrying his sister Lia needed the front gate.','Omer objected because his sister used a wheelchair and needed a taxi at the accessible gate.']],
+  [['Yael heard a defense of convenience; Omer heard a plan that treated access as an afterthought.','Yael thought Omer defended comfort, while Omer thought Yael had forgotten access.']],
+  [['Their public debate ended with louder applause but no usable proposal.','The debate attracted support but produced no practical plan.']],
+  [['The principal gave them one week to design a joint trial or abandon the change.','The principal asked them to make one shared test plan within a week.']],
+  [['Omer invited Yael to travel the route with Lia the next morning.','Omer asked Yael to experience Lia’s route with them.']],
+  [['The rear entrance had a ramp, but a delivery van blocked it for sixteen minutes.','A delivery vehicle blocked the ramp at the back entrance.']],
+  [['Yael then showed them how idling cars hid younger students from drivers at the front crossing.','Yael showed how waiting cars made younger students hard for drivers to see.']],
+  [['Each problem weakened one of their original positions.','Both students learned that their first plans were incomplete.']],
+  [['They counted vehicles, timed stops, and marked every safe curb on a shared map.','They collected traffic information and marked safe places on one map.']],
+  [['A city officer confirmed that emergency and accessible vehicles could receive permits.','A city worker explained that necessary vehicles could receive permission to enter.']],
+  [['A nearby sports center offered its turning area as a supervised drop-off point.','A sports center offered a nearby place where most cars could stop safely.']],
+  [['Their revised plan closed the street to ordinary cars from 7:45 to 8:15.','Their new plan stopped ordinary cars during the busiest half hour.']],
+  [['It kept a marked lane for permitted vehicles and added volunteers at both crossings.','The plan kept one lane for necessary vehicles and placed helpers at the crossings.']],
+  [['On the first rainy morning, an impatient driver moved a barrier and entered the closed street.','During rain, one driver moved a barrier and entered the protected area.']],
+  [['Yael started toward the car, but Omer called the supervisor instead.','Yael wanted to approach the driver, but Omer called the responsible adult.']],
+  [['The lane was restored before Lia’s taxi arrived.','The safe lane was clear again before Lia arrived.']],
+  [['After two weeks, ordinary car traffic had fallen by a third, while every permitted ride reached the accessible gate.','The test reduced normal car traffic and still allowed every necessary ride to reach the gate.']],
+  [['The trial added a cost: three adults had to supervise it each morning.','The safer plan required three adults to help every morning.']],
+  [['At the next debate, Yael and Omer presented the same map, with both their names in one corner.','At the next meeting, Yael and Omer presented their shared map together.']]
+ ],
+ 'new-1-a1-helmet-handlebar':[
+  [['Dan left his helmet','דן השאיר את הקסדה שלו'],['on the handlebar outside his home.','על הכידון מחוץ לביתו.']],
+  [['“It is only two streets away,”','״זה במרחק שני רחובות בלבד,״'],['he told his sister.','אמר לאחותו.']],
+  [['He began riding','הוא התחיל לרכוב'],['with the helmet swinging','כשהקסדה מתנדנדת'],['from the handlebar.','מן הכידון.']],
+  [['A ball rolled','כדור התגלגל'],['into the bicycle path.','אל שביל האופניים.']],
+  [['Dan stopped quickly','דן עצר במהירות'],['and fell onto the grass.','ונפל על הדשא.']],
+  [['He scraped his hand,','ידו נשרטה,'],['and the helmet lay','והקסדה שכבה'],['beside the bicycle.','ליד האופניים.']],
+  [['The next morning,','למחרת בבוקר,'],['he fastened the helmet','הוא הידק את הקסדה'],['before touching the pedals.','לפני שנגע בדוושות.']],
+  [['His sister heard the click','אחותו שמעה את הנקישה'],['and opened the gate.','ופתחה את השער.']]
+ ],
+ 'new-1-a1-wrong-classroom':[
+  [['After the bell, Nadav followed','לאחר הצלצול נדב הלך בעקבות'],['two older students upstairs.','שני תלמידים מבוגרים יותר למעלה.']],
+  [['He entered room eighteen','הוא נכנס לחדר שמונה עשרה'],['and sat near the door.','והתיישב ליד הדלת.']],
+  [['The board said “Grade Nine Science,”','על הלוח נכתב ״מדעים לכיתה ט׳,״'],['but Nadav needed','אבל נדב היה צריך'],['Grade Seven English.','אנגלית לכיתה ז׳.']],
+  [['His face grew warm,','פניו התחממו,'],['and he closed his schedule.','והוא סגר את מערכת השעות.']],
+  [['When the teacher asked his name,','כאשר המורה שאל לשמו,'],['he whispered,','הוא לחש:'],['“I am in the wrong room.”','״אני בחדר הלא נכון.״']],
+  [['A student named Adam','תלמיד בשם אדם'],['checked Nadav’s schedule','בדק את המערכת של נדב'],['without laughing.','בלי לצחוק.']],
+  [['“English is in room twelve.','״אנגלית בחדר שתים עשרה.'],['I will show you,”','אני אראה לך,״'],['Adam said.','אמר אדם.']],
+  [['They reached the class','הם הגיעו לכיתה'],['before the first activity ended.','לפני שהפעילות הראשונה הסתיימה.']],
+  [['The next day, Nadav kept','למחרת נדב השאיר'],['his schedule open','את המערכת פתוחה'],['and showed another new student the way.','והראה לתלמיד חדש אחר את הדרך.']]
+ ],
+ 'new-1-a1-missing-notebook':[
+  [['Before English class, Maya opened','לפני שיעור אנגלית מאיה פתחה'],['her school bag.','את תיק בית הספר שלה.']],
+  [['Her red notebook was not there.','המחברת האדומה שלה לא הייתה שם.']],
+  [['She checked her desk','היא בדקה את השולחן שלה'],['and locker twice.','ואת התא פעמיים.']],
+  [['The teacher began','המורה התחילה'],['giving out quiz papers.','לחלק את דפי הבוחן.']],
+  [['Maya remembered reading','מאיה נזכרה שקראה'],['beside the library window','ליד חלון הספרייה'],['at lunch.','בזמן ארוחת הצהריים.']],
+  [['Her classmate Dana said,','חברתה דנה אמרה:'],['“I saw a red notebook','״ראיתי מחברת אדומה'],['near the map shelf.”','ליד מדף המפות.״']],
+  [['Maya asked the teacher','מאיה שאלה את המורה'],['if she could go','אם תוכל לצאת'],['and hurried to the library.','ומיהרה אל הספרייה.']],
+  [['The librarian lifted the notebook','הספרנית הרימה את המחברת'],['from the return cart.','מעגלת ההחזרות.']],
+  [['Maya reached class','מאיה הגיעה לכיתה'],['just as her name was called.','בדיוק כשקראו בשמה.']],
+  [['That afternoon, she placed','באותו אחר צהריים היא הדביקה'],['a bright blue label','מדבקה כחולה ובולטת'],['on every school notebook.','על כל מחברת לימוד.']]
+ ],
+ 'new-1-a1-class-pet':[
+  [['The class welcomed','הכיתה קיבלה בברכה'],['a small hamster named Miso.','אוגר קטן בשם מיסו.']],
+  [['Students made a chart','התלמידים הכינו טבלה'],['for food, water, and cleaning.','למזון, למים ולניקיון.']],
+  [['Because Hila was quiet,','מפני שהילה הייתה שקטה,'],['the group gave her','הקבוצה נתנה לה'],['only the date-writing job.','רק את תפקיד כתיבת התאריכים.']],
+  [['On Tuesday, Miso did not touch','ביום שלישי מיסו לא נגע'],['the apple pieces.','בחתיכות התפוח.']],
+  [['Two students wanted','שני תלמידים רצו'],['to add more food.','להוסיף עוד מזון.']],
+  [['Hila noticed','הילה הבחינה'],['that the water bottle','שבקבוק המים'],['made no bubbles.','לא יצר בועות.']],
+  [['“The tube may be blocked,”','״ייתכן שהצינור חסום,״'],['she said.','אמרה.']],
+  [['The teacher checked the bottle','המורה בדקה את הבקבוק'],['and found a seed','ומצאה זרע'],['inside the tube.','בתוך הצינור.']],
+  [['After clean water flowed,','לאחר שמים נקיים זרמו,'],['Miso drank for a long time.','מיסו שתה זמן רב.']],
+  [['By afternoon,','עד אחר הצהריים,'],['it ran on the wheel again.','הוא שוב רץ בגלגל.']],
+  [['The class asked Hila','הכיתה ביקשה מהילה'],['to lead the daily health check.','להוביל את בדיקת הבריאות היומית.']],
+  [['The next group watched','הקבוצה הבאה בדקה'],['for bubbles','אם יש בועות'],['before adding food.','לפני שהוסיפה מזון.']]
+ ],
+ 'new-1-a1-one-more-video':[
+  [['Lior planned to watch','ליאור תכנן לצפות'],['one short video','בסרטון קצר אחד'],['before homework.','לפני שיעורי הבית.']],
+  [['The next video','הסרטון הבא'],['started automatically.','התחיל באופן אוטומטי.']],
+  [['“I will stop after this one,”','״אפסיק אחרי הסרטון הזה,״'],['he said.','אמר.']],
+  [['A third video began','סרטון שלישי התחיל'],['before he could close the app.','לפני שהספיק לסגור את האפליקציה.']],
+  [['The room became dark,','החדר נעשה חשוך,'],['but the phone stayed bright.','אבל הטלפון נשאר מואר.']],
+  [['His friend sent a message:','חברו שלח הודעה:'],['“Are you ready','״האם אתה מוכן'],['for tomorrow’s English quiz?”','לבוחן באנגלית מחר?״']],
+  [['Lior looked','ליאור הביט'],['at his unopened notebook.','במחברת שלא פתח.']],
+  [['He wanted to tap','הוא רצה ללחוץ על'],['the next video.','הסרטון הבא.']],
+  [['Instead, he turned off autoplay','במקום זאת הוא כיבה את ההפעלה האוטומטית'],['and left the phone','והשאיר את הטלפון'],['in the kitchen.','במטבח.']],
+  [['He had only thirty minutes','נותרו לו רק שלושים דקות'],['before bedtime.','לפני שעת השינה.']],
+  [['He finished the English task','הוא סיים את המשימה באנגלית'],['but missed the basketball game outside.','אבל החמיץ את משחק הכדורסל בחוץ.']],
+  [['The next day, he set','למחרת הוא כיוון'],['a ten-minute timer','טיימר לעשר דקות'],['before the first video.','לפני הסרטון הראשון.']],
+  [['When the timer rang,','כשהטיימר צלצל,'],['he closed the app','הוא סגר את האפליקציה'],['before autoplay began.','לפני שההפעלה האוטומטית התחילה.']]
  ]
 };
 const narrativeMetadata={
@@ -1431,6 +1585,56 @@ const narrativeMetadata={
   arcEn:'Unexpected ability',arcHe:'יכולת שלא זכתה להכרה',
   lesson:'הכרה הוגנת צריכה לשקף את העבודה בפועל ולא רק את מי שמדבר מול קהל. תיקון פומבי, רישום משימות ומתן בחירה אמיתית בתפקיד מאפשרים ליכולת שקטה לקבל מקום בלי להפוך אותה להצגה.',
   lessonEn:'Fair recognition should reflect the work itself, not only the people who speak in public. A visible correction, a shared task record, and genuine role choice give quiet expertise room without turning it into a performance.'
+ },
+ 'l3-a2-food-waste':{
+  arcEn:'Search for an explanation',arcHe:'חיפוש אחר הסבר',
+  lesson:'צמצום בזבוז דורש למדוד את מקור הבעיה ולא להאשים תלמידים או לבחור פתרון שמסכן בטיחות וכבוד. אפשרות למנה קטנה, תוספת לפי צורך ותרומת מזון סגור יוצרות שינוי שאפשר לבדוק.',
+  lessonEn:'Reducing waste requires measuring its source rather than blaming students or choosing a solution that risks safety and dignity. Flexible portions, second servings, and donation of sealed food create a change that can be tested.'
+ },
+ 'l3-es-captain-choice':{
+  arcEn:'Moral dilemma',arcHe:'דילמה בין ערכים',
+  lesson:'כלל הוגן נבחן כאשר אכיפתו גובה מחיר ממשי. מנהיגות עקבית אינה מבטיחה ניצחון, אך היא מונעת ממעמד וכישרון להפוך אדם לחריג מן האחריות המשותפת.',
+  lessonEn:'A fair rule is tested when enforcing it carries a real cost. Consistent leadership cannot guarantee victory, but it prevents status and talent from becoming exemptions from shared responsibility.'
+ },
+ 'l3-es-private-donation':{
+  arcEn:'Misunderstanding',arcHe:'אי־הבנה שמתבהרת',
+  lesson:'בקשת עזרה עלולה לחשוף משפחה גם בלי לציין את שמה. הקשבה להתנגדות, הסרת פרטים מזהים ושימוש בגורם מהימן מאפשרים לענות על צורך בלי להפוך את המקבל לסיפור ציבורי.',
+  lessonEn:'An appeal for help can expose a family even without naming it. Listening to an objection, removing identifying details, and using a trusted intermediary can meet the need without turning the receiver into a public story.'
+ },
+ 'l3-es-clean-transport':{
+  arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
+  lesson:'תכנית תחבורה אחראית חייבת לבדוק יחד בטיחות, זיהום ונגישות. מסלול משותף, מדידה וניסוי יכולים להפוך עמדות יריבות לפתרון טוב יותר, אך גם הפתרון דורש משאבי פיקוח גלויים.',
+  lessonEn:'Responsible transport planning must examine safety, pollution, and access together. A shared route test, measurement, and a controlled trial can turn opposing positions into a stronger plan, while its supervision cost must remain visible.'
+ },
+ 'new-1-a1-helmet-handlebar':{
+  arcEn:'Temptation and consequence',arcHe:'פיתוי ותוצאה',
+  lesson:'גם רכיבה קצרה יכולה לכלול עצירה פתאומית. קסדה מגינה רק כשהיא מהודקת על הראש, והרגל בטיחות נכון מתחיל לפני שנוגעים בדוושות.',
+  lessonEn:'Even a short ride can include a sudden stop. A helmet protects only when it is fastened on the rider’s head, and the safety habit begins before the pedals move.'
+ },
+ 'new-1-a1-wrong-classroom':{
+  arcEn:'Small courage',arcHe:'אומץ קטן',
+  lesson:'אמירת משפט פשוט כמו ״אני בכיתה הלא נכונה״ דורשת אומץ כאשר מרגישים מבוכה. בקשת עזרה מכבדת חוסכת זמן, ועזרה שקיבלנו יכולה לעבור לתלמיד הבא.',
+  lessonEn:'A simple sentence such as “I am in the wrong room” can require courage during embarrassment. Respectful help saves time, and received help can later be passed to another student.'
+ },
+ 'new-1-a1-missing-notebook':{
+  arcEn:'Search for an explanation',arcHe:'חיפוש אחר הסבר',
+  lesson:'חיפוש יעיל מתחיל בשחזור המקום האחרון וברמז מסוים, לא בבדיקה חוזרת של אותם מקומות. סימון ברור של הציוד עוזר למנוע את הבעיה הבאה.',
+  lessonEn:'An effective search retraces the last known place and follows a specific clue instead of checking the same locations repeatedly. Clear labels help prevent the next loss.'
+ },
+ 'new-1-a1-safe-bicycle-ride':{
+  arcEn:'Preparation pays off',arcHe:'הכנה מוקדמת מוכיחה את עצמה',
+  lesson:'בדיקת קסדה, בלמים ומחזיר אור לפני הרכיבה עשויה לגרום לעיכוב קטן, אך היא מונעת יציאה עם תקלה. לאחר מכן גם החבר מאמץ את אותה בדיקה.',
+  lessonEn:'Checking a helmet, brakes, and reflector before riding may cause a short delay, but it prevents departure with an unsafe bicycle. The careful routine then passes to a friend.'
+ },
+ 'new-1-a1-class-pet':{
+  arcEn:'Unexpected ability',arcHe:'יכולת מפתיעה',
+  lesson:'טיפול בבעל חיים דורש תשומת לב לשינויים קטנים ותפקידים ברורים. תלמידה שקטה מזהה רמז חשוב, ומבוגר בודק את הציוד לפני שהכיתה משנה את המזון.',
+  lessonEn:'Animal care requires attention to small changes and clear roles. A quiet student notices an important clue, and an adult checks the equipment before the class changes the food.'
+ },
+ 'new-1-a1-one-more-video':{
+  arcEn:'Temptation and consequence',arcHe:'פיתוי ותוצאה',
+  lesson:'הפעלה אוטומטית יכולה להפוך סרטון אחד לזמן שאבד. כיבוי ההפעלה, הרחקת הטלפון ושימוש בטיימר עוזרים לעצור לפני שהסרטון הבא מתחיל.',
+  lessonEn:'Autoplay can turn one video into lost time. Turning it off, moving the phone away, and using a timer help the viewer stop before the next video begins.'
  }
 };
 const sceneCorrections={
