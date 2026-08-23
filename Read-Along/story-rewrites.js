@@ -1333,9 +1333,200 @@ const narrativeRevisions={
   [['He finished the English task','הוא סיים את המשימה באנגלית'],['but missed the basketball game outside.','אבל החמיץ את משחק הכדורסל בחוץ.']],
   [['The next day, he set','למחרת הוא כיוון'],['a ten-minute timer','טיימר לעשר דקות'],['before the first video.','לפני הסרטון הראשון.']],
   [['When the timer rang,','כשהטיימר צלצל,'],['he closed the app','הוא סגר את האפליקציה'],['before autoplay began.','לפני שההפעלה האוטומטית התחילה.']]
+ ],
+'new-1-a2-one-scooter-two-friends':[
+  [['Tomer unlocked his electric scooter','תומר פתח את נעילת הקורקינט החשמלי שלו'],['outside school and said,','מחוץ לבית הספר ואמר:'],['“We can both ride home.”','״שנינו יכולים לרכוב הביתה.״']],
+  [['He had only one helmet,','הייתה לו רק קסדה אחת,'],['and the game at the park','והמשחק בפארק'],['was starting in ten minutes.','עמד להתחיל בתוך עשר דקות.']],
+  [['Amit placed one foot','עמית הניח רגל אחת'],['on the back of the scooter.','בחלק האחורי של הקורקינט.'],['The road ahead','הכביש שלפניהם'],['looked narrow.','נראה צר.']],
+  [['“It is only two streets,” Tomer said,','״זה רק שני רחובות,״ אמר תומר,'],['while two classmates waited.','בזמן ששני חברים לכיתה המתינו.']],
+  [['Amit gripped his bag tightly','עמית אחז בחוזקה בתיקו'],['and stepped back.','וצעד לאחור.'],['“No. This scooter','״לא. הקורקינט הזה'],['is for one rider.”','מיועד לרוכב אחד.״']],
+  [['Tomer frowned,','תומר הזעיף פנים,'],['but he stepped off','אך הוא ירד'],['and began walking the scooter.','והתחיל להוליך את הקורקינט.']],
+  [['At the crossing,','במעבר החצייה,'],['a traffic officer saw them walking','שוטר תנועה ראה אותם הולכים'],['and explained that two riders','והסביר ששני רוכבים'],['could be injured or receive a fine.','עלולים להיפצע או לקבל קנס.']],
+  [['They reached the park late,','הם הגיעו לפארק באיחור,'],['and the first game had ended,','והמשחק הראשון כבר הסתיים,'],['but they had avoided the risk.','אך הם נמנעו מהסיכון.']],
+  [['The following Friday,','ביום שישי הבא,'],['they chose the bus','הם בחרו באוטובוס'],['and left the scooter','והשאירו את הקורקינט'],['at home.','בבית.']]
+ ],
+ 'new-1-a2-unequal-group':[
+  [['Maya stayed after class','מאיה נשארה לאחר השיעור'],['to finish the group’s science model.','כדי לסיים את דגם המדעים של הקבוצה.']],
+  [['On presentation day,','ביום ההצגה,'],['Ron and Gal expected','רון וגל ציפו'],['the same credit as Maya.','לקבל אותה הכרה כמו מאיה.']],
+  [['When the motor would not start,','כאשר המנוע לא פעל,'],['the teacher asked','המורה שאלה'],['who had connected the wires.','מי חיבר את החוטים.']],
+  [['Ron looked at Maya’s notes','רון הביט בסיכומים של מאיה'],['but could not explain them.','אך לא הצליח להסביר אותם.']],
+  [['Maya closed her notebook.','מאיה סגרה את מחברתה.'],['“I can fix it,','״אני יכולה לתקן את זה,'],['but I will not pretend','אבל לא אעמיד פנים'],['we shared the work.”','שחלקנו את העבודה.״']],
+  [['The room went quiet,','החדר השתתק,'],['and Ron admitted','ורון הודה'],['that Maya had done almost everything.','שמאיה עשתה כמעט הכול.']],
+  [['The teacher gave the group','המורה נתנה לקבוצה'],['one more day','יום נוסף'],['before grading the project.','לפני שנתנה ציון לפרויקט.']],
+  [['Maya showed the others','מאיה הראתה לאחרים'],['how to test each connection;','כיצד לבדוק כל חיבור;'],['Ron rewired the switch,','רון חיבר מחדש את המתג,'],['and Gal prepared the explanation.','וגל הכין את ההסבר.']],
+  [['At the second presentation,','בהצגה השנייה,'],['each student described','כל תלמיד תיאר'],['a part they had completed.','חלק שהשלים.']],
+  [['The model moved across the table,','הדגם נע על השולחן,'],['beside a task sheet','ולצדו גיליון משימות'],['with three names and three different jobs.','עם שלושה שמות ושלושה תפקידים שונים.']]
+ ],
+ 'new-1-a2-new-bus-route':[
+  [['A new bus route','קו אוטובוס חדש'],['shortened the trip to school','קיצר את הנסיעה לבית הספר'],['for most students.','עבור רוב התלמידים.']],
+  [['However, it no longer stopped','אולם הוא כבר לא עצר'],['near the community clinic.','ליד המרפאה הקהילתית.']],
+  [['Lina noticed three older passengers','לינה הבחינה בשלושה נוסעים מבוגרים'],['waiting beside the old stop','ממתינים ליד התחנה הישנה'],['after the new bus passed.','לאחר שהאוטובוס החדש חלף.']],
+  [['The timetable said','לוח הזמנים קבע'],['the route was seven minutes faster,','שהמסלול מהיר בשבע דקות,'],['so some students called it an improvement.','ולכן כמה תלמידים כינו אותו שיפור.']],
+  [['Lina and Omar rode the route','לינה ועומר נסעו במסלול'],['on three different mornings','בשלושה בקרים שונים'],['and recorded each stop.','ותיעדו כל תחנה.']],
+  [['They asked passengers','הם שאלו נוסעים'],['which stop they used','באיזו תחנה הם השתמשו'],['and why it mattered.','ומדוע היא חשובה.']],
+  [['Their notes showed that','הרישומים שלהם הראו'],['the saved time came partly','שהזמן שנחסך נבע בחלקו'],['from skipping the clinic.','מן הדילוג על המרפאה.']],
+  [['At the transport meeting,','בפגישת התחבורה,'],['Lina presented the times,','לינה הציגה את הזמנים,'],['and Omar read two passenger comments.','ועומר קרא שתי תגובות של נוסעים.']],
+  [['The bus company tested','חברת האוטובוסים ניסתה'],['one stop near the clinic','תחנה אחת ליד המרפאה'],['each morning for two weeks.','בכל בוקר במשך שבועיים.']],
+  [['The trip became four minutes longer,','הנסיעה התארכה בארבע דקות,'],['but fewer passengers','אך פחות נוסעים'],['had to walk uphill.','נאלצו ללכת במעלה הגבעה.']],
+  [['When the trial ended,','כאשר הניסוי הסתיים,'],['the revised timetable kept the stop','לוח הזמנים המתוקן שמר על התחנה'],['during clinic hours.','בשעות פעילות המרפאה.']]
+ ],
+ 'new-1-a2-unfair-team-choice':[
+  [['During every football lesson,','בכל שיעור כדורגל,'],['captains Ron and Yair','הקפטנים רון ויאיר'],['chose their closest friends first.','בחרו תחילה את חבריהם הקרובים ביותר.']],
+  [['Niv and two other students','ניב ושני תלמידים אחרים'],['were usually chosen last','נבחרו בדרך כלל אחרונים'],['and given no clear position.','ולא קיבלו עמדה ברורה.']],
+  [['One Friday,','ביום שישי אחד,'],['the teacher asked Niv','המורה ביקש מניב'],['and another student','ומתלמיד נוסף'],['who was often chosen last','שלעיתים קרובות נבחר אחרון'],['to become captains.','להיות קפטנים.']],
+  [['Ron whispered,','רון לחש:'],['“Now they will choose us last.”','״עכשיו הם יבחרו בנו אחרונים.״']],
+  [['Niv looked at the class list','ניב הביט ברשימת הכיתה'],['and asked each student','ושאל כל תלמיד'],['which position he could play.','באיזו עמדה הוא יכול לשחק.']],
+  [['He built two balanced teams','הוא בנה שתי קבוצות מאוזנות'],['instead of copying','במקום להעתיק'],['the old friendship groups.','את קבוצות החברים הישנות.']],
+  [['Yair received a defensive role','יאיר קיבל תפקיד בהגנה'],['and protested','ומחה'],['that he usually scored goals.','שהוא בדרך כלל מבקיע שערים.']],
+  [['During the match,','במהלך המשחק,'],['Yair stopped two attacks','יאיר עצר שתי התקפות'],['from that new position.','מן העמדה החדשה.']],
+  [['Niv lost the ball,','ניב איבד את הכדור,'],['but Ron won it back','אך רון השיג אותו בחזרה'],['and passed to him','ומסר לו'],['instead of blaming him.','במקום להאשים אותו.']],
+  [['The game ended in a draw,','המשחק הסתיים בתיקו,'],['and every student','וכל תלמיד'],['had touched the ball.','נגע בכדור.']],
+  [['The class agreed','הכיתה הסכימה'],['that captains would rotate','שהקפטנים יתחלפו'],['and positions would change.','והעמדות ישתנו.']],
+  [['The next week,','בשבוע הבא,'],['Ron opened the list and asked,','רון פתח את הרשימה ושאל:'],['“Who has not played in attack?”','״מי עוד לא שיחק בהתקפה?״']]
+ ],
+ 'new-1-a2-screen-time-plan':[
+  [['Dana opened her phone','דנה פתחה את הטלפון שלה'],['after finishing homework','לאחר שסיימה את שיעורי הבית'],['and watched one short video.','וצפתה בסרטון קצר אחד.']],
+  [['Two hours later,','שעתיים לאחר מכן,'],['she was still awake','היא עדיין הייתה ערה'],['and had missed her evening walk.','והחמיצה את הליכת הערב שלה.']],
+  [['The next morning,','למחרת בבוקר,'],['she forgot her sports shoes','היא שכחה את נעלי הספורט'],['and found the first lesson difficult.','והתקשתה בשיעור הראשון.']],
+  [['She blamed a busy week,','היא האשימה שבוע עמוס,'],['but the same pattern','אך אותה תבנית'],['happened again on Thursday.','חזרה ביום חמישי.']],
+  [['Dana recorded her screen use','דנה תיעדה את זמן המסך שלה'],['for seven days','במשך שבעה ימים'],['and circled the late-night hours.','והקיפה את השעות המאוחרות.']],
+  [['Her first plan was strict:','התכנית הראשונה שלה הייתה נוקשה:'],['no phone after school.','בלי טלפון אחרי הלימודים.']],
+  [['By Tuesday,','עד יום שלישי,'],['she needed the phone','היא נזקקה לטלפון'],['for a class message','להודעה כיתתית'],['and abandoned the rule.','וזנחה את הכלל.']],
+  [['Instead of hiding the failed plan,','במקום להסתיר שהתכנית נכשלה,'],['she showed the record','היא הראתה את הרישום'],['to her older sister.','לאחותה הגדולה.']],
+  [['Together they separated','יחד הן הפרידו'],['school tasks, messages, and entertainment','בין מטלות לימוד, הודעות ובידור'],['on the chart.','בטבלה.']],
+  [['Dana set a stop time,','דנה קבעה שעת סיום לשימוש,'],['charged the phone in the kitchen,','הטעינה את הטלפון במטבח,'],['and planned three short walks.','ותכננה שלוש הליכות קצרות.']],
+  [['On the first night,','בלילה הראשון,'],['she returned for one message','היא חזרה בשביל הודעה אחת'],['but left before opening a video.','אך יצאה לפני שפתחה סרטון.']],
+  [['After a week,','כעבור שבוע,'],['she slept longer','היא ישנה יותר'],['and completed her walks,','והשלימה את ההליכות,'],['although her total screen time','אף שזמן המסך הכולל שלה'],['had not disappeared.','לא נעלם.']],
+  [['When the next video began automatically,','כאשר הסרטון הבא התחיל אוטומטית,'],['Dana closed it','דנה סגרה אותו'],['and put on her walking shoes.','ונעלה את נעלי ההליכה.']]
+ ],
+ 'new-1-a2-water-bottle-station':[
+  [['After the school fair,','לאחר היריד בבית הספר,'],['the recycling bins held','פחי המחזור הכילו'],['hundreds of plastic bottles.','מאות בקבוקי פלסטיק.']],
+  [['The student council had one week','למועצת התלמידים היה שבוע אחד'],['to suggest changes','להציע שינויים'],['before the school ordered drinks','לפני שבית הספר יזמין משקאות'],['for the next event.','לאירוע הבא.']],
+  [['Noa and Sami counted the bottles','נועה וסמי ספרו את הבקבוקים'],['from one afternoon','מאחר צהריים אחד'],['instead of estimating the waste.','במקום להעריך את כמות הפסולת.']],
+  [['They proposed a refill station,','הם הציעו תחנת מילוי,'],['but the principal asked,','אך המנהל שאל:'],['“How many students would use it?”','״כמה תלמידים ישתמשו בה?״']],
+  [['The council had no answer,','למועצה לא הייתה תשובה,'],['and the order deadline','ומועד ההזמנה'],['was two days away.','היה בעוד יומיים.']],
+  [['With the caretaker’s help,','בעזרת אב הבית,'],['they built a temporary refill point','הם הקימו נקודת מילוי זמנית'],['beside the cafeteria.','ליד חדר האוכל.']],
+  [['On the first day,','ביום הראשון,'],['the line blocked the doorway','התור חסם את הפתח'],['and several students left.','וכמה תלמידים עזבו.']],
+  [['Noa moved the station','נועה העבירה את התחנה'],['to a wider space,','אל מרחב רחב יותר,'],['and Sami marked two waiting places.','וסמי סימן שני מקומות המתנה.']],
+  [['They counted filled bottles','הם ספרו בקבוקים שמולאו'],['during each break','בכל הפסקה'],['and recorded the waiting time.','ותיעדו את זמן ההמתנה.']],
+  [['By Friday,','עד יום שישי,'],['students had refilled','תלמידים מילאו מחדש'],['their own bottles','את הבקבוקים שלהם'],['one hundred and twelve times.','מאה ושתים עשרה פעמים.']],
+  [['The figures reached the council','הנתונים הגיעו למועצה'],['before the final order.','לפני ההזמנה הסופית.']],
+  [['The school ordered fewer bottles','בית הספר הזמין פחות בקבוקים'],['and approved a permanent station.','ואישר תחנה קבועה.']],
+  [['The new station still needed cleaning','התחנה החדשה עדיין דרשה ניקוי'],['and a daily check,','ובדיקה יומית,'],['so the council created a schedule.','ולכן המועצה יצרה לוח תורנויות.']],
+  [['At the next fair,','ביריד הבא,'],['Sami filled his own bottle','סמי מילא את הבקבוק שלו'],['beside a half-empty recycling bin.','ליד פח מחזור חצי ריק.']]
+ ],
+'new-1-es-ride-changed-plans':[
+  [['Eitan offered Yonatan a ride','Eitan invited Yonatan'],['on his electric scooter','to share his scooter'],['after basketball practice.','after practice.']],
+  [['They were already late, and neither had brought a second helmet.','They were late and had only one helmet.']],
+  [['Yonatan knew that two riders were unsafe, but the next bus would not arrive for twenty minutes.','Yonatan understood the danger, but waiting for the bus would take a long time.']],
+  [['He stepped onto the scooter, and Eitan pushed off before either of them reconsidered.','They made the unsafe choice before stopping to think again.']],
+  [['At the first corner, a delivery bicycle appeared from behind a parked van.','A bicycle suddenly appeared from behind a vehicle.']],
+  [['Eitan braked sharply; the scooter shook, and Yonatan jumped off without falling.','Eitan stopped fast, the scooter moved, and Yonatan got off safely.']],
+  [['The cyclist passed safely, but Eitan’s hands would not stop shaking.','Nobody was hurt, but Eitan was badly shaken.']],
+  [['A traffic volunteer nearby explained that an extra rider reduced control and could cause injury or legal penalties.','A nearby safety volunteer explained that a passenger made the scooter harder to control and could cause harm or legal problems.']],
+  [['Eitan admitted that being late had seemed more important than safety.','Eitan admitted that he had placed speed before safety.']],
+  [['They locked the scooter','They waited'],['and took the bus,','for the bus'],['arriving after the game had begun.','and accepted that they would arrive late.']],
+  [['The following week, Eitan refused another passenger before the scooter moved.','Later Eitan said no to the same unsafe choice before the ride began.']]
+ ],
+'new-1-es-misleading-headline':[
+  [['The class group displayed a headline: “All school trips cancelled.”','A dramatic title said that all school trips were cancelled.']],
+  [['Mira forwarded it','Mira shared the title'],['before opening the article,','without reading the report,'],['and several students','and other students'],['copied her message.','shared it too.']],
+  [['Within minutes,','The false message quickly'],['students stopped preparing,','changed plans'],['and several parents','and worried'],['called the school office.','families.']],
+  [['The article itself said only this: officials were reviewing one hiking route for safety.','The full report discussed only one route that officials were checking.']],
+  [['Mira noticed the difference when her friend asked which trip the report named.','A friend’s question made Mira compare the title with the report.']],
+  [['Her face grew hot when she saw that six people had already forwarded her message.','Mira felt embarrassed when she saw how far her message had spread.']],
+  [['Deleting the headline would not reach people who had already copied it.','Removing one message would not correct every copied version.']],
+  [['She opened the original source, checked its date and publisher, and wrote a correction.','Mira checked where and when the report was published, then wrote the accurate information.']],
+  [['Mira sent the correction','She corrected the mistake'],['to every group','in each place'],['where she had shared the claim.','where she had made it.']],
+  [['She also asked classmates to forward the correction as widely as the headline.','Mira asked others to spread the accurate message too.']],
+  [['The office still spent the morning answering calls from worried parents.','The correction could not remove all the work and worry already created.']],
+  [['A week later, Mira opened the article first when another dramatic headline appeared.','Later Mira read the full source before reacting to another strong title.']]
+ ],
+'new-1-es-uncredited-idea':[
+  [['For the courtyard project,','Leah created the main design'],['Leah designed an interlocking shade model','for a shade model'],['and sketched the joints at home.','in the school courtyard.']],
+  [['During the presentation,','The public presentation'],['only the final thank-you slide','did not identify'],['showed Leah’s name.','Leah’s real contribution.']],
+  [['Ben described the model','Ben presented Leah’s idea'],['as the group’s central idea','as if it belonged'],['while Leah held the planning notebook.','to the whole group.']],
+  [['She almost stayed silent because the judges were already praising the team.','Leah feared that correcting the credit would spoil a successful moment.']],
+  [['Then a judge asked,','A judge asked'],['“Why does the model use','about one important detail'],['paired triangles at every joint?”','in the design.']],
+  [['Ben turned toward the poster,','Ben could not explain the choice'],['but the answer was not there.','because he had not designed that part.']],
+  [['Leah pressed her thumb against the notebook edge and said, “That was my design.”','Leah gathered the courage to identify her own work.']],
+  [['She opened the dated sketch','Her earlier notes'],['and explained how paired pieces','proved the source of the idea'],['stopped the structure from folding inward.','and explained how it worked.']],
+  [['After thanking Leah, the judge asked the team to describe each person’s work.','The judge made space for the contribution of each student.']],
+  [['Ben admitted that he had removed the detailed credits because he wanted a cleaner slide.','Ben accepted that his design choice had hidden Leah’s work.']],
+  [['Before the results were announced, he restored Leah’s contribution and showed the planning notes.','Ben corrected the public record before the event ended.']],
+  [['The project received praise, but Leah did not accept his apology immediately.','The group succeeded, but trust did not return at once.']],
+  [['For the next task,','The students began recording'],['the team kept a shared record','each person’s work'],['from the first meeting.','from the start.']],
+  [['Leah led the opening section and introduced the idea herself.','Leah took a visible role that reflected her actual contribution.']]
+ ],
+'new-1-es-edited-photograph':[
+  [['A photograph in the class group','A shared picture'],['seemed to show a wide crack','appeared to show serious damage'],['across the new basketball court.','on the school court.']],
+  [['The message claimed that Saturday’s tournament had become unsafe.','The claim made students think that an important event could not continue safely.']],
+  [['Students shared the picture, and the team moved practice to a crowded indoor hall.','The image spread and changed the team’s plans.']],
+  [['Nora zoomed in and noticed that the crack crossed a painted line without changing its color.','Nora saw that one visual detail did not behave naturally.']],
+  [['She also found the same leaf repeated three times beside the crack.','Another repeated detail suggested that part of the picture had been copied.']],
+  [['Her first explanation was that the camera had distorted the surface.','At first, Nora considered an ordinary camera problem.']],
+  [['She visited the court with the coach and found no crack there.','A direct check showed that the real court was not damaged.']],
+  [['The coach wanted to post','Nora wanted evidence'],['a quick denial,','of the change'],['but Nora wanted the original first.','before making another claim.']],
+  [['Nora used a reverse image search','An online image search'],['and found the court','found the real damaged court'],['in another city.','somewhere else.']],
+  [['Someone had placed that crack','The editor had combined'],['over the school’s recent photograph','parts of two'],['and cropped out the original fence.','different photographs.']],
+  [['The editor admitted that he had intended a joke for two friends.','The editor said that the false picture had started as a private joke.']],
+  [['By then, the picture had reached parents outside the class group.','The edited image had spread beyond its intended audience.']],
+  [['He posted the original images beside the edit and explained each change.','The student showed the sources and clearly corrected the false picture.']],
+  [['Practice resumed on the court, but the team had lost one full training session.','The correction restored the plan but could not return the lost time.']],
+  [['At the next media club meeting, Nora requested the source file before judging another dramatic image.','Nora later checked the source before trusting another surprising picture.']]
  ]
 };
 const narrativeMetadata={
+ 'new-1-a2-one-scooter-two-friends':{
+  arcEn:'Small courage',arcHe:'אומץ קטן',
+  lesson:'לחץ חברתי ואיחור אינם הופכים רכיבה משותפת על קורקינט לבטוחה. אומץ קטן לומר לא, לקבל את מחיר האיחור ולבחור בתחבורה אחרת מגן על שני החברים.',
+  lessonEn:'Social pressure and lateness do not make sharing one scooter safe. The small courage to refuse, accept being late, and choose different transport protects both friends.'
+ },
+ 'new-1-a2-unequal-group':{
+  arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
+  lesson:'הכרה שווה אינה הוגנת כאשר העבודה לא התחלקה. הודאה גלויה, חלוקת משימות שאפשר לבדוק ומתן מקום למי שנשא בעומס מאפשרים לתקן את התהליך ולא רק את הדגם.',
+  lessonEn:'Equal credit is not fair when the work was unequal. Open admission, visible task sharing, and room for the person who carried the load repair the process rather than only the model.'
+ },
+ 'new-1-a2-new-bus-route':{
+  arcEn:'Discovery',arcHe:'גילוי בעקבות תצפית',
+  lesson:'מסלול מהיר יותר אינו בהכרח טוב יותר לכל הנוסעים. תצפית, מדידת זמנים והקשבה למי שנפגע מן השינוי מאפשרות להציג גם את התועלת וגם את המחיר ולבחון פתרון מעשי.',
+  lessonEn:'A faster route is not necessarily better for every passenger. Observation, timing, and listening to affected riders reveal both benefit and cost and support a practical trial.'
+ },
+ 'new-1-a2-unfair-team-choice':{
+  arcEn:'Role reversal',arcHe:'היפוך תפקידים',
+  lesson:'בחירת קבוצות לפי חברוּת קבועה משאירה יכולות ותלמידים מחוץ למשחק. החלפת תפקידים, שאלת היכולות וסבב קפטנים יכולים ליצור משחק הוגן בלי להפוך את התיקון לנקמה.',
+  lessonEn:'Choosing teams through fixed friendships leaves both students and abilities outside the game. Rotating leadership, asking about skills, and changing positions can create fairness without turning repair into revenge.'
+ },
+ 'new-1-a2-screen-time-plan':{
+  arcEn:'Second attempt',arcHe:'כישלון וניסיון שני',
+  lesson:'תיעוד אמיתי חושף כיצד זמן מסך משפיע על שינה, תנועה וריכוז. כלל קיצוני שנכשל אינו סוף התהליך; הפרדה בין צרכים לשעשוע, שינוי הסביבה וניסיון נוסף יוצרים איזון מעשי יותר.',
+  lessonEn:'Honest tracking reveals how screen use affects sleep, movement, and concentration. A failed extreme rule is not the end; separating needs from entertainment, changing the environment, and trying again create a more workable balance.'
+ },
+ 'new-1-a2-water-bottle-station':{
+  arcEn:'Preparation pays off',arcHe:'הכנה מוקדמת מוכיחה את עצמה',
+  lesson:'רעיון סביבתי נעשה משכנע כאשר מודדים את הבעיה, בודקים פתרון זמני ומשפרים אותו לפני ההחלטה. גם תחנה קבועה דורשת ניקוי, בדיקה וחלוקת אחריות כדי להמשיך להפחית פסולת.',
+  lessonEn:'An environmental idea becomes convincing when students measure the problem, test a temporary solution, and improve it before a decision. A permanent station still requires cleaning, checking, and shared responsibility.'
+ },
+ 'new-1-es-ride-changed-plans':{
+  arcEn:'Temptation and consequence',arcHe:'פיתוי ותוצאה',
+  lesson:'איחור ונוחות עלולים להפוך קיצור דרך מסוכן למפתה. עצירה לאחר כמעט־תאונה, קבלת המחיר של הגעה מאוחרת וסירוב חוזר בפעם הבאה מראים ששינוי אמיתי מתרחש לפני שהקורקינט מתחיל לנוע.',
+  lessonEn:'Lateness and convenience can make an unsafe shortcut tempting. Stopping after a near collision, accepting the cost of arriving late, and refusing the same choice next time show change before the scooter moves.'
+ },
+ 'new-1-es-misleading-headline':{
+  arcEn:'Chain reaction',arcHe:'תגובת שרשרת',
+  lesson:'כותרת דרמטית יכולה ליצור שרשרת של שיתופים, דאגה ועבודה מיותרת לפני שמישהו קורא את המקור. תיקון אחראי חוזר לכל מקום שבו הופצה הטעות, אך אינו מוחק מיד את תוצאותיה.',
+  lessonEn:'A dramatic headline can trigger a chain of sharing, worry, and unnecessary work before anyone reads the source. Responsible correction returns to every place where the error spread, but it cannot erase every consequence.'
+ },
+ 'new-1-es-uncredited-idea':{
+  arcEn:'Small courage',arcHe:'אומץ קטן',
+  lesson:'הכרה הוגנת אינה קישוט בשקופית אלא ייחוס ברור של הרעיון והעבודה. משפט אמיץ, ראיות מתהליך התכנון ותיקון פומבי יכולים להשיב את הקרדיט, אף שהאמון נבנה מחדש לאט יותר.',
+  lessonEn:'Fair recognition is not decoration on a slide; it clearly identifies the source of an idea and the work behind it. One courageous sentence, planning evidence, and a public correction can restore credit even while trust returns more slowly.'
+ },
+ 'new-1-es-edited-photograph':{
+  arcEn:'False appearance',arcHe:'מראית עין מטעה',
+  lesson:'תצלום משכנע עדיין דורש בדיקת פרטים, ביקור במציאות ואיתור קובץ המקור. תיקון אמין מציג את המקורות ואת השינויים באותה בהירות שבה הופץ הדימוי המטעה ומכיר בזמן שכבר אבד.',
+  lessonEn:'A convincing photograph still requires attention to visual clues, a check of the real place, and the original source file. A credible correction shows the sources and edits as clearly as the false image and acknowledges the time already lost.'
+ },
  'l2-a2-rumor':{
   arcEn:'False appearance',arcHe:'מראית עין מטעה',
   lesson:'צילום מסך חלקי עלול להפוך פרט נכון לשמועה מטעה. בדיקת המקור, הצגת ההקשר המלא ותיקון באותו מקום הם חלק מן האחריות של מי שכמעט שיתף.',
