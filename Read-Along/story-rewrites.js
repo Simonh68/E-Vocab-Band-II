@@ -1474,6 +1474,161 @@ const narrativeRevisions={
   [['He posted the original images beside the edit and explained each change.','The student showed the sources and clearly corrected the false picture.']],
   [['Practice resumed on the court, but the team had lost one full training session.','The correction restored the plan but could not return the lost time.']],
   [['At the next media club meeting, Nora requested the source file before judging another dramatic image.','Nora later checked the source before trusting another surprising picture.']]
+ ],
+'new-1-es-feed-never-ended':[
+  [['Roni opened a social-media feed during a ten-minute break before revising her science notes.','Roni planned to look at posts briefly before returning to her science work.']],
+  [['She turned a small hourglass beside the phone and promised to stop when the sand ran out.','Roni used a timer to make the short break visible.']],
+  [['One video led to a comment that opened another post.','Each item on the screen led directly to something new.']],
+  [['Each new item appeared immediately, erasing every natural stopping point.','The design gave Roni no clear final item.']],
+  [['After the sand ran out, Roni reversed the hourglass and chose one more post.','Roni knowingly extended the break after the first limit ended.']],
+  [['Her hand covered an unopened notebook.','Her science work had not begun again.']],
+  [['Maya’s study call appeared on the screen.','Roni’s study partner tried to begin their planned call.']],
+  [['Roni silenced the call and watched one supposed final clip.','Roni chose the feed over the commitment for one more moment.']],
+  [['When Roni finally looked up, fifty minutes had passed; Maya had ended the call.','The short break had become long enough to cost them their shared study time.']],
+  [['The comparison table was still blank, though they planned to finish it.','Their unfinished work made the lost time visible.']],
+  [['“I waited,” Maya wrote. “Are you coming back?”','Maya made clear that Roni’s choice had affected another person.']],
+  [['Roni typed an excuse about difficult homework, then deleted it.','Roni considered hiding the real reason but chose not to send the excuse.']],
+  [['“I kept scrolling and missed our time. I am sorry,” she replied.','Roni admitted the choice directly and apologized.']],
+  [['The next afternoon, she placed the phone inside a box and kept the hourglass on the desk.','Roni changed her environment instead of depending only on self-control.']],
+  [['A notification buzzed; her hand moved toward the box, then stopped beside an unfinished paragraph.','The same temptation returned while Roni still had work to complete.']],
+  [['She joined Maya on time with her phone still boxed beside the empty hourglass.','Roni kept the next commitment and did not restart the finished break.']]
+ ],
+'new-1-es-cost-of-convenience':[
+  [['For the winter market, Leah’s committee ordered four hundred disposable cups and plates.','The event team chose many single-use items because they were easy to provide.']],
+  [['Every stall welcomed the light stacks and expected a quick cleanup.','The convenient plan seemed helpful before the event began.']],
+  [['After the final visitor left, eleven clear bags stood beside the overflowing bins.','The large amount of waste became visible when the market ended.']],
+  [['The caretaker lifted one bag: “Convenience moved the work outside.”','The easy choice had created cleanup and disposal work for somebody else.']],
+  [['The school’s next event would use washable dishes, Leah promised.','Leah responded with a complete change for the following event.']],
+  [['At rehearsal, the cafeteria offered sixty cups for one hundred twenty guests.','The first reusable plan did not provide enough cups for the expected crowd.']],
+  [['A washing queue formed at the sink, so volunteers opened a forgotten package of disposable cups.','The first attempt failed when the cleaning system became too slow.']],
+  [['A second waste bag filled with new cups; Leah’s confident promise collapsed.','The public failure made Leah question her simple solution.']],
+  [['Eitan timed one washing cycle and counted twenty clean cups still sitting on empty tables.','A measurement showed that the problem involved collection as well as washing.']],
+  [['The committee borrowed enough dishes and placed return crates beside every exit.','The revised plan made it easier to collect and reuse each item.']],
+  [['Three small teams collected, washed, and dried dishes through a repeating loop.','Clear roles turned cleanup into a shared system.']],
+  [['No disposable cups stood on the tables when debate night began.','The second attempt started with the changed plan in place.']],
+  [['During the break, returning cups overwhelmed the drying team again.','A rush of returns tested the improved system.']],
+  [['Noa moved the drying rack beside the return crates and opened a second tray.','One practical adjustment removed the new bottleneck.']],
+  [['The line cleared before the next speech began.','The revised process recovered without returning to single-use cups.']],
+  [['Cleanup took twenty-five extra minutes; just one small waste bag remained.','The team reduced waste while honestly accepting extra labor.']],
+  [['All reusable dishes fit inside one crate; the timing sheet rested on top.','The equipment and the lessons from both attempts were kept for the next event.']]
+ ],
+'new-2-a1-homework-could-not-explain':[
+  [['Yossi used an AI tool','יוסי השתמש בכלי בינה מלאכותית'],['to solve his math homework.','כדי לפתור את שיעורי הבית במתמטיקה.']],
+  [['He copied an answer','הוא העתיק תשובה'],['about colored blocks','על קוביות צבעוניות'],['that he did not understand.','שלא הבין.']],
+  [['The next day,','למחרת,'],['his teacher placed colored blocks','המורה שלו הניחה קוביות צבעוניות'],['on the table','על השולחן'],['and asked him','וביקשה ממנו'],['to show the rule.','להראות את הכלל.']],
+  [['Yossi moved one blue block,','יוסי הזיז קובייה כחולה אחת,'],['then stopped.','ואז נעצר.']],
+  [['He looked down and admitted,','הוא הביט מטה והודה:'],['“I copied the answer','״העתקתי את התשובה'],['and cannot explain it.”','ואיני יכול להסביר אותה.״']],
+  [['The teacher returned the paper','המורה החזירה את הדף'],['and asked him to rebuild the answer','וביקשה ממנו לבנות מחדש את התשובה'],['after class.','לאחר השיעור.']],
+  [['Yossi made three rows','יוסי יצר שלוש שורות'],['of four blocks','של ארבע קוביות'],['and wrote each step himself.','וכתב בעצמו כל צעד.']],
+  [['He used the tool','הוא השתמש בכלי'],['to check his explanation,','כדי לבדוק את ההסבר שלו,'],['then changed one unclear line.','ואז שינה שורה אחת לא ברורה.']],
+  [['On the next day,','ביום הבא,'],['he explained a new example','הוא הסביר דוגמה חדשה'],['without opening the laptop.','בלי לפתוח את המחשב.']],
+  [['His corrected page showed','הדף המתוקן שלו הראה'],['the crossed-out answer','את התשובה המחוקה'],['and his own block drawing.','ואת ציור הקוביות שלו.']]
+ ],
+'new-2-a1-hospital-visit':[
+  [['Eyal stayed in hospital','אייל נשאר בבית החולים'],['after an operation.','לאחר ניתוח.']],
+  [['Amir and David arrived','אמיר ודוד הגיעו'],['with a card and a small gift','עם כרטיס ומתנה קטנה'],['for a long visit.','לביקור ארוך.']],
+  [['They began telling him','הם התחילו לספר לו'],['a funny story from class.','סיפור מצחיק מהכיתה.']],
+  [['Eyal smiled,','אייל חייך,'],['then closed his eyes','ואז עצם את עיניו'],['and held the blanket tightly.','ואחז בחוזקה בשמיכה.']],
+  [['Amir began putting the card away','אמיר התחיל להחזיר את הכרטיס לתיק'],['because he thought','כי חשב'],['Eyal did not want them there.','שאייל לא רוצה שהם יהיו שם.']],
+  [['A nurse explained','אחות הסבירה'],['that Eyal was tired','שאייל היה עייף'],['because of the medicine,','בגלל התרופה,'],['not angry.','ולא כועס.']],
+  [['David asked,','דוד שאל:'],['“Should we stay five minutes','״האם להישאר חמש דקות'],['or come tomorrow?”','או לבוא מחר?״']],
+  [['Eyal pointed to the card','אייל הצביע על הכרטיס'],['and asked for three class messages.','וביקש שלוש הודעות מהכיתה.']],
+  [['They read only three,','הם קראו רק שלוש,'],['left the card beside his bed,','השאירו את הכרטיס ליד מיטתו,'],['and went home quietly.','והלכו הביתה בשקט.']],
+  [['That evening,','באותו ערב,'],['Eyal sent a voice message','אייל שלח הודעה קולית'],['thanking them for the short visit.','והודה להם על הביקור הקצר.']],
+  [['On their next visit,','בביקור הבא,'],['Amir held up five fingers','אמיר הרים חמש אצבעות'],['and waited for Eyal to nod.','והמתין שאייל יהנהן.']]
+ ],
+'new-2-a1-emergency-practice':[
+  [['The class practiced the route','הכיתה תרגלה את המסלול'],['to the safe room.','אל המרחב המוגן.']],
+  [['Ron folded the map,','רון קיפל את המפה,'],['saying they already knew','ואמר שהם כבר מכירים'],['the route.','את המסלול.']],
+  [['Maya saw Lior,','מאיה ראתה את ליאור,'],['a new student,','תלמיד חדש,'],['looking between two doors.','מביט בין שתי דלתות.']],
+  [['The teacher paired them','המורה שיבצה אותם יחד'],['and showed Maya the second route.','והראתה למאיה את המסלול השני.']],
+  [['Later, the practice alarm sounded','מאוחר יותר נשמעה אזעקת התרגול'],['during a math lesson.','במהלך שיעור מתמטיקה.']],
+  [['Two students hurried toward the hall','שני תלמידים מיהרו אל המסדרון'],['until the teacher reminded them','עד שהמורה הזכירה להם'],['to walk.','ללכת.']],
+  [['A chair blocked','כיסא חסם'],['part of the main door','חלק מן הדלת הראשית'],['to the safe room.','אל המרחב המוגן.']],
+  [['Ron reached for the chair,','רון שלח יד אל הכיסא,'],['but Maya remembered the second route.','אבל מאיה זכרה את המסלול השני.']],
+  [['“Stay with me,”','״הישאר איתי,״'],['she told Lior','אמרה לליאור'],['and led the line','והובילה את הטור'],['through the next classroom.','דרך הכיתה הסמוכה.']],
+  [['Inside the safe room,','בתוך המרחב המוגן,'],['Ron counted the class','רון ספר את תלמידי הכיתה'],['and found everyone there.','ומצא שכולם היו שם.']],
+  [['The practice took one extra minute,','התרגול נמשך דקה נוספת,'],['but nobody ran','אבל איש לא רץ'],['or left a partner.','או עזב בן זוג.']],
+  [['The class moved the chair,','הכיתה הזיזה את הכיסא,'],['added a keep-clear sign,','הוסיפה סימן להשאיר את הפתח פנוי,'],['and checked both routes.','ובדקה את שני המסלולים.']],
+  [['Before the next practice,','לפני התרגול הבא,'],['Ron opened the route map','רון פתח את מפת המסלול'],['and stood beside Lior.','ועמד לצד ליאור.']]
+ ],
+'new-2-a1-weekend-volunteer':[
+  [['Amir volunteered','אמיר התנדב'],['at a community food center','במרכז מזון קהילתי'],['on Sunday morning.','ביום ראשון בבוקר.']],
+  [['He expected to spend the day','הוא ציפה לבלות את היום'],['carrying boxes in the back room.','בנשיאת ארגזים בחדר האחורי.']],
+  [['The coordinator asked him','הרכזת ביקשה ממנו'],['to help at the visitor table.','לעזור בשולחן קבלת המבקרים.']],
+  [['“I do not know what to say,”','״אני לא יודע מה לומר,״'],['Amir told Rivka.','אמר אמיר לרבקה.']],
+  [['Rivka showed him one order card','רבקה הראתה לו כרטיס הזמנה אחד'],['and practiced a respectful greeting.','ותרגלה איתו ברכה מכבדת.']],
+  [['An older visitor arrived','מבקרת מבוגרת הגיעה'],['and asked for her food box.','וביקשה את ארגז המזון שלה.']],
+  [['Amir lifted the standard box,','אמיר הרים את הארגז הרגיל,'],['but she said','אבל היא אמרה'],['the box was too heavy','שהארגז כבד מדי'],['for her stairs.','למדרגות שלה.']],
+  [['The line grew longer,','התור התארך,'],['and Amir looked for Rivka.','ואמיר חיפש את רבקה.']],
+  [['While carrying two crates,','בזמן שנשאה שני ארגזים,'],['Rivka said,','רבקה אמרה:'],['“Ask what would help.”','״שאל מה יעזור.״']],
+  [['“Would two small bags be easier?”','״האם שתי שקיות קטנות יהיו קלות יותר?״'],['Amir asked the visitor.','שאל אמיר את המבקרת.']],
+  [['She nodded and chose','היא הנהנה ובחרה'],['which items went in each bag.','אילו פריטים ייכנסו לכל שקית.']],
+  [['Rivka carried the next crate','רבקה נשאה את הארגז הבא'],['while Amir explained the new plan','בזמן שאמיר הסביר את התכנית החדשה'],['to another volunteer.','למתנדבת נוספת.']],
+  [['The visitor thanked Amir by name,','המבקרת הודתה לאמיר בשמו,'],['and he no longer hid','והוא כבר לא הסתתר'],['behind the boxes.','מאחורי הארגזים.']],
+  [['The next Sunday,','ביום ראשון הבא,'],['Amir began at the welcome table:','אמיר התחיל בשולחן קבלת המבקרים:'],['“One box or two bags?”','״ארגז אחד או שתי שקיות?״']]
+ ],
+'new-2-a1-missed-practice-screen':[
+  [['Gil packed his football bag','גיל ארז את תיק הכדורגל שלו'],['before watching game clips','לפני שצפה בסרטוני משחק'],['in bed.','במיטה.']],
+  [['After midnight,','לאחר חצות,'],['another clip started automatically.','סרטון נוסף התחיל באופן אוטומטי.']],
+  [['Gil moved the phone closer','גיל קירב את הטלפון'],['and silenced his sleep reminder.','והשתיק את תזכורת השינה.']],
+  [['His morning alarm rang,','השעון המעורר צלצל בבוקר,'],['but he turned it off','אבל הוא כיבה אותו'],['without waking fully.','בלי להתעורר לגמרי.']],
+  [['Sunlight filled the room','אור השמש מילא את החדר'],['when the coach called.','כאשר המאמן התקשר.']],
+  [['The team had practiced','הקבוצה התאמנה'],['without its goalkeeper,','בלי השוער שלה,'],['and Niv had waited for him.','וניב המתין לו.']],
+  [['Gil began to blame the alarm,','גיל התחיל להאשים את השעון המעורר,'],['then saw on the screen','ואז ראה על המסך'],['that he had stopped it.','שהוא עצמו עצר אותו.']],
+  [['He wrote to the team,','הוא כתב לקבוצה:'],['“I silenced the alarm,','״השתקתי את השעון המעורר,'],['and I am sorry.”','ואני מצטער.״']],
+  [['The coach said','המאמן אמר'],['they could not repeat','שהם לא יוכלו לחזור'],['the goalkeeper drill that day,','על תרגול השוער באותו יום,'],['but they could prepare','אבל הם יוכלו להתכונן'],['for the next practice.','לאימון הבא.']],
+  [['Gil offered to arrive early','גיל הציע להגיע מוקדם'],['and set up the goal','ולהכין את השער'],['at the next practice.','באימון הבא.']],
+  [['That evening,','באותו ערב,'],['the next clip began automatically','הסרטון הבא התחיל אוטומטית'],['after his favorite goal.','לאחר השער האהוב עליו.']],
+  [['Gil turned off autoplay','גיל כיבה את ההפעלה האוטומטית'],['and put the phone','והכניס את הטלפון'],['in a box across the room.','לקופסה בצד השני של החדר.']],
+  [['He set the alarm','הוא כיוון את השעון המעורר'],['beside the packed football bag.','ליד תיק הכדורגל הארוז.']],
+  [['The next morning,','למחרת בבוקר,'],['he arrived fifteen minutes early','הוא הגיע רבע שעה מוקדם'],['and set up the goal with Niv.','והכין את השער עם ניב.']],
+  [['After practice,','לאחר האימון,'],['Gil watched the saved clip','גיל צפה בסרטון ששמר'],['and closed it when the timer rang.','וסגר אותו כשהטיימר צלצל.']]
+ ],
+'new-2-a1-shared-computer':[
+  [['The media club had','למועדון המדיה היה'],['only one working computer.','מחשב תקין אחד בלבד.']],
+  [['Oren played a game','אורן שיחק במשחק'],['while three classmates waited.','בזמן ששלושה חברים לכיתה המתינו.']],
+  [['Talia needed a notice by four;','טליה נזקקה למודעה עד ארבע;'],['Ben had homework due at five,','בן נדרש להגיש שיעורי בית בחמש,'],['while Maya’s audio could wait','בעוד שהשמע של מאיה יכול היה להמתין'],['until next week.','עד השבוע הבא.']],
+  [['“I was here first,”','״אני הייתי כאן ראשון,״'],['Oren said,','אמר אורן,'],['holding the controller.','כשהוא אוחז בבקר המשחק.']],
+  [['Talia wrote the three deadlines','טליה כתבה את שלושת מועדי ההגשה'],['on colored sticky notes.','על פתקים צבעוניים.']],
+  [['Oren looked at the notes','אורן הביט בפתקים'],['and closed the game window.','וסגר את חלון המשחק.']],
+  [['“Then I never get a turn,”','״אז אף פעם לא יהיה לי תור,״'],['he said quietly.','אמר בשקט.']],
+  [['They divided the hour','הם חילקו את השעה'],['by the nearest deadlines','לפי מועדי ההגשה הקרובים'],['and saved ten minutes for Oren.','ושמרו עשר דקות לאורן.']],
+  [['Talia’s poster opened','הכרזה של טליה נפתחה'],['with its layout broken.','כשהעימוד שלה השתבש.']],
+  [['Oren restored the layout','אורן שיחזר את העימוד'],['and exported the poster','וייצא את הכרזה'],['without losing the design.','בלי לאבד את העיצוב.']],
+  [['Ben’s upload was slow,','ההעלאה של בן הייתה איטית,'],['so Maya gave him','ולכן מאיה נתנה לו'],['five minutes from her later slot.','חמש דקות מן התור המאוחר שלה.']],
+  [['The notice printed,','המודעה הודפסה,'],['and the homework upload finished.','והעלאת שיעורי הבית הסתיימה.']],
+  [['Oren played for ten minutes','אורן שיחק במשך עשר דקות'],['before the timer sounded.','לפני שהטיימר צלצל.']],
+  [['He closed the game','הוא סגר את המשחק'],['without being asked.','בלי שהתבקש.']],
+  [['The sticky notes stayed','הפתקים נשארו'],['beside the screen','לצד המסך'],['with names and times.','עם שמות ושעות.']],
+  [['At the next club meeting,','במפגש הבא של המועדון,'],['Oren asked,','אורן שאל:'],['“Whose deadline is first?”','״של מי מועד ההגשה הראשון?״']]
+ ],
+'new-2-a2-perfect-project':[
+  [['An AI tool produced','כלי בינה מלאכותית יצר'],['the group’s polished project','את הפרויקט המלוטש של הקבוצה'],['about strong shapes overnight.','על צורות חזקות בן לילה.']],
+  [['A triangular paper bridge','גשר נייר משולש'],['held twice as much','נשא משקל כפול'],['as a rectangular one,','מגשר מלבני,'],['according to the tool.','לפי הכלי.']],
+  [['Noam added the bright graph,','נועם הוסיף את הגרף הצבעוני,'],['but its source link','אבל הקישור למקור שלו'],['opened an empty page.','פתח דף ריק.']],
+  [['During rehearsal,','במהלך החזרה,'],['Liat asked','ליאת שאלה'],['where the numbers came from,','מהיכן הגיעו המספרים,'],['but nobody could answer.','אבל איש לא ידע לענות.']],
+  [['The deadline was the next morning,','מועד ההגשה היה למחרת בבוקר,'],['and the perfect poster','והכרזה המושלמת'],['was already finished.','כבר הייתה מוכנה.']],
+  [['Yael built both bridges','יעל בנתה את שני הגשרים'],['from the same paper','מאותו נייר'],['and tested them with blocks.','ובדקה אותם בעזרת קוביות.']],
+  [['The triangular bridge bent','הגשר המשולש התעקם'],['at one weak joint,','בחיבור חלש אחד,'],['while the rectangular bridge still held.','בזמן שהגשר המלבני עדיין החזיק מעמד.']],
+  [['Material and joints mattered too,','גם החומר והחיבורים היו חשובים,'],['so the group deleted the false graph.','ולכן הקבוצה מחקה את הגרף הכוזב.']],
+  [['They tested three models,','הם בדקו שלושה דגמים,'],['recorded every load,','תיעדו כל משקל,'],['and wrote the limits.','וכתבו את מגבלות הבדיקה.']],
+  [['At the presentation,','בהצגה,'],['they showed the bent model','הם הראו את הדגם שהתעקם'],['and explained the missing source.','והסבירו על המקור החסר.']],
+  [['The simpler poster stood','הכרזה הפשוטה יותר עמדה'],['beside the creased bridges,','לצד הגשרים המקומטים,'],['and every student could answer questions.','וכל תלמיד הצליח לענות על שאלות.']]
+ ],
+'new-2-a2-missing-permission':[
+  [['The media team published','צוות המדיה פרסם'],['a video from the school fair.','סרטון מן היריד בבית הספר.']],
+  [['Dana appeared clearly in the background,','דנה הופיעה בבירור ברקע,'],['although she had asked','אף שביקשה'],['not to appear online.','לא להופיע ברשת.']],
+  [['She saw the post and said,','היא ראתה את הפרסום ואמרה:'],['“Please take this down.”','״בבקשה הסירו את זה.״']],
+  [['Eyal pointed to the contest deadline','אייל הצביע על מועד ההגשה לתחרות'],['and suggested cropping the clip later.','והציע לחתוך את הקטע מאוחר יותר.']],
+  [['Three classmates had already shared it,','שלושה חברים לכיתה כבר שיתפו אותו,'],['and every extra minute','וכל דקה נוספת'],['could spread it farther.','עלולה הייתה להפיץ אותו יותר.']],
+  [['Eyal deleted the public post','אייל מחק את הפרסום הפומבי'],['and explained the removal','והסביר את ההסרה'],['to the team.','לצוות.']],
+  [['They asked the classmates','הם ביקשו מחברי הכיתה'],['to remove their copies,','להסיר את העותקים שלהם,'],['but one copy had spread','אבל עותק אחד כבר הופץ'],['outside their group.','מחוץ לקבוצה שלהם.']],
+  [['The team told the organizer','הצוות הודיע למארגן'],['that permission was missing','שהאישור חסר'],['and missed the deadline','והחמיץ את המועד'],['for a featured slot.','למקום מרכזי בתחרות.']],
+  [['Dana did not explain her reason,','דנה לא הסבירה את הסיבה שלה,'],['and nobody asked her to.','ואיש לא ביקש ממנה להסביר.']],
+  [['They made a shorter video','הם יצרו סרטון קצר יותר'],['using only clips','והשתמשו רק בקטעים'],['with confirmed permission.','שקיבלו אישור ברור.']],
+  [['Before the next edit,','לפני העריכה הבאה,'],['every clip was matched','כל קטע הותאם'],['to the permission list.','לרשימת האישורים.']],
+  [['At the next event,','באירוע הבא,'],['Eyal lowered the phone','אייל הוריד את הטלפון'],['when another student raised a hand','כאשר תלמידה אחרת הרימה יד'],['to signal no.','כדי לסמן שאינה מסכימה להצטלם.']]
  ]
 };
 const narrativeMetadata={
@@ -1526,6 +1681,56 @@ const narrativeMetadata={
   arcEn:'False appearance',arcHe:'מראית עין מטעה',
   lesson:'תצלום משכנע עדיין דורש בדיקת פרטים, ביקור במציאות ואיתור קובץ המקור. תיקון אמין מציג את המקורות ואת השינויים באותה בהירות שבה הופץ הדימוי המטעה ומכיר בזמן שכבר אבד.',
   lessonEn:'A convincing photograph still requires attention to visual clues, a check of the real place, and the original source file. A credible correction shows the sources and edits as clearly as the false image and acknowledges the time already lost.'
+ },
+ 'new-1-es-feed-never-ended':{
+  arcEn:'Temptation and consequence',arcHe:'פיתוי ותוצאה',
+  lesson:'עיצוב שאין בו נקודת עצירה ברורה מקשה להבחין בזמן שחולף, אך אינו מבטל אחריות להתחייבות. הודאה בלי תירוץ ושינוי הסביבה עוזרים להחזיר שליטה לפני הפיתוי הבא.',
+  lessonEn:'A design without a natural stopping point can hide passing time, but it does not remove responsibility for a commitment. Honest admission and a changed environment help restore control before the next temptation.'
+ },
+ 'new-1-es-cost-of-convenience':{
+  arcEn:'Second attempt',arcHe:'כישלון וניסיון שני',
+  lesson:'נוחות חד־פעמית עשויה להעביר את המחיר לניקיון, לפסולת ולאנשים אחרים. ניסיון חוזר המבוסס על מדידה, איסוף וחלוקת תפקידים יכול להפחית פסולת בלי להסתיר את העבודה הנוספת.',
+  lessonEn:'Single-use convenience can shift its cost to cleanup, waste, and other people. A measured second attempt with collection points and shared roles can reduce waste without hiding the additional labor.'
+ },
+ 'new-2-a1-homework-could-not-explain':{
+  arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
+  lesson:'תשובה נכונה אינה למידה כאשר התלמיד אינו יכול להסביר אותה. הודאה, בנייה מחדש של הפתרון ושימוש בכלי רק לבדיקת עבודה עצמאית הופכים טעות לתהליך למידה.',
+  lessonEn:'A correct answer is not learning when the student cannot explain it. Admission, rebuilding the solution, and using a tool only to check independent work turn a mistake into learning.'
+ },
+ 'new-2-a1-hospital-visit':{
+  arcEn:'Misunderstanding',arcHe:'אי־הבנה שמתבהרת',
+  lesson:'עייפות או שתיקה אינן בהכרח דחייה. שאלה קצרה שנותנת בחירה מאפשרת לתמוך בחבר שמחלים בלי להעמיס עליו ובלי לפרש במקומו את צרכיו.',
+  lessonEn:'Tiredness or silence does not necessarily mean rejection. A short question that offers a choice supports a recovering friend without creating pressure or deciding that person’s needs for them.'
+ },
+ 'new-2-a1-emergency-practice':{
+  arcEn:'Preparation pays off',arcHe:'הכנה מוקדמת מוכיחה את עצמה',
+  lesson:'תרגול בטיחות כולל גם מסלול חלופי, הליכה רגועה ושמירה על בן זוג. לאחר התרגול מתקנים חסימה ובודקים שוב, במקום להסתפק בכך שכולם הגיעו.',
+  lessonEn:'Safety practice includes a backup route, calm movement, and staying with a partner. After a drill, remove the obstacle and check again rather than stopping when everyone has arrived.'
+ },
+ 'new-2-a1-weekend-volunteer':{
+  arcEn:'Role reversal',arcHe:'היפוך תפקידים',
+  lesson:'עזרה מכבדת אינה מניחה שכל אדם זקוק לאותו ארגז. שאלה פשוטה, הקשבה והתאמת האריזה לצורך מאפשרות גם למתנדב חדש לעבור מתפקיד צדדי לאחריות אמיתית.',
+  lessonEn:'Respectful help does not assume that every person needs the same box. A simple question, careful listening, and adapted packing allow even a new volunteer to take real responsibility.'
+ },
+ 'new-2-a1-missed-practice-screen':{
+  arcEn:'Chain reaction',arcHe:'תגובת שרשרת',
+  lesson:'סרטון נוסף בלילה עלול להוביל לכיבוי השעון, לאיחור ולהשפעה על קבוצה שלמה. אחריות כוללת הודאה, תיקון מעשי ושינוי שגרת הערב לפני האימון הבא.',
+  lessonEn:'One more late-night clip can lead to a silenced alarm, a missed practice, and consequences for a whole team. Responsibility includes admission, practical repair, and a changed evening routine.'
+ },
+ 'new-2-a1-shared-computer':{
+  arcEn:'Shared task, changed relationship',arcHe:'משימה משותפת שמשנה יחסים',
+  lesson:'משאב מוגבל נעשה הוגן כאשר בודקים מועדי הגשה, שומרים גם זמן לפנאי ומאפשרים גמישות בעת תקלה. מי שמוותר על תור דחוף יכול עדיין לתרום בידע ולקבל תור ברור בהמשך.',
+  lessonEn:'A limited resource becomes fairer when deadlines, leisure time, and unexpected delays are all visible. A student who yields an urgent turn can still contribute useful knowledge and receive a clear later turn.'
+ },
+ 'new-2-a2-perfect-project':{
+  arcEn:'Search for an explanation',arcHe:'חיפוש אחר הסבר',
+  lesson:'מראה מלוטש אינו מחליף מקור שאפשר לבדוק או ניסוי שהקבוצה מבינה. כאשר טענה קורסת, בדיקה הוגנת, תיעוד מגבלות והצגת הכשל עצמו יוצרים פרויקט אמין יותר.',
+  lessonEn:'A polished appearance cannot replace a verifiable source or a test the group understands. When a claim fails, fair testing, recorded limits, and open presentation of the failure create more credible work.'
+ },
+ 'new-2-a2-missing-permission':{
+  arcEn:'Mistake and repair',arcHe:'טעות ותיקון',
+  lesson:'הסכמה אינה פרט שמתקנים רק לאחר הפרסום, ואדם אינו חייב להסביר מדוע סירב להופיע. הסרה מיידית, הודאה במחיר ורשימת אישורים לפני העריכה מתחילות תיקון שאינו יכול להשיב עותק שכבר הופץ.',
+  lessonEn:'Consent is not a detail to repair only after publication, and a person does not owe a reason for refusing to appear. Immediate removal, acceptance of the cost, and a permission list before editing begin a repair that cannot retrieve every shared copy.'
  },
  'l2-a2-rumor':{
   arcEn:'False appearance',arcHe:'מראית עין מטעה',
