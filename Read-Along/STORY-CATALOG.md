@@ -2,7 +2,7 @@
 
 > **מסמך פנימי — אין לקשר אליו מן האתר הציבורי.**
 >
-> עודכן: 24.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js`, על בסיס `main` בקומיט `c7f31f82352ccf49f681547616a6e425fbe67caf` ובתוספת נקודות השמירה המקומיות `b9053cfff48e6dd190dc9c0016339c9419295d27`, `31c087d45549e190fd2116eca28d3ec1d1b96847`, `65e1cd5d321b7615fd907bee8a9d928cc9ed7fb2` ו-`9069eaeb76e3f358ed60f85c6b0a945671625514`.
+> עודכן: 24.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js`, על בסיס `main` בקומיט `7f32cf81520f3d89412f70c2d565712c809f51a4` ובתוספת נקודת השמירה המקומית `81406eb90ae95554413c4905dd2145606853a5c9`.
 
 ## כללי זהות וסטטוס
 
@@ -25,8 +25,8 @@
 | קובצי עטיפה פעילים חסרים | 0 |
 | סוג סיוע: עברית | 73 |
 | סוג סיוע: Simple English | 38 |
-| ביקורת ידנית הושלמה ואושרה לפרסום | 100 |
-| עטיפות שעברו גם ביקורת חזותית ידנית באבן הדרך הנוכחית | 30 |
+| ביקורת ידנית הושלמה ואושרה לפרסום | 111 |
+| עטיפות שעברו גם ביקורת חזותית ידנית באבן הדרך הנוכחית | 11 |
 
 ## שכבה 1 · ז׳–ח׳ · A1 · תמיכה · 12 סיפורים
 
@@ -161,9 +161,9 @@
 | RA-098 | `new-3-a2-unsafe-workplace` | The Unsafe Workplace | מקום העבודה הלא בטוח | ט׳–י׳ | A2 | 14 | `story-covers-v3/unsafe-workplace.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 | RA-099 | `new-3-a2-scholarship-application` | The Scholarship Application | בקשת המלגה | ט׳–י׳ | A2 | 16 | `story-covers-v3/scholarship-application.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 | RA-100 | `new-3-a2-study-screen-balance` | The Study–Screen Balance | איזון בין לימודים למסך | ט׳–י׳ | A2 | 17 | `story-covers-v3/study-screen-balance.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
-| RA-101 | `new-3-a2-limited-budget` | The Limited Community Budget | התקציב הקהילתי המוגבל | ט׳–י׳ | A2 | 19 | `story-covers-v3/limited-community-budget.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-102 | `new-3-a2-long-term-solution` | The Long-Term Solution | הפתרון לטווח הארוך | ט׳–י׳ | A2 | 20 | `story-covers-v3/long-term-solution.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-109 | `new-3-a2-first-bell` | The First Bell | הצלצול הראשון | ט׳–י׳ | A2 | 20 | `story-covers-v3/first-bell.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-101 | `new-3-a2-limited-budget` | The Limited Community Budget | התקציב הקהילתי המוגבל | ט׳–י׳ | A2 | 19 | `story-covers-v3/limited-community-budget.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-102 | `new-3-a2-long-term-solution` | The Long-Term Solution | הפתרון לטווח הארוך | ט׳–י׳ | A2 | 20 | `story-covers-v3/long-term-solution.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-109 | `new-3-a2-first-bell` | The First Bell | הצלצול הראשון | ט׳–י׳ | A2 | 20 | `story-covers-v3/first-bell.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## שכבה 3 · ט׳–י׳ · דוברי אנגלית · 14 סיפורים
 
@@ -175,14 +175,14 @@
 | RA-052 | `l3-es-captain-choice` | The Captain’s Decision | החלטת הקפטן | ט׳–י׳ | ES | 20 | `scenes/scene-04.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-053 | `l3-es-private-donation` | The Quiet Donation | התרומה השקטה | ט׳–י׳ | ES | 21 | `scenes/scene-09.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-054 | `l3-es-clean-transport` | The Clean Transport Debate | הדיון בתחבורה נקייה | ט׳–י׳ | ES | 23 | `scenes/scene-04.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-103 | `new-3-es-conflict-interest` | The Conflict of Interest | ניגוד העניינים | ט׳–י׳ | ES | 15 | `story-covers-v3/conflict-interest.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-104 | `new-3-es-incomplete-consent` | The Incomplete Consent | ההסכמה החלקית | ט׳–י׳ | ES | 17 | `story-covers-v3/incomplete-consent.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-105 | `new-3-es-whistleblower-choice` | The Whistleblower’s Choice | בחירת חושף הליקויים | ט׳–י׳ | ES | 18 | `story-covers-v3/whistleblower-choice.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-106 | `new-3-es-biased-selection` | The Biased Selection Process | הליך הבחירה המוטה | ט׳–י׳ | ES | 20 | `story-covers-v3/biased-selection.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-107 | `new-3-es-controls-next-hour` | Who Controls the Next Hour? | מי שולט בשעה הבאה? | ט׳–י׳ | ES | 21 | `story-covers-v3/controls-next-hour.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-108 | `new-3-es-good-intention` | The Consequences of a Good Intention | תוצאותיה של כוונה טובה | ט׳–י׳ | ES | 23 | `story-covers-v3/good-intention.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-110 | `new-3-es-unanswered-message` | The Message No One Answered | ההודעה שאיש לא ענה עליה | ט׳–י׳ | ES | 22 | `story-covers-v3/unanswered-message.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-111 | `new-3-es-winter-stage` | The Winter Stage | במת החורף | ט׳–י׳ | ES | 23 | `story-covers-v3/winter-stage.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-103 | `new-3-es-conflict-interest` | The Conflict of Interest | ניגוד העניינים | ט׳–י׳ | ES | 15 | `story-covers-v3/conflict-interest.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-104 | `new-3-es-incomplete-consent` | The Incomplete Consent | ההסכמה החלקית | ט׳–י׳ | ES | 17 | `story-covers-v3/incomplete-consent.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-105 | `new-3-es-whistleblower-choice` | The Whistleblower’s Choice | בחירת חושף הליקויים | ט׳–י׳ | ES | 18 | `story-covers-v3/whistleblower-choice.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-106 | `new-3-es-biased-selection` | The Biased Selection Process | הליך הבחירה המוטה | ט׳–י׳ | ES | 20 | `story-covers-v3/biased-selection.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-107 | `new-3-es-controls-next-hour` | Who Controls the Next Hour? | מי שולט בשעה הבאה? | ט׳–י׳ | ES | 21 | `story-covers-v3/controls-next-hour.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-108 | `new-3-es-good-intention` | The Consequences of a Good Intention | תוצאותיה של כוונה טובה | ט׳–י׳ | ES | 23 | `story-covers-v3/good-intention.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-110 | `new-3-es-unanswered-message` | The Message No One Answered | ההודעה שאיש לא ענה עליה | ט׳–י׳ | ES | 22 | `story-covers-v3/unanswered-message.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-111 | `new-3-es-winter-stage` | The Winter Stage | במת החורף | ט׳–י׳ | ES | 23 | `story-covers-v3/winter-stage.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## כללי עדכון
 
