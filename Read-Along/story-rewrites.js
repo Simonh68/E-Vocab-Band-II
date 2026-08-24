@@ -1769,7 +1769,7 @@ const narrativeRevisions={
   [['At the next event,','באירוע הבא,'],['Eyal lowered the phone','אייל הוריד את הטלפון'],['when another student raised a hand','כאשר תלמידה אחרת הרימה יד'],['to signal no.','כדי לסמן שאינה מסכימה להצטלם.']]
  ],
 'new-2-a2-false-emergency-message':[
-  [['At 6:40, Neta reached school early','בשעה 6:40 נטע הגיעה מוקדם לבית הספר'],['for choir practice.','לחזרת המקהלה.']],
+  [['At exactly 6:40,','בשעה 6:40 בדיוק,'],['Neta reached school early','נטע הגיעה מוקדם לבית הספר'],['for choir practice.','לחזרת המקהלה.']],
   [['A red message on her phone','הודעה אדומה בטלפון שלה'],['said the school would close','אמרה שבית הספר ייסגר'],['because of a gas leak.','בגלל דליפת גז.']],
   [['She wanted to warn classmates','היא רצתה להזהיר את חבריה לכיתה'],['before the first buses arrived.','לפני שהאוטובוסים הראשונים יגיעו.']],
   [['Her thumb paused above Forward;','האגודל שלה נעצר מעל ״העברה״;'],['the message had no date','להודעה לא היה תאריך'],['or school name.','או שם של בית ספר.']],
