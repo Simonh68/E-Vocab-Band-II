@@ -2,7 +2,7 @@
 
 > **מסמך פנימי — אין לקשר אליו מן האתר הציבורי.**
 >
-> עודכן: 23.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js`, על בסיס `main` בקומיט `e0b8cc817d936587175c224d964e73340352f926` ובתוספת נקודות השמירה המקומיות `724217975b6f25c829455e44bbf156deb17ecd99`, `83ab1771e04e10177e54316a4c46a1272e46ba61` ו-`5a48e895a7926e59fd7c0553bfc5c5944f69c18e`.
+> עודכן: 24.8.2026 · מקור הנתונים: ה-runtime הסופי לאחר טעינת `catalog.js`, `additional-stories.js` ו-`story-rewrites.js`, על בסיס `main` בקומיט `c7f31f82352ccf49f681547616a6e425fbe67caf` ובתוספת נקודות השמירה המקומיות `b9053cfff48e6dd190dc9c0016339c9419295d27`, `31c087d45549e190fd2116eca28d3ec1d1b96847`, `65e1cd5d321b7615fd907bee8a9d928cc9ed7fb2` ו-`9069eaeb76e3f358ed60f85c6b0a945671625514`.
 
 ## כללי זהות וסטטוס
 
@@ -25,8 +25,8 @@
 | קובצי עטיפה פעילים חסרים | 0 |
 | סוג סיוע: עברית | 73 |
 | סוג סיוע: Simple English | 38 |
-| ביקורת ידנית הושלמה ואושרה לפרסום | 70 |
-| עטיפות שעברו גם ביקורת חזותית ידנית באבן הדרך הנוכחית | 10 |
+| ביקורת ידנית הושלמה ואושרה לפרסום | 100 |
+| עטיפות שעברו גם ביקורת חזותית ידנית באבן הדרך הנוכחית | 30 |
 
 ## שכבה 1 · ז׳–ח׳ · A1 · תמיכה · 12 סיפורים
 
@@ -76,8 +76,8 @@
 | RA-068 | `new-1-es-misleading-headline` | The Misleading Headline | הכותרת המטעה | ז׳–ח׳ | ES | 12 | `story-covers-v3/misleading-headline.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 | RA-069 | `new-1-es-uncredited-idea` | The Uncredited Idea | הרעיון שלא זכה להכרה | ז׳–ח׳ | ES | 14 | `story-covers-v3/uncredited-idea.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 | RA-070 | `new-1-es-edited-photograph` | The Edited Photograph | התצלום הערוך | ז׳–ח׳ | ES | 15 | `story-covers-v3/edited-photograph.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
-| RA-071 | `new-1-es-feed-never-ended` | The Feed That Never Ended | הפיד שלא נגמר | ז׳–ח׳ | ES | 16 | `story-covers-v3/feed-never-ended.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-072 | `new-1-es-cost-of-convenience` | The Cost of Convenience | מחיר הנוחות | ז׳–ח׳ | ES | 17 | `story-covers-v3/cost-of-convenience.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-071 | `new-1-es-feed-never-ended` | The Feed That Never Ended | הפיד שלא נגמר | ז׳–ח׳ | ES | 16 | `story-covers-v3/feed-never-ended.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-072 | `new-1-es-cost-of-convenience` | The Cost of Convenience | מחיר הנוחות | ז׳–ח׳ | ES | 17 | `story-covers-v3/cost-of-convenience.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## שכבה 2 · ח׳–ט׳ · A1 · תמיכה · 12 סיפורים
 
@@ -89,12 +89,12 @@
 | RA-037 | `l2-a1-library-book` | The Damaged Library Book | ספר הספרייה שניזוק | ח׳–ט׳ | A1 | 14 | `scenes/scene-02.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-038 | `l2-a1-lunch-table` | The Quiet Lunch Table | שולחן האוכל השקט | ח׳–ט׳ | A1 | 15 | `scenes/scene-01.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-039 | `l2-a1-water-leak` | The Hidden Water Leak | דליפת המים הנסתרת | ח׳–ט׳ | A1 | 16 | `scenes/scene-06.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-073 | `new-2-a1-homework-could-not-explain` | The Homework He Could Not Explain | שיעורי הבית שלא ידע להסביר | ח׳–ט׳ | A1 | 10 | `story-covers-v3/homework-could-not-explain.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-074 | `new-2-a1-hospital-visit` | The Hospital Visit | הביקור בבית החולים | ח׳–ט׳ | A1 | 11 | `story-covers-v3/hospital-visit.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-075 | `new-2-a1-emergency-practice` | The Emergency Practice | תרגול החירום | ח׳–ט׳ | A1 | 13 | `story-covers-v3/emergency-practice.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-076 | `new-2-a1-weekend-volunteer` | The Weekend Volunteer | המתנדב בסוף השבוע | ח׳–ט׳ | A1 | 14 | `story-covers-v3/weekend-volunteer.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-077 | `new-2-a1-missed-practice-screen` | The Practice He Missed | האימון שהחמיץ | ח׳–ט׳ | A1 | 15 | `story-covers-v3/missed-practice-screen.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-078 | `new-2-a1-shared-computer` | The Shared Computer | המחשב המשותף | ח׳–ט׳ | A1 | 16 | `story-covers-v3/shared-computer.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-073 | `new-2-a1-homework-could-not-explain` | The Homework He Could Not Explain | שיעורי הבית שלא ידע להסביר | ח׳–ט׳ | A1 | 10 | `story-covers-v3/homework-could-not-explain.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-074 | `new-2-a1-hospital-visit` | The Hospital Visit | הביקור בבית החולים | ח׳–ט׳ | A1 | 11 | `story-covers-v3/hospital-visit.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-075 | `new-2-a1-emergency-practice` | The Emergency Practice | תרגול החירום | ח׳–ט׳ | A1 | 13 | `story-covers-v3/emergency-practice.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-076 | `new-2-a1-weekend-volunteer` | The Weekend Volunteer | המתנדב בסוף השבוע | ח׳–ט׳ | A1 | 14 | `story-covers-v3/weekend-volunteer.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-077 | `new-2-a1-missed-practice-screen` | The Practice He Missed | האימון שהחמיץ | ח׳–ט׳ | A1 | 15 | `story-covers-v3/missed-practice-screen.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-078 | `new-2-a1-shared-computer` | The Shared Computer | המחשב המשותף | ח׳–ט׳ | A1 | 16 | `story-covers-v3/shared-computer.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## שכבה 2 · ח׳–ט׳ · A2 · עצמאית · 12 סיפורים
 
@@ -106,12 +106,12 @@
 | RA-040 | `l2-a2-group-credit` | Who Did the Work? | מי עשה את העבודה? | ח׳–ט׳ | A2 | 15 | `scenes/scene-00.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-041 | `l2-a2-rumor` | The Unverified Rumor | השמועה שלא נבדקה | ח׳–ט׳ | A2 | 16 | `scenes/scene-00.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-042 | `l2-a2-community-race` | The Community Race | המרוץ הקהילתי | ח׳–ט׳ | A2 | 17 | `scenes/scene-04.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-079 | `new-2-a2-perfect-project` | The Perfect Project | הפרויקט המושלם | ח׳–ט׳ | A2 | 11 | `story-covers-v3/perfect-project.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-080 | `new-2-a2-missing-permission` | The Missing Permission | האישור החסר | ח׳–ט׳ | A2 | 12 | `story-covers-v3/missing-permission.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-081 | `new-2-a2-false-emergency-message` | The False Emergency Message | הודעת החירום הכוזבת | ח׳–ט׳ | A2 | 14 | `story-covers-v3/false-emergency-message.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-082 | `new-2-a2-accessible-sports-day` | The Accessible Sports Day | יום הספורט הנגיש | ח׳–ט׳ | A2 | 15 | `story-covers-v3/accessible-sports-day.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-083 | `new-2-a2-community-survey` | The Community Survey | הסקר הקהילתי | ח׳–ט׳ | A2 | 16 | `story-covers-v3/community-survey.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-084 | `new-2-a2-sitting-all-afternoon` | Sitting All Afternoon | יושבים כל אחר הצהריים | ח׳–ט׳ | A2 | 17 | `story-covers-v3/sitting-all-afternoon.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-079 | `new-2-a2-perfect-project` | The Perfect Project | הפרויקט המושלם | ח׳–ט׳ | A2 | 11 | `story-covers-v3/perfect-project.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-080 | `new-2-a2-missing-permission` | The Missing Permission | האישור החסר | ח׳–ט׳ | A2 | 12 | `story-covers-v3/missing-permission.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-081 | `new-2-a2-false-emergency-message` | The False Emergency Message | הודעת החירום הכוזבת | ח׳–ט׳ | A2 | 14 | `story-covers-v3/false-emergency-message.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-082 | `new-2-a2-accessible-sports-day` | The Accessible Sports Day | יום הספורט הנגיש | ח׳–ט׳ | A2 | 15 | `story-covers-v3/accessible-sports-day.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-083 | `new-2-a2-community-survey` | The Community Survey | הסקר הקהילתי | ח׳–ט׳ | A2 | 16 | `story-covers-v3/community-survey.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-084 | `new-2-a2-sitting-all-afternoon` | Sitting All Afternoon | יושבים כל אחר הצהריים | ח׳–ט׳ | A2 | 17 | `story-covers-v3/sitting-all-afternoon.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## שכבה 2 · ח׳–ט׳ · דוברי אנגלית · 12 סיפורים
 
@@ -123,12 +123,12 @@
 | RA-043 | `l2-es-online-challenge` | The Risky Online Challenge | האתגר המקוון המסוכן | ח׳–ט׳ | ES | 17 | `scenes/scene-08.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-044 | `l2-es-accessible-trip` | A Trip for Everyone | טיול לכולם | ח׳–ט׳ | ES | 19 | `scenes/scene-02.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-045 | `l2-es-energy-audit` | The School Energy Audit | בדיקת האנרגיה בבית הספר | ח׳–ט׳ | ES | 20 | `scenes/scene-07.webp` | לא | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-085 | `new-2-es-answer-behind-answer` | The Answer Behind the Answer | התשובה שמאחורי התשובה | ח׳–ט׳ | ES | 13 | `story-covers-v3/answer-behind-answer.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-086 | `new-2-es-selective-report` | The Selective Report | הדוח הסלקטיבי | ח׳–ט׳ | ES | 14 | `story-covers-v3/selective-report.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-087 | `new-2-es-algorithm-recommendation` | The Algorithm’s Recommendation | המלצת האלגוריתם | ח׳–ט׳ | ES | 16 | `story-covers-v3/algorithm-recommendation.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-088 | `new-2-es-confidential-conversation` | The Confidential Conversation | השיחה החסויה | ח׳–ט׳ | ES | 17 | `story-covers-v3/confidential-conversation.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-089 | `new-2-es-late-evidence` | The Evidence That Arrived Late | הראיה שהגיעה באיחור | ח׳–ט׳ | ES | 19 | `story-covers-v3/late-evidence.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-090 | `new-2-es-designed-attention` | Designed to Hold Attention | מתוכנן להחזיק את הקשב | ח׳–ט׳ | ES | 20 | `story-covers-v3/designed-attention.webp` | כן | Simple English | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-085 | `new-2-es-answer-behind-answer` | The Answer Behind the Answer | התשובה שמאחורי התשובה | ח׳–ט׳ | ES | 13 | `story-covers-v3/answer-behind-answer.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-086 | `new-2-es-selective-report` | The Selective Report | הדוח הסלקטיבי | ח׳–ט׳ | ES | 14 | `story-covers-v3/selective-report.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-087 | `new-2-es-algorithm-recommendation` | The Algorithm’s Recommendation | המלצת האלגוריתם | ח׳–ט׳ | ES | 16 | `story-covers-v3/algorithm-recommendation.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-088 | `new-2-es-confidential-conversation` | The Confidential Conversation | השיחה החסויה | ח׳–ט׳ | ES | 17 | `story-covers-v3/confidential-conversation.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-089 | `new-2-es-late-evidence` | The Evidence That Arrived Late | הראיה שהגיעה באיחור | ח׳–ט׳ | ES | 19 | `story-covers-v3/late-evidence.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-090 | `new-2-es-designed-attention` | Designed to Hold Attention | מתוכנן להחזיק את הקשב | ח׳–ט׳ | ES | 20 | `story-covers-v3/designed-attention.webp` | כן | Simple English | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## שכבה 3 · ט׳–י׳ · A1 · תמיכה · 12 סיפורים
 
@@ -140,12 +140,12 @@
 | RA-046 | `l3-a1-first-aid` | The First Aid Lesson | שיעור העזרה הראשונה | ט׳–י׳ | A1 | 16 | `scenes/scene-11.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-047 | `l3-a1-community-library` | The Small Community Library | הספרייה הקהילתית הקטנה | ט׳–י׳ | A1 | 17 | `scenes/scene-10.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-048 | `l3-a1-water-shortage` | Every Drop Matters | כל טיפה חשובה | ט׳–י׳ | A1 | 18 | `scenes/scene-07.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
-| RA-091 | `new-3-a1-first-job-interview` | The First Job Interview | ראיון העבודה הראשון | ט׳–י׳ | A1 | 12 | `story-covers-v3/first-job-interview.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-092 | `new-3-a1-shift-exchange` | The Shift Exchange | החלפת המשמרת | ט׳–י׳ | A1 | 13 | `story-covers-v3/shift-exchange.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-093 | `new-3-a1-safety-rule` | The Safety Rule | כלל הבטיחות | ט׳–י׳ | A1 | 15 | `story-covers-v3/safety-rule.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-094 | `new-3-a1-week-without-movement` | A Week Without Movement | שבוע ללא תנועה | ט׳–י׳ | A1 | 16 | `story-covers-v3/week-without-movement.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-095 | `new-3-a1-emergency-team` | The Neighborhood Emergency Team | צוות החירום השכונתי | ט׳–י׳ | A1 | 17 | `story-covers-v3/emergency-team.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-096 | `new-3-a1-public-meeting` | The Public Meeting | האספה הציבורית | ט׳–י׳ | A1 | 18 | `story-covers-v3/public-meeting.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-091 | `new-3-a1-first-job-interview` | The First Job Interview | ראיון העבודה הראשון | ט׳–י׳ | A1 | 12 | `story-covers-v3/first-job-interview.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-092 | `new-3-a1-shift-exchange` | The Shift Exchange | החלפת המשמרת | ט׳–י׳ | A1 | 13 | `story-covers-v3/shift-exchange.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-093 | `new-3-a1-safety-rule` | The Safety Rule | כלל הבטיחות | ט׳–י׳ | A1 | 15 | `story-covers-v3/safety-rule.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-094 | `new-3-a1-week-without-movement` | A Week Without Movement | שבוע ללא תנועה | ט׳–י׳ | A1 | 16 | `story-covers-v3/week-without-movement.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-095 | `new-3-a1-emergency-team` | The Neighborhood Emergency Team | צוות החירום השכונתי | ט׳–י׳ | A1 | 17 | `story-covers-v3/emergency-team.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-096 | `new-3-a1-public-meeting` | The Public Meeting | האספה הציבורית | ט׳–י׳ | A1 | 18 | `story-covers-v3/public-meeting.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 
 ## שכבה 3 · ט׳–י׳ · A2 · עצמאית · 13 סיפורים
 
@@ -157,10 +157,10 @@
 | RA-049 | `l3-a2-ai-homework` | The Perfect Homework | שיעורי הבית המושלמים | ט׳–י׳ | A2 | 17 | `scenes/scene-03.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-050 | `l3-a2-witness` | The Silent Witness | העד השקט | ט׳–י׳ | A2 | 19 | `scenes/scene-01.webp` | לא | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟥 שדרוג 3:2 וביקורת ידנית ממתינים | עטיפה גנרית משותפת; 362×362 |
 | RA-051 | `l3-a2-food-waste` | The Cafeteria Plan | התכנית לחדר האוכל | ט׳–י׳ | A2 | 20 | `story-covers-v3/cafeteria-plan.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-097 | `new-3-a2-recommendation-letter` | The Recommendation Letter | מכתב ההמלצה | ט׳–י׳ | A2 | 13 | `story-covers-v3/recommendation-letter.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-098 | `new-3-a2-unsafe-workplace` | The Unsafe Workplace | מקום העבודה הלא בטוח | ט׳–י׳ | A2 | 14 | `story-covers-v3/unsafe-workplace.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-099 | `new-3-a2-scholarship-application` | The Scholarship Application | בקשת המלגה | ט׳–י׳ | A2 | 16 | `story-covers-v3/scholarship-application.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
-| RA-100 | `new-3-a2-study-screen-balance` | The Study–Screen Balance | איזון בין לימודים למסך | ט׳–י׳ | A2 | 17 | `story-covers-v3/study-screen-balance.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
+| RA-097 | `new-3-a2-recommendation-letter` | The Recommendation Letter | מכתב ההמלצה | ט׳–י׳ | A2 | 13 | `story-covers-v3/recommendation-letter.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-098 | `new-3-a2-unsafe-workplace` | The Unsafe Workplace | מקום העבודה הלא בטוח | ט׳–י׳ | A2 | 14 | `story-covers-v3/unsafe-workplace.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-099 | `new-3-a2-scholarship-application` | The Scholarship Application | בקשת המלגה | ט׳–י׳ | A2 | 16 | `story-covers-v3/scholarship-application.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
+| RA-100 | `new-3-a2-study-screen-balance` | The Study–Screen Balance | איזון בין לימודים למסך | ט׳–י׳ | A2 | 17 | `story-covers-v3/study-screen-balance.webp` | כן | עברית | ✅ ביקורת ידנית הושלמה; אושר לפרסום | ✅ קובץ תקני; ביקורת ידנית הושלמה | — |
 | RA-101 | `new-3-a2-limited-budget` | The Limited Community Budget | התקציב הקהילתי המוגבל | ט׳–י׳ | A2 | 19 | `story-covers-v3/limited-community-budget.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-102 | `new-3-a2-long-term-solution` | The Long-Term Solution | הפתרון לטווח הארוך | ט׳–י׳ | A2 | 20 | `story-covers-v3/long-term-solution.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
 | RA-109 | `new-3-a2-first-bell` | The First Bell | הצלצול הראשון | ט׳–י׳ | A2 | 20 | `story-covers-v3/first-bell.webp` | כן | עברית | 🟨 שכתוב פעיל; ידנית לא מתועדת | 🟨 קובץ תקני; ידנית לא מתועדת | — |
