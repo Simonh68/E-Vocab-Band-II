@@ -88,6 +88,7 @@ test('the accessible panel mounts and completes a question without a browser dep
     querySelector: () => null
   };
   const anchor = new FakeElement('div');
+  const measurements = [];
   const question = {
     prompt: 'מה פירוש המילה proof?',
     promptParts: [
@@ -105,6 +106,9 @@ test('the accessible panel mounts and completes a question without a browser dep
     document,
     anchor,
     stylesheetHref: 'practice-shell.css',
+    exitLabel: 'חזרה לסיפור',
+    analyticsActivity: 'read-along-ra-001',
+    analytics: { send: (event, context) => measurements.push({ event, context }) },
     createSession: () => ({
       next: () => answered ? null : question,
       answer: selectedAnswer => {
@@ -127,7 +131,16 @@ test('the accessible panel mounts and completes a question without a browser dep
   assert.equal(controller.section.lang, 'he');
   assert.equal(controller.section.dir, 'rtl');
   assert.equal(controller.section.dataset.analyticsIgnore, 'true');
+  assert.equal(byClass(controller.section, 'efn-practice__quiet').textContent, 'חזרה לסיפור');
   byClass(controller.section, 'efn-practice__primary').listeners.click();
+  assert.deepEqual(measurements[0], {
+    event: 'button_click',
+    context: {
+      activity: 'read-along-ra-001',
+      target: 'practice-start',
+      label: 'practice-start'
+    }
+  });
   const choices = byClass(controller.section, 'efn-practice__choices').querySelectorAll('button');
   assert.equal(choices[0].focused, true);
   choices[1].listeners.click();
@@ -138,6 +151,13 @@ test('the accessible panel mounts and completes a question without a browser dep
   assert.deepEqual(feedbackText.children.map(node => node.lang), ['en', 'he']);
   byClass(controller.section, 'efn-practice__next').listeners.click();
   assert.equal(byClass(controller.section, 'efn-practice__summary').hidden, false);
+  assert.deepEqual(measurements[1], {
+    event: 'activity_complete',
+    context: {
+      activity: 'read-along-ra-001',
+      outcome: 'read-along-ra-001'
+    }
+  });
 });
 
 test('a wrong answer schedules the same item after exactly two intervening entries', () => {
@@ -248,7 +268,9 @@ test('wave one activates only Band II group 01 and Read Along RA-001', async () 
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
   assert.deepEqual(Object.keys(rollout.vocabulary), ['groups/group-01.html']);
   assert.equal(rollout.vocabulary['groups/group-01.html'].limit, 12);
+  assert.equal(rollout.vocabulary['groups/group-01.html'].analyticsActivity, 'band-ii-core-i-group-01');
   assert.deepEqual(Object.keys(rollout.stories), ['l1-a1-new-student']);
+  assert.equal(rollout.stories['l1-a1-new-student'].analyticsActivity, 'read-along-ra-001');
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-01.html', rollout.vocabulary).limit, 12);
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-02.html', rollout.vocabulary), null);
 });
@@ -265,12 +287,17 @@ test('RA-001 has five evidence-backed questions and the reader loads the story p
     assert.ok(question.explanationHe.length > 12);
   }
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
+  const storyPractice = await readFile(new URL('../Read-Along/story-practice.js', import.meta.url), 'utf8');
   assert.match(reader, /window\.EFN_ACTIVE_STORY=story/);
   assert.match(reader, /story-practice-data\.js/);
   assert.match(reader, /story-practice\.js/);
+  assert.match(reader, /function completeTranslation\(scene\)/);
+  assert.match(reader, /translationText\.textContent=completeTranslation\(story\.scenes\[index\]\)/);
+  assert.match(reader, /\.parents-link\{/);
+  assert.match(storyPractice, /exitLabel: 'חזרה לסיפור'/);
 });
 
-test('practice code preserves accessibility and does not store or send answers', async () => {
+test('practice code preserves accessibility and sends only start/completion measurements', async () => {
   const files = ['learning-loop.js', 'practice-session.js', 'practice-panel.js', 'vocab-practice.js', 'Read-Along/story-practice.js'];
   const source = (await Promise.all(files.map(file => readFile(new URL(`../${file}`, import.meta.url), 'utf8')))).join('\n');
   const styles = await readFile(new URL('../practice-shell.css', import.meta.url), 'utf8');
@@ -278,6 +305,8 @@ test('practice code preserves accessibility and does not store or send answers',
   assert.doesNotMatch(source, /\bfetch\s*\(|\bsendBeacon\b|localStorage|sessionStorage|indexedDB|document\.cookie/);
   assert.match(source, /aria-live/);
   assert.match(source, /dataset\.analyticsIgnore/);
+  assert.match(source, /activity_complete/);
+  assert.match(source, /practice-start/);
   assert.match(source, /setTextParts/);
   assert.match(source, /prefers-reduced-motion: reduce/);
   assert.match(styles, /\.efn-practice\{[^}]*box-sizing:border-box/);
@@ -357,8 +386,8 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
 test('practice assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260825-stage8/);
-  assert.match(activeGroup, /analytics\.js\?v=20260825-stage8/);
-  assert.match(reader, /story-practice\.js\?v=20260825-stage8/);
-  assert.match(reader, /analytics\.js\?v=20260825-stage8/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260825-stage9/);
+  assert.match(activeGroup, /analytics\.js\?v=20260825-stage9/);
+  assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
+  assert.match(reader, /analytics\.js\?v=20260825-stage9/);
 });

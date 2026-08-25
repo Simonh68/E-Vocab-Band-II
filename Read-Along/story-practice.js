@@ -84,6 +84,8 @@
       title: 'מה הבנתם מהסיפור?',
       description: 'חמש שאלות קצרות עם משוב, ראיה מן הסיפור וניסיון חוזר.',
       startLabel: 'מתחילים את השאלות',
+      exitLabel: 'חזרה לסיפור',
+      analyticsActivity: config.analyticsActivity,
       createSession: () => sessionApi.createSession(records, {
         limit: records.length,
         questionFactory

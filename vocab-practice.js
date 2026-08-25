@@ -136,6 +136,7 @@
       title: 'תרגול עם משוב בעברית',
       description: '12 מילים בסבב: ניסיון עצמאי, משוב מיידי, ניסיון חוזר ובדיקת זכירה.',
       startLabel: 'מתחילים 12 מילים',
+      analyticsActivity: config.analyticsActivity,
       createSession: () => sessionApi.createSession(root.EFN_PAGE_WORDS, {
         limit: config.limit,
         questionFactory

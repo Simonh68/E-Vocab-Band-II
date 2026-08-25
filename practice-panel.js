@@ -58,7 +58,7 @@
     activity.hidden = true;
     const activityHeader = element(document, 'div', 'efn-practice__header');
     const progress = element(document, 'div', 'efn-practice__progress', '0 / 0');
-    const exit = element(document, 'button', 'efn-practice__quiet', 'חזרה לכרטיסיות');
+    const exit = element(document, 'button', 'efn-practice__quiet', config.exitLabel || 'חזרה לכרטיסיות');
     exit.type = 'button';
     exit.dataset.analyticsLabel = 'practice-exit';
     activityHeader.append(progress, exit);
@@ -101,6 +101,12 @@
     let currentQuestion = null;
     let answered = false;
 
+    function measure(event, context = {}) {
+      const analytics = config.analytics || globalThis.EFNAnalytics;
+      if (!config.analyticsActivity || typeof analytics?.send !== 'function') return;
+      analytics.send(event, { activity: config.analyticsActivity, ...context });
+    }
+
     function syncProgress() {
       const state = session.progress();
       progress.textContent = `${state.mastered} מתוך ${state.total} נלמדו`;
@@ -111,6 +117,7 @@
       activity.hidden = true;
       summary.hidden = false;
       summaryText.textContent = `הצלחה מהניסיון הראשון: ${state.firstTry}. תוקן בעזרת המשוב: ${state.corrected}. נשאר לתרגול נוסף: ${state.unresolved}.`;
+      measure('activity_complete', { outcome: config.analyticsActivity });
       summaryTitle.tabIndex = -1;
       summaryTitle.focus({ preventScroll: true });
     }
@@ -172,6 +179,7 @@
 
     function begin() {
       session = config.createSession();
+      measure('button_click', { target: 'practice-start', label: 'practice-start' });
       intro.hidden = true;
       summary.hidden = true;
       activity.hidden = false;
