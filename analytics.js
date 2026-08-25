@@ -89,6 +89,7 @@
   document.addEventListener('click', (event) => {
     const element = event.target.closest?.('a,button,[role="button"]');
     if (!element) return;
+    if (element.closest?.('[data-analytics-ignore="true"]')) return;
     const external = element.tagName === 'A' && new URL(element.href, location.href).origin !== location.origin;
     send(external ? 'link_click' : element.tagName === 'A' ? 'link_click' : 'button_click', { target: targetFor(element), label: labelFor(element) });
   }, true);
@@ -100,7 +101,11 @@
 
   if (window.speechSynthesis?.speak) {
     const originalSpeak = window.speechSynthesis.speak.bind(window.speechSynthesis);
-    window.speechSynthesis.speak = (utterance) => { send('audio_play'); return originalSpeak(utterance); };
+    window.speechSynthesis.speak = (utterance) => {
+      if (window.EFNAnalyticsIgnoreNextAudio) window.EFNAnalyticsIgnoreNextAudio = false;
+      else send('audio_play');
+      return originalSpeak(utterance);
+    };
   }
   const seen = new WeakSet();
   const inspect = (node) => {
