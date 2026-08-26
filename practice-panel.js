@@ -227,13 +227,11 @@
     if (config.blockQuest) {
       const questMark = element(document, 'div', 'efn-practice__quest-mark');
       questMark.setAttribute('aria-hidden', 'true');
-      const mapRoute = element(document, 'span', 'efn-practice__lost-map-route');
-      const mapTarget = element(document, 'span', 'efn-practice__lost-map-target');
       const lostChest = element(document, 'img', 'efn-practice__lost-chest');
       lostChest.setAttribute('src', config.treasureAssetHref || '');
       lostChest.setAttribute('alt', '');
       lostChest.setAttribute('draggable', 'false');
-      questMark.append(mapRoute, mapTarget, lostChest);
+      questMark.append(lostChest);
       intro.insertBefore ? intro.insertBefore(questMark, start) : intro.append(questMark);
     }
 

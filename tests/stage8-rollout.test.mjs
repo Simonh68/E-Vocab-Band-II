@@ -343,6 +343,8 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   );
   assert.equal(byClass(controller.section, 'efn-practice__lost-chest').tagName, 'IMG');
   assert.equal(byClass(controller.section, 'efn-practice__lost-chest').attributes.src, 'assets/game/treasure-chest-coins-3d.png');
+  assert.equal(byClass(controller.section, 'efn-practice__lost-map-route'), undefined);
+  assert.equal(byClass(controller.section, 'efn-practice__lost-map-target'), undefined);
   assert.ok(byClass(controller.section, 'efn-practice__question-bar'));
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   assert.equal(byClass(controller.section, 'efn-practice__mode').textContent, 'ניסיון עצמאי');

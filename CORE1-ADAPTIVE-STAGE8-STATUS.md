@@ -48,16 +48,17 @@
 - GitHub Pages deployment and Jekyll site CI completed successfully for the published commit.
 - The public Group 02 page passed live launch, gameplay, reward and next-icon verification.
 
-## Post-release layout fix
+## Post-release layout fixes
 
-- Local branch: `codex/stage8-layout-asset-fix-20260826`, based on published `main` at `d4b9f8b385d340a9c2cb4ef2f6e62de685213c57`.
+- The layout and PNG asset fix was published to `main` at `2d13e694a04077c769750af27b657dbac1dbd908`.
 - Primary and reverse questions now show only the target word or meaning; the long reverse prompt, visible phase label and redundant example clue were removed.
 - The prompt and audio control now share one compact question row; answer choices remain the dominant area instead of being pushed below an empty region.
 - Launch, score and milestone visuals now reuse a transparent 768 × 768 PNG 3D cartoon treasure chest overflowing with gold coins.
 - Visible progress is reduced to the percentage, correct feedback removes redundant text, and the transition keeps only its animated visual bar.
+- The follow-up branch `codex/stage8-chest-only-20260826` removes the decorative map, route, target, island and frame from the launch illustration; only the transparent treasure chest remains.
 - Repository tests: 53/53 passed; JavaScript syntax and `git diff --check` passed.
-- Browser visual verification remains pending because the cloud browser cannot open the local-only preview. Nothing has been uploaded or republished.
+- Browser visual verification of the chest-only follow-up remains pending because the branch is still local. Nothing from that follow-up has been uploaded or republished.
 
 ## Next action
 
-Upload the fix branch for visual review only after explicit approval. Publishing to `main` requires a separate explicit approval.
+Upload the chest-only follow-up branch for visual review only after explicit approval. Publishing to `main` requires a separate explicit approval.
