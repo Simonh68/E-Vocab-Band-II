@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap");
+
+:lang(he) {
+  font-family: "Heebo", "Noto Sans Hebrew", Arial, sans-serif;
+  font-synthesis: none;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+.translation[lang="he"] {
+  font-weight: 700;
+  line-height: 1.22;
+}
+
+.example-he[lang="he"] {
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.efn-practice.efn-practice--block-quest .efn-practice__prompt [lang="he"],
+.efn-practice.efn-practice--block-quest .efn-practice__choice[lang="he"] {
+  font-weight: 600;
+  letter-spacing: 0;
+  text-shadow: none;
+}

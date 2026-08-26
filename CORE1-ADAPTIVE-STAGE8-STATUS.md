@@ -55,10 +55,20 @@
 - The prompt and audio control now share one compact question row; answer choices remain the dominant area instead of being pushed below an empty region.
 - Launch, score and milestone visuals now reuse a transparent 768 × 768 PNG 3D cartoon treasure chest overflowing with gold coins.
 - Visible progress is reduced to the percentage, correct feedback removes redundant text, and the transition keeps only its animated visual bar.
-- The follow-up branch `codex/stage8-chest-only-20260826` removes the decorative map, route, target, island and frame from the launch illustration; only the transparent treasure chest remains.
+- The follow-up branch `codex/stage8-chest-only-20260826` removed the decorative map, route, target, island and frame from the launch illustration; only the transparent treasure chest remains.
+- The chest-only follow-up was published to `main` at `246b42960f0cf545036f6ba0666ab0212a8ac3ba` and verified on the public Group 02 page without horizontal overflow.
 - Repository tests: 53/53 passed; JavaScript syntax and `git diff --check` passed.
-- Browser visual verification of the chest-only follow-up remains pending because the branch is still local. Nothing from that follow-up has been uploaded or republished.
+
+## Sitewide Hebrew typography follow-up
+
+- Local branch: `codex/sitewide-hebrew-typography-fix-20260826`, based on published `main` commit `246b42960f0cf545036f6ba0666ab0212a8ac3ba`.
+- All 40 Core I and Core II group pages, plus the Hebrew copyright page, load one shared `hebrew-typography.css` layer.
+- Hebrew uses `Heebo` with real 400, 500, 600 and 700 weights; translations use 700, examples use 500, and adaptive-game prompts and answers use 600.
+- Synthetic weight, compressed letter spacing and text shadows are disabled for Hebrew text.
+- Read Along already uses `Heebo` and remains unchanged. Arabic pages remain unchanged.
+- Repository tests: 56/56 passed; JavaScript syntax and `git diff --check` passed.
+- The typography change is local only. It has not been uploaded, merged or published, and online visual verification remains pending.
 
 ## Next action
 
-Upload the chest-only follow-up branch for visual review only after explicit approval. Publishing to `main` requires a separate explicit approval.
+Upload the sitewide Hebrew typography branch for visual review only after explicit approval. Publishing to `main` requires a separate explicit approval.
