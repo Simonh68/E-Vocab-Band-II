@@ -61,14 +61,14 @@
 
 ## Sitewide Hebrew typography follow-up
 
-- Local branch: `codex/sitewide-hebrew-typography-fix-20260826`, based on published `main` commit `246b42960f0cf545036f6ba0666ab0212a8ac3ba`.
+- The sitewide Hebrew typography fix was published to `main` at content commit `4cc60d3d041572705d732d42abc0b1a17fa0c572`, based on `246b42960f0cf545036f6ba0666ab0212a8ac3ba`.
 - All 40 Core I and Core II group pages, plus the Hebrew copyright page, load one shared `hebrew-typography.css` layer.
 - Hebrew uses `Heebo` with real 400, 500, 600 and 700 weights; translations use 700, examples use 500, and adaptive-game prompts and answers use 600.
 - Synthetic weight, compressed letter spacing and text shadows are disabled for Hebrew text.
 - Read Along already uses `Heebo` and remains unchanged. Arabic pages remain unchanged.
 - Repository tests: 56/56 passed; JavaScript syntax and `git diff --check` passed.
-- The typography change is local only. It has not been uploaded, merged or published, and online visual verification remains pending.
+- Live browser verification passed on Core I Group 02, Core II Group 21 and the Hebrew copyright page: `Heebo` loaded at the intended weights, Hebrew letter spacing remained natural, text shadows were absent and no horizontal overflow appeared.
 
 ## Next action
 
-Upload the sitewide Hebrew typography branch for visual review only after explicit approval. Publishing to `main` requires a separate explicit approval.
+No further Stage 8 action is pending. Any additional change starts only after a new explicit instruction.
