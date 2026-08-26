@@ -9,6 +9,7 @@ require('../learning-loop.js');
 const sessionApi = require('../practice-session.js');
 const panelApi = require('../practice-panel.js');
 const vocabApi = require('../vocab-practice.js');
+const progressApi = require('../core1-progress.js');
 
 const records = Array.from({ length: 8 }, (_, index) => ({
   id: `word-${index}`,
@@ -18,6 +19,12 @@ const records = Array.from({ length: 8 }, (_, index) => ({
   ex_en: `This is word${index}.`,
   ex_he: `זהו פירוש ${index}.`
 }));
+
+class MemoryStorage {
+  constructor() { this.values = new Map(); }
+  getItem(key) { return this.values.has(key) ? this.values.get(key) : null; }
+  setItem(key, value) { this.values.set(key, String(value)); }
+}
 
 function basicQuestionFactory(record, context) {
   const reverse = context.mode === 'review';
@@ -261,18 +268,124 @@ test('all forty group pages load the dormant rollout bundle', async () => {
   }
 });
 
-test('wave one activates only Band II group 01 and Read Along RA-001', async () => {
+test('stage 4 activates tracked practice for Core I groups 01–20 and keeps RA-001', async () => {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.deepEqual(Object.keys(rollout.vocabulary), ['groups/group-01.html']);
-  assert.equal(rollout.vocabulary['groups/group-01.html'].limit, 12);
-  assert.equal(rollout.vocabulary['groups/group-01.html'].analyticsActivity, 'band-ii-core-i-group-01');
+  assert.equal(rollout.version, '2026-08-26-core1-progress-stage4');
+  assert.equal(Object.keys(rollout.vocabulary).length, 20);
+  for (let group = 1; group <= 20; group += 1) {
+    const id = String(group).padStart(2, '0');
+    const config = rollout.vocabulary[`groups/group-${id}.html`];
+    assert.equal(config.limit, 12);
+    assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
+    assert.equal(config.progressGroup, group);
+  }
   assert.deepEqual(Object.keys(rollout.stories), ['l1-a1-new-student']);
   assert.equal(rollout.stories['l1-a1-new-student'].analyticsActivity, 'read-along-ra-001');
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-01.html', rollout.vocabulary).limit, 12);
-  assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-02.html', rollout.vocabulary), null);
+  assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-20.html', rollout.vocabulary).progressGroup, 20);
+  assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-21.html', rollout.vocabulary), null);
+});
+
+test('stage 4 keeps local progress loading gated by the Core I rollout configuration', async () => {
+  const source = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
+  assert.match(source, /core1-progress\.js\?v=20260826-stage4/);
+  assert.match(source, /config\.progressGroup/);
+  assert.match(source, /root\.EFN_CORE1_PROGRESS/);
+});
+
+test('the Core I loader resolves the progress module from the local site root', async () => {
+  let appended = null;
+  const listeners = {};
+  const script = {
+    dataset: {},
+    addEventListener(type, listener) { listeners[type] = listener; }
+  };
+  const root = {
+    document: {
+      querySelector: () => null,
+      createElement: () => script,
+      head: {
+        appendChild(node) {
+          appended = node;
+          root.EFN_CORE1_PROGRESS = { loaded: true };
+          listeners.load();
+        }
+      }
+    },
+    location: { href: 'https://example.test/E-Vocab-Band-II/groups/group-01.html' }
+  };
+  const loaded = await vocabApi.loadProgressModule(
+    root,
+    'https://example.test/E-Vocab-Band-II/vocab-practice.js?v=20260825-stage9'
+  );
+  assert.equal(appended.src, 'https://example.test/E-Vocab-Band-II/core1-progress.js?v=20260826-stage4');
+  assert.equal(appended.dataset.efnCore1Progress, 'true');
+  assert.deepEqual(loaded, { loaded: true });
+});
+
+test('progress tracking records only successful target signals', () => {
+  const calls = [];
+  const rendered = [];
+  const document = {};
+  const tracker = vocabApi.createProgressTracker({
+    createBrowserProgressStore: () => ({
+      recordCorrect: input => { calls.push(input); return input; },
+      getGroupProgress: () => ({ status: 'in_progress' }),
+      storageMode: () => 'device'
+    })
+  }, {
+    document,
+    localStorage: new MemoryStorage(),
+    EFN_CORE1_PROGRESS_UI: {
+      renderProgress(target, progress) { rendered.push({ target, progress }); }
+    }
+  }, { group: 1, expectedSerials: [1, 2] });
+
+  tracker.record({ correct: false, entry: { mode: 'primary', filler: false }, question: { meta: { record: { serial: 1 } } } });
+  tracker.record({ correct: true, entry: { mode: 'primary', filler: true }, question: { meta: { record: { serial: 1 } } } });
+  tracker.record({ correct: true, entry: { mode: 'primary', filler: false }, question: { meta: { record: { serial: 1 } } } });
+  tracker.record({ correct: true, entry: { mode: 'review', filler: false }, question: { meta: { record: { serial: 1 } } } });
+
+  assert.deepEqual(calls.map(call => call.signal), ['meaning', 'recall']);
+  assert.ok(calls.every(call => call.group === 1));
+  assert.ok(calls.every(call => call.expectedSerials.length === 2));
+  assert.equal(rendered.length, 2);
+  assert.ok(rendered.every(entry => entry.target === document));
+  assert.deepEqual(rendered.map(entry => entry.progress.signal), ['meaning', 'recall']);
+});
+
+test('a 12-word Core I round writes evidence against the full group manifest', async () => {
+  const html = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
+  const match = html.match(/const words=(\[.*?\]);let currentIndex=/s);
+  assert.ok(match, 'Group 01 vocabulary payload was not found');
+  const groupWords = JSON.parse(match[1]);
+  assert.equal(groupWords.length, 55);
+
+  const storage = new MemoryStorage();
+  const tracker = vocabApi.createProgressTracker(progressApi, { localStorage: storage }, {
+    group: 1,
+    expectedSerials: groupWords.map(word => word.serial)
+  });
+  const session = vocabApi.withProgressTracking(
+    sessionApi.createSession(groupWords, { limit: 12, questionFactory: vocabApi.questionFactory }),
+    tracker
+  );
+  let question;
+  let answers = 0;
+  while ((question = session.next())) {
+    session.answer(question.answer);
+    answers += 1;
+    assert.ok(answers < 200, 'tracked practice queue did not terminate');
+  }
+  const progress = tracker.getProgress();
+  assert.equal(progress.mastered, 12);
+  assert.equal(progress.total, 55);
+  assert.equal(progress.checked, false);
+  assert.equal(progress.status, 'in_progress');
+  assert.equal(progress.storage, 'device');
 });
 
 test('RA-001 has five evidence-backed questions and the reader loads the story practice', async () => {
@@ -383,10 +496,10 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('practice assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
+test('stage 4 practice assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260825-stage9/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage4/);
   assert.match(activeGroup, /analytics\.js\?v=20260825-stage9/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);

@@ -1,17 +1,18 @@
 ((root, factory) => {
   const api = factory(
     root && root.EFN_PRACTICE_SESSION,
-    root && root.EFN_PRACTICE_PANEL
+    root && root.EFN_PRACTICE_PANEL,
+    root && root.EFN_CORE1_PROGRESS
   );
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (root) {
     root.EFN_VOCAB_PRACTICE = api;
     const scriptUrl = root.document?.currentScript?.src || '';
-    const start = () => api.autoMount(root, scriptUrl);
+    const start = () => api.prepareAndMount(root, scriptUrl);
     if (root.document?.readyState === 'loading') root.document.addEventListener('DOMContentLoaded', start, { once: true });
     else if (root.document) start();
   }
-})(typeof globalThis !== 'undefined' ? globalThis : this, (sessionApi, panelApi) => {
+})(typeof globalThis !== 'undefined' ? globalThis : this, (sessionApi, panelApi, progressApi) => {
   function clean(value) {
     return String(value ?? '').trim();
   }
@@ -121,6 +122,94 @@
     return { title: 'נכון.', text: 'נבדוק את המילה שוב בעוד ארבע עד שש שאלות, בניסוח אחר.' };
   }
 
+  function progressSignalFor(result) {
+    if (!result || !result.correct || result.entry?.filler) return null;
+    if (result.entry?.mode === 'primary') return 'meaning';
+    if (result.entry?.mode === 'review') return 'recall';
+    if (result.entry?.mode === 'context') return 'context';
+    return null;
+  }
+
+  function renderProgress(host, progress) {
+    const ui = host?.EFN_CORE1_PROGRESS_UI;
+    if (!progress || !ui || typeof ui.renderProgress !== 'function') return false;
+    try {
+      ui.renderProgress(host.document, progress);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function createProgressTracker(api, host, options = {}) {
+    if (!api || typeof api.createBrowserProgressStore !== 'function') return null;
+    if (!Number.isInteger(Number(options.group)) || !Array.isArray(options.expectedSerials)) return null;
+    const group = Number(options.group);
+    const expectedSerials = [...options.expectedSerials];
+    const store = api.createBrowserProgressStore(host);
+
+    function record(result) {
+      const signal = progressSignalFor(result);
+      const serial = result?.question?.meta?.record?.serial;
+      if (!signal || serial == null) return null;
+      try {
+        const progress = store.recordCorrect({ group, serial, signal, expectedSerials });
+        renderProgress(host, progress);
+        return progress;
+      } catch {
+        return null;
+      }
+    }
+
+    function getProgress() {
+      try {
+        return store.getGroupProgress({ group, expectedSerials });
+      } catch {
+        return null;
+      }
+    }
+
+    return { record, getProgress, storageMode: () => store.storageMode() };
+  }
+
+  function withProgressTracking(session, tracker) {
+    if (!session || !tracker) return session;
+    return {
+      ...session,
+      answer(value) {
+        const result = session.answer(value);
+        tracker.record(result);
+        return result;
+      }
+    };
+  }
+
+  function loadProgressModule(root, scriptUrl) {
+    if (root.EFN_CORE1_PROGRESS) return Promise.resolve(root.EFN_CORE1_PROGRESS);
+    const existing = root.document.querySelector('script[data-efn-core1-progress]');
+    if (existing) {
+      return new Promise(resolve => {
+        existing.addEventListener('load', () => resolve(root.EFN_CORE1_PROGRESS || null), { once: true });
+        existing.addEventListener('error', () => resolve(null), { once: true });
+      });
+    }
+    const base = scriptUrl ? new URL('.', scriptUrl) : new URL('.', root.location.href);
+    const script = root.document.createElement('script');
+    script.src = new URL('core1-progress.js?v=20260826-stage4', base).href;
+    script.dataset.efnCore1Progress = 'true';
+    return new Promise(resolve => {
+      script.addEventListener('load', () => resolve(root.EFN_CORE1_PROGRESS || null), { once: true });
+      script.addEventListener('error', () => resolve(null), { once: true });
+      (root.document.head || root.document.documentElement).appendChild(script);
+    });
+  }
+
+  function prepareAndMount(root, scriptUrl) {
+    const config = rolloutFor(root.location?.pathname, root.EFN_STAGE8_ROLLOUT?.vocabulary);
+    if (!config?.progressGroup || root.EFN_CORE1_PROGRESS) return autoMount(root, scriptUrl);
+    return loadProgressModule(root, scriptUrl).then(() => autoMount(root, scriptUrl));
+  }
+
   function autoMount(root, scriptUrl) {
     if (!sessionApi || !panelApi || !Array.isArray(root.EFN_PAGE_WORDS)) return null;
     const config = rolloutFor(root.location?.pathname, root.EFN_STAGE8_ROLLOUT?.vocabulary);
@@ -128,6 +217,14 @@
     const anchor = root.document.querySelector('.controls, .nav-container');
     if (!anchor || root.document.querySelector('.efn-practice')) return null;
     const base = scriptUrl ? new URL('.', scriptUrl) : new URL('.', root.location.href);
+    const expectedSerials = root.EFN_PAGE_WORDS.map(record => record.serial);
+    const progressTracker = config.progressGroup
+      ? createProgressTracker(root.EFN_CORE1_PROGRESS || progressApi, root, {
+        group: config.progressGroup,
+        expectedSerials
+      })
+      : null;
+    if (progressTracker) renderProgress(root, progressTracker.getProgress());
     return panelApi.mount({
       document: root.document,
       anchor,
@@ -137,10 +234,13 @@
       description: '12 מילים בסבב: ניסיון עצמאי, משוב מיידי, ניסיון חוזר ובדיקת זכירה.',
       startLabel: 'מתחילים 12 מילים',
       analyticsActivity: config.analyticsActivity,
-      createSession: () => sessionApi.createSession(root.EFN_PAGE_WORDS, {
-        limit: config.limit,
-        questionFactory
-      }),
+      createSession: () => withProgressTracking(
+        sessionApi.createSession(root.EFN_PAGE_WORDS, {
+          limit: config.limit,
+          questionFactory
+        }),
+        progressTracker
+      ),
       formatFeedback
     });
   }
@@ -153,6 +253,12 @@
     choicesFor,
     questionFactory,
     formatFeedback,
+    progressSignalFor,
+    renderProgress,
+    createProgressTracker,
+    withProgressTracking,
+    loadProgressModule,
+    prepareAndMount,
     autoMount
   };
 });
