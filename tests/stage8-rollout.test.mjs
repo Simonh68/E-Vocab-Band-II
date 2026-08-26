@@ -719,7 +719,7 @@ test('stage 6 adaptive gameplay assets and the analytics privacy guard are cache
   assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage6/);
   assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage6/);
   assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /analytics\.js\?v=20260825-stage9/);
+  assert.match(activeGroup, /analytics\.js\?v=20260826-stage6-cachefix/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);
 });

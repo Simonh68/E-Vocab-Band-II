@@ -33,7 +33,7 @@ test("declares the exact owner and third-party boundary", async () => {
 
 test("every HTML page loads the shared ownership layer through analytics", async () => {
   const analytics = await readFile(path.join(root, "analytics.js"), "utf8");
-  assert.match(analytics, /ownership\.js\?v=1/);
+  assert.match(analytics, /ownership\.js\?v=2/);
   for (const file of await htmlFiles(root)) {
     assert.match(await readFile(file, "utf8"), /analytics\.js/, path.relative(root, file));
   }
