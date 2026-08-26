@@ -331,6 +331,10 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   assert.ok(body.classList.values.has('efn-practice-is-playing'));
   byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
   assert.deepEqual(controller.getQuestState(), { score: 10, streak: 1, multiplier: 1, chests: 1 });
+  assert.equal(byClass(controller.section, 'efn-practice__score').textContent, '');
+  assert.equal(byClass(controller.section, 'efn-practice__score-value').textContent, '10');
+  assert.equal(byClass(controller.section, 'efn-practice__coin').attributes['aria-hidden'], 'true');
+  assert.equal(byClass(controller.section, 'efn-practice__score').attributes['aria-label'], 'נאספו 10 מטבעות');
   assert.match(byClass(controller.section, 'efn-practice__feedback-title').textContent, /תיבת אוצר/);
   assert.equal(byClass(controller.section, 'efn-practice__treasure-map').attributes['aria-label'], '1 מתוך 3 תיבות אוצר נפתחו');
   byClass(controller.section, 'efn-practice__next').listeners.click();
@@ -438,8 +442,10 @@ test('vocabulary questions switch direction and keep the answer among unique cho
   assert.ok(review.choices.includes(review.answer));
   assert.equal(new Set(primary.choices).size, primary.choices.length);
   assert.equal(new Set(review.choices).size, review.choices.length);
-  assert.deepEqual(primary.promptParts.map(part => part.lang), ['he', 'en', 'he']);
-  assert.equal(primary.promptParts[1].text, records[0].en);
+  assert.equal(primary.prompt, records[0].en);
+  assert.deepEqual(primary.promptParts, [{ text: records[0].en, lang: 'en', dir: 'ltr' }]);
+  assert.equal(primary.promptLang, 'en');
+  assert.equal(primary.promptDir, 'ltr');
 });
 
 test('context questions use a cloze when possible and a real sentence for inflected expressions', () => {
@@ -503,7 +509,7 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-stage7-copy/);
+  assert.match(source, /practice-shell\.css\?v=20260826-stage7-coinvisual/);
   assert.match(source, /autoAdvanceCorrectMs: 1500/);
   assert.match(source, /CORE I · אוצר מילים באנגלית/);
   assert.match(source, /משחק אוצר המילים/);
@@ -512,6 +518,8 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /config\.adaptive/);
   assert.match(panel, /avoidRepeatedAnswerPosition/);
   assert.match(panel, /createQuestAudio/);
+  assert.match(panel, /efn-practice__coin/);
+  assert.match(styles, /\.efn-practice__coin\s*\{/);
   assert.match(panel, /בונה את השאלה הבאה/);
   assert.match(styles, /Noto Sans Hebrew/);
   assert.match(styles, /\.efn-practice--block-quest \.efn-practice__title\s*\{[^}]*font-weight: 700;[^}]*text-shadow: none;/s);
@@ -784,9 +792,9 @@ test('stage 6 adaptive gameplay assets and the analytics privacy guard are cache
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   assert.match(activeGroup, /practice-session\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage7/);
+  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage7-coinvisual/);
   assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage7-copy/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage7-coinvisual/);
   assert.match(activeGroup, /analytics\.js\?v=20260826-stage6-cachefix/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);

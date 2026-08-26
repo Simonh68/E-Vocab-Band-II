@@ -257,8 +257,12 @@
     activityHeader.append(progress, headerActions);
     const questHud = element(document, 'div', 'efn-practice__quest-hud');
     questHud.hidden = !config.blockQuest;
-    const score = element(document, 'div', 'efn-practice__score', '0 מטבעות');
+    const score = element(document, 'div', 'efn-practice__score');
     score.setAttribute('aria-label', 'נאספו 0 מטבעות');
+    const scoreCoin = element(document, 'span', 'efn-practice__coin');
+    scoreCoin.setAttribute('aria-hidden', 'true');
+    const scoreValue = element(document, 'span', 'efn-practice__score-value', '0');
+    score.append(scoreCoin, scoreValue);
     const multiplier = element(document, 'div', 'efn-practice__multiplier', '×1');
     multiplier.setAttribute('aria-label', 'מכפיל תגמול כפול 1');
     const treasureMap = element(document, 'div', 'efn-practice__treasure-map');
@@ -372,7 +376,7 @@
       rewardScore = 0;
       rewardStreak = 0;
       unlockedChests = 0;
-      score.textContent = '0 מטבעות';
+      scoreValue.textContent = '0';
       score.setAttribute('aria-label', 'נאספו 0 מטבעות');
       multiplier.textContent = '×1';
       multiplier.setAttribute('aria-label', 'מכפיל תגמול כפול 1');
@@ -389,7 +393,7 @@
         if (index < unlockedChests) chest.classList.add('is-open');
         else chest.classList.remove('is-open');
       });
-      score.textContent = `${rewardScore} מטבעות`;
+      scoreValue.textContent = String(rewardScore);
       score.setAttribute('aria-label', `נאספו ${rewardScore} מטבעות`);
       const activeMultiplier = rewardEvent?.multiplier || multiplierForStreak(rewardStreak);
       multiplier.textContent = `×${activeMultiplier}`;

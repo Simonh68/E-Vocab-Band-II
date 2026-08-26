@@ -69,20 +69,19 @@
     const choices = reverse || inContext
       ? choicesFor(context.records, answer, item => item.en, context.seed, context.choiceCount)
       : choicesFor(context.records, answer, item => item.mean_he, context.seed, context.choiceCount);
+    const primary = !reverse && !inContext;
     const prompt = inContext
       ? contextPrompt(record)
       : reverse
         ? `איזו מילה מתאימה למשמעות: ${hebrew}?`
-        : `מה פירוש המילה ${english}?`;
+        : english;
     return {
       prompt,
-      promptParts: reverse || inContext ? null : [
-        { text: 'מה פירוש המילה ', lang: 'he', dir: 'rtl' },
-        { text: english, lang: 'en', dir: 'ltr' },
-        { text: '?', lang: 'he', dir: 'rtl' }
-      ],
-      promptLang: inContext ? 'en' : 'he',
-      promptDir: inContext ? 'ltr' : 'rtl',
+      promptParts: primary ? [
+        { text: english, lang: 'en', dir: 'ltr' }
+      ] : null,
+      promptLang: primary || inContext ? 'en' : 'he',
+      promptDir: primary || inContext ? 'ltr' : 'rtl',
       clue: reverse && record.ex_en ? `רמז בהקשר: ${record.ex_en}` : '',
       clueLang: 'en',
       clueDir: 'ltr',
@@ -250,7 +249,7 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage7-copy', base).href,
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage7-coinvisual', base).href,
       badge: config.adaptive ? 'CORE I · אוצר מילים באנגלית' : 'CORE I · BLOCK QUEST',
       title: 'משחק אוצר המילים',
       description: config.adaptive
