@@ -77,12 +77,12 @@
       choiceDir: reverse ? 'ltr' : 'rtl',
       speakText: english,
       modeLabel: context.phase === 'retry'
-        ? 'ניסיון חוזר אחרי שתי שאלות אחרות'
+        ? 'מסלול תיקון'
         : context.mode === 'review'
-          ? 'בדיקת זכירה בהקשר חדש'
+          ? 'שער הזכירה'
           : context.filler
-            ? 'חיזוק ביניים'
-            : 'ניסיון עצמאי',
+            ? 'איסוף בלוקים'
+            : 'האתגר הראשי',
       meta: { record, context }
     };
   }
@@ -217,14 +217,19 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-fast-feedback', base).href,
-      badge: 'גל 1 · תרגול מדורג',
-      title: 'תרגול עם משוב בעברית',
-      description: '12 מילים בסבב: ניסיון עצמאי, משוב מיידי, ניסיון חוזר ובדיקת זכירה.',
-      startLabel: 'מתחילים 12 מילים',
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage5', base).href,
+      badge: 'CORE I · BLOCK QUEST',
+      title: 'מסע האוצר של אוצר המילים',
+      description: 'עונים נכון, בונים רצף ופותחים שלוש תיבות אוצר. הרצף מכפיל את הפרס.',
+      startLabel: 'יוצאים למסע',
       autoAdvanceCorrectMs: 900,
       correctNextLabel: 'הבא עכשיו',
       showProgressPercent: true,
+      blockQuest: true,
+      immersive: true,
+      exponentialFeedback: true,
+      baseReward: 10,
+      treasureChests: [25, 50, 100],
       analyticsActivity: config.analyticsActivity,
       createSession: () => withProgressTracking(
         sessionApi.createSession(root.EFN_PAGE_WORDS, {

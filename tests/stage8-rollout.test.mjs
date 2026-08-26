@@ -231,6 +231,62 @@ test('a correct Band II answer gets positive feedback and advances automatically
   assert.equal(byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].focused, true);
 });
 
+test('Block Quest rewards grow exponentially and open three milestone chests', () => {
+  assert.deepEqual([0, 1, 2, 3, 4, 8].map(panelApi.multiplierForStreak), [1, 1, 2, 4, 8, 8]);
+  assert.deepEqual([1, 2, 3, 4].map(streak => panelApi.rewardForStreak(streak)), [10, 20, 40, 80]);
+  assert.deepEqual([0, 24, 25, 49, 50, 99, 100].map(percent => panelApi.chestCountForPercent(percent)), [0, 0, 1, 1, 2, 2, 3]);
+  assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /×8/);
+  assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /תיבת אוצר/);
+});
+
+test('the Core I panel enters a full-screen Block Quest and keeps rewards session-only', () => {
+  const head = new FakeElement('head');
+  const body = new FakeElement('body');
+  const document = {
+    head,
+    body,
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const anchor = new FakeElement('div');
+  const question = { prompt: 'word0', choices: ['פירוש 0', 'פירוש 1'], answer: 'פירוש 0', meta: { record: records[0] } };
+  let answered = false;
+  const controller = panelApi.mount({
+    document,
+    anchor,
+    stylesheetHref: 'practice-shell.css?v=20260826-stage5',
+    blockQuest: true,
+    immersive: true,
+    exponentialFeedback: true,
+    showProgressPercent: true,
+    treasureChests: [25, 50, 100],
+    createSession: () => ({
+      next: () => answered ? null : question,
+      answer: selectedAnswer => {
+        answered = true;
+        return { correct: selectedAnswer === question.answer, question, entry: { filler: false }, state: {}, willReturn: false, mastered: false };
+      },
+      progress: () => ({ mastered: 0, total: 1, progressPercent: 25 }),
+      summary: () => ({ firstTry: 1, corrected: 0, unresolved: 0 })
+    }),
+    formatFeedback: vocabApi.formatFeedback
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  assert.ok(controller.section.classList.values.has('is-playing'));
+  assert.ok(body.classList.values.has('efn-practice-is-playing'));
+  byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
+  assert.deepEqual(controller.getQuestState(), { score: 10, streak: 1, multiplier: 1, chests: 1 });
+  assert.match(byClass(controller.section, 'efn-practice__feedback-title').textContent, /תיבת אוצר/);
+  assert.equal(byClass(controller.section, 'efn-practice__treasure-map').attributes['aria-label'], '1 מתוך 3 תיבות אוצר נפתחו');
+  byClass(controller.section, 'efn-practice__next').listeners.click();
+  assert.equal(byClass(controller.section, 'efn-practice__summary').hidden, false);
+  const exitButtons = controller.section.descendants().filter(node => node.className.split(/\s+/).includes('efn-practice__quiet'));
+  exitButtons.at(-1).listeners.click();
+  assert.ok(!controller.section.classList.values.has('is-playing'));
+  assert.ok(!body.classList.values.has('efn-practice-is-playing'));
+});
+
 test('a wrong answer schedules the same item after exactly two intervening entries', () => {
   const session = sessionApi.createSession(records, { limit: 6, questionFactory: basicQuestionFactory });
   const question = session.next();
@@ -374,6 +430,16 @@ test('stage 4 keeps local progress loading gated by the Core I rollout configura
   assert.match(source, /root\.EFN_CORE1_PROGRESS/);
 });
 
+test('stage 5 enables Block Quest only through the twenty Core I practice configurations', async () => {
+  const source = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
+  assert.match(source, /blockQuest: true/);
+  assert.match(source, /immersive: true/);
+  assert.match(source, /exponentialFeedback: true/);
+  assert.match(source, /treasureChests: \[25, 50, 100\]/);
+  assert.match(source, /practice-shell\.css\?v=20260826-stage5/);
+  assert.doesNotMatch(source, /ניסיון חוזר אחרי שתי שאלות אחרות|בדיקת זכירה בהקשר חדש|חיזוק ביניים/);
+});
+
 test('the Core I loader resolves the progress module from the local site root', async () => {
   let appended = null;
   const listeners = {};
@@ -500,11 +566,11 @@ test('practice code preserves accessibility and sends only start/completion meas
   assert.match(source, /practice-start/);
   assert.match(source, /setTextParts/);
   assert.match(source, /prefers-reduced-motion: reduce/);
-  assert.match(styles, /\.efn-practice\{[^}]*box-sizing:border-box/);
-  assert.match(styles, /overflow-wrap:anywhere/);
-  assert.match(styles, /@media\(max-width:320px\)/);
-  assert.match(styles, /@media\(prefers-reduced-motion:reduce\)/);
-  assert.match(styles, /@media\(forced-colors:active\)/);
+  assert.match(styles, /\.efn-practice\s*\{[^}]*box-sizing:\s*border-box/);
+  assert.match(styles, /overflow-wrap:\s*anywhere/);
+  assert.match(styles, /@media\s*\(max-width:\s*320px\)/);
+  assert.match(styles, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(styles, /@media\s*\(forced-colors:\s*active\)/);
   assert.match(analytics, /data-analytics-ignore/);
   assert.match(analytics, /EFNAnalyticsIgnoreNextAudio/);
 });
@@ -574,12 +640,12 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('fast feedback assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
+test('stage 5 gameplay assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   assert.match(activeGroup, /practice-session\.js\?v=20260826-fast-feedback/);
-  assert.match(activeGroup, /practice-panel\.js\?v=20260826-fast-feedback/);
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-fast-feedback/);
+  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage5/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage5/);
   assert.match(activeGroup, /analytics\.js\?v=20260825-stage9/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);

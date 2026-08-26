@@ -6,7 +6,7 @@
 - Publication: approved for `main` in conversation 51
 - Public site: `https://simonh68.github.io/E-Vocab-Band-II/`
 
-## Six-stage route
+## Completed device-progress route
 
 1. [x] Data contract, mastery rules, isolated local-storage module and unit tests.
 2. [x] Connect progress writes to a Core I / Group 01 game pilot.
@@ -14,6 +14,15 @@
 4. [x] Roll out the tested integration to all Core I groups 01–20.
 5. [x] Accessibility, privacy, recovery and automated device/browser-fallback QA.
 6. [x] Simon review and explicit publication approval.
+
+## Gameplay stage 5 — active branch
+
+- Branch: `codex/core1-gameplay-stage5-20260826`
+- Base: `acede6be2ac226592bc7c08ed21ddf3f36630ea3`
+- Scope: Core I groups 01–20 only; Core II, Arabic pages and Read Along remain unchanged.
+- Experience: full-viewport Block Quest, exponential ×1/×2/×4/×8 positive reward, and three pirate treasure chests at 25%, 50% and 100% of the learning round.
+- Invariants: mastery evidence, local device storage, answer privacy and the fast 900 ms progression remain unchanged.
+- Publication: pending tests and Simon's explicit approval.
 
 ## Stage 1 decisions
 

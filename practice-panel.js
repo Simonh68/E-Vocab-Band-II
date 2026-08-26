@@ -33,12 +33,40 @@
     });
   }
 
+  function multiplierForStreak(streak) {
+    const safeStreak = Math.max(0, Math.floor(Number(streak) || 0));
+    if (safeStreak < 2) return 1;
+    return Math.min(8, 2 ** Math.min(3, safeStreak - 1));
+  }
+
+  function rewardForStreak(streak, baseReward = 10) {
+    const safeBase = Math.max(0, Math.floor(Number(baseReward) || 0));
+    return safeBase * multiplierForStreak(streak);
+  }
+
+  function chestCountForPercent(percent, thresholds = [25, 50, 100]) {
+    const safePercent = Math.max(0, Math.min(100, Number(percent) || 0));
+    return thresholds.filter(threshold => safePercent >= Number(threshold)).length;
+  }
+
+  function questFeedback({ streak, multiplier, reward, chestOpened }) {
+    let title = streak >= 4
+      ? `אגדי ×${multiplier}! +${reward} מטבעות`
+      : streak === 3
+        ? `קומבו ×${multiplier}! +${reward} מטבעות`
+        : streak === 2
+          ? `רצף ×${multiplier}! +${reward} מטבעות`
+          : `מעולה! +${reward} מטבעות`;
+    if (chestOpened) title += ' · תיבת אוצר נפתחה!';
+    return title;
+  }
+
   function mount(config) {
     const document = config.document || globalThis.document;
     if (!document || !config.anchor || typeof config.createSession !== 'function') return null;
     loadStyles(document, config.stylesheetHref);
 
-    const section = element(document, 'section', `efn-practice${config.theme === 'dark' ? ' efn-practice--dark' : ''}${config.autoAdvanceCorrectMs ? ' efn-practice--fast-feedback' : ''}`);
+    const section = element(document, 'section', `efn-practice${config.theme === 'dark' ? ' efn-practice--dark' : ''}${config.autoAdvanceCorrectMs ? ' efn-practice--fast-feedback' : ''}${config.blockQuest ? ' efn-practice--block-quest' : ''}`);
     section.lang = 'he';
     section.dir = 'rtl';
     section.dataset.analyticsIgnore = 'true';
@@ -53,6 +81,16 @@
     start.type = 'button';
     start.dataset.analyticsLabel = 'practice-start';
     intro.append(badge, title, description, privacy, start);
+
+    if (config.blockQuest) {
+      const questMark = element(document, 'div', 'efn-practice__quest-mark');
+      questMark.setAttribute('aria-hidden', 'true');
+      ['◆', '◆', '⚑'].forEach((symbol, index) => {
+        const block = element(document, 'span', `efn-practice__quest-block efn-practice__quest-block--${index + 1}`, symbol);
+        questMark.append(block);
+      });
+      intro.insertBefore ? intro.insertBefore(questMark, start) : intro.append(questMark);
+    }
 
     const activity = element(document, 'div', 'efn-practice__activity');
     activity.hidden = true;
@@ -73,6 +111,30 @@
     exit.type = 'button';
     exit.dataset.analyticsLabel = 'practice-exit';
     activityHeader.append(progress, exit);
+    const questHud = element(document, 'div', 'efn-practice__quest-hud');
+    questHud.hidden = !config.blockQuest;
+    const score = element(document, 'div', 'efn-practice__score', '0 מטבעות');
+    score.setAttribute('aria-label', 'נאספו 0 מטבעות');
+    const multiplier = element(document, 'div', 'efn-practice__multiplier', '×1');
+    multiplier.setAttribute('aria-label', 'מכפיל תגמול כפול 1');
+    const treasureMap = element(document, 'div', 'efn-practice__treasure-map');
+    treasureMap.setAttribute('role', 'img');
+    treasureMap.setAttribute('aria-label', '0 מתוך 3 תיבות אוצר נפתחו');
+    const chestNodes = [];
+    (config.treasureChests || [25, 50, 100]).forEach((threshold, index) => {
+      const stop = element(document, 'span', 'efn-practice__island');
+      const chest = element(document, 'span', 'efn-practice__chest');
+      chest.dataset.threshold = String(threshold);
+      chest.dataset.chest = String(index + 1);
+      chest.setAttribute('aria-hidden', 'true');
+      const lid = element(document, 'span', 'efn-practice__chest-lid');
+      const base = element(document, 'span', 'efn-practice__chest-base');
+      chest.append(lid, base);
+      stop.append(chest);
+      treasureMap.append(stop);
+      chestNodes.push(chest);
+    });
+    questHud.append(score, multiplier, treasureMap);
     const mode = element(document, 'div', 'efn-practice__mode');
     const prompt = element(document, 'h3', 'efn-practice__prompt');
     const clue = element(document, 'p', 'efn-practice__clue');
@@ -95,16 +157,23 @@
     next.type = 'button';
     next.dataset.analyticsLabel = 'practice-next';
     next.hidden = true;
-    activity.append(activityHeader, mode, prompt, clue, speak, choices, feedback, next);
+    activity.append(activityHeader, questHud, mode, prompt, clue, speak, choices, feedback, next);
 
     const summary = element(document, 'div', 'efn-practice__summary');
     summary.hidden = true;
     const summaryTitle = element(document, 'h3', 'efn-practice__title', 'סיכום הסבב');
     const summaryText = element(document, 'p', 'efn-practice__description');
+    const summaryReward = element(document, 'p', 'efn-practice__summary-reward');
+    summaryReward.hidden = !config.blockQuest;
     const again = element(document, 'button', 'efn-practice__primary', 'סבב נוסף');
     again.type = 'button';
     again.dataset.analyticsLabel = 'practice-again';
-    summary.append(summaryTitle, summaryText, privacy.cloneNode(true), again);
+    const summaryExit = element(document, 'button', 'efn-practice__quiet', config.exitLabel || 'חזרה לכרטיסיות');
+    summaryExit.type = 'button';
+    summaryExit.dataset.analyticsLabel = 'practice-exit';
+    const summaryActions = element(document, 'div', 'efn-practice__summary-actions');
+    summaryActions.append(again, summaryExit);
+    summary.append(summaryTitle, summaryReward, summaryText, privacy.cloneNode(true), summaryActions);
     section.append(intro, activity, summary);
     config.anchor.insertAdjacentElement('afterend', section);
 
@@ -112,6 +181,10 @@
     let currentQuestion = null;
     let answered = false;
     let autoAdvanceTimer = null;
+    let rewardScore = 0;
+    let rewardStreak = 0;
+    let unlockedChests = 0;
+    const chestThresholds = config.treasureChests || [25, 50, 100];
     const schedule = typeof config.setTimeout === 'function' ? config.setTimeout : globalThis.setTimeout?.bind(globalThis);
     const cancel = typeof config.clearTimeout === 'function' ? config.clearTimeout : globalThis.clearTimeout?.bind(globalThis);
 
@@ -127,6 +200,50 @@
       analytics.send(event, { activity: config.analyticsActivity, ...context });
     }
 
+    function setPlaying(playing) {
+      if (!config.immersive) return;
+      if (playing) {
+        section.classList.add('is-playing');
+        document.body?.classList?.add('efn-practice-is-playing');
+      } else {
+        section.classList.remove('is-playing');
+        document.body?.classList?.remove('efn-practice-is-playing');
+      }
+    }
+
+    function resetQuest() {
+      rewardScore = 0;
+      rewardStreak = 0;
+      unlockedChests = 0;
+      score.textContent = '0 מטבעות';
+      score.setAttribute('aria-label', 'נאספו 0 מטבעות');
+      multiplier.textContent = '×1';
+      multiplier.setAttribute('aria-label', 'מכפיל תגמול כפול 1');
+      treasureMap.setAttribute('aria-label', `0 מתוך ${chestNodes.length} תיבות אוצר נפתחו`);
+      chestNodes.forEach(chest => chest.classList.remove('is-open'));
+    }
+
+    function syncQuest(percent, rewardEvent = null) {
+      if (!config.blockQuest) return { openedNow: false, unlocked: 0 };
+      const nextCount = chestCountForPercent(percent, chestThresholds);
+      const openedNow = nextCount > unlockedChests;
+      unlockedChests = nextCount;
+      chestNodes.forEach((chest, index) => {
+        if (index < unlockedChests) chest.classList.add('is-open');
+        else chest.classList.remove('is-open');
+      });
+      score.textContent = `${rewardScore} מטבעות`;
+      score.setAttribute('aria-label', `נאספו ${rewardScore} מטבעות`);
+      const activeMultiplier = rewardEvent?.multiplier || multiplierForStreak(rewardStreak);
+      multiplier.textContent = `×${activeMultiplier}`;
+      multiplier.setAttribute('aria-label', `מכפיל תגמול כפול ${activeMultiplier}`);
+      treasureMap.setAttribute('aria-label', `${unlockedChests} מתוך ${chestNodes.length} תיבות אוצר נפתחו`);
+      section.dataset.rewardStreak = String(rewardStreak);
+      section.dataset.rewardMultiplier = String(activeMultiplier);
+      section.dataset.rewardScore = String(rewardScore);
+      return { openedNow, unlocked: unlockedChests };
+    }
+
     function syncProgress() {
       const state = session.progress();
       if (!config.showProgressPercent) {
@@ -134,7 +251,7 @@
         progress.setAttribute('aria-valuemax', String(state.total));
         progress.setAttribute('aria-valuenow', String(state.mastered));
         progress.setAttribute('aria-valuetext', progressText.textContent);
-        return;
+        return { ...state, percent: state.total ? Math.round((state.mastered / state.total) * 100) : 0 };
       }
       const percent = Number.isFinite(state.progressPercent)
         ? Math.max(0, Math.min(100, state.progressPercent))
@@ -145,6 +262,7 @@
       progressFill.style.width = `${percent}%`;
       progress.setAttribute('aria-valuenow', String(percent));
       progress.setAttribute('aria-valuetext', `התקדמות ${percent} אחוזים`);
+      return { ...state, percent };
     }
 
     function showSummary() {
@@ -153,6 +271,7 @@
       activity.hidden = true;
       summary.hidden = false;
       summaryText.textContent = `הצלחה מהניסיון הראשון: ${state.firstTry}. תוקן בעזרת המשוב: ${state.corrected}. נשאר לתרגול נוסף: ${state.unresolved}.`;
+      summaryReward.textContent = `האוצר שלך: ${rewardScore} מטבעות · ${unlockedChests} מתוך ${chestNodes.length} תיבות נפתחו.`;
       measure('activity_complete', { outcome: config.analyticsActivity });
       summaryTitle.tabIndex = -1;
       summaryTitle.focus({ preventScroll: true });
@@ -198,6 +317,18 @@
       if (answered) return;
       answered = true;
       const result = session.answer(value);
+      let rewardEvent = null;
+      if (config.exponentialFeedback) {
+        if (result.correct) {
+          rewardStreak += 1;
+          const activeMultiplier = multiplierForStreak(rewardStreak);
+          const reward = rewardForStreak(rewardStreak, config.baseReward || 10);
+          rewardScore += reward;
+          rewardEvent = { streak: rewardStreak, multiplier: activeMultiplier, reward };
+        } else {
+          rewardStreak = 0;
+        }
+      }
       choices.querySelectorAll('button').forEach(button => {
         button.disabled = true;
         if (button.textContent === result.question.answer) button.classList.add('is-answer');
@@ -212,7 +343,11 @@
       next.textContent = result.correct && config.correctNextLabel
         ? config.correctNextLabel
         : 'לשאלה הבאה';
-      syncProgress();
+      const progressState = syncProgress();
+      const questState = syncQuest(progressState?.percent || 0, rewardEvent);
+      if (result.correct && rewardEvent) {
+        feedbackTitle.textContent = questFeedback({ ...rewardEvent, chestOpened: questState.openedNow });
+      }
       feedback.focus({ preventScroll: true });
       const delay = Number(config.autoAdvanceCorrectMs);
       if (result.correct && delay > 0 && schedule) {
@@ -225,6 +360,8 @@
 
     function begin() {
       session = config.createSession();
+      resetQuest();
+      setPlaying(true);
       measure('button_click', { target: 'practice-start', label: 'practice-start' });
       intro.hidden = true;
       summary.hidden = true;
@@ -240,13 +377,17 @@
       clearAutoAdvance();
       renderQuestion();
     });
-    exit.addEventListener('click', () => {
+    function leave() {
       clearAutoAdvance();
       activity.hidden = true;
       summary.hidden = true;
       intro.hidden = false;
+      setPlaying(false);
       start.focus({ preventScroll: true });
-    });
+    }
+
+    exit.addEventListener('click', leave);
+    summaryExit.addEventListener('click', leave);
     speak.addEventListener('click', () => {
       if (!currentQuestion?.speakText || !('speechSynthesis' in globalThis)) return;
       globalThis.EFNAnalyticsIgnoreNextAudio = true;
@@ -259,10 +400,21 @@
 
     return {
       section,
+      getQuestState() {
+        return { score: rewardScore, streak: rewardStreak, multiplier: multiplierForStreak(rewardStreak), chests: unlockedChests };
+      },
       showLaunch() { section.hidden = false; },
       hideLaunch() { section.hidden = true; }
     };
   }
 
-  return { mount, loadStyles, setTextParts };
+  return {
+    mount,
+    loadStyles,
+    setTextParts,
+    multiplierForStreak,
+    rewardForStreak,
+    chestCountForPercent,
+    questFeedback
+  };
 });
