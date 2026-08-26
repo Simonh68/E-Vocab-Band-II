@@ -211,18 +211,32 @@
     const title = element(document, 'h2', 'efn-practice__title', config.title || 'תרגול עם משוב');
     const description = element(document, 'p', 'efn-practice__description', config.description || 'עונים, מקבלים משוב ומנסים שוב בזמן הנכון.');
     const privacy = element(document, 'p', 'efn-practice__privacy', config.privacy || 'התשובות נשארות בדף ואינן נשמרות או נשלחות.');
-    const start = element(document, 'button', 'efn-practice__primary', config.startLabel || 'מתחילים תרגול');
+    const startLabel = config.startLabel || 'מתחילים תרגול';
+    const start = element(
+      document,
+      'button',
+      `efn-practice__primary${config.blockQuest ? ' efn-practice__icon-action' : ''}`,
+      config.blockQuest ? '▶' : startLabel
+    );
     start.type = 'button';
     start.dataset.analyticsLabel = 'practice-start';
+    start.setAttribute('aria-label', startLabel);
+    start.setAttribute('title', startLabel);
     intro.append(badge, title, description, privacy, start);
 
     if (config.blockQuest) {
       const questMark = element(document, 'div', 'efn-practice__quest-mark');
       questMark.setAttribute('aria-hidden', 'true');
-      ['◆', '◆', '⚑'].forEach((symbol, index) => {
-        const block = element(document, 'span', `efn-practice__quest-block efn-practice__quest-block--${index + 1}`, symbol);
-        questMark.append(block);
-      });
+      const mapRoute = element(document, 'span', 'efn-practice__lost-map-route');
+      const mapTarget = element(document, 'span', 'efn-practice__lost-map-target');
+      const lostChest = element(document, 'span', 'efn-practice__lost-chest');
+      const lostChestGlow = element(document, 'span', 'efn-practice__lost-chest-glow');
+      const lostChestLid = element(document, 'span', 'efn-practice__lost-chest-lid');
+      const lostChestBase = element(document, 'span', 'efn-practice__lost-chest-base');
+      const lostChestLock = element(document, 'span', 'efn-practice__lost-chest-lock');
+      const lostChestCoins = element(document, 'span', 'efn-practice__lost-chest-coins');
+      lostChest.append(lostChestGlow, lostChestCoins, lostChestLid, lostChestBase, lostChestLock);
+      questMark.append(mapRoute, mapTarget, lostChest);
       intro.insertBefore ? intro.insertBefore(questMark, start) : intro.append(questMark);
     }
 
@@ -241,15 +255,24 @@
     progressTrack.append(progressFill);
     progress.append(progressText);
     if (config.showProgressPercent) progress.append(progressTrack);
-    const exit = element(document, 'button', 'efn-practice__quiet', config.exitLabel || 'חזרה לכרטיסיות');
+    const exitLabel = config.exitLabel || 'חזרה לכרטיסיות';
+    const exit = element(
+      document,
+      'button',
+      `efn-practice__quiet${config.blockQuest ? ' efn-practice__icon-action' : ''}`,
+      config.blockQuest ? '↩' : exitLabel
+    );
     exit.type = 'button';
     exit.dataset.analyticsLabel = 'practice-exit';
+    exit.setAttribute('aria-label', exitLabel);
+    exit.setAttribute('title', exitLabel);
     const audio = createQuestAudio(config.audioHost || globalThis);
-    const audioToggle = element(document, 'button', 'efn-practice__quiet efn-practice__audio-toggle', '🔊 צלילים');
+    const audioToggle = element(document, 'button', 'efn-practice__quiet efn-practice__audio-toggle efn-practice__icon-action', '🎵');
     audioToggle.type = 'button';
     audioToggle.dataset.analyticsLabel = 'practice-sound-toggle';
     audioToggle.setAttribute('aria-pressed', 'true');
     audioToggle.setAttribute('aria-label', 'כיבוי צלילי המשחק');
+    audioToggle.setAttribute('title', 'כיבוי צלילי המשחק');
     audioToggle.hidden = !config.blockQuest || !audio.supported;
     const headerActions = element(document, 'div', 'efn-practice__header-actions');
     if (config.blockQuest) headerActions.append(audioToggle);
@@ -261,6 +284,10 @@
     score.setAttribute('aria-label', 'נאספו 0 מטבעות');
     const scoreCoin = element(document, 'span', 'efn-practice__coin');
     scoreCoin.setAttribute('aria-hidden', 'true');
+    ['rear', 'middle', 'front'].forEach(layer => {
+      const coinPiece = element(document, 'span', `efn-practice__coin-piece efn-practice__coin-piece--${layer}`);
+      scoreCoin.append(coinPiece);
+    });
     const scoreValue = element(document, 'span', 'efn-practice__score-value', '0');
     score.append(scoreCoin, scoreValue);
     const multiplier = element(document, 'div', 'efn-practice__multiplier', '×1');
@@ -286,9 +313,16 @@
     const mode = element(document, 'div', 'efn-practice__mode');
     const prompt = element(document, 'h3', 'efn-practice__prompt');
     const clue = element(document, 'p', 'efn-practice__clue');
-    const speak = element(document, 'button', 'efn-practice__speak', '🔊 שמיעה');
+    const speak = element(
+      document,
+      'button',
+      `efn-practice__speak${config.blockQuest ? ' efn-practice__icon-action' : ''}`,
+      config.blockQuest ? '🔊' : '🔊 שמיעה'
+    );
     speak.type = 'button';
     speak.dataset.analyticsLabel = 'practice-audio';
+    speak.setAttribute('aria-label', 'השמעת המילה באנגלית');
+    speak.setAttribute('title', 'השמעת המילה באנגלית');
     const choices = element(document, 'div', 'efn-practice__choices');
     choices.setAttribute('role', 'group');
     choices.setAttribute('aria-label', 'אפשרויות תשובה');
@@ -311,9 +345,16 @@
     transitionTrack.append(transitionFill, transitionBlocks);
     transition.append(transitionLabel, transitionTrack);
     feedback.append(feedbackTitle, feedbackText, transition);
-    const next = element(document, 'button', 'efn-practice__primary efn-practice__next', 'לשאלה הבאה');
+    const next = element(
+      document,
+      'button',
+      `efn-practice__primary efn-practice__next${config.blockQuest ? ' efn-practice__icon-action' : ''}`,
+      config.blockQuest ? '▶' : 'לשאלה הבאה'
+    );
     next.type = 'button';
     next.dataset.analyticsLabel = 'practice-next';
+    next.setAttribute('aria-label', 'לשאלה הבאה');
+    next.setAttribute('title', 'לשאלה הבאה');
     next.hidden = true;
     activity.append(activityHeader, questHud, mode, prompt, clue, speak, choices, feedback, next);
 
@@ -323,12 +364,26 @@
     const summaryText = element(document, 'p', 'efn-practice__description');
     const summaryReward = element(document, 'p', 'efn-practice__summary-reward');
     summaryReward.hidden = !config.blockQuest;
-    const again = element(document, 'button', 'efn-practice__primary', 'סבב נוסף');
+    const again = element(
+      document,
+      'button',
+      `efn-practice__primary${config.blockQuest ? ' efn-practice__icon-action' : ''}`,
+      config.blockQuest ? '↻' : 'סבב נוסף'
+    );
     again.type = 'button';
     again.dataset.analyticsLabel = 'practice-again';
-    const summaryExit = element(document, 'button', 'efn-practice__quiet', config.exitLabel || 'חזרה לכרטיסיות');
+    again.setAttribute('aria-label', 'סבב נוסף');
+    again.setAttribute('title', 'סבב נוסף');
+    const summaryExit = element(
+      document,
+      'button',
+      `efn-practice__quiet${config.blockQuest ? ' efn-practice__icon-action' : ''}`,
+      config.blockQuest ? '↩' : exitLabel
+    );
     summaryExit.type = 'button';
     summaryExit.dataset.analyticsLabel = 'practice-exit';
+    summaryExit.setAttribute('aria-label', exitLabel);
+    summaryExit.setAttribute('title', exitLabel);
     const summaryActions = element(document, 'div', 'efn-practice__summary-actions');
     summaryActions.append(again, summaryExit);
     summary.append(summaryTitle, summaryReward, summaryText, privacy.cloneNode(true), summaryActions);
@@ -523,9 +578,12 @@
       feedback.classList.add(result.correct ? 'is-positive' : 'is-correction');
       feedback.hidden = false;
       next.hidden = false;
-      next.textContent = result.correct && config.correctNextLabel
+      const nextLabel = result.correct && config.correctNextLabel
         ? config.correctNextLabel
         : 'לשאלה הבאה';
+      next.textContent = config.blockQuest ? '▶' : nextLabel;
+      next.setAttribute('aria-label', nextLabel);
+      next.setAttribute('title', nextLabel);
       const progressState = syncProgress();
       const questState = syncQuest(progressState?.percent || 0, rewardEvent);
       if (result.correct && rewardEvent) {
@@ -572,9 +630,11 @@
     });
     audioToggle.addEventListener('click', () => {
       const muted = audio.setMuted(!audio.isMuted());
-      audioToggle.textContent = muted ? '🔇 מושתק' : '🔊 צלילים';
+      audioToggle.textContent = muted ? '🔇' : '🎵';
       audioToggle.setAttribute('aria-pressed', String(!muted));
-      audioToggle.setAttribute('aria-label', muted ? 'הפעלת צלילי המשחק' : 'כיבוי צלילי המשחק');
+      const audioLabel = muted ? 'הפעלת צלילי המשחק' : 'כיבוי צלילי המשחק';
+      audioToggle.setAttribute('aria-label', audioLabel);
+      audioToggle.setAttribute('title', audioLabel);
     });
     function leave() {
       clearAutoAdvance();

@@ -192,8 +192,8 @@
     if (!session || !tracker) return session;
     return {
       ...session,
-      answer(value) {
-        const result = session.answer(value);
+      answer(value, answerContext) {
+        const result = session.answer(value, answerContext);
         tracker.record(result);
         return result;
       }
@@ -249,12 +249,11 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage7-coinvisual', base).href,
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage8', base).href,
       badge: config.adaptive ? 'CORE I · אוצר מילים באנגלית' : 'CORE I · BLOCK QUEST',
-      title: 'משחק אוצר המילים',
-      description: config.adaptive
-        ? 'בוחרים את התשובה הנכונה, צוברים מטבעות ופותחים תיבות אוצר. המשחק מתאים את השאלות לקצב שלך.'
-        : 'בוחרים את התשובה הנכונה, צוברים מטבעות ופותחים שלוש תיבות אוצר.',
+      title: 'האוצר האבוד',
+      description: 'מוצאים מילים · אוספים מטבעות · פותחים אוצר',
+      privacy: 'הכול נשאר במכשיר.',
       startLabel: 'מתחילים לשחק',
       autoAdvanceCorrectMs: 1500,
       correctNextLabel: 'הבא עכשיו',

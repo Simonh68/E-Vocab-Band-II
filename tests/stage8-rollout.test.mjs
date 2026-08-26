@@ -140,6 +140,8 @@ test('the accessible panel mounts and completes a question without a browser dep
   assert.equal(controller.section.dir, 'rtl');
   assert.equal(controller.section.dataset.analyticsIgnore, 'true');
   assert.equal(byClass(controller.section, 'efn-practice__quiet').textContent, 'חזרה לסיפור');
+  assert.equal(byClass(controller.section, 'efn-practice__speak').textContent, '🔊 שמיעה');
+  assert.equal(byClass(controller.section, 'efn-practice__speak').attributes['aria-label'], 'השמעת המילה באנגלית');
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   assert.deepEqual(measurements[0], {
     event: 'button_click',
@@ -326,14 +328,38 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
     formatFeedback: vocabApi.formatFeedback
   });
 
+  assert.deepEqual(
+    controller.section.descendants()
+      .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'))
+      .map(node => node.textContent),
+    ['▶', '🎵', '↩', '🔊', '▶', '↻', '↩']
+  );
+  assert.ok(
+    controller.section.descendants()
+      .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'))
+      .every(node => node.attributes['aria-label'] && node.attributes.title)
+  );
+  assert.ok(byClass(controller.section, 'efn-practice__lost-chest'));
+  assert.ok(byClass(controller.section, 'efn-practice__lost-chest-coins'));
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   assert.ok(controller.section.classList.values.has('is-playing'));
   assert.ok(body.classList.values.has('efn-practice-is-playing'));
   byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
+  assert.equal(byClass(controller.section, 'efn-practice__next').textContent, '▶');
+  assert.equal(byClass(controller.section, 'efn-practice__next').attributes['aria-label'], 'לשאלה הבאה');
   assert.deepEqual(controller.getQuestState(), { score: 10, streak: 1, multiplier: 1, chests: 1 });
   assert.equal(byClass(controller.section, 'efn-practice__score').textContent, '');
   assert.equal(byClass(controller.section, 'efn-practice__score-value').textContent, '10');
   assert.equal(byClass(controller.section, 'efn-practice__coin').attributes['aria-hidden'], 'true');
+  assert.equal(byClass(controller.section, 'efn-practice__coin').children.length, 3);
+  assert.deepEqual(
+    byClass(controller.section, 'efn-practice__coin').children.map(node => node.className),
+    [
+      'efn-practice__coin-piece efn-practice__coin-piece--rear',
+      'efn-practice__coin-piece efn-practice__coin-piece--middle',
+      'efn-practice__coin-piece efn-practice__coin-piece--front'
+    ]
+  );
   assert.equal(byClass(controller.section, 'efn-practice__score').attributes['aria-label'], 'נאספו 10 מטבעות');
   assert.match(byClass(controller.section, 'efn-practice__feedback-title').textContent, /תיבת אוצר/);
   assert.equal(byClass(controller.section, 'efn-practice__treasure-map').attributes['aria-label'], '1 מתוך 3 תיבות אוצר נפתחו');
@@ -470,20 +496,20 @@ test('all forty group pages load the dormant rollout bundle', async () => {
   }
 });
 
-test('stage 6 activates adaptive Group 01 while preserving tracked practice and RA-001', async () => {
+test('stage 8 activates the adaptive ten-word route across every Core I group', async () => {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.equal(rollout.version, '2026-08-26-core1-adaptive-stage6');
+  assert.equal(rollout.version, '2026-08-26-core1-adaptive-stage8');
   assert.equal(Object.keys(rollout.vocabulary).length, 20);
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const config = rollout.vocabulary[`groups/group-${id}.html`];
-    assert.equal(config.limit, group === 1 ? 10 : 12);
-    assert.equal(config.sourceLimit, group === 1 ? 55 : 12);
-    assert.equal(config.missionSize, group === 1 ? 10 : 12);
-    assert.equal(config.adaptive, group === 1);
+    assert.equal(config.limit, 10);
+    assert.equal(config.sourceLimit, 55);
+    assert.equal(config.missionSize, 10);
+    assert.equal(config.adaptive, true);
     assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
     assert.equal(config.progressGroup, group);
   }
@@ -492,6 +518,26 @@ test('stage 6 activates adaptive Group 01 while preserving tracked practice and 
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-01.html', rollout.vocabulary).sourceLimit, 55);
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-20.html', rollout.vocabulary).progressGroup, 20);
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-21.html', rollout.vocabulary), null);
+});
+
+test('stage 8 rotates through the complete authentic pool in every Core I group', async () => {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
+  const rollout = context.window.EFN_STAGE8_ROLLOUT;
+
+  for (let group = 1; group <= 20; group += 1) {
+    const id = String(group).padStart(2, '0');
+    const html = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
+    const match = html.match(/const words=(\[.*?\]);let currentIndex=/s);
+    assert.ok(match, `Group ${id} vocabulary payload was not found`);
+    const words = JSON.parse(match[1]);
+    const config = rollout.vocabulary[`groups/group-${id}.html`];
+    const nextMission = vocabApi.createMissionSelector(words, config.missionSize, config.sourceLimit);
+    const rounds = Array.from({ length: Math.ceil(words.length / config.missionSize) }, () => nextMission());
+    assert.ok(rounds.every(round => round.length === 10));
+    assert.equal(new Set(rounds.flat().map(record => record.serial)).size, words.length);
+  }
 });
 
 test('stage 4 keeps local progress loading gated by the Core I rollout configuration', async () => {
@@ -509,17 +555,21 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-stage7-coinvisual/);
+  assert.match(source, /practice-shell\.css\?v=20260826-stage8/);
   assert.match(source, /autoAdvanceCorrectMs: 1500/);
   assert.match(source, /CORE I · אוצר מילים באנגלית/);
-  assert.match(source, /משחק אוצר המילים/);
+  assert.match(source, /האוצר האבוד/);
+  assert.match(source, /מוצאים מילים · אוספים מטבעות · פותחים אוצר/);
+  assert.match(source, /הכול נשאר במכשיר/);
   assert.match(source, /מתחילים לשחק/);
   assert.doesNotMatch(source, /מסע עומק אדפטיבי|לצלול|לדוג מילים/);
   assert.match(source, /config\.adaptive/);
   assert.match(panel, /avoidRepeatedAnswerPosition/);
   assert.match(panel, /createQuestAudio/);
   assert.match(panel, /efn-practice__coin/);
+  assert.match(panel, /efn-practice__lost-chest/);
   assert.match(styles, /\.efn-practice__coin\s*\{/);
+  assert.match(styles, /\.efn-practice__lost-chest\s*\{/);
   assert.match(panel, /בונה את השאלה הבאה/);
   assert.match(styles, /Noto Sans Hebrew/);
   assert.match(styles, /\.efn-practice--block-quest \.efn-practice__title\s*\{[^}]*font-weight: 700;[^}]*text-shadow: none;/s);
@@ -647,6 +697,19 @@ test('progress tracking records only successful target signals', () => {
   assert.equal(rendered.length, 2);
   assert.ok(rendered.every(entry => entry.target === document));
   assert.deepEqual(rendered.map(entry => entry.progress.signal), ['meaning', 'recall']);
+});
+
+test('progress tracking preserves response timing for adaptive routing', () => {
+  const calls = [];
+  const session = {
+    answer(value, answerContext) {
+      calls.push({ value, answerContext });
+      return { correct: true, entry: { mode: 'primary', filler: false }, question: { meta: { record: { serial: 1 } } } };
+    }
+  };
+  const tracked = vocabApi.withProgressTracking(session, { record() {} });
+  tracked.answer('נכון', { responseTimeMs: 1800 });
+  assert.deepEqual(calls, [{ value: 'נכון', answerContext: { responseTimeMs: 1800 } }]);
 });
 
 test('a 12-word Core I round writes evidence against the full group manifest', async () => {
@@ -788,14 +851,17 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('stage 6 adaptive gameplay assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
-  const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
+test('stage 8 adaptive assets are cache-busted across Core I while preserving the analytics privacy guard', async () => {
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
-  assert.match(activeGroup, /practice-session\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage7-coinvisual/);
-  assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage7-coinvisual/);
-  assert.match(activeGroup, /analytics\.js\?v=20260826-stage6-cachefix/);
+  for (let group = 1; group <= 20; group += 1) {
+    const id = String(group).padStart(2, '0');
+    const activeGroup = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
+    assert.match(activeGroup, /practice-session\.js\?v=20260826-stage6/);
+    assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage8/);
+    assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage8/);
+    assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage8/);
+    assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
+  }
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);
 });
