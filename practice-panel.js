@@ -61,6 +61,140 @@
     return title;
   }
 
+  function avoidRepeatedAnswerPosition(values, answer, previousIndex = -1, random = Math.random) {
+    const output = [...values];
+    const answerIndex = output.indexOf(answer);
+    if (output.length < 2 || answerIndex < 0 || answerIndex !== previousIndex) {
+      return { choices: output, answerIndex };
+    }
+    const alternatives = output.map((_, index) => index).filter(index => index !== answerIndex);
+    const sample = Math.max(0, Math.min(.999999, Number(random?.()) || 0));
+    const swapIndex = alternatives[Math.floor(sample * alternatives.length)];
+    [output[answerIndex], output[swapIndex]] = [output[swapIndex], output[answerIndex]];
+    return { choices: output, answerIndex: swapIndex };
+  }
+
+  function createQuestAudio(host = globalThis) {
+    const AudioContext = host?.AudioContext || host?.webkitAudioContext;
+    const scheduleLoop = host?.setInterval?.bind(host);
+    const cancelLoop = host?.clearInterval?.bind(host);
+    let context = null;
+    let master = null;
+    let ambienceTimer = null;
+    let ambienceStep = 0;
+    let muted = false;
+
+    function ensure() {
+      if (!AudioContext) return false;
+      try {
+        if (!context) {
+          context = new AudioContext();
+          master = context.createGain();
+          master.gain.value = .16;
+          master.connect(context.destination);
+        }
+        if (context.state === 'suspended') context.resume?.().catch?.(() => {});
+        return true;
+      } catch {
+        context = null;
+        master = null;
+        return false;
+      }
+    }
+
+    function tone(frequency, offset = 0, duration = .16, options = {}) {
+      if (muted || !ensure()) return;
+      const start = context.currentTime + .025 + Math.max(0, offset);
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = options.type || 'triangle';
+      oscillator.frequency.setValueAtTime(Math.max(40, frequency), start);
+      if (options.to) oscillator.frequency.exponentialRampToValueAtTime(Math.max(40, options.to), start + duration);
+      gain.gain.setValueAtTime(.0001, start);
+      gain.gain.exponentialRampToValueAtTime(options.gain || .045, start + .018);
+      gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
+      oscillator.connect(gain);
+      gain.connect(master);
+      oscillator.start(start);
+      oscillator.stop(start + duration + .03);
+    }
+
+    function ambientPulse() {
+      if (muted || !ensure()) return;
+      const patterns = [
+        [130.81, 196],
+        [146.83, 220],
+        [164.81, 246.94],
+        [146.83, 196]
+      ];
+      const [low, high] = patterns[ambienceStep % patterns.length];
+      ambienceStep += 1;
+      tone(low, 0, .85, { gain: .018, type: 'triangle' });
+      tone(high, .18, .22, { gain: .012, type: 'square' });
+      tone(high * 1.5, .62, .16, { gain: .009, type: 'square' });
+    }
+
+    function startBackground() {
+      if (muted || !ensure()) return;
+      master.gain.cancelScheduledValues(context.currentTime);
+      master.gain.setTargetAtTime(.16, context.currentTime, .04);
+      ambientPulse();
+      if (ambienceTimer == null && scheduleLoop) ambienceTimer = scheduleLoop(ambientPulse, 3200);
+    }
+
+    function stopBackground() {
+      if (ambienceTimer != null && cancelLoop) cancelLoop(ambienceTimer);
+      ambienceTimer = null;
+    }
+
+    function stop() {
+      stopBackground();
+      if (context && master) master.gain.setTargetAtTime(.0001, context.currentTime, .035);
+    }
+
+    function cue(name, detail = {}) {
+      if (muted || !ensure()) return;
+      if (name === 'start') {
+        [[164.81, 0], [220, .12], [329.63, .25]].forEach(([note, at]) => tone(note, at, .17, { gain: .05, type: 'square' }));
+      } else if (name === 'question') {
+        tone(220, 0, .09, { gain: .025, type: 'square', to: 246.94 });
+      } else if (name === 'correct') {
+        [[329.63, 0], [392, .32], [493.88, .68], [659.25, 1.02]].forEach(([note, at], index) => tone(note, at, .2, { gain: .045 - index * .005, type: 'square' }));
+        if (detail.chestOpened) [[783.99, .92], [987.77, 1.16]].forEach(([note, at]) => tone(note, at, .28, { gain: .035, type: 'triangle' }));
+      } else if (name === 'wrong') {
+        tone(196, 0, .22, { gain: .04, type: 'square', to: 123.47 });
+      } else if (name === 'summary') {
+        [[261.63, 0], [329.63, .14], [392, .3], [523.25, .52]].forEach(([note, at]) => tone(note, at, .34, { gain: .045, type: 'triangle' }));
+      }
+    }
+
+    function setMuted(value) {
+      muted = Boolean(value);
+      if (muted) stop();
+      else {
+        startBackground();
+        cue('question');
+      }
+      return muted;
+    }
+
+    function duck(quiet) {
+      if (!context || !master || muted) return;
+      master.gain.setTargetAtTime(quiet ? .025 : .16, context.currentTime, .05);
+    }
+
+    return {
+      supported: Boolean(AudioContext),
+      start() { startBackground(); cue('start'); },
+      stop,
+      stopBackground,
+      cue,
+      duck,
+      setMuted,
+      isMuted: () => muted
+    };
+  }
+
   function mount(config) {
     const document = config.document || globalThis.document;
     if (!document || !config.anchor || typeof config.createSession !== 'function') return null;
@@ -110,7 +244,17 @@
     const exit = element(document, 'button', 'efn-practice__quiet', config.exitLabel || 'חזרה לכרטיסיות');
     exit.type = 'button';
     exit.dataset.analyticsLabel = 'practice-exit';
-    activityHeader.append(progress, exit);
+    const audio = createQuestAudio(config.audioHost || globalThis);
+    const audioToggle = element(document, 'button', 'efn-practice__quiet efn-practice__audio-toggle', '🔊 צלילים');
+    audioToggle.type = 'button';
+    audioToggle.dataset.analyticsLabel = 'practice-sound-toggle';
+    audioToggle.setAttribute('aria-pressed', 'true');
+    audioToggle.setAttribute('aria-label', 'כיבוי צלילי המשחק');
+    audioToggle.hidden = !config.blockQuest || !audio.supported;
+    const headerActions = element(document, 'div', 'efn-practice__header-actions');
+    if (config.blockQuest) headerActions.append(audioToggle);
+    headerActions.append(exit);
+    activityHeader.append(progress, headerActions);
     const questHud = element(document, 'div', 'efn-practice__quest-hud');
     questHud.hidden = !config.blockQuest;
     const score = element(document, 'div', 'efn-practice__score', '0 מטבעות');
@@ -152,7 +296,17 @@
     feedback.hidden = true;
     const feedbackTitle = element(document, 'strong', 'efn-practice__feedback-title');
     const feedbackText = element(document, 'span', 'efn-practice__feedback-text');
-    feedback.append(feedbackTitle, feedbackText);
+    const transition = element(document, 'div', 'efn-practice__transition');
+    transition.hidden = true;
+    transition.setAttribute('aria-hidden', 'true');
+    const transitionLabel = element(document, 'span', 'efn-practice__transition-label', 'בונה את השאלה הבאה…');
+    const transitionTrack = element(document, 'span', 'efn-practice__transition-track');
+    const transitionFill = element(document, 'span', 'efn-practice__transition-fill');
+    const transitionBlocks = element(document, 'span', 'efn-practice__transition-blocks');
+    for (let index = 0; index < 5; index += 1) transitionBlocks.append(element(document, 'i'));
+    transitionTrack.append(transitionFill, transitionBlocks);
+    transition.append(transitionLabel, transitionTrack);
+    feedback.append(feedbackTitle, feedbackText, transition);
     const next = element(document, 'button', 'efn-practice__primary efn-practice__next', 'לשאלה הבאה');
     next.type = 'button';
     next.dataset.analyticsLabel = 'practice-next';
@@ -185,6 +339,8 @@
     let rewardStreak = 0;
     let unlockedChests = 0;
     let questionStartedAt = 0;
+    let previousAnswerIndex = -1;
+    let skipQuestionCue = false;
     const chestThresholds = config.treasureChests || [25, 50, 100];
     const schedule = typeof config.setTimeout === 'function' ? config.setTimeout : globalThis.setTimeout?.bind(globalThis);
     const cancel = typeof config.clearTimeout === 'function' ? config.clearTimeout : globalThis.clearTimeout?.bind(globalThis);
@@ -268,6 +424,8 @@
 
     function showSummary() {
       clearAutoAdvance();
+      audio.stopBackground();
+      audio.cue('summary');
       const state = session.summary();
       activity.hidden = true;
       summary.hidden = false;
@@ -280,6 +438,10 @@
 
     function renderQuestion() {
       clearAutoAdvance();
+      section.classList.remove('is-advancing');
+      activity.classList.remove('is-question-entering');
+      void activity.offsetWidth;
+      activity.classList.add('is-question-entering');
       currentQuestion = session.next();
       if (!currentQuestion) {
         showSummary();
@@ -291,6 +453,7 @@
         : globalThis.performance?.now?.() ?? Date.now();
       feedback.hidden = true;
       feedback.classList.remove('is-positive', 'is-correction');
+      transition.hidden = true;
       next.hidden = true;
       mode.textContent = currentQuestion.modeLabel || 'ניסיון עצמאי';
       setTextParts(document, prompt, currentQuestion.promptParts, currentQuestion.prompt);
@@ -302,7 +465,14 @@
       clue.dir = currentQuestion.clueDir || (clue.lang === 'he' ? 'rtl' : 'ltr');
       speak.hidden = !currentQuestion.speakText || !('speechSynthesis' in globalThis);
       choices.replaceChildren();
-      currentQuestion.choices.forEach((choice, index) => {
+      const arranged = avoidRepeatedAnswerPosition(
+        currentQuestion.choices,
+        currentQuestion.answer,
+        previousAnswerIndex,
+        config.random || Math.random
+      );
+      previousAnswerIndex = arranged.answerIndex;
+      arranged.choices.forEach((choice, index) => {
         const button = element(document, 'button', 'efn-practice__choice', choice);
         button.type = 'button';
         button.dataset.analyticsLabel = 'practice-answer';
@@ -313,6 +483,8 @@
         if (index === 0) button.dataset.firstChoice = 'true';
       });
       syncProgress();
+      if (skipQuestionCue) skipQuestionCue = false;
+      else audio.cue('question');
       const firstChoice = choices.querySelector('[data-first-choice="true"]');
       if (firstChoice) firstChoice.focus({ preventScroll: true });
     }
@@ -358,17 +530,27 @@
       feedback.focus({ preventScroll: true });
       const delay = Number(config.autoAdvanceCorrectMs);
       if (result.correct && delay > 0 && schedule) {
+        section.classList.add('is-advancing');
+        transition.hidden = false;
+        if (transition.style?.setProperty) transition.style.setProperty('--advance-duration', `${delay}ms`);
+        else transition.style['--advance-duration'] = `${delay}ms`;
+        audio.cue('correct', { chestOpened: questState.openedNow });
         autoAdvanceTimer = schedule(() => {
           autoAdvanceTimer = null;
           renderQuestion();
         }, delay);
+      } else if (!result.correct) {
+        audio.cue('wrong');
       }
     }
 
     function begin() {
       session = config.createSession();
       resetQuest();
+      previousAnswerIndex = -1;
+      skipQuestionCue = true;
       setPlaying(true);
+      audio.start();
       measure('button_click', { target: 'practice-start', label: 'practice-start' });
       intro.hidden = true;
       summary.hidden = true;
@@ -384,8 +566,15 @@
       clearAutoAdvance();
       renderQuestion();
     });
+    audioToggle.addEventListener('click', () => {
+      const muted = audio.setMuted(!audio.isMuted());
+      audioToggle.textContent = muted ? '🔇 מושתק' : '🔊 צלילים';
+      audioToggle.setAttribute('aria-pressed', String(!muted));
+      audioToggle.setAttribute('aria-label', muted ? 'הפעלת צלילי המשחק' : 'כיבוי צלילי המשחק');
+    });
     function leave() {
       clearAutoAdvance();
+      audio.stop();
       activity.hidden = true;
       summary.hidden = true;
       intro.hidden = false;
@@ -399,9 +588,12 @@
       if (!currentQuestion?.speakText || !('speechSynthesis' in globalThis)) return;
       globalThis.EFNAnalyticsIgnoreNextAudio = true;
       globalThis.speechSynthesis.cancel();
+      audio.duck(true);
       const utterance = new SpeechSynthesisUtterance(currentQuestion.speakText);
       utterance.lang = 'en-US';
       utterance.rate = 0.82;
+      utterance.onend = () => audio.duck(false);
+      utterance.onerror = () => audio.duck(false);
       globalThis.speechSynthesis.speak(utterance);
     });
 
@@ -422,6 +614,8 @@
     multiplierForStreak,
     rewardForStreak,
     chestCountForPercent,
-    questFeedback
+    questFeedback,
+    avoidRepeatedAnswerPosition,
+    createQuestAudio
   };
 });

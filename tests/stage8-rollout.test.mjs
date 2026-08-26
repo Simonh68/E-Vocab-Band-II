@@ -168,7 +168,7 @@ test('the accessible panel mounts and completes a question without a browser dep
   });
 });
 
-test('a correct Band II answer gets positive feedback and advances automatically after 900 ms', () => {
+test('a correct Band II answer shows a build transition and advances after 1500 ms', () => {
   const head = new FakeElement('head');
   const document = {
     head,
@@ -188,7 +188,7 @@ test('a correct Band II answer gets positive feedback and advances automatically
     document,
     anchor,
     stylesheetHref: 'practice-shell.css',
-    autoAdvanceCorrectMs: 900,
+    autoAdvanceCorrectMs: 1500,
     correctNextLabel: 'הבא עכשיו',
     showProgressPercent: true,
     setTimeout(callback, delay) {
@@ -223,12 +223,66 @@ test('a correct Band II answer gets positive feedback and advances automatically
   assert.equal(byClass(controller.section, 'efn-practice__next').textContent, 'הבא עכשיו');
   assert.equal(byClass(controller.section, 'efn-practice__progress').attributes['aria-valuenow'], '25');
   assert.equal(byClass(controller.section, 'efn-practice__progress-fill').style.width, '25%');
-  assert.equal(scheduled.delay, 900);
+  const transition = byClass(controller.section, 'efn-practice__transition');
+  assert.equal(transition.hidden, false);
+  assert.equal(transition.style['--advance-duration'], '1500ms');
+  assert.equal(scheduled.delay, 1500);
   scheduled.callback();
   assert.equal(nextIndex, 2);
   assert.equal(cancelled, null);
   assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, true);
+  assert.equal(transition.hidden, true);
   assert.equal(byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].focused, true);
+});
+
+test('the correct answer never repeats the same display position twice in a row', () => {
+  const first = panelApi.avoidRepeatedAnswerPosition(['נכון', 'א', 'ב', 'ג'], 'נכון', -1, () => 0);
+  const second = panelApi.avoidRepeatedAnswerPosition(['נכון', 'א', 'ב', 'ג'], 'נכון', first.answerIndex, () => 0);
+  const third = panelApi.avoidRepeatedAnswerPosition(['א', 'נכון', 'ב', 'ג'], 'נכון', second.answerIndex, () => .99);
+  assert.equal(first.answerIndex, 0);
+  assert.notEqual(second.answerIndex, first.answerIndex);
+  assert.notEqual(third.answerIndex, second.answerIndex);
+  assert.equal(second.choices[second.answerIndex], 'נכון');
+  assert.equal(third.choices[third.answerIndex], 'נכון');
+});
+
+test('Block Quest audio starts only after play and can be muted without affecting gameplay', () => {
+  const events = [];
+  const audioParam = {
+    value: 0,
+    setValueAtTime() {},
+    exponentialRampToValueAtTime() {},
+    cancelScheduledValues() {},
+    setTargetAtTime() {}
+  };
+  class FakeAudioContext {
+    constructor() { this.currentTime = 0; this.destination = {}; this.state = 'running'; }
+    createGain() { return { gain: { ...audioParam }, connect() {} }; }
+    createOscillator() {
+      return {
+        frequency: { ...audioParam },
+        connect() {},
+        start() { events.push('tone'); },
+        stop() {}
+      };
+    }
+  }
+  const host = {
+    AudioContext: FakeAudioContext,
+    setInterval(callback, delay) { events.push(`loop:${delay}`); return { callback }; },
+    clearInterval() { events.push('loop:off'); }
+  };
+  const audio = panelApi.createQuestAudio(host);
+  assert.equal(audio.supported, true);
+  assert.deepEqual(events, []);
+  audio.start();
+  assert.ok(events.includes('loop:3200'));
+  assert.ok(events.includes('tone'));
+  audio.setMuted(true);
+  assert.equal(audio.isMuted(), true);
+  assert.ok(events.includes('loop:off'));
+  audio.setMuted(false);
+  assert.equal(audio.isMuted(), false);
 });
 
 test('Block Quest rewards grow exponentially and open three milestone chests', () => {
@@ -441,15 +495,25 @@ test('stage 4 keeps local progress loading gated by the Core I rollout configura
   assert.match(source, /root\.EFN_CORE1_PROGRESS/);
 });
 
-test('stage 6 preserves the full-screen Block Quest rewards around the adaptive pilot', async () => {
+test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback', async () => {
   const source = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
+  const panel = await readFile(new URL('../practice-panel.js', import.meta.url), 'utf8');
+  const styles = await readFile(new URL('../practice-shell.css', import.meta.url), 'utf8');
   assert.match(source, /blockQuest: true/);
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-stage6/);
+  assert.match(source, /practice-shell\.css\?v=20260826-stage7/);
+  assert.match(source, /autoAdvanceCorrectMs: 1500/);
   assert.match(source, /WORD FORGE ADAPTIVE/);
   assert.match(source, /config\.adaptive/);
+  assert.match(panel, /avoidRepeatedAnswerPosition/);
+  assert.match(panel, /createQuestAudio/);
+  assert.match(panel, /בונה את השאלה הבאה/);
+  assert.match(styles, /Noto Sans Hebrew/);
+  assert.match(styles, /quest-transition-fill/);
+  assert.match(styles, /\.efn-practice--block-quest \.efn-practice__prompt\s*\{[^}]*display: block/s);
+  assert.doesNotMatch(styles, /font-weight:\s*950/);
   assert.doesNotMatch(source, /ניסיון חוזר אחרי שתי שאלות אחרות|בדיקת זכירה בהקשר חדש|חיזוק ביניים/);
 });
 
@@ -716,9 +780,9 @@ test('stage 6 adaptive gameplay assets and the analytics privacy guard are cache
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   assert.match(activeGroup, /practice-session\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage6/);
+  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage7/);
   assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage6/);
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage6/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage7/);
   assert.match(activeGroup, /analytics\.js\?v=20260826-stage6-cachefix/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);

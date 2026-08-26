@@ -12,7 +12,8 @@
   color: #123b4a;
   background: linear-gradient(145deg, #fff, #dff7ff);
   box-shadow: 0 8px 0 #77bdd4, 0 22px 42px #176b8a2b;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
+  font-synthesis: none;
   scroll-margin-top: 16px;
   box-sizing: border-box;
 }
@@ -87,6 +88,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+}
+
+.efn-practice__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .efn-practice__progress {
@@ -260,6 +267,7 @@
   --quest-grass-dark: #236330;
   --quest-gold: #ffcf3f;
   --quest-coral: #f0714f;
+  font-family: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
   overflow: hidden;
   border: 4px solid #182530;
   border-radius: 6px;
@@ -298,9 +306,10 @@
   margin-top: 18px;
   color: #fff8cf;
   font-size: clamp(1.75rem, 6vw, 3.4rem);
-  font-weight: 950;
-  line-height: 1.04;
-  text-shadow: 3px 3px 0 #000;
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -.025em;
+  text-shadow: 0 2px 0 #0008;
 }
 
 .efn-practice--block-quest .efn-practice__description { max-width: 50ch; color: #dce9ec; font-weight: 700; }
@@ -315,7 +324,7 @@
   color: #201500;
   background: linear-gradient(#ffe36a 0 50%, var(--quest-gold) 50%);
   box-shadow: inset 0 3px #fff3a5, inset 0 -4px #b7770c, 0 5px 0 #5f3706;
-  font-weight: 950;
+  font-weight: 800;
 }
 
 .efn-practice--block-quest .efn-practice__quest-mark { display: flex; align-items: end; gap: 4px; margin: 18px 0 8px; }
@@ -360,6 +369,7 @@
     linear-gradient(135deg, #ffffff07 25%, transparent 25%) 0 0 / 32px 32px,
     linear-gradient(315deg, #ffffff05 25%, transparent 25%) 0 0 / 32px 32px,
     linear-gradient(180deg, #0d2a3d 0 52%, #09212f 52% 100%);
+  animation: quest-world-drift 24s linear infinite;
 }
 
 @supports (height: 100dvh) {
@@ -399,7 +409,12 @@
   color: #f5f7f8;
   background: #263a48;
   box-shadow: inset 0 3px #ffffff18, 0 4px 0 #081118;
-  font-weight: 900;
+  font-weight: 750;
+}
+
+.efn-practice--block-quest .efn-practice__audio-toggle {
+  min-width: 116px;
+  white-space: nowrap;
 }
 
 .efn-practice--block-quest .efn-practice__quest-hud {
@@ -419,7 +434,7 @@
   color: #241600;
   background: var(--quest-gold);
   box-shadow: inset 0 4px #fff0a1, inset 0 -5px #b56d0d, 0 5px 0 #050a0d;
-  font-weight: 950;
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
 .efn-practice--block-quest .efn-practice__multiplier {
@@ -507,10 +522,11 @@
   color: #dff7d9;
   background: #122532;
   font-size: .86rem;
-  letter-spacing: .02em;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 .efn-practice--block-quest .efn-practice__prompt {
-  display: grid;
+  display: block;
   min-height: 82px;
   place-items: center;
   margin: 0;
@@ -521,10 +537,23 @@
     linear-gradient(135deg, #ffffff0a 25%, transparent 25%) 0 0 / 24px 24px,
     linear-gradient(180deg, #334a5b, #223542);
   box-shadow: inset 0 4px #ffffff15, inset 0 -6px #111d25, 0 6px 0 #02080c;
-  font-size: clamp(1.45rem, 4.2vw, 2.75rem);
-  font-weight: 950;
+  font-size: clamp(1.4rem, 3.6vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -.025em;
   text-align: center;
-  text-shadow: 2px 2px #000;
+  text-shadow: 0 2px 0 #02080c;
+}
+.efn-practice--block-quest .efn-practice__prompt [lang="en"] {
+  display: inline-block;
+  margin-inline: .18em;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 1.16em;
+  font-weight: 800;
+  letter-spacing: .005em;
+}
+.efn-practice--block-quest .efn-practice__prompt [lang="he"] {
+  font-weight: 700;
 }
 .efn-practice--block-quest .efn-practice__clue {
   margin: 0;
@@ -547,7 +576,14 @@
     linear-gradient(180deg, var(--quest-stone-light), var(--quest-stone));
   box-shadow: inset 0 4px #ffffff16, inset 0 -6px #13212b, 0 6px 0 #03090d;
   font-size: clamp(1rem, 2.4vw, 1.35rem);
-  font-weight: 900;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -.012em;
+}
+.efn-practice--block-quest .efn-practice__choice[lang="en"] {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 .efn-practice--block-quest .efn-practice__choice:hover:not(:disabled),
 .efn-practice--block-quest .efn-practice__choice:focus-visible {
@@ -578,8 +614,69 @@
   background: #24532c;
   animation: quest-reward-pop .28s ease-out;
 }
-.efn-practice--block-quest .efn-practice__feedback-title { color: inherit; font-size: clamp(1.05rem, 2.5vw, 1.55rem); font-weight: 950; }
+.efn-practice--block-quest .efn-practice__feedback-title {
+  color: inherit;
+  font-size: clamp(1.05rem, 2.5vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: -.015em;
+}
 .efn-practice--block-quest .efn-practice__next { margin: 0; }
+.efn-practice__transition {
+  --advance-duration: 1500ms;
+  display: grid;
+  grid-template-columns: max-content minmax(120px, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.efn-practice__transition-label {
+  color: #d9f8cf;
+  font-size: .86rem;
+  font-weight: 700;
+}
+.efn-practice__transition-track {
+  position: relative;
+  display: block;
+  height: 16px;
+  overflow: hidden;
+  border: 2px solid #102716;
+  background: #102d18;
+  box-shadow: inset 0 2px #0008;
+}
+.efn-practice__transition-fill {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, #6ed55f 0 22px, #4caf46 22px 44px);
+  box-shadow: inset 0 3px #a6f18d;
+  transform: scaleX(0);
+  transform-origin: right center;
+  animation: quest-transition-fill var(--advance-duration) linear forwards;
+}
+.efn-practice__transition-blocks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-inline: 5px;
+}
+.efn-practice__transition-blocks i {
+  width: 8px;
+  height: 8px;
+  border: 1px solid #173b1d;
+  background: #d8ffc9;
+  box-shadow: 1px 1px 0 #173b1d;
+  animation: quest-block-hop .45s ease-in-out infinite alternate;
+}
+.efn-practice__transition-blocks i:nth-child(2) { animation-delay: .09s; }
+.efn-practice__transition-blocks i:nth-child(3) { animation-delay: .18s; }
+.efn-practice__transition-blocks i:nth-child(4) { animation-delay: .27s; }
+.efn-practice__transition-blocks i:nth-child(5) { animation-delay: .36s; }
+.efn-practice__activity.is-question-entering .efn-practice__prompt,
+.efn-practice__activity.is-question-entering .efn-practice__choices {
+  animation: quest-question-enter .34s ease-out both;
+}
+.efn-practice__activity.is-question-entering .efn-practice__choices { animation-delay: .06s; }
 
 .efn-practice--block-quest.is-playing .efn-practice__summary {
   display: grid;
@@ -604,7 +701,7 @@
   background: var(--quest-gold);
   box-shadow: inset 0 4px #fff3a1, 0 5px 0 #3d2304;
   font-size: clamp(1.05rem, 3vw, 1.5rem);
-  font-weight: 950;
+  font-weight: 800;
 }
 .efn-practice__summary-actions {
   display: flex;
@@ -621,6 +718,26 @@
   0% { transform: scale(.97); }
   65% { transform: scale(1.015); }
   100% { transform: scale(1); }
+}
+
+@keyframes quest-transition-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes quest-block-hop {
+  from { transform: translateY(2px); opacity: .65; }
+  to { transform: translateY(-2px); opacity: 1; }
+}
+
+@keyframes quest-question-enter {
+  from { opacity: .35; transform: translateY(8px); filter: brightness(.7); }
+  to { opacity: 1; transform: translateY(0); filter: brightness(1); }
+}
+
+@keyframes quest-world-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 80px 30px, 64px 32px, -64px 32px, 0 0; }
 }
 
 @media (max-width: 680px) {
@@ -641,6 +758,8 @@
   .efn-practice { padding: 16px 13px; border-radius: 19px; }
   .efn-practice__choices { grid-template-columns: 1fr; }
   .efn-practice__header { align-items: flex-start; flex-direction: column; }
+  .efn-practice__header-actions { width: 100%; }
+  .efn-practice__header-actions > * { flex: 1; }
   .efn-practice__quiet { align-self: stretch; }
   .efn-practice--block-quest { border-radius: 4px; }
   .efn-practice--block-quest.is-playing { padding: 6px; border-radius: 0; }
@@ -648,6 +767,7 @@
   .efn-practice--block-quest .efn-practice__quiet { min-height: 42px; align-self: center; }
   .efn-practice--block-quest .efn-practice__progress { min-width: 0; }
   .efn-practice--block-quest .efn-practice__speak { width: 100%; }
+  .efn-practice__transition { grid-template-columns: 1fr; gap: 5px; }
 }
 
 @media (max-width: 320px) {
@@ -668,6 +788,7 @@
     transition: none !important;
     animation: none !important;
   }
+  .efn-practice__transition-fill { transform: scaleX(1); }
 }
 
 @media (forced-colors: active) {

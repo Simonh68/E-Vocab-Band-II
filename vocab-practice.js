@@ -250,14 +250,14 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage6', base).href,
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage7', base).href,
       badge: config.adaptive ? 'CORE I · WORD FORGE ADAPTIVE' : 'CORE I · BLOCK QUEST',
       title: config.adaptive ? 'מסע עומק אדפטיבי' : 'מסע האוצר של אוצר המילים',
       description: config.adaptive
         ? 'עשר מילים בכל משימה מתוך כל 55 מילות הקבוצה: משמעות, שליפה והקשר. המסלול מתאים את עצמו ושומר את האוצר של שלב 5.'
         : 'עונים נכון, בונים רצף ופותחים שלוש תיבות אוצר. הרצף מכפיל את הפרס.',
       startLabel: 'יוצאים למסע',
-      autoAdvanceCorrectMs: 900,
+      autoAdvanceCorrectMs: 1500,
       correctNextLabel: 'הבא עכשיו',
       showProgressPercent: true,
       blockQuest: true,
