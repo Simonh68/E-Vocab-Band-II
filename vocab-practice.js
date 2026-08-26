@@ -250,13 +250,13 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage7', base).href,
-      badge: config.adaptive ? 'CORE I · WORD FORGE ADAPTIVE' : 'CORE I · BLOCK QUEST',
-      title: config.adaptive ? 'מסע עומק אדפטיבי' : 'מסע האוצר של אוצר המילים',
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage7-copy', base).href,
+      badge: config.adaptive ? 'CORE I · אוצר מילים באנגלית' : 'CORE I · BLOCK QUEST',
+      title: 'משחק אוצר המילים',
       description: config.adaptive
-        ? 'עשר מילים בכל משימה מתוך כל 55 מילות הקבוצה: משמעות, שליפה והקשר. המסלול מתאים את עצמו ושומר את האוצר של שלב 5.'
-        : 'עונים נכון, בונים רצף ופותחים שלוש תיבות אוצר. הרצף מכפיל את הפרס.',
-      startLabel: 'יוצאים למסע',
+        ? 'בוחרים את התשובה הנכונה, צוברים מטבעות ופותחים תיבות אוצר. המשחק מתאים את השאלות לקצב שלך.'
+        : 'בוחרים את התשובה הנכונה, צוברים מטבעות ופותחים שלוש תיבות אוצר.',
+      startLabel: 'מתחילים לשחק',
       autoAdvanceCorrectMs: 1500,
       correctNextLabel: 'הבא עכשיו',
       showProgressPercent: true,
