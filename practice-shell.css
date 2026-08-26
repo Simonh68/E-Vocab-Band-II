@@ -251,7 +251,7 @@
 .efn-practice--dark .efn-practice__feedback { color: #ffe8b0; background: #3c2b10; }
 .efn-practice--dark .efn-practice__feedback.is-positive { color: #baf5d7; background: #123a2b; }
 
-/* Stage 5: Block Quest is intentionally confined to the Core I practice config. */
+/* Stage 6 keeps the Stage 5 Block Quest shell and adds adaptive depth in Core I Group 01. */
 .efn-practice--block-quest {
   --quest-ink: #f6f3df;
   --quest-stone: #233443;

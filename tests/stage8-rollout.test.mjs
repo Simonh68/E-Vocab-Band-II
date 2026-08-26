@@ -388,6 +388,14 @@ test('vocabulary questions switch direction and keep the answer among unique cho
   assert.equal(primary.promptParts[1].text, records[0].en);
 });
 
+test('context questions use a cloze when possible and a real sentence for inflected expressions', () => {
+  assert.equal(vocabApi.contextPrompt({ en: 'lift', ex_en: 'Help me lift this chair.' }), 'Help me _____ this chair.');
+  assert.equal(
+    vocabApi.contextPrompt({ en: 'break down', ex_en: 'Our school bus broke down.' }),
+    'Which vocabulary item matches: “Our school bus broke down.”'
+  );
+});
+
 test('all forty group pages load the dormant rollout bundle', async () => {
   const names = (await readdir(new URL('../groups/', import.meta.url))).filter(name => /^group-\d{2}\.html$/.test(name));
   assert.equal(names.length, 40);
@@ -402,23 +410,26 @@ test('all forty group pages load the dormant rollout bundle', async () => {
   }
 });
 
-test('stage 4 activates tracked practice for Core I groups 01–20 and keeps RA-001', async () => {
+test('stage 6 activates adaptive Group 01 while preserving tracked practice and RA-001', async () => {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.equal(rollout.version, '2026-08-26-core1-progress-stage4');
+  assert.equal(rollout.version, '2026-08-26-core1-adaptive-stage6');
   assert.equal(Object.keys(rollout.vocabulary).length, 20);
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const config = rollout.vocabulary[`groups/group-${id}.html`];
-    assert.equal(config.limit, 12);
+    assert.equal(config.limit, group === 1 ? 10 : 12);
+    assert.equal(config.sourceLimit, group === 1 ? 55 : 12);
+    assert.equal(config.missionSize, group === 1 ? 10 : 12);
+    assert.equal(config.adaptive, group === 1);
     assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
     assert.equal(config.progressGroup, group);
   }
   assert.deepEqual(Object.keys(rollout.stories), ['l1-a1-new-student']);
   assert.equal(rollout.stories['l1-a1-new-student'].analyticsActivity, 'read-along-ra-001');
-  assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-01.html', rollout.vocabulary).limit, 12);
+  assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-01.html', rollout.vocabulary).sourceLimit, 55);
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-20.html', rollout.vocabulary).progressGroup, 20);
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-21.html', rollout.vocabulary), null);
 });
@@ -430,14 +441,75 @@ test('stage 4 keeps local progress loading gated by the Core I rollout configura
   assert.match(source, /root\.EFN_CORE1_PROGRESS/);
 });
 
-test('stage 5 enables Block Quest only through the twenty Core I practice configurations', async () => {
+test('stage 6 preserves the full-screen Block Quest rewards around the adaptive pilot', async () => {
   const source = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
   assert.match(source, /blockQuest: true/);
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-stage5/);
+  assert.match(source, /practice-shell\.css\?v=20260826-stage6/);
+  assert.match(source, /WORD FORGE ADAPTIVE/);
+  assert.match(source, /config\.adaptive/);
   assert.doesNotMatch(source, /ניסיון חוזר אחרי שתי שאלות אחרות|בדיקת זכירה בהקשר חדש|חיזוק ביניים/);
+});
+
+test('the Group 01 mission selector exposes every one of the 55 source records across six short rounds', () => {
+  const group = Array.from({ length: 55 }, (_, index) => ({ serial: index + 1 }));
+  const nextMission = vocabApi.createMissionSelector(group, 10, 55);
+  const rounds = Array.from({ length: 6 }, () => nextMission());
+  assert.ok(rounds.every(round => round.length === 10));
+  assert.equal(new Set(rounds.flat().map(record => record.serial)).size, 55);
+  assert.deepEqual(rounds[5].map(record => record.serial), [51, 52, 53, 54, 55, 1, 2, 3, 4, 5]);
+});
+
+test('adaptive routing opens retrieval after fast consecutive success and context otherwise', () => {
+  const session = sessionApi.createSession(records.slice(0, 4), {
+    limit: 4,
+    adaptive: true,
+    questionFactory: vocabApi.questionFactory
+  });
+  let question = session.next();
+  session.answer(question.answer, { responseTimeMs: 1800 });
+  assert.equal(session.debugQueue().find(entry => /word-0-review/.test(entry.key)).mode, 'context');
+  question = session.next();
+  session.answer(question.answer, { responseTimeMs: 1600 });
+  assert.equal(session.debugQueue().find(entry => /word-1-review/.test(entry.key)).mode, 'review');
+});
+
+test('adaptive support temporarily reduces the answer set after two recent errors', () => {
+  const session = sessionApi.createSession(records.slice(0, 5), {
+    limit: 5,
+    adaptive: true,
+    questionFactory: vocabApi.questionFactory
+  });
+  let question = session.next();
+  session.answer(question.choices.find(choice => choice !== question.answer));
+  question = session.next();
+  session.answer(question.choices.find(choice => choice !== question.answer));
+  question = session.next();
+  assert.equal(question.choices.length, 2);
+});
+
+test('an adaptive word is mastered only through two different learning depths', () => {
+  const session = sessionApi.createSession(records.slice(0, 3), {
+    limit: 3,
+    adaptive: true,
+    questionFactory: vocabApi.questionFactory
+  });
+  let question;
+  let answers = 0;
+  while ((question = session.next())) {
+    session.answer(question.answer, { responseTimeMs: 2400 });
+    answers += 1;
+    assert.ok(answers < 80, 'adaptive queue did not terminate');
+  }
+  assert.deepEqual(session.summary(), {
+    firstTry: 3,
+    corrected: 0,
+    unresolved: 0,
+    total: 3,
+    answered: answers
+  });
 });
 
 test('the Core I loader resolves the progress module from the local site root', async () => {
@@ -640,12 +712,13 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('stage 5 gameplay assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
+test('stage 6 adaptive gameplay assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
-  assert.match(activeGroup, /practice-session\.js\?v=20260826-fast-feedback/);
-  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage5/);
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage5/);
+  assert.match(activeGroup, /practice-session\.js\?v=20260826-stage6/);
+  assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage6/);
+  assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage6/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage6/);
   assert.match(activeGroup, /analytics\.js\?v=20260825-stage9/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);

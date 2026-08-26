@@ -26,7 +26,8 @@
     const states = selected.map(() => ({
       initialCorrect: null,
       correctCount: 0,
-      wrongCount: 0
+      wrongCount: 0,
+      signals: new Set()
     }));
     let queue = selected.map((record, index) => ({
       index,
@@ -38,6 +39,8 @@
     let currentEntry = null;
     let currentQuestion = null;
     let answerCount = 0;
+    let correctStreak = 0;
+    let recentResults = [];
 
     function makeFiller(sourceIndex, fillerIndex) {
       let index = (sourceIndex + fillerIndex + 1) % selected.length;
@@ -63,6 +66,7 @@
         phase: currentEntry.phase,
         filler: currentEntry.filler,
         state: { ...states[currentEntry.index] },
+        choiceCount: options.adaptive && recentResults.slice(-4).filter(result => !result).length >= 2 ? 2 : 4,
         seed: numericSeed(`${currentEntry.key}-${answerCount}`)
       });
       if (!currentQuestion || !Array.isArray(currentQuestion.choices) || !currentQuestion.choices.length) {
@@ -74,7 +78,7 @@
       return currentQuestion;
     }
 
-    function answer(selectedAnswer) {
+    function answer(selectedAnswer, answerContext = {}) {
       if (!currentEntry || !currentQuestion) throw new Error('Call next() before answer().');
       const entry = currentEntry;
       const question = currentQuestion;
@@ -82,18 +86,28 @@
       const correct = selectedAnswer === question.answer;
       let willReturn = false;
       answerCount += 1;
+      recentResults.push(correct);
+      recentResults = recentResults.slice(-6);
 
       if (!entry.filler) {
         if (entry.phase === 'initial' && state.initialCorrect === null) {
           state.initialCorrect = correct;
         }
         if (correct) {
-          state.correctCount += 1;
+          correctStreak += 1;
+          state.signals.add(entry.mode);
+          state.correctCount = options.adaptive ? state.signals.size : state.correctCount + 1;
           if (state.correctCount < 2) {
+            const responseTimeMs = Math.max(0, Number(answerContext.responseTimeMs) || 0);
+            const nextMode = options.adaptive
+              ? entry.mode === 'primary'
+                ? responseTimeMs > 0 && responseTimeMs < 5200 && correctStreak >= 2 ? 'review' : 'context'
+                : 'primary'
+              : entry.mode === 'primary' ? 'review' : 'primary';
             const reviewEntry = {
               ...entry,
-              mode: entry.mode === 'primary' ? 'review' : 'primary',
-              phase: 'review',
+              mode: nextMode,
+              phase: options.adaptive ? 'depth' : 'review',
               filler: false,
               key: `${entry.key}-review-${state.correctCount}`
             };
@@ -106,9 +120,11 @@
             willReturn = true;
           }
         } else {
+          correctStreak = 0;
           state.wrongCount += 1;
           const retryEntry = {
             ...entry,
+            mode: options.adaptive ? 'primary' : entry.mode,
             phase: 'retry',
             filler: false,
             key: `${entry.key}-retry-${state.wrongCount}`

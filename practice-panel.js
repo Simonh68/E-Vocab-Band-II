@@ -184,6 +184,7 @@
     let rewardScore = 0;
     let rewardStreak = 0;
     let unlockedChests = 0;
+    let questionStartedAt = 0;
     const chestThresholds = config.treasureChests || [25, 50, 100];
     const schedule = typeof config.setTimeout === 'function' ? config.setTimeout : globalThis.setTimeout?.bind(globalThis);
     const cancel = typeof config.clearTimeout === 'function' ? config.clearTimeout : globalThis.clearTimeout?.bind(globalThis);
@@ -285,6 +286,9 @@
         return;
       }
       answered = false;
+      questionStartedAt = typeof config.now === 'function'
+        ? config.now()
+        : globalThis.performance?.now?.() ?? Date.now();
       feedback.hidden = true;
       feedback.classList.remove('is-positive', 'is-correction');
       next.hidden = true;
@@ -316,7 +320,10 @@
     function submit(value, selectedButton) {
       if (answered) return;
       answered = true;
-      const result = session.answer(value);
+      const answeredAt = typeof config.now === 'function'
+        ? config.now()
+        : globalThis.performance?.now?.() ?? Date.now();
+      const result = session.answer(value, { responseTimeMs: Math.max(0, answeredAt - questionStartedAt) });
       let rewardEvent = null;
       if (config.exponentialFeedback) {
         if (result.correct) {

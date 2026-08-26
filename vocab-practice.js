@@ -40,50 +40,78 @@
     return output;
   }
 
-  function choicesFor(records, correct, selector, seed) {
+  function choicesFor(records, correct, selector, seed, count = 4) {
     const unique = [];
     for (const record of records) {
       const value = clean(selector(record));
       if (value && value !== correct && !unique.includes(value)) unique.push(value);
     }
-    const distractors = seededShuffle(unique, seed).slice(0, 3);
+    const safeCount = Math.max(2, Math.min(4, Number(count) || 4));
+    const distractors = seededShuffle(unique, seed).slice(0, safeCount - 1);
     return seededShuffle([correct, ...distractors], seed + 17);
+  }
+
+  function contextPrompt(record) {
+    const english = clean(record.en);
+    const example = clean(record.ex_en);
+    if (!example) return `Complete: _____ (${clean(record.mean_he)})`;
+    const escaped = english.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const hidden = example.replace(new RegExp(escaped, 'i'), '_____');
+    return hidden === example ? `Which vocabulary item matches: “${example}”` : hidden;
   }
 
   function questionFactory(record, context) {
     const english = clean(record.en);
     const hebrew = clean(record.mean_he);
     const reverse = context.mode === 'review';
-    const answer = reverse ? english : hebrew;
-    const choices = reverse
-      ? choicesFor(context.records, answer, item => item.en, context.seed)
-      : choicesFor(context.records, answer, item => item.mean_he, context.seed);
-    const prompt = reverse ? `איזו מילה מתאימה למשמעות: ${hebrew}?` : `מה פירוש המילה ${english}?`;
+    const inContext = context.mode === 'context';
+    const answer = reverse || inContext ? english : hebrew;
+    const choices = reverse || inContext
+      ? choicesFor(context.records, answer, item => item.en, context.seed, context.choiceCount)
+      : choicesFor(context.records, answer, item => item.mean_he, context.seed, context.choiceCount);
+    const prompt = inContext
+      ? contextPrompt(record)
+      : reverse
+        ? `איזו מילה מתאימה למשמעות: ${hebrew}?`
+        : `מה פירוש המילה ${english}?`;
     return {
       prompt,
-      promptParts: reverse ? null : [
+      promptParts: reverse || inContext ? null : [
         { text: 'מה פירוש המילה ', lang: 'he', dir: 'rtl' },
         { text: english, lang: 'en', dir: 'ltr' },
         { text: '?', lang: 'he', dir: 'rtl' }
       ],
-      promptLang: 'he',
-      promptDir: 'rtl',
+      promptLang: inContext ? 'en' : 'he',
+      promptDir: inContext ? 'ltr' : 'rtl',
       clue: reverse && record.ex_en ? `רמז בהקשר: ${record.ex_en}` : '',
       clueLang: 'en',
       clueDir: 'ltr',
       choices,
       answer,
-      choiceLang: reverse ? 'en' : 'he',
-      choiceDir: reverse ? 'ltr' : 'rtl',
+      choiceLang: reverse || inContext ? 'en' : 'he',
+      choiceDir: reverse || inContext ? 'ltr' : 'rtl',
       speakText: english,
       modeLabel: context.phase === 'retry'
         ? 'מסלול תיקון'
-        : context.mode === 'review'
+        : context.mode === 'context'
+          ? 'שער ההקשר'
+          : context.mode === 'review'
           ? 'שער הזכירה'
           : context.filler
             ? 'איסוף בלוקים'
             : 'האתגר הראשי',
       meta: { record, context }
+    };
+  }
+
+  function createMissionSelector(records, missionSize = 10, sourceLimit = records.length) {
+    const pool = records.slice(0, Math.max(2, Math.min(records.length, Number(sourceLimit) || records.length)));
+    const size = Math.max(2, Math.min(pool.length, Number(missionSize) || 10));
+    let offset = 0;
+    return () => {
+      const mission = Array.from({ length: size }, (_, index) => pool[(offset + index) % pool.length]);
+      offset = (offset + size) % pool.length;
+      return mission;
     };
   }
 
@@ -207,6 +235,11 @@
     if (!anchor || root.document.querySelector('.efn-practice')) return null;
     const base = scriptUrl ? new URL('.', scriptUrl) : new URL('.', root.location.href);
     const expectedSerials = root.EFN_PAGE_WORDS.map(record => record.serial);
+    const nextMission = createMissionSelector(
+      root.EFN_PAGE_WORDS,
+      config.missionSize || config.limit,
+      config.sourceLimit || config.limit
+    );
     const progressTracker = config.progressGroup
       ? createProgressTracker(root.EFN_CORE1_PROGRESS || progressApi, root, {
         group: config.progressGroup,
@@ -217,10 +250,12 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage5', base).href,
-      badge: 'CORE I · BLOCK QUEST',
-      title: 'מסע האוצר של אוצר המילים',
-      description: 'עונים נכון, בונים רצף ופותחים שלוש תיבות אוצר. הרצף מכפיל את הפרס.',
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage6', base).href,
+      badge: config.adaptive ? 'CORE I · WORD FORGE ADAPTIVE' : 'CORE I · BLOCK QUEST',
+      title: config.adaptive ? 'מסע עומק אדפטיבי' : 'מסע האוצר של אוצר המילים',
+      description: config.adaptive
+        ? 'עשר מילים בכל משימה מתוך כל 55 מילות הקבוצה: משמעות, שליפה והקשר. המסלול מתאים את עצמו ושומר את האוצר של שלב 5.'
+        : 'עונים נכון, בונים רצף ופותחים שלוש תיבות אוצר. הרצף מכפיל את הפרס.',
       startLabel: 'יוצאים למסע',
       autoAdvanceCorrectMs: 900,
       correctNextLabel: 'הבא עכשיו',
@@ -232,9 +267,10 @@
       treasureChests: [25, 50, 100],
       analyticsActivity: config.analyticsActivity,
       createSession: () => withProgressTracking(
-        sessionApi.createSession(root.EFN_PAGE_WORDS, {
-          limit: config.limit,
-          questionFactory
+        sessionApi.createSession(nextMission(), {
+          limit: config.missionSize || config.limit,
+          questionFactory,
+          adaptive: Boolean(config.adaptive)
         }),
         progressTracker
       ),
@@ -248,6 +284,8 @@
     rolloutFor,
     seededShuffle,
     choicesFor,
+    contextPrompt,
+    createMissionSelector,
     questionFactory,
     formatFeedback,
     progressSignalFor,
