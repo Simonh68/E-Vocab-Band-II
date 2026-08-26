@@ -212,3 +212,13 @@
   new MutationObserver((mutations) => mutations.forEach((mutation) => { inspect(mutation.target); mutation.addedNodes.forEach(inspect); })).observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
   window.addEventListener('ebr:progress', (event) => { const activity = event.detail?.activity; if (activity) send('activity_complete', { outcome: String(activity).slice(0, 40) }); });
 })();
+
+(() => {
+  if (typeof document === "undefined") return;
+  const source = document.currentScript?.src;
+  if (!source || document.querySelector("script[data-efn-ownership-loader]")) return;
+  const script = document.createElement("script");
+  script.src = new URL("ownership.js?v=1", source).href;
+  script.dataset.efnOwnershipLoader = "true";
+  document.head.appendChild(script);
+})();
