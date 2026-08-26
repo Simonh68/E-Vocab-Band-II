@@ -38,7 +38,7 @@
     if (!document || !config.anchor || typeof config.createSession !== 'function') return null;
     loadStyles(document, config.stylesheetHref);
 
-    const section = element(document, 'section', `efn-practice${config.theme === 'dark' ? ' efn-practice--dark' : ''}`);
+    const section = element(document, 'section', `efn-practice${config.theme === 'dark' ? ' efn-practice--dark' : ''}${config.autoAdvanceCorrectMs ? ' efn-practice--fast-feedback' : ''}`);
     section.lang = 'he';
     section.dir = 'rtl';
     section.dataset.analyticsIgnore = 'true';
@@ -57,7 +57,18 @@
     const activity = element(document, 'div', 'efn-practice__activity');
     activity.hidden = true;
     const activityHeader = element(document, 'div', 'efn-practice__header');
-    const progress = element(document, 'div', 'efn-practice__progress', '0 / 0');
+    const progress = element(document, 'div', 'efn-practice__progress');
+    progress.setAttribute('role', 'progressbar');
+    progress.setAttribute('aria-valuemin', '0');
+    progress.setAttribute('aria-valuemax', '100');
+    progress.setAttribute('aria-valuenow', '0');
+    const progressText = element(document, 'span', 'efn-practice__progress-text', config.showProgressPercent ? 'התקדמות 0%' : '0 מתוך 0 נלמדו');
+    const progressTrack = element(document, 'span', 'efn-practice__progress-track');
+    const progressFill = element(document, 'span', 'efn-practice__progress-fill');
+    progressTrack.setAttribute('aria-hidden', 'true');
+    progressTrack.append(progressFill);
+    progress.append(progressText);
+    if (config.showProgressPercent) progress.append(progressTrack);
     const exit = element(document, 'button', 'efn-practice__quiet', config.exitLabel || 'חזרה לכרטיסיות');
     exit.type = 'button';
     exit.dataset.analyticsLabel = 'practice-exit';
@@ -100,6 +111,15 @@
     let session = null;
     let currentQuestion = null;
     let answered = false;
+    let autoAdvanceTimer = null;
+    const schedule = typeof config.setTimeout === 'function' ? config.setTimeout : globalThis.setTimeout?.bind(globalThis);
+    const cancel = typeof config.clearTimeout === 'function' ? config.clearTimeout : globalThis.clearTimeout?.bind(globalThis);
+
+    function clearAutoAdvance() {
+      if (autoAdvanceTimer == null) return;
+      if (cancel) cancel(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
 
     function measure(event, context = {}) {
       const analytics = config.analytics || globalThis.EFNAnalytics;
@@ -109,10 +129,26 @@
 
     function syncProgress() {
       const state = session.progress();
-      progress.textContent = `${state.mastered} מתוך ${state.total} נלמדו`;
+      if (!config.showProgressPercent) {
+        progressText.textContent = `${state.mastered} מתוך ${state.total} נלמדו`;
+        progress.setAttribute('aria-valuemax', String(state.total));
+        progress.setAttribute('aria-valuenow', String(state.mastered));
+        progress.setAttribute('aria-valuetext', progressText.textContent);
+        return;
+      }
+      const percent = Number.isFinite(state.progressPercent)
+        ? Math.max(0, Math.min(100, state.progressPercent))
+        : state.total
+          ? Math.round((state.mastered / state.total) * 100)
+          : 0;
+      progressText.textContent = `התקדמות ${percent}%`;
+      progressFill.style.width = `${percent}%`;
+      progress.setAttribute('aria-valuenow', String(percent));
+      progress.setAttribute('aria-valuetext', `התקדמות ${percent} אחוזים`);
     }
 
     function showSummary() {
+      clearAutoAdvance();
       const state = session.summary();
       activity.hidden = true;
       summary.hidden = false;
@@ -123,6 +159,7 @@
     }
 
     function renderQuestion() {
+      clearAutoAdvance();
       currentQuestion = session.next();
       if (!currentQuestion) {
         showSummary();
@@ -172,9 +209,18 @@
       feedback.classList.add(result.correct ? 'is-positive' : 'is-correction');
       feedback.hidden = false;
       next.hidden = false;
-      next.textContent = result.willReturn ? 'המשך — נחזור לזה בזמן הנכון' : 'לשאלה הבאה';
+      next.textContent = result.correct && config.correctNextLabel
+        ? config.correctNextLabel
+        : 'לשאלה הבאה';
       syncProgress();
       feedback.focus({ preventScroll: true });
+      const delay = Number(config.autoAdvanceCorrectMs);
+      if (result.correct && delay > 0 && schedule) {
+        autoAdvanceTimer = schedule(() => {
+          autoAdvanceTimer = null;
+          renderQuestion();
+        }, delay);
+      }
     }
 
     function begin() {
@@ -190,8 +236,12 @@
 
     start.addEventListener('click', begin);
     again.addEventListener('click', begin);
-    next.addEventListener('click', renderQuestion);
+    next.addEventListener('click', () => {
+      clearAutoAdvance();
+      renderQuestion();
+    });
     exit.addEventListener('click', () => {
+      clearAutoAdvance();
       activity.hidden = true;
       summary.hidden = true;
       intro.hidden = false;

@@ -93,7 +93,6 @@
     const exampleHe = clean(record.ex_he);
     if (!result.correct) {
       const evidence = example ? ` דוגמה: ${example}${exampleHe ? ` — ${exampleHe}` : ''}` : '';
-      const suffix = result.entry.filler ? ' זהו חיזוק ביניים; ממשיכים לשאלה הבאה.' : ' נחזור למילה אחרי שתי שאלות אחרות.';
       const parts = [
         { text: clean(record.en), lang: 'en', dir: 'ltr' },
         { text: ` פירושו ${clean(record.mean_he)}.`, lang: 'he', dir: 'rtl' }
@@ -103,23 +102,13 @@
         parts.push({ text: example, lang: 'en', dir: 'ltr' });
         if (exampleHe) parts.push({ text: ` — ${exampleHe}`, lang: 'he', dir: 'rtl' });
       }
-      parts.push({ text: suffix, lang: 'he', dir: 'rtl' });
       return {
         title: 'כמעט — הנה ההסבר.',
-        text: `${clean(record.en)} פירושו ${clean(record.mean_he)}.${evidence}${suffix}`,
+        text: `${clean(record.en)} פירושו ${clean(record.mean_he)}.${evidence}`,
         parts
       };
     }
-    if (result.entry.filler) {
-      return { title: 'נכון — חיזוק ביניים.', text: 'ממשיכים לשאלה הבאה.' };
-    }
-    if (result.mastered && result.state.initialCorrect === false) {
-      return { title: 'נכון — תיקנת בעזרת המשוב.', text: 'המילה נבדקה שוב ונקלטה בסבב הזה.' };
-    }
-    if (result.mastered) {
-      return { title: 'נכון — הזכירה נבדקה שוב.', text: 'אפשר להמשיך למילה הבאה.' };
-    }
-    return { title: 'נכון.', text: 'נבדוק את המילה שוב בעוד ארבע עד שש שאלות, בניסוח אחר.' };
+    return { title: 'מעולה! ✓', text: 'תשובה נכונה.' };
   }
 
   function progressSignalFor(result) {
@@ -228,11 +217,14 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css', base).href,
+      stylesheetHref: new URL('practice-shell.css?v=20260826-fast-feedback', base).href,
       badge: 'גל 1 · תרגול מדורג',
       title: 'תרגול עם משוב בעברית',
       description: '12 מילים בסבב: ניסיון עצמאי, משוב מיידי, ניסיון חוזר ובדיקת זכירה.',
       startLabel: 'מתחילים 12 מילים',
+      autoAdvanceCorrectMs: 900,
+      correctNextLabel: 'הבא עכשיו',
+      showProgressPercent: true,
       analyticsActivity: config.analyticsActivity,
       createSession: () => withProgressTracking(
         sessionApi.createSession(root.EFN_PAGE_WORDS, {

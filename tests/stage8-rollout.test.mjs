@@ -48,6 +48,7 @@ class FakeElement {
     this.className = '';
     this.hidden = false;
     this.textContent = '';
+    this.style = {};
     this.classList = {
       values: new Set(),
       add: (...names) => names.forEach(name => this.classList.values.add(name)),
@@ -167,6 +168,69 @@ test('the accessible panel mounts and completes a question without a browser dep
   });
 });
 
+test('a correct Band II answer gets positive feedback and advances automatically after 900 ms', () => {
+  const head = new FakeElement('head');
+  const document = {
+    head,
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const anchor = new FakeElement('div');
+  const questions = [
+    { prompt: 'word0', choices: ['פירוש 0', 'פירוש 1'], answer: 'פירוש 0', meta: { record: records[0] } },
+    { prompt: 'word1', choices: ['פירוש 1', 'פירוש 0'], answer: 'פירוש 1', meta: { record: records[1] } }
+  ];
+  let nextIndex = 0;
+  let correctSignals = 0;
+  let scheduled = null;
+  let cancelled = null;
+  const controller = panelApi.mount({
+    document,
+    anchor,
+    stylesheetHref: 'practice-shell.css',
+    autoAdvanceCorrectMs: 900,
+    correctNextLabel: 'הבא עכשיו',
+    showProgressPercent: true,
+    setTimeout(callback, delay) {
+      scheduled = { callback, delay };
+      return 17;
+    },
+    clearTimeout(id) { cancelled = id; },
+    createSession: () => ({
+      next: () => questions[nextIndex++] || null,
+      answer: selectedAnswer => {
+        const correct = selectedAnswer === questions[nextIndex - 1].answer;
+        if (correct) correctSignals += 1;
+        return {
+          correct,
+          question: questions[nextIndex - 1],
+          entry: { filler: false },
+          state: { initialCorrect: true },
+          willReturn: true,
+          mastered: false
+        };
+      },
+      progress: () => ({ mastered: 0, total: 2, progressPercent: correctSignals * 25 }),
+      summary: () => ({ firstTry: 0, corrected: 0, unresolved: 2 })
+    }),
+    formatFeedback: vocabApi.formatFeedback
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  const choices = byClass(controller.section, 'efn-practice__choices').querySelectorAll('button');
+  choices[0].listeners.click();
+  assert.equal(byClass(controller.section, 'efn-practice__feedback-title').textContent, 'מעולה! ✓');
+  assert.equal(byClass(controller.section, 'efn-practice__next').textContent, 'הבא עכשיו');
+  assert.equal(byClass(controller.section, 'efn-practice__progress').attributes['aria-valuenow'], '25');
+  assert.equal(byClass(controller.section, 'efn-practice__progress-fill').style.width, '25%');
+  assert.equal(scheduled.delay, 900);
+  scheduled.callback();
+  assert.equal(nextIndex, 2);
+  assert.equal(cancelled, null);
+  assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, true);
+  assert.equal(byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].focused, true);
+});
+
 test('a wrong answer schedules the same item after exactly two intervening entries', () => {
   const session = sessionApi.createSession(records, { limit: 6, questionFactory: basicQuestionFactory });
   const question = session.next();
@@ -182,6 +246,7 @@ test('a correct answer schedules review after four to six entries', () => {
   const session = sessionApi.createSession(records, { limit: 8, questionFactory: basicQuestionFactory });
   const question = session.next();
   session.answer(question.answer);
+  assert.equal(session.progress().progressPercent, 6);
   const reviewIndex = session.debugQueue().findIndex(entry => /word-0-review/.test(entry.key));
   assert.ok(reviewIndex >= 4);
   assert.ok(reviewIndex <= 6);
@@ -229,16 +294,29 @@ test('short queues receive filler questions so spacing is preserved', () => {
   assert.ok(queue.filter(entry => entry.filler).length >= 3);
 });
 
-test('filler feedback does not promise an unscheduled return', () => {
+test('wrong feedback explains the answer without exposing scheduling language', () => {
   const result = {
     correct: false,
     entry: { filler: true },
     question: { meta: { record: records[0] } }
   };
   const feedback = vocabApi.formatFeedback(result);
-  assert.doesNotMatch(feedback.text, /נחזור/);
-  assert.match(feedback.text, /חיזוק ביניים/);
+  assert.doesNotMatch(feedback.text, /נחזור|נבדוק|שאלות|חיזוק ביניים/);
+  assert.match(feedback.text, /פירושו/);
   assert.ok(feedback.parts.some(part => part.lang === 'en'));
+});
+
+test('correct feedback is brief, positive and contains no pedagogical scheduling text', () => {
+  const feedback = vocabApi.formatFeedback({
+    correct: true,
+    entry: { filler: false },
+    mastered: false,
+    state: { initialCorrect: true },
+    question: { meta: { record: records[0] } }
+  });
+  assert.match(feedback.title, /מעולה/);
+  assert.match(feedback.text, /תשובה נכונה/);
+  assert.doesNotMatch(`${feedback.title} ${feedback.text}`, /נחזור|נבדוק|שאלות/);
 });
 
 test('vocabulary questions switch direction and keep the answer among unique choices', () => {
@@ -496,10 +574,12 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('stage 4 practice assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
+test('fast feedback assets and the analytics privacy guard are cache-busted on rollout pages', async () => {
   const activeGroup = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
-  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage4/);
+  assert.match(activeGroup, /practice-session\.js\?v=20260826-fast-feedback/);
+  assert.match(activeGroup, /practice-panel\.js\?v=20260826-fast-feedback/);
+  assert.match(activeGroup, /vocab-practice\.js\?v=20260826-fast-feedback/);
   assert.match(activeGroup, /analytics\.js\?v=20260825-stage9/);
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
   assert.match(reader, /analytics\.js\?v=20260825-stage9/);

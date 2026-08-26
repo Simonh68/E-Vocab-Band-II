@@ -137,11 +137,14 @@
     }
 
     function progress() {
+      const correctSignals = states.reduce((total, state) => total + Math.min(2, state.correctCount), 0);
+      const targetSignals = states.length * 2;
       return {
         mastered: states.filter(state => state.correctCount >= 2).length,
         total: states.length,
         answered: answerCount,
-        remaining: queue.length + (currentEntry ? 1 : 0)
+        remaining: queue.length + (currentEntry ? 1 : 0),
+        progressPercent: targetSignals ? Math.round((correctSignals / targetSignals) * 100) : 0
       };
     }
 
