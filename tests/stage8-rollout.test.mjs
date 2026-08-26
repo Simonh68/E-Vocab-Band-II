@@ -557,10 +557,10 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
   assert.match(source, /practice-shell\.css\?v=20260826-stage8/);
   assert.match(source, /autoAdvanceCorrectMs: 1500/);
-  assert.match(source, /CORE I · אוצר מילים באנגלית/);
+  assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
-  assert.match(source, /מוצאים מילים · אוספים מטבעות · פותחים אוצר/);
-  assert.match(source, /הכול נשאר במכשיר/);
+  assert.match(source, /10 מילים · 3 תיבות/);
+  assert.match(source, /נשאר במכשיר/);
   assert.match(source, /מתחילים לשחק/);
   assert.doesNotMatch(source, /מסע עומק אדפטיבי|לצלול|לדוג מילים/);
   assert.match(source, /config\.adaptive/);
