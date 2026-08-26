@@ -292,7 +292,8 @@ test('Block Quest rewards grow exponentially and open three milestone chests', (
   assert.deepEqual([1, 2, 3, 4].map(streak => panelApi.rewardForStreak(streak)), [10, 20, 40, 80]);
   assert.deepEqual([0, 24, 25, 49, 50, 99, 100].map(percent => panelApi.chestCountForPercent(percent)), [0, 0, 1, 1, 2, 2, 3]);
   assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /×8/);
-  assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /תיבת אוצר/);
+  assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /אוצר/);
+  assert.doesNotMatch(panelApi.questFeedback({ streak: 1, multiplier: 1, reward: 10, chestOpened: false }), /מטבעות/);
 });
 
 test('the Core I panel enters a full-screen Block Quest and keeps rewards session-only', () => {
@@ -311,6 +312,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
     document,
     anchor,
     stylesheetHref: 'practice-shell.css?v=20260826-stage5',
+    treasureAssetHref: 'assets/game/treasure-chest-coins-3d.png',
     blockQuest: true,
     immersive: true,
     exponentialFeedback: true,
@@ -339,9 +341,11 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
       .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'))
       .every(node => node.attributes['aria-label'] && node.attributes.title)
   );
-  assert.ok(byClass(controller.section, 'efn-practice__lost-chest'));
-  assert.ok(byClass(controller.section, 'efn-practice__lost-chest-coins'));
+  assert.equal(byClass(controller.section, 'efn-practice__lost-chest').tagName, 'IMG');
+  assert.equal(byClass(controller.section, 'efn-practice__lost-chest').attributes.src, 'assets/game/treasure-chest-coins-3d.png');
+  assert.ok(byClass(controller.section, 'efn-practice__question-bar'));
   byClass(controller.section, 'efn-practice__primary').listeners.click();
+  assert.equal(byClass(controller.section, 'efn-practice__mode').textContent, 'ניסיון עצמאי');
   assert.ok(controller.section.classList.values.has('is-playing'));
   assert.ok(body.classList.values.has('efn-practice-is-playing'));
   byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
@@ -351,17 +355,10 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   assert.equal(byClass(controller.section, 'efn-practice__score').textContent, '');
   assert.equal(byClass(controller.section, 'efn-practice__score-value').textContent, '10');
   assert.equal(byClass(controller.section, 'efn-practice__coin').attributes['aria-hidden'], 'true');
-  assert.equal(byClass(controller.section, 'efn-practice__coin').children.length, 3);
-  assert.deepEqual(
-    byClass(controller.section, 'efn-practice__coin').children.map(node => node.className),
-    [
-      'efn-practice__coin-piece efn-practice__coin-piece--rear',
-      'efn-practice__coin-piece efn-practice__coin-piece--middle',
-      'efn-practice__coin-piece efn-practice__coin-piece--front'
-    ]
-  );
+  assert.equal(byClass(controller.section, 'efn-practice__coin').tagName, 'IMG');
+  assert.equal(byClass(controller.section, 'efn-practice__coin').attributes.src, 'assets/game/treasure-chest-coins-3d.png');
   assert.equal(byClass(controller.section, 'efn-practice__score').attributes['aria-label'], 'נאספו 10 מטבעות');
-  assert.match(byClass(controller.section, 'efn-practice__feedback-title').textContent, /תיבת אוצר/);
+  assert.match(byClass(controller.section, 'efn-practice__feedback-title').textContent, /אוצר/);
   assert.equal(byClass(controller.section, 'efn-practice__treasure-map').attributes['aria-label'], '1 מתוך 3 תיבות אוצר נפתחו');
   byClass(controller.section, 'efn-practice__next').listeners.click();
   assert.equal(byClass(controller.section, 'efn-practice__summary').hidden, false);
@@ -472,13 +469,16 @@ test('vocabulary questions switch direction and keep the answer among unique cho
   assert.deepEqual(primary.promptParts, [{ text: records[0].en, lang: 'en', dir: 'ltr' }]);
   assert.equal(primary.promptLang, 'en');
   assert.equal(primary.promptDir, 'ltr');
+  assert.equal(review.prompt, records[0].mean_he);
+  assert.deepEqual(review.promptParts, [{ text: records[0].mean_he, lang: 'he', dir: 'rtl' }]);
+  assert.equal(review.clue, '');
 });
 
 test('context questions use a cloze when possible and a real sentence for inflected expressions', () => {
   assert.equal(vocabApi.contextPrompt({ en: 'lift', ex_en: 'Help me lift this chair.' }), 'Help me _____ this chair.');
   assert.equal(
     vocabApi.contextPrompt({ en: 'break down', ex_en: 'Our school bus broke down.' }),
-    'Which vocabulary item matches: “Our school bus broke down.”'
+    'Our school bus broke down.'
   );
 });
 
@@ -551,11 +551,17 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   const source = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
   const panel = await readFile(new URL('../practice-panel.js', import.meta.url), 'utf8');
   const styles = await readFile(new URL('../practice-shell.css', import.meta.url), 'utf8');
+  const treasureAsset = await readFile(new URL('../assets/game/treasure-chest-coins-3d.png', import.meta.url));
   assert.match(source, /blockQuest: true/);
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-stage8/);
+  assert.match(source, /practice-shell\.css\?v=20260826-stage8-fix1/);
+  assert.match(source, /treasure-chest-coins-3d\.png\?v=20260826-stage8-fix1/);
+  assert.equal(treasureAsset.subarray(1, 4).toString(), 'PNG');
+  assert.equal(treasureAsset.readUInt32BE(16), 768);
+  assert.equal(treasureAsset.readUInt32BE(20), 768);
+  assert.equal(treasureAsset[25], 6);
   assert.match(source, /autoAdvanceCorrectMs: 1500/);
   assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
@@ -563,18 +569,20 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /נשאר במכשיר/);
   assert.match(source, /מתחילים לשחק/);
   assert.doesNotMatch(source, /מסע עומק אדפטיבי|לצלול|לדוג מילים/);
+  assert.doesNotMatch(source, /איזו מילה מתאימה למשמעות|Which vocabulary item matches/);
   assert.match(source, /config\.adaptive/);
   assert.match(panel, /avoidRepeatedAnswerPosition/);
   assert.match(panel, /createQuestAudio/);
   assert.match(panel, /efn-practice__coin/);
   assert.match(panel, /efn-practice__lost-chest/);
+  assert.match(panel, /efn-practice__question-bar/);
   assert.match(styles, /\.efn-practice__coin\s*\{/);
   assert.match(styles, /\.efn-practice__lost-chest\s*\{/);
   assert.match(panel, /בונה את השאלה הבאה/);
   assert.match(styles, /Noto Sans Hebrew/);
   assert.match(styles, /\.efn-practice--block-quest \.efn-practice__title\s*\{[^}]*font-weight: 700;[^}]*text-shadow: none;/s);
   assert.match(styles, /quest-transition-fill/);
-  assert.match(styles, /\.efn-practice--block-quest \.efn-practice__prompt\s*\{[^}]*display: block/s);
+  assert.match(styles, /\.efn-practice--block-quest \.efn-practice__prompt\s*\{[^}]*display: grid/s);
   assert.doesNotMatch(styles, /font-weight:\s*950/);
   assert.doesNotMatch(source, /ניסיון חוזר אחרי שתי שאלות אחרות|בדיקת זכירה בהקשר חדש|חיזוק ביניים/);
 });

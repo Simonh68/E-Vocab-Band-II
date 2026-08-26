@@ -51,13 +51,13 @@
 
   function questFeedback({ streak, multiplier, reward, chestOpened }) {
     let title = streak >= 4
-      ? `אגדי ×${multiplier}! +${reward} מטבעות`
+      ? `אגדי ×${multiplier}! +${reward}`
       : streak === 3
-        ? `קומבו ×${multiplier}! +${reward} מטבעות`
+        ? `קומבו ×${multiplier}! +${reward}`
         : streak === 2
-          ? `רצף ×${multiplier}! +${reward} מטבעות`
-          : `מעולה! +${reward} מטבעות`;
-    if (chestOpened) title += ' · תיבת אוצר נפתחה!';
+          ? `רצף ×${multiplier}! +${reward}`
+          : `מעולה! +${reward}`;
+    if (chestOpened) title += ' · אוצר!';
     return title;
   }
 
@@ -229,13 +229,10 @@
       questMark.setAttribute('aria-hidden', 'true');
       const mapRoute = element(document, 'span', 'efn-practice__lost-map-route');
       const mapTarget = element(document, 'span', 'efn-practice__lost-map-target');
-      const lostChest = element(document, 'span', 'efn-practice__lost-chest');
-      const lostChestGlow = element(document, 'span', 'efn-practice__lost-chest-glow');
-      const lostChestLid = element(document, 'span', 'efn-practice__lost-chest-lid');
-      const lostChestBase = element(document, 'span', 'efn-practice__lost-chest-base');
-      const lostChestLock = element(document, 'span', 'efn-practice__lost-chest-lock');
-      const lostChestCoins = element(document, 'span', 'efn-practice__lost-chest-coins');
-      lostChest.append(lostChestGlow, lostChestCoins, lostChestLid, lostChestBase, lostChestLock);
+      const lostChest = element(document, 'img', 'efn-practice__lost-chest');
+      lostChest.setAttribute('src', config.treasureAssetHref || '');
+      lostChest.setAttribute('alt', '');
+      lostChest.setAttribute('draggable', 'false');
       questMark.append(mapRoute, mapTarget, lostChest);
       intro.insertBefore ? intro.insertBefore(questMark, start) : intro.append(questMark);
     }
@@ -248,7 +245,12 @@
     progress.setAttribute('aria-valuemin', '0');
     progress.setAttribute('aria-valuemax', '100');
     progress.setAttribute('aria-valuenow', '0');
-    const progressText = element(document, 'span', 'efn-practice__progress-text', config.showProgressPercent ? 'התקדמות 0%' : '0 מתוך 0 נלמדו');
+    const progressText = element(
+      document,
+      'span',
+      'efn-practice__progress-text',
+      config.showProgressPercent ? (config.blockQuest ? '0%' : 'התקדמות 0%') : '0 מתוך 0 נלמדו'
+    );
     const progressTrack = element(document, 'span', 'efn-practice__progress-track');
     const progressFill = element(document, 'span', 'efn-practice__progress-fill');
     progressTrack.setAttribute('aria-hidden', 'true');
@@ -282,12 +284,11 @@
     questHud.hidden = !config.blockQuest;
     const score = element(document, 'div', 'efn-practice__score');
     score.setAttribute('aria-label', 'נאספו 0 מטבעות');
-    const scoreCoin = element(document, 'span', 'efn-practice__coin');
+    const scoreCoin = element(document, 'img', 'efn-practice__coin');
     scoreCoin.setAttribute('aria-hidden', 'true');
-    ['rear', 'middle', 'front'].forEach(layer => {
-      const coinPiece = element(document, 'span', `efn-practice__coin-piece efn-practice__coin-piece--${layer}`);
-      scoreCoin.append(coinPiece);
-    });
+    scoreCoin.setAttribute('src', config.treasureAssetHref || '');
+    scoreCoin.setAttribute('alt', '');
+    scoreCoin.setAttribute('draggable', 'false');
     const scoreValue = element(document, 'span', 'efn-practice__score-value', '0');
     score.append(scoreCoin, scoreValue);
     const multiplier = element(document, 'div', 'efn-practice__multiplier', '×1');
@@ -298,13 +299,13 @@
     const chestNodes = [];
     (config.treasureChests || [25, 50, 100]).forEach((threshold, index) => {
       const stop = element(document, 'span', 'efn-practice__island');
-      const chest = element(document, 'span', 'efn-practice__chest');
+      const chest = element(document, 'img', 'efn-practice__chest');
       chest.dataset.threshold = String(threshold);
       chest.dataset.chest = String(index + 1);
       chest.setAttribute('aria-hidden', 'true');
-      const lid = element(document, 'span', 'efn-practice__chest-lid');
-      const base = element(document, 'span', 'efn-practice__chest-base');
-      chest.append(lid, base);
+      chest.setAttribute('src', config.treasureAssetHref || '');
+      chest.setAttribute('alt', '');
+      chest.setAttribute('draggable', 'false');
       stop.append(chest);
       treasureMap.append(stop);
       chestNodes.push(chest);
@@ -323,6 +324,8 @@
     speak.dataset.analyticsLabel = 'practice-audio';
     speak.setAttribute('aria-label', 'השמעת המילה באנגלית');
     speak.setAttribute('title', 'השמעת המילה באנגלית');
+    const questionBar = element(document, 'div', 'efn-practice__question-bar');
+    questionBar.append(prompt, speak);
     const choices = element(document, 'div', 'efn-practice__choices');
     choices.setAttribute('role', 'group');
     choices.setAttribute('aria-label', 'אפשרויות תשובה');
@@ -356,7 +359,7 @@
     next.setAttribute('aria-label', 'לשאלה הבאה');
     next.setAttribute('title', 'לשאלה הבאה');
     next.hidden = true;
-    activity.append(activityHeader, questHud, mode, prompt, clue, speak, choices, feedback, next);
+    activity.append(activityHeader, questHud, mode, questionBar, clue, choices, feedback, next);
 
     const summary = element(document, 'div', 'efn-practice__summary');
     summary.hidden = true;
@@ -474,7 +477,7 @@
         : state.total
           ? Math.round((state.mastered / state.total) * 100)
           : 0;
-      progressText.textContent = `התקדמות ${percent}%`;
+      progressText.textContent = config.blockQuest ? `${percent}%` : `התקדמות ${percent}%`;
       progressFill.style.width = `${percent}%`;
       progress.setAttribute('aria-valuenow', String(percent));
       progress.setAttribute('aria-valuetext', `התקדמות ${percent} אחוזים`);
@@ -575,6 +578,7 @@
       const message = config.formatFeedback(result);
       feedbackTitle.textContent = message.title;
       setTextParts(document, feedbackText, message.parts, message.text);
+      feedbackText.hidden = Boolean(config.blockQuest && result.correct);
       feedback.classList.add(result.correct ? 'is-positive' : 'is-correction');
       feedback.hidden = false;
       next.hidden = false;

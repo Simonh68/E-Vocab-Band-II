@@ -57,7 +57,7 @@
     if (!example) return `Complete: _____ (${clean(record.mean_he)})`;
     const escaped = english.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const hidden = example.replace(new RegExp(escaped, 'i'), '_____');
-    return hidden === example ? `Which vocabulary item matches: “${example}”` : hidden;
+    return hidden === example ? example : hidden;
   }
 
   function questionFactory(record, context) {
@@ -70,19 +70,17 @@
       ? choicesFor(context.records, answer, item => item.en, context.seed, context.choiceCount)
       : choicesFor(context.records, answer, item => item.mean_he, context.seed, context.choiceCount);
     const primary = !reverse && !inContext;
-    const prompt = inContext
-      ? contextPrompt(record)
-      : reverse
-        ? `איזו מילה מתאימה למשמעות: ${hebrew}?`
-        : english;
+    const prompt = inContext ? contextPrompt(record) : reverse ? hebrew : english;
     return {
       prompt,
-      promptParts: primary ? [
-        { text: english, lang: 'en', dir: 'ltr' }
-      ] : null,
+      promptParts: inContext ? null : [{
+        text: prompt,
+        lang: primary ? 'en' : 'he',
+        dir: primary ? 'ltr' : 'rtl'
+      }],
       promptLang: primary || inContext ? 'en' : 'he',
       promptDir: primary || inContext ? 'ltr' : 'rtl',
-      clue: reverse && record.ex_en ? `רמז בהקשר: ${record.ex_en}` : '',
+      clue: '',
       clueLang: 'en',
       clueDir: 'ltr',
       choices,
@@ -249,7 +247,8 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage8', base).href,
+      stylesheetHref: new URL('practice-shell.css?v=20260826-stage8-fix1', base).href,
+      treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,
       badge: 'CORE I',
       title: 'האוצר האבוד',
       description: '10 מילים · 3 תיבות',
