@@ -48,6 +48,7 @@
       [data-efn-ownership] span { color: #aebbd0; }
       [data-efn-ownership] a { color: #ffd978; text-underline-offset: 3px; }
       [data-efn-ownership] a:focus-visible { outline: 3px solid #ffd978; outline-offset: 3px; }
+      body.efn-practice-is-playing [data-efn-ownership] { display: none; }
     `;
     document.head.appendChild(style);
 
