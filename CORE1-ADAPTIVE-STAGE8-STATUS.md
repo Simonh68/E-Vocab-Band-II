@@ -5,7 +5,7 @@
 - Property: E‑Vocab Band II, Core I, Groups 01–20.
 - Branch: `codex/core1-adaptive-stage8-rollout-20260826`.
 - Base: `940b3bce2756fed47f01bd07e0940b14c637c07f`.
-- Publication state: branch-only preview is live; no merge or deployment.
+- Publication state: published to `main` by fast-forward at `1d8816d468d8255e3a8b4afb96d2991f66423dd2`.
 - Exclusions: Core II, Arabic pages and Read Along behavior are unchanged.
 
 ## Adaptive rollout
@@ -45,7 +45,9 @@
 - Visual browser verification passed on the immutable branch preview for Group 02 launch/play and Group 20 launch.
 - The lost chest, three-coin score icon and icon-only controls rendered correctly with no horizontal overflow at 1363 × 936.
 - All visible icon-only controls retained Hebrew accessibility labels and tooltips; answer choices remained textual.
+- GitHub Pages deployment and Jekyll site CI completed successfully for the published commit.
+- The public Group 02 page passed live launch, gameplay, reward and next-icon verification.
 
 ## Next action
 
-Review the branch preview. Merging and public release require a separate approval.
+Collect usage feedback. Any further change starts only after an explicit instruction.
