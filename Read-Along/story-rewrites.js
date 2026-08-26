@@ -3651,6 +3651,10 @@ const upgradedCovers={
  'new-1-a1-helmet-handlebar':'story-covers-v3/helmet-handlebar.webp',
  'new-2-a1-homework-could-not-explain':'story-covers-v3/homework-could-not-explain.webp',
  'l1-a1-lost-dog':'story-covers-v3/lost-dog.webp',
+ 'l1-a1-rainy-walk':'story-covers-v3/rainy-walk.webp',
+ 'l1-a1-class-plant':'story-covers-v3/class-plant.webp',
+ 'l1-a2-spare-seat':'story-covers-v3/spare-seat.webp',
+ 'l1-a2-missed-practice':'story-covers-v3/missed-practice.webp',
  'new-1-a2-one-scooter-two-friends':'story-covers-v3/one-scooter-two-friends.webp',
  'new-2-a2-false-emergency-message':'story-covers-v3/false-emergency-message.webp'
  ,'l1-a1-back-to-school':'story-covers-v3/back-to-school.webp'
