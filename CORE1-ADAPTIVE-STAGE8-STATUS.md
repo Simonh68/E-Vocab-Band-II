@@ -5,7 +5,7 @@
 - Property: E‑Vocab Band II, Core I, Groups 01–20.
 - Branch: `codex/core1-adaptive-stage8-rollout-20260826`.
 - Base: `940b3bce2756fed47f01bd07e0940b14c637c07f`.
-- Publication state: approved for a branch-only preview; no merge or deployment.
+- Publication state: branch-only preview is live; no merge or deployment.
 - Exclusions: Core II, Arabic pages and Read Along behavior are unchanged.
 
 ## Adaptive rollout
@@ -42,8 +42,10 @@
 - All 20 Core I pages load the Stage 8 cache-busted practice assets.
 - All 20 full source pools are covered across consecutive ten-word missions.
 - No Core II or Arabic page loads the new Stage 8 asset versions.
-- Visual browser verification will use the approved branch preview before any merge.
+- Visual browser verification passed on the immutable branch preview for Group 02 launch/play and Group 20 launch.
+- The lost chest, three-coin score icon and icon-only controls rendered correctly with no horizontal overflow at 1363 × 936.
+- All visible icon-only controls retained Hebrew accessibility labels and tooltips; answer choices remained textual.
 
 ## Next action
 
-Push the Stage 8 branch to GitHub without merging and perform visual desktop and mobile verification. Merging and public release require a separate approval.
+Review the branch preview. Merging and public release require a separate approval.
