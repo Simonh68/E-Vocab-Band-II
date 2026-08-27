@@ -563,11 +563,16 @@ test('Block Quest rewards grow exponentially and open three milestone chests', (
   assert.doesNotMatch(panelApi.questFeedback({ streak: 1, multiplier: 1, reward: 10, chestOpened: false }), /מטבעות/);
 });
 
-test('the full-screen Golden Buzzer fires exactly on card 25', () => {
-  assert.equal(panelApi.isGoldenBuzzerMilestone(24), false);
-  assert.equal(panelApi.isGoldenBuzzerMilestone(25), true);
-  assert.equal(panelApi.isGoldenBuzzerMilestone(26), false);
-  assert.equal(panelApi.isGoldenBuzzerMilestone(50), false);
+test('the full-screen Golden Buzzer pauses every fifteen questions with rotating block rewards', () => {
+  assert.equal(panelApi.isGoldenBuzzerMilestone(14), false);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(15), true);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(30), true);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(45), true);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(46), false);
+  assert.deepEqual(
+    [15, 30, 45].map(count => panelApi.celebrationForMilestone(count).kind),
+    ['chest', 'castle', 'diamonds']
+  );
 });
 
 test('the Core I panel enters a full-screen Block Quest and keeps rewards session-only', () => {
@@ -713,6 +718,11 @@ test('the segmented pilot pauses at six checkpoints and keeps segment, coverage 
       assert.ok(choice, `correct choice missing for ${promptText}`);
       choice.listeners.click();
       byClass(controller.section, 'efn-practice__next').listeners.click();
+      const celebration = byClass(controller.section, 'efn-practice__golden-buzzer');
+      if (!celebration.hidden) {
+        assert.match(byClass(controller.section, 'efn-practice__golden-text').textContent, /שאלות הושלמו/);
+        byClass(controller.section, 'efn-practice__golden-continue').listeners.click();
+      }
     }
 
     const checkpoint = byClass(controller.section, 'efn-practice__checkpoint');
@@ -942,7 +952,9 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260827-heavy-voxel1/);
+  assert.match(source, /goldenBuzzerMilestone: 15/);
+  assert.doesNotMatch(source, /goldenBuzzerDurationMs/);
+  assert.match(source, /practice-shell\.css\?v=20260827-celebrations1/);
   assert.match(source, /treasure-chest-coins-3d\.png\?v=20260826-stage8-fix1/);
   assert.equal(treasureAsset.subarray(1, 4).toString(), 'PNG');
   assert.equal(treasureAsset.readUInt32BE(16), 768);
@@ -966,6 +978,8 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(panel, /createQuestAudio/);
   assert.match(panel, /efn-practice__coin/);
   assert.match(panel, /efn-practice__lost-chest/);
+  assert.match(panel, /efn-practice__golden-continue/);
+  assert.match(panel, /audio\.cue\('celebration'/);
   assert.match(panel, /efn-practice__question-bar/);
   assert.match(panel, /efn-practice__group-position/);
   assert.match(source, /קבוצה \$\{Number\(config\.progressGroup\)\} \/ 20/);
@@ -1332,7 +1346,7 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('Stage 3 UI assets are cache-busted only in the two Core I pilots while preserving the analytics privacy guard', async () => {
+test('celebration assets are cache-busted across Core I while segmented engines remain pilot-only', async () => {
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
@@ -1341,15 +1355,15 @@ test('Stage 3 UI assets are cache-busted only in the two Core I pilots while pre
     if (pilot) {
       assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
       assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
-      assert.match(activeGroup, /practice-panel\.js\?v=20260827-segments-stage3/);
+      assert.match(activeGroup, /practice-panel\.js\?v=20260827-celebrations1/);
       assert.match(activeGroup, /stage8-rollout\.js\?v=20260827-segments-stage3/);
-      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-segments-stage3/);
+      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-celebrations1/);
     } else {
       assert.doesNotMatch(activeGroup, /practice-segments\.js/);
       assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);
-      assert.match(activeGroup, /practice-panel\.js\?v=20260826-coverage1/);
+      assert.match(activeGroup, /practice-panel\.js\?v=20260827-celebrations1/);
       assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-coverage1/);
-      assert.match(activeGroup, /vocab-practice\.js\?v=20260826-coverage1/);
+      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-celebrations1/);
     }
     assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
   }

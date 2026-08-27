@@ -54,8 +54,21 @@
     return thresholds.filter(threshold => safeSegment >= Number(threshold)).length;
   }
 
-  function isGoldenBuzzerMilestone(answeredCount, milestone = 25) {
-    return Math.max(0, Math.floor(Number(answeredCount) || 0)) === Math.max(1, Math.floor(Number(milestone) || 25));
+  function isGoldenBuzzerMilestone(answeredCount, milestone = 15) {
+    const safeCount = Math.max(0, Math.floor(Number(answeredCount) || 0));
+    const safeMilestone = Math.max(1, Math.floor(Number(milestone) || 15));
+    return safeCount > 0 && safeCount % safeMilestone === 0;
+  }
+
+  function celebrationForMilestone(answeredCount, milestone = 15) {
+    const safeMilestone = Math.max(1, Math.floor(Number(milestone) || 15));
+    const celebrationNumber = Math.max(1, Math.floor(Number(answeredCount) / safeMilestone));
+    const celebrations = [
+      { kind: 'chest', icon: '🧰', title: 'תיבת האוצר נפתחה!' },
+      { kind: 'castle', icon: '🏰', title: 'טירת הבלוקים הושלמה!' },
+      { kind: 'diamonds', icon: '💎', title: 'מכרה היהלומים נמצא!' }
+    ];
+    return celebrations[(celebrationNumber - 1) % celebrations.length];
   }
 
   function questFeedback({ streak, multiplier, reward, chestOpened }) {
@@ -174,6 +187,11 @@
         tone(196, 0, .22, { gain: .04, type: 'square', to: 123.47 });
       } else if (name === 'summary') {
         [[261.63, 0], [329.63, .14], [392, .3], [523.25, .52]].forEach(([note, at]) => tone(note, at, .34, { gain: .045, type: 'triangle' }));
+      } else if (name === 'celebration') {
+        [[196, 0], [261.63, .16], [329.63, .34], [392, .54], [523.25, .78], [659.25, 1.04], [783.99, 1.34]]
+          .forEach(([note, at], index) => tone(note, at, .22, { gain: .05 - index * .003, type: index % 2 ? 'triangle' : 'square' }));
+        [[523.25, 1.62], [659.25, 1.82], [783.99, 2.02], [1046.5, 2.28]]
+          .forEach(([note, at]) => tone(note, at, .38, { gain: .035, type: 'triangle' }));
       }
     }
 
@@ -491,20 +509,28 @@
 
     const goldenBuzzer = element(document, 'div', 'efn-practice__golden-buzzer');
     goldenBuzzer.hidden = true;
-    goldenBuzzer.setAttribute('role', 'status');
-    goldenBuzzer.setAttribute('aria-live', 'assertive');
-    goldenBuzzer.setAttribute('aria-label', 'Golden Buzzer — עשרים וחמישה כרטיסים הושלמו');
+    goldenBuzzer.setAttribute('role', 'dialog');
+    goldenBuzzer.setAttribute('aria-modal', 'true');
+    goldenBuzzer.setAttribute('aria-labelledby', 'efnGoldenTitle');
+    goldenBuzzer.setAttribute('aria-describedby', 'efnGoldenText');
     const goldenBurst = element(document, 'div', 'efn-practice__golden-burst');
     const goldenBlock = element(document, 'div', 'efn-practice__golden-block', '★');
     const goldenTitle = element(document, 'div', 'efn-practice__golden-title', 'GOLDEN BUZZER!');
-    const goldenText = element(document, 'div', 'efn-practice__golden-text', '25 כרטיסים הושלמו');
+    goldenTitle.id = 'efnGoldenTitle';
+    const goldenReward = element(document, 'div', 'efn-practice__golden-reward');
+    const goldenText = element(document, 'div', 'efn-practice__golden-text', '15 שאלות הושלמו');
+    goldenText.id = 'efnGoldenText';
+    const goldenQuestion = element(document, 'div', 'efn-practice__golden-question', 'רוצים להמשיך למסע?');
+    const goldenContinue = element(document, 'button', 'efn-practice__golden-continue', 'להמשיך ▶');
+    goldenContinue.type = 'button';
+    goldenContinue.dataset.analyticsLabel = 'practice-celebration-continue';
     const goldenParticles = element(document, 'div', 'efn-practice__golden-particles');
-    for (let index = 0; index < 12; index += 1) {
-      const particle = element(document, 'i', 'efn-practice__golden-particle');
+    for (let index = 0; index < 30; index += 1) {
+      const particle = element(document, 'i', `efn-practice__golden-particle${index % 4 === 0 ? ' is-gem' : ' is-coin'}`, index % 4 === 0 ? '◆' : '●');
       particle.style['--particle-index'] = index;
       goldenParticles.appendChild(particle);
     }
-    goldenBuzzer.append(goldenBurst, goldenParticles, goldenBlock, goldenTitle, goldenText);
+    goldenBuzzer.append(goldenBurst, goldenParticles, goldenBlock, goldenTitle, goldenReward, goldenText, goldenQuestion, goldenContinue);
 
     section.append(intro, activity);
     if (config.segmentedUi) section.append(checkpoint);
@@ -517,7 +543,6 @@
     let lastAnswerCorrect = null;
     let autoAdvanceTimer = null;
     let autoSpeakTimer = null;
-    let goldenBuzzerTimer = null;
     let answeredCardCount = 0;
     let rewardScore = 0;
     let rewardStreak = 0;
@@ -526,6 +551,8 @@
     let previousAnswerIndex = -1;
     let skipQuestionCue = false;
     let pendingCheckpoint = null;
+    let pendingCelebration = null;
+    let celebrationOpen = false;
     const chestThresholds = config.treasureChests || [25, 50, 100];
     const segmentChestThresholds = config.treasureChestSegments || [2, 4, 6];
     const schedule = typeof config.setTimeout === 'function' ? config.setTimeout : globalThis.setTimeout?.bind(globalThis);
@@ -544,24 +571,26 @@
     }
 
     function clearGoldenBuzzer() {
-      if (goldenBuzzerTimer != null && cancel) cancel(goldenBuzzerTimer);
-      goldenBuzzerTimer = null;
+      celebrationOpen = false;
       goldenBuzzer.hidden = true;
       goldenBuzzer.classList.remove('is-active');
     }
 
-    function showGoldenBuzzer() {
+    function showGoldenBuzzer(answeredCount) {
       clearGoldenBuzzer();
+      const milestone = Number(config.goldenBuzzerMilestone) || 15;
+      const celebration = celebrationForMilestone(answeredCount, milestone);
+      goldenBuzzer.dataset.reward = celebration.kind;
+      goldenBlock.textContent = celebration.icon;
+      goldenReward.textContent = celebration.title;
+      goldenText.textContent = `${answeredCount} שאלות הושלמו`;
       goldenBuzzer.hidden = false;
+      celebrationOpen = true;
       void goldenBuzzer.offsetWidth;
       goldenBuzzer.classList.add('is-active');
-      if (schedule) {
-        goldenBuzzerTimer = schedule(() => {
-          goldenBuzzerTimer = null;
-          goldenBuzzer.hidden = true;
-          goldenBuzzer.classList.remove('is-active');
-        }, Number(config.goldenBuzzerDurationMs) || 2600);
-      }
+      audio.stopBackground();
+      audio.cue('celebration', { kind: celebration.kind });
+      goldenContinue.focus({ preventScroll: true });
     }
 
     function flashCurrentWord() {
@@ -780,6 +809,13 @@
     }
 
     function advance() {
+      if (celebrationOpen) return;
+      if (pendingCelebration) {
+        const answeredCount = pendingCelebration;
+        pendingCelebration = null;
+        showGoldenBuzzer(answeredCount);
+        return;
+      }
       if (pendingCheckpoint) {
         const checkpointState = pendingCheckpoint;
         showCheckpoint(checkpointState.progress, checkpointState.quest);
@@ -884,7 +920,7 @@
       const result = session.answer(value, { responseTimeMs: Math.max(0, answeredAt - questionStartedAt) });
       lastAnswerCorrect = Boolean(result.correct);
       answeredCardCount += 1;
-      if (isGoldenBuzzerMilestone(answeredCardCount, config.goldenBuzzerMilestone || 25)) showGoldenBuzzer();
+      if (isGoldenBuzzerMilestone(answeredCardCount, config.goldenBuzzerMilestone || 15)) pendingCelebration = answeredCardCount;
       let rewardEvent = null;
       if (config.exponentialFeedback) {
         if (result.correct) {
@@ -977,6 +1013,7 @@
       previousAnswerIndex = -1;
       skipQuestionCue = true;
       pendingCheckpoint = null;
+      pendingCelebration = null;
       answeredCardCount = 0;
       clearGoldenBuzzer();
       setPlaying(true);
@@ -1001,6 +1038,11 @@
       checkpoint.hidden = true;
       activity.hidden = false;
       renderQuestion();
+    });
+    goldenContinue.addEventListener('click', () => {
+      clearGoldenBuzzer();
+      audio.start();
+      advance();
     });
     audioToggle.addEventListener('click', () => {
       const muted = audio.setMuted(!audio.isMuted());
@@ -1058,6 +1100,7 @@
     chestCountForPercent,
     chestCountForSegment,
     isGoldenBuzzerMilestone,
+    celebrationForMilestone,
     questFeedback,
     avoidRepeatedAnswerPosition,
     createQuestAudio

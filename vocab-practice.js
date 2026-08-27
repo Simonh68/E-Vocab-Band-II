@@ -375,8 +375,8 @@
       anchor,
       stylesheetHref: new URL(
         config.segmentedUi
-          ? 'practice-shell.css?v=20260827-heavy-voxel1'
-          : 'practice-shell.css?v=20260827-heavy-voxel1',
+          ? 'practice-shell.css?v=20260827-celebrations1'
+          : 'practice-shell.css?v=20260827-celebrations1',
         base
       ).href,
       treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,
@@ -394,8 +394,7 @@
       autoAdvanceAfterSpeechMs: 200,
       correctSpeakDelayMs: 500,
       correctAdvanceAfterSpeechMs: 300,
-      goldenBuzzerMilestone: 25,
-      goldenBuzzerDurationMs: 2600,
+      goldenBuzzerMilestone: 15,
       correctNextLabel: 'הבא עכשיו',
       showProgressPercent: true,
       showProgressCount: true,

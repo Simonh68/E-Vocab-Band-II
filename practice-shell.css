@@ -555,7 +555,20 @@
 
 .efn-practice__golden-buzzer[hidden] { display: none; }
 
-.efn-practice__golden-buzzer.is-active { animation: golden-screen-in 2.6s both; }
+.efn-practice__golden-buzzer[data-reward="castle"] {
+  background:
+    linear-gradient(#08101cdd, #201630ee),
+    repeating-linear-gradient(45deg, #343d4a 0 32px, #222a35 32px 64px);
+}
+
+.efn-practice__golden-buzzer[data-reward="diamonds"] {
+  background:
+    radial-gradient(circle at 50% 45%, #33e8e844, transparent 34%),
+    linear-gradient(#061823dd, #082d32ee),
+    repeating-linear-gradient(45deg, #0b4a50 0 32px, #07363c 32px 64px);
+}
+
+.efn-practice__golden-buzzer.is-active { animation: golden-screen-in .45s both; }
 
 .efn-practice__golden-burst {
   position: absolute;
@@ -601,6 +614,48 @@
   box-shadow: 5px 5px #071713;
 }
 
+.efn-practice__golden-reward {
+  position: relative;
+  color: #fff7b5;
+  font-size: clamp(1.35rem, 4vw, 2.25rem);
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 3px 3px #563100, 0 0 18px #ffc928;
+}
+
+.efn-practice__golden-question {
+  position: relative;
+  color: #fff;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 800;
+}
+
+.efn-practice__golden-continue {
+  position: relative;
+  min-width: min(280px, 84vw);
+  min-height: 64px;
+  padding: 12px 24px;
+  border: 6px solid #573407;
+  border-radius: 2px;
+  color: #231500;
+  background:
+    linear-gradient(135deg, #fff4a52d 25%, transparent 25%) 0 0 / 22px 22px,
+    linear-gradient(180deg, #ffe466 0 50%, #eeb722 50%);
+  box-shadow: inset 0 6px #fff7b0, inset 0 -8px #a66a0a, 0 9px 0 #321d03, 0 0 28px #ffca2d88;
+  font: inherit;
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.efn-practice__golden-continue:hover,
+.efn-practice__golden-continue:focus-visible {
+  transform: translateY(-3px);
+  filter: brightness(1.08);
+  outline: 4px solid #fff;
+  outline-offset: 4px;
+}
+
 .efn-practice__golden-particle {
   --angle: calc(var(--particle-index) * 30deg);
   position: absolute;
@@ -608,13 +663,22 @@
   left: 50%;
   width: 18px;
   aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  color: #fff3a1;
   background: #ffd83d;
   box-shadow: inset 4px 4px #fff197, inset -4px -4px #9a5c05;
   animation: golden-particle 1.8s ease-out infinite;
   animation-delay: calc(var(--particle-index) * -80ms);
 }
 
-@keyframes golden-screen-in { 0% { opacity: 0; } 10%, 88% { opacity: 1; } 100% { opacity: 0; } }
+.efn-practice__golden-particle.is-gem {
+  color: #c9ffff;
+  background: #35dbe5;
+  box-shadow: inset 4px 4px #b9ffff, inset -4px -4px #087e9e, 0 0 15px #45f4ff;
+}
+
+@keyframes golden-screen-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes golden-burst-spin { to { transform: rotate(1turn); } }
 @keyframes golden-block-pop { 0% { transform: scale(.1) rotate(-35deg); } 70% { transform: scale(1.15) rotate(4deg); } 100% { transform: scale(1) rotate(-5deg); } }
 @keyframes golden-particle {
