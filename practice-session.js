@@ -14,15 +14,26 @@
 
   function createSession(records, options = {}) {
     if (!loop) throw new Error('EFN learning loop is required.');
-    if (!Array.isArray(records) || records.length < 2) {
-      throw new Error('At least two practice records are required.');
+    const choiceRecords = Array.isArray(options.choiceRecords) && options.choiceRecords.length >= 2
+      ? options.choiceRecords
+      : records;
+    if (!Array.isArray(records) || records.length < 1 || !Array.isArray(choiceRecords) || choiceRecords.length < 2) {
+      throw new Error('At least one practice record and two choice records are required.');
     }
     if (typeof options.questionFactory !== 'function') {
       throw new Error('A questionFactory function is required.');
     }
 
-    const limit = Math.max(2, Math.min(records.length, Number(options.limit) || records.length));
+    const limit = Math.max(1, Math.min(records.length, Number(options.limit) || records.length));
     const selected = records.slice(0, limit);
+    const coverageFirst = Boolean(options.coverageFirst);
+    const requiredCorrectCount = coverageFirst ? 1 : 2;
+    function initialMode(record, index) {
+      const candidate = typeof options.initialModeFor === 'function'
+        ? options.initialModeFor(record, index)
+        : 'primary';
+      return ['primary', 'review', 'context'].includes(candidate) ? candidate : 'primary';
+    }
     const states = selected.map(() => ({
       initialCorrect: null,
       correctCount: 0,
@@ -31,7 +42,7 @@
     }));
     let queue = selected.map((record, index) => ({
       index,
-      mode: 'primary',
+      mode: initialMode(record, index),
       phase: 'initial',
       filler: false,
       key: String(record.id ?? record.serial ?? index)
@@ -60,7 +71,7 @@
       currentEntry = queue.shift() || null;
       if (!currentEntry) return null;
       currentQuestion = options.questionFactory(selected[currentEntry.index], {
-        records: selected,
+        records: choiceRecords,
         index: currentEntry.index,
         mode: currentEntry.mode,
         phase: currentEntry.phase,
@@ -97,7 +108,7 @@
           correctStreak += 1;
           state.signals.add(entry.mode);
           state.correctCount = options.adaptive ? state.signals.size : state.correctCount + 1;
-          if (state.correctCount < 2) {
+          if (!coverageFirst && state.correctCount < requiredCorrectCount) {
             const responseTimeMs = Math.max(0, Number(answerContext.responseTimeMs) || 0);
             const nextMode = options.adaptive
               ? entry.mode === 'primary'
@@ -124,16 +135,19 @@
           state.wrongCount += 1;
           const retryEntry = {
             ...entry,
-            mode: options.adaptive ? 'primary' : entry.mode,
+            mode: coverageFirst ? entry.mode : options.adaptive ? 'primary' : entry.mode,
             phase: 'retry',
             filler: false,
             key: `${entry.key}-retry-${state.wrongCount}`
           };
-          queue = loop.scheduleAfterError(
-            queue,
-            retryEntry,
-            fillerIndex => makeFiller(entry.index, fillerIndex)
-          );
+          if (coverageFirst) queue.splice(Math.min(2, queue.length), 0, retryEntry);
+          else {
+            queue = loop.scheduleAfterError(
+              queue,
+              retryEntry,
+              fillerIndex => makeFiller(entry.index, fillerIndex)
+            );
+          }
           willReturn = true;
         }
       }
@@ -145,7 +159,7 @@
         entry: { ...entry },
         state: { ...state },
         willReturn,
-        mastered: state.correctCount >= 2
+        mastered: state.correctCount >= requiredCorrectCount
       };
       currentEntry = null;
       currentQuestion = null;
@@ -153,10 +167,10 @@
     }
 
     function progress() {
-      const correctSignals = states.reduce((total, state) => total + Math.min(2, state.correctCount), 0);
-      const targetSignals = states.length * 2;
+      const correctSignals = states.reduce((total, state) => total + Math.min(requiredCorrectCount, state.correctCount), 0);
+      const targetSignals = states.length * requiredCorrectCount;
       return {
-        mastered: states.filter(state => state.correctCount >= 2).length,
+        mastered: states.filter(state => state.correctCount >= requiredCorrectCount).length,
         total: states.length,
         answered: answerCount,
         remaining: queue.length + (currentEntry ? 1 : 0),
@@ -166,9 +180,9 @@
 
     function summary() {
       return {
-        firstTry: states.filter(state => state.initialCorrect === true && state.correctCount >= 2).length,
-        corrected: states.filter(state => state.initialCorrect === false && state.correctCount >= 2).length,
-        unresolved: states.filter(state => state.correctCount < 2).length,
+        firstTry: states.filter(state => state.initialCorrect === true && state.correctCount >= requiredCorrectCount).length,
+        corrected: states.filter(state => state.initialCorrect === false && state.correctCount >= requiredCorrectCount).length,
+        unresolved: states.filter(state => state.correctCount < requiredCorrectCount).length,
         total: states.length,
         answered: answerCount
       };

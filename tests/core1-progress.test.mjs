@@ -40,6 +40,22 @@ test('one successful signal shows partial progress but not mastery', () => {
   assert.equal(progress.checked, false);
 });
 
+test('the practice plan sends unseen words first and chooses a new depth for partial words', () => {
+  const storage = new MemoryStorage();
+  const store = progressApi.createProgressStore(storage, { now: fixedNow });
+  store.recordCorrect({ group: 1, serial: 570, signal: 'meaning', expectedSerials });
+  store.recordCorrect({ group: 1, serial: 935, signal: 'meaning', expectedSerials });
+  store.recordCorrect({ group: 1, serial: 935, signal: 'recall', expectedSerials });
+  const plan = store.getGroupPracticePlan({ group: 1, expectedSerials });
+  assert.equal(plan.total, 3);
+  assert.equal(plan.remaining, 2);
+  assert.deepEqual(plan.items.map(item => ({ serial: item.serial, signalCount: item.signalCount, mastered: item.mastered, nextMode: item.nextMode })), [
+    { serial: 570, signalCount: 1, mastered: false, nextMode: 'review' },
+    { serial: 935, signalCount: 2, mastered: true, nextMode: 'context' },
+    { serial: 999, signalCount: 0, mastered: false, nextMode: 'primary' }
+  ]);
+});
+
 test('repeating the same signal does not count as a second mastery signal', () => {
   const store = progressApi.createProgressStore(new MemoryStorage(), { now: fixedNow });
   store.recordCorrect({ group: 1, serial: 570, signal: 'meaning', expectedSerials });

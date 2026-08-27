@@ -28,6 +28,12 @@
   font: inherit;
 }
 
+.efn-practice a.efn-practice__icon-action {
+  display: inline-grid;
+  place-items: center;
+  text-decoration: none;
+}
+
 .efn-practice__badge {
   display: inline-flex;
   padding: 5px 10px;
@@ -230,6 +236,7 @@
 }
 
 .efn-practice button:focus-visible,
+.efn-practice a:focus-visible,
 .efn-practice [tabindex="-1"]:focus-visible {
   outline: 3px solid #7c3100;
   outline-offset: 3px;

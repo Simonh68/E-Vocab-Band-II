@@ -186,7 +186,7 @@ test('a Core I activity page uses all page words, explains local storage, and ca
   assert.equal(header.children[2], counter);
 });
 
-test('stage 4 assets cover Core I groups 01–20 and exclude Core II and Arabic pages', async () => {
+test('progress assets cover Core I groups 01–20 and exclude Core II and Arabic pages', async () => {
   const [home, coreTwo, arabicHome, styles] = await Promise.all([
     readFile(new URL('../index.html', import.meta.url), 'utf8'),
     readFile(new URL('../groups/group-21.html', import.meta.url), 'utf8'),
@@ -196,7 +196,7 @@ test('stage 4 assets cover Core I groups 01–20 and exclude Core II and Arabic 
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const source = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
-    assert.match(source, /core1-progress\.js\?v=20260826-stage4/);
+    assert.match(source, /core1-progress\.js\?v=20260826-coverage1/);
     assert.match(source, /core1-progress-groups\.js\?v=20260826-stage4/);
     assert.match(source, /core1-progress-ui\.js\?v=20260826-stage4/);
     assert.match(source, /core1-progress-ui\.css\?v=20260826-stage4/);

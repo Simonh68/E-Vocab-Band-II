@@ -274,7 +274,19 @@
     audioToggle.setAttribute('aria-label', 'כיבוי צלילי המשחק');
     audioToggle.setAttribute('title', 'כיבוי צלילי המשחק');
     audioToggle.hidden = !config.blockQuest || !audio.supported;
+    function groupLink(href, label, icon) {
+      if (!href) return null;
+      const link = element(document, 'a', 'efn-practice__quiet efn-practice__icon-action efn-practice__group-link', icon);
+      link.setAttribute('href', href);
+      link.setAttribute('aria-label', label);
+      link.setAttribute('title', label);
+      return link;
+    }
+    const previousGroup = groupLink(config.previousGroupHref, config.previousGroupLabel || 'לקבוצה הקודמת', '⏮');
+    const nextGroup = groupLink(config.nextGroupHref, config.nextGroupLabel || 'לקבוצה הבאה', '⏭');
     const headerActions = element(document, 'div', 'efn-practice__header-actions');
+    if (previousGroup) headerActions.append(previousGroup);
+    if (nextGroup) headerActions.append(nextGroup);
     if (config.blockQuest) headerActions.append(audioToggle);
     headerActions.append(exit);
     activityHeader.append(progress, headerActions);
@@ -385,8 +397,11 @@
     summaryExit.dataset.analyticsLabel = 'practice-exit';
     summaryExit.setAttribute('aria-label', exitLabel);
     summaryExit.setAttribute('title', exitLabel);
+    const summaryNextGroup = groupLink(config.nextGroupHref, config.nextGroupLabel || 'לקבוצה הבאה', '⏭');
     const summaryActions = element(document, 'div', 'efn-practice__summary-actions');
-    summaryActions.append(again, summaryExit);
+    summaryActions.append(again);
+    if (summaryNextGroup) summaryActions.append(summaryNextGroup);
+    summaryActions.append(summaryExit);
     summary.append(summaryTitle, summaryReward, summaryText, privacy.cloneNode(true), summaryActions);
     section.append(intro, activity, summary);
     config.anchor.insertAdjacentElement('afterend', section);
@@ -475,10 +490,17 @@
         : state.total
           ? Math.round((state.mastered / state.total) * 100)
           : 0;
-      progressText.textContent = config.blockQuest ? `${percent}%` : `התקדמות ${percent}%`;
+      progressText.textContent = config.showProgressCount
+        ? `${state.mastered}/${state.total}`
+        : config.blockQuest ? `${percent}%` : `התקדמות ${percent}%`;
       progressFill.style.width = `${percent}%`;
       progress.setAttribute('aria-valuenow', String(percent));
-      progress.setAttribute('aria-valuetext', `התקדמות ${percent} אחוזים`);
+      progress.setAttribute(
+        'aria-valuetext',
+        config.showProgressCount
+          ? `${state.mastered} מתוך ${state.total} מילים הושלמו`
+          : `התקדמות ${percent} אחוזים`
+      );
       return { ...state, percent };
     }
 
@@ -487,9 +509,18 @@
       audio.stopBackground();
       audio.cue('summary');
       const state = session.summary();
+      const overall = typeof config.getOverallProgress === 'function' ? config.getOverallProgress() : null;
       activity.hidden = true;
       summary.hidden = false;
-      summaryText.textContent = `הצלחה מהניסיון הראשון: ${state.firstTry}. תוקן בעזרת המשוב: ${state.corrected}. נשאר לתרגול נוסף: ${state.unresolved}.`;
+      if (config.blockQuest) {
+        const allSeen = overall && overall.total > 0 && overall.started >= overall.total;
+        summaryTitle.textContent = allSeen ? 'כל המילים נבדקו' : 'הסבב הושלם';
+        summaryText.textContent = overall
+          ? `${overall.started}/${overall.total}`
+          : `${state.firstTry + state.corrected}/${state.total}`;
+      } else {
+        summaryText.textContent = `הצלחה מהניסיון הראשון: ${state.firstTry}. תוקן בעזרת המשוב: ${state.corrected}. נשאר לתרגול נוסף: ${state.unresolved}.`;
+      }
       summaryReward.textContent = `האוצר שלך: ${rewardScore} מטבעות · ${unlockedChests} מתוך ${chestNodes.length} תיבות נפתחו.`;
       measure('activity_complete', { outcome: config.analyticsActivity });
       summaryTitle.tabIndex = -1;

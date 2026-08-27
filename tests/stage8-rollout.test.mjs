@@ -317,7 +317,12 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
     immersive: true,
     exponentialFeedback: true,
     showProgressPercent: true,
+    showProgressCount: true,
     treasureChests: [25, 50, 100],
+    previousGroupHref: 'group-01.html',
+    previousGroupLabel: 'לקבוצה הקודמת: 01',
+    nextGroupHref: 'group-03.html',
+    nextGroupLabel: 'לקבוצה הבאה: 03',
     createSession: () => ({
       next: () => answered ? null : question,
       answer: selectedAnswer => {
@@ -330,17 +335,14 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
     formatFeedback: vocabApi.formatFeedback
   });
 
-  assert.deepEqual(
-    controller.section.descendants()
-      .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'))
-      .map(node => node.textContent),
-    ['▶', '🎵', '↩', '🔊', '▶', '↻', '↩']
-  );
+  const iconActions = controller.section.descendants()
+    .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
+  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', '🔊', '▶', '↻', '⏭', '↩']);
   assert.ok(
-    controller.section.descendants()
-      .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'))
-      .every(node => node.attributes['aria-label'] && node.attributes.title)
+    iconActions.every(node => node.attributes['aria-label'] && node.attributes.title)
   );
+  const groupLinks = iconActions.filter(node => node.tagName === 'A');
+  assert.deepEqual(groupLinks.map(node => node.attributes.href), ['group-01.html', 'group-03.html', 'group-03.html']);
   assert.equal(byClass(controller.section, 'efn-practice__lost-chest').tagName, 'IMG');
   assert.equal(byClass(controller.section, 'efn-practice__lost-chest').attributes.src, 'assets/game/treasure-chest-coins-3d.png');
   assert.equal(byClass(controller.section, 'efn-practice__lost-map-route'), undefined);
@@ -348,6 +350,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   assert.ok(byClass(controller.section, 'efn-practice__question-bar'));
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   assert.equal(byClass(controller.section, 'efn-practice__mode').textContent, 'ניסיון עצמאי');
+  assert.equal(byClass(controller.section, 'efn-practice__progress-text').textContent, '0/1');
   assert.ok(controller.section.classList.values.has('is-playing'));
   assert.ok(body.classList.values.has('efn-practice-is-playing'));
   byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
@@ -498,20 +501,21 @@ test('all forty group pages load the dormant rollout bundle', async () => {
   }
 });
 
-test('stage 8 activates the adaptive ten-word route across every Core I group', async () => {
+test('the coverage-first route activates across every Core I group', async () => {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.equal(rollout.version, '2026-08-26-core1-adaptive-stage8');
+  assert.equal(rollout.version, '2026-08-26-core1-coverage-first');
   assert.equal(Object.keys(rollout.vocabulary).length, 20);
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const config = rollout.vocabulary[`groups/group-${id}.html`];
-    assert.equal(config.limit, 10);
+    assert.equal(config.limit, 55);
     assert.equal(config.sourceLimit, 55);
-    assert.equal(config.missionSize, 10);
+    assert.equal(config.missionSize, 55);
     assert.equal(config.adaptive, true);
+    assert.equal(config.coverageFirst, true);
     assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
     assert.equal(config.progressGroup, group);
   }
@@ -522,7 +526,7 @@ test('stage 8 activates the adaptive ten-word route across every Core I group', 
   assert.equal(vocabApi.rolloutFor('/E-Vocab-Band-II/groups/group-21.html', rollout.vocabulary), null);
 });
 
-test('stage 8 rotates through the complete authentic pool in every Core I group', async () => {
+test('each Core I coverage mission includes every unfinished authentic item', async () => {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
@@ -535,16 +539,16 @@ test('stage 8 rotates through the complete authentic pool in every Core I group'
     assert.ok(match, `Group ${id} vocabulary payload was not found`);
     const words = JSON.parse(match[1]);
     const config = rollout.vocabulary[`groups/group-${id}.html`];
-    const nextMission = vocabApi.createMissionSelector(words, config.missionSize, config.sourceLimit);
-    const rounds = Array.from({ length: Math.ceil(words.length / config.missionSize) }, () => nextMission());
-    assert.ok(rounds.every(round => round.length === 10));
-    assert.equal(new Set(rounds.flat().map(record => record.serial)).size, words.length);
+    const mission = vocabApi.createCoverageMission(words, null, config.sourceLimit);
+    assert.equal(mission.records.length, words.length);
+    assert.equal(new Set(mission.records.map(record => record.serial)).size, words.length);
+    assert.ok(mission.records.every(record => mission.modes.get(String(record.serial)) === 'primary'));
   }
 });
 
-test('stage 4 keeps local progress loading gated by the Core I rollout configuration', async () => {
+test('local progress loading stays gated by the Core I rollout configuration', async () => {
   const source = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
-  assert.match(source, /core1-progress\.js\?v=20260826-stage4/);
+  assert.match(source, /core1-progress\.js\?v=20260826-coverage1/);
   assert.match(source, /config\.progressGroup/);
   assert.match(source, /root\.EFN_CORE1_PROGRESS/);
 });
@@ -558,16 +562,16 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-stage8-fix1/);
+  assert.match(source, /practice-shell\.css\?v=20260826-coverage1/);
   assert.match(source, /treasure-chest-coins-3d\.png\?v=20260826-stage8-fix1/);
   assert.equal(treasureAsset.subarray(1, 4).toString(), 'PNG');
   assert.equal(treasureAsset.readUInt32BE(16), 768);
   assert.equal(treasureAsset.readUInt32BE(20), 768);
   assert.equal(treasureAsset[25], 6);
-  assert.match(source, /autoAdvanceCorrectMs: 1500/);
+  assert.match(source, /autoAdvanceCorrectMs: 650/);
   assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
-  assert.match(source, /10 מילים · 3 תיבות/);
+  assert.match(source, /description: `\$\{sourcePool\.length\} מילים`/);
   assert.match(source, /נשאר במכשיר/);
   assert.match(source, /מתחילים לשחק/);
   assert.doesNotMatch(source, /מסע עומק אדפטיבי|לצלול|לדוג מילים/);
@@ -596,6 +600,72 @@ test('the Group 01 mission selector exposes every one of the 55 source records a
   assert.ok(rounds.every(round => round.length === 10));
   assert.equal(new Set(rounds.flat().map(record => record.serial)).size, 55);
   assert.deepEqual(rounds[5].map(record => record.serial), [51, 52, 53, 54, 55, 1, 2, 3, 4, 5]);
+});
+
+test('coverage planning prioritizes unseen words and leaves mastered words out of the next run', () => {
+  const plan = {
+    items: [
+      { serial: 1, signalCount: 1, mastered: false, nextMode: 'review' },
+      { serial: 2, signalCount: 2, mastered: true, nextMode: 'context' },
+      { serial: 3, signalCount: 0, mastered: false, nextMode: 'primary' }
+    ]
+  };
+  const mission = vocabApi.createCoverageMission(records.slice(0, 3), plan, 3);
+  assert.deepEqual(mission.records.map(record => record.serial), [3, 1]);
+  assert.equal(mission.modes.get('3'), 'primary');
+  assert.equal(mission.modes.get('1'), 'review');
+});
+
+test('a perfect coverage-first run asks every word once without scheduled repetition', () => {
+  const session = sessionApi.createSession(records, {
+    limit: records.length,
+    choiceRecords: records,
+    coverageFirst: true,
+    adaptive: true,
+    initialModeFor: record => record.serial === 1 ? 'review' : 'primary',
+    questionFactory: basicQuestionFactory
+  });
+  const seen = [];
+  let question;
+  while ((question = session.next())) {
+    seen.push(question.meta.record.serial);
+    session.answer(question.answer, { responseTimeMs: 900 });
+  }
+  assert.deepEqual(seen, records.map(record => record.serial));
+  assert.equal(new Set(seen).size, records.length);
+  assert.deepEqual(session.summary(), {
+    firstTry: records.length,
+    corrected: 0,
+    unresolved: 0,
+    total: records.length,
+    answered: records.length
+  });
+});
+
+test('coverage-first repeats only a missed word and keeps the two-item correction gap', () => {
+  const session = sessionApi.createSession(records.slice(0, 4), {
+    limit: 4,
+    choiceRecords: records,
+    coverageFirst: true,
+    adaptive: true,
+    questionFactory: basicQuestionFactory
+  });
+  const first = session.next();
+  session.answer(first.choices.find(choice => choice !== first.answer));
+  assert.match(session.debugQueue()[2].key, /word-0-retry/);
+  assert.ok(session.debugQueue().every(entry => !entry.filler));
+});
+
+test('group navigation is always available and wraps inside the twenty game groups', () => {
+  assert.deepEqual(vocabApi.groupNavigationFor(1), {
+    previous: 20,
+    previousHref: 'group-20.html',
+    previousLabel: 'לקבוצה הקודמת: 20',
+    next: 2,
+    nextHref: 'group-02.html',
+    nextLabel: 'לקבוצה הבאה: 02'
+  });
+  assert.equal(vocabApi.groupNavigationFor(20).nextHref, 'group-01.html');
 });
 
 test('adaptive routing opens retrieval after fast consecutive success and context otherwise', () => {
@@ -673,7 +743,7 @@ test('the Core I loader resolves the progress module from the local site root', 
     root,
     'https://example.test/E-Vocab-Band-II/vocab-practice.js?v=20260825-stage9'
   );
-  assert.equal(appended.src, 'https://example.test/E-Vocab-Band-II/core1-progress.js?v=20260826-stage4');
+  assert.equal(appended.src, 'https://example.test/E-Vocab-Band-II/core1-progress.js?v=20260826-coverage1');
   assert.equal(appended.dataset.efnCore1Progress, 'true');
   assert.deepEqual(loaded, { loaded: true });
 });
@@ -861,15 +931,15 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('stage 8 adaptive assets are cache-busted across Core I while preserving the analytics privacy guard', async () => {
+test('coverage-first assets are cache-busted across Core I while preserving the analytics privacy guard', async () => {
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const activeGroup = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
-    assert.match(activeGroup, /practice-session\.js\?v=20260826-stage6/);
-    assert.match(activeGroup, /practice-panel\.js\?v=20260826-stage8/);
-    assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-stage8/);
-    assert.match(activeGroup, /vocab-practice\.js\?v=20260826-stage8/);
+    assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);
+    assert.match(activeGroup, /practice-panel\.js\?v=20260826-coverage1/);
+    assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-coverage1/);
+    assert.match(activeGroup, /vocab-practice\.js\?v=20260826-coverage1/);
     assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
   }
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);

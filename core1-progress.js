@@ -62,6 +62,17 @@
     return word;
   }
 
+  function nextSignalFor(signals) {
+    const completed = new Set(cleanSignals(signals));
+    return ALLOWED_SIGNALS.find(signal => !completed.has(signal)) || 'meaning';
+  }
+
+  function modeForSignal(signal) {
+    if (signal === 'recall') return 'review';
+    if (signal === 'context') return 'context';
+    return 'primary';
+  }
+
   function cleanState(raw) {
     if (!raw || raw.version !== SCHEMA_VERSION || !raw.groups || typeof raw.groups !== 'object') {
       return emptyState();
@@ -159,6 +170,31 @@
       return groupView(load(), groupKey, serials);
     }
 
+    function getGroupPracticePlan({ group, expectedSerials }) {
+      const groupKey = normalizeGroup(group);
+      const serials = normalizeSerials(expectedSerials);
+      const state = load();
+      const stored = state.groups[groupKey];
+      const items = serials.map(serial => {
+        const signals = cleanSignals(stored?.words?.[String(serial)]?.signals);
+        const nextSignal = nextSignalFor(signals);
+        return {
+          serial,
+          signals,
+          signalCount: signals.length,
+          mastered: signals.length >= REQUIRED_SIGNAL_COUNT,
+          nextSignal,
+          nextMode: modeForSignal(nextSignal)
+        };
+      });
+      return {
+        group: Number(groupKey),
+        total: items.length,
+        remaining: items.filter(item => !item.mastered).length,
+        items
+      };
+    }
+
     function recordCorrect({ group, serial, signal, expectedSerials }) {
       const groupKey = normalizeGroup(group);
       const serialKey = normalizeSerial(serial);
@@ -209,7 +245,7 @@
       return persistent ? 'device' : 'session';
     }
 
-    return { getGroupProgress, recordCorrect, resetGroup, storageMode };
+    return { getGroupProgress, getGroupPracticePlan, recordCorrect, resetGroup, storageMode };
   }
 
   function createBrowserProgressStore(root, options = {}) {
@@ -229,6 +265,8 @@
     LAST_GROUP,
     REQUIRED_SIGNAL_COUNT,
     ALLOWED_SIGNALS,
+    nextSignalFor,
+    modeForSignal,
     createProgressStore,
     createBrowserProgressStore,
     fingerprint

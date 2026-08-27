@@ -112,6 +112,41 @@
     };
   }
 
+  function createCoverageMission(records, practicePlan, sourceLimit = records.length) {
+    const pool = records.slice(0, Math.max(2, Math.min(records.length, Number(sourceLimit) || records.length)));
+    const planItems = new Map((practicePlan?.items || []).map(item => [String(item.serial), item]));
+    const ordered = pool.map((record, index) => {
+      const plan = planItems.get(String(record.serial)) || {};
+      return {
+        record,
+        index,
+        signalCount: Math.max(0, Number(plan.signalCount) || 0),
+        mastered: Boolean(plan.mastered),
+        mode: ['primary', 'review', 'context'].includes(plan.nextMode) ? plan.nextMode : 'primary'
+      };
+    });
+    const incomplete = ordered.filter(item => !item.mastered);
+    const candidates = incomplete.length ? incomplete : ordered;
+    candidates.sort((left, right) => left.signalCount - right.signalCount || left.index - right.index);
+    const modes = new Map(candidates.map(item => [String(item.record.serial), item.mode]));
+    return { records: candidates.map(item => item.record), modes };
+  }
+
+  function groupNavigationFor(group, firstGroup = 1, lastGroup = 20) {
+    const current = Math.max(firstGroup, Math.min(lastGroup, Number(group) || firstGroup));
+    const previous = current === firstGroup ? lastGroup : current - 1;
+    const next = current === lastGroup ? firstGroup : current + 1;
+    const id = value => String(value).padStart(2, '0');
+    return {
+      previous,
+      previousHref: `group-${id(previous)}.html`,
+      previousLabel: `לקבוצה הקודמת: ${id(previous)}`,
+      next,
+      nextHref: `group-${id(next)}.html`,
+      nextLabel: `לקבוצה הבאה: ${id(next)}`
+    };
+  }
+
   function formatFeedback(result) {
     const record = result.question.meta.record;
     const example = clean(record.ex_en);
@@ -183,7 +218,16 @@
       }
     }
 
-    return { record, getProgress, storageMode: () => store.storageMode() };
+    function getPracticePlan() {
+      if (typeof store.getGroupPracticePlan !== 'function') return null;
+      try {
+        return store.getGroupPracticePlan({ group, expectedSerials });
+      } catch {
+        return null;
+      }
+    }
+
+    return { record, getProgress, getPracticePlan, storageMode: () => store.storageMode() };
   }
 
   function withProgressTracking(session, tracker) {
@@ -209,7 +253,7 @@
     }
     const base = scriptUrl ? new URL('.', scriptUrl) : new URL('.', root.location.href);
     const script = root.document.createElement('script');
-    script.src = new URL('core1-progress.js?v=20260826-stage4', base).href;
+    script.src = new URL('core1-progress.js?v=20260826-coverage1', base).href;
     script.dataset.efnCore1Progress = 'true';
     return new Promise(resolve => {
       script.addEventListener('load', () => resolve(root.EFN_CORE1_PROGRESS || null), { once: true });
@@ -232,45 +276,58 @@
     if (!anchor || root.document.querySelector('.efn-practice')) return null;
     const base = scriptUrl ? new URL('.', scriptUrl) : new URL('.', root.location.href);
     const expectedSerials = root.EFN_PAGE_WORDS.map(record => record.serial);
-    const nextMission = createMissionSelector(
-      root.EFN_PAGE_WORDS,
-      config.missionSize || config.limit,
-      config.sourceLimit || config.limit
-    );
+    const sourcePool = root.EFN_PAGE_WORDS.slice(0, config.sourceLimit || root.EFN_PAGE_WORDS.length);
     const progressTracker = config.progressGroup
       ? createProgressTracker(root.EFN_CORE1_PROGRESS || progressApi, root, {
         group: config.progressGroup,
         expectedSerials
       })
       : null;
+    const navigation = config.progressGroup ? groupNavigationFor(config.progressGroup) : null;
     if (progressTracker) renderProgress(root, progressTracker.getProgress());
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-stage8-fix1', base).href,
+      stylesheetHref: new URL('practice-shell.css?v=20260826-coverage1', base).href,
       treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,
       badge: 'CORE I',
       title: 'האוצר האבוד',
-      description: '10 מילים · 3 תיבות',
+      description: `${sourcePool.length} מילים`,
       privacy: 'נשאר במכשיר.',
       startLabel: 'מתחילים לשחק',
-      autoAdvanceCorrectMs: 1500,
+      autoAdvanceCorrectMs: 650,
       correctNextLabel: 'הבא עכשיו',
       showProgressPercent: true,
+      showProgressCount: true,
       blockQuest: true,
       immersive: true,
       exponentialFeedback: true,
       baseReward: 10,
       treasureChests: [25, 50, 100],
+      previousGroupHref: navigation?.previousHref,
+      previousGroupLabel: navigation?.previousLabel,
+      nextGroupHref: navigation?.nextHref,
+      nextGroupLabel: navigation?.nextLabel,
+      getOverallProgress: () => progressTracker?.getProgress() || null,
       analyticsActivity: config.analyticsActivity,
-      createSession: () => withProgressTracking(
-        sessionApi.createSession(nextMission(), {
-          limit: config.missionSize || config.limit,
-          questionFactory,
-          adaptive: Boolean(config.adaptive)
-        }),
-        progressTracker
-      ),
+      createSession: () => {
+        const mission = createCoverageMission(
+          sourcePool,
+          progressTracker?.getPracticePlan(),
+          config.sourceLimit || sourcePool.length
+        );
+        return withProgressTracking(
+          sessionApi.createSession(mission.records, {
+            limit: mission.records.length,
+            choiceRecords: sourcePool,
+            questionFactory,
+            adaptive: Boolean(config.adaptive),
+            coverageFirst: Boolean(config.coverageFirst),
+            initialModeFor: record => mission.modes.get(String(record.serial)) || 'primary'
+          }),
+          progressTracker
+        );
+      },
       formatFeedback
     });
   }
@@ -283,6 +340,8 @@
     choicesFor,
     contextPrompt,
     createMissionSelector,
+    createCoverageMission,
+    groupNavigationFor,
     questionFactory,
     formatFeedback,
     progressSignalFor,
