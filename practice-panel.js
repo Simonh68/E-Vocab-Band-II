@@ -304,10 +304,11 @@
     function syncAutoSpeakToggle() {
       if (autoSpeakEnabled) autoSpeakToggle.classList.add('is-active');
       else autoSpeakToggle.classList.remove('is-active');
+      autoSpeakToggle.textContent = autoSpeakEnabled ? 'A🔊' : 'A🔇';
       autoSpeakToggle.setAttribute('aria-pressed', String(autoSpeakEnabled));
       const label = autoSpeakEnabled
         ? 'כיבוי השמעה אוטומטית'
-        : 'הפעלת השמעה אוטומטית לאחר שנייה';
+        : 'הפעלת השמעה אוטומטית לאחר בחירת תשובה';
       autoSpeakToggle.setAttribute('aria-label', label);
       autoSpeakToggle.setAttribute('title', label);
     }
@@ -506,6 +507,7 @@
     let session = null;
     let currentQuestion = null;
     let answered = false;
+    let lastAnswerCorrect = null;
     let autoAdvanceTimer = null;
     let autoSpeakTimer = null;
     let goldenBuzzerTimer = null;
@@ -795,6 +797,7 @@
         return;
       }
       answered = false;
+      lastAnswerCorrect = null;
       questionStartedAt = typeof config.now === 'function'
         ? config.now()
         : globalThis.performance?.now?.() ?? Date.now();
@@ -847,9 +850,10 @@
         ? config.now()
         : globalThis.performance?.now?.() ?? Date.now();
       const result = session.answer(value, { responseTimeMs: Math.max(0, answeredAt - questionStartedAt) });
+      lastAnswerCorrect = Boolean(result.correct);
       answeredCardCount += 1;
       if (isGoldenBuzzerMilestone(answeredCardCount, config.goldenBuzzerMilestone || 25)) showGoldenBuzzer();
-      scheduleAutoSpeak(result.correct ? undefined : 0, result.correct ? 1 : 2, !result.correct);
+      scheduleAutoSpeak(0, 2, !result.correct);
       let rewardEvent = null;
       if (config.exponentialFeedback) {
         if (result.correct) {
@@ -900,7 +904,7 @@
       }
       feedback.focus({ preventScroll: true });
       const delay = result.correct
-        ? Number(config.autoAdvanceCorrectMs)
+        ? Number(autoSpeakEnabled ? config.autoAdvanceSpokenCorrectMs : config.autoAdvanceCorrectMs)
         : Number(config.autoAdvanceWrongMs);
       if (delay > 0 && schedule) {
         section.classList.add('is-advancing');
@@ -964,7 +968,7 @@
       autoSpeakEnabled = !autoSpeakEnabled;
       autoSpeakPreference?.set?.(autoSpeakEnabled);
       syncAutoSpeakToggle();
-      if (autoSpeakEnabled) scheduleAutoSpeak();
+      if (autoSpeakEnabled) scheduleAutoSpeak(0, 2, lastAnswerCorrect === false);
       else clearAutoSpeak();
     });
     function leave() {
@@ -985,7 +989,7 @@
     summaryExit.addEventListener('click', leave);
     speak.addEventListener('click', () => {
       clearAutoSpeak();
-      speakCurrentQuestion();
+      speakCurrentQuestion(2);
     });
 
     return {

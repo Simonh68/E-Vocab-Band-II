@@ -335,6 +335,7 @@
       privacy: 'נשאר במכשיר.',
       startLabel: 'מתחילים לשחק',
       autoAdvanceCorrectMs: 1500,
+      autoAdvanceSpokenCorrectMs: 4000,
       autoAdvanceWrongMs: 4000,
       goldenBuzzerMilestone: 25,
       goldenBuzzerDurationMs: 2600,
