@@ -190,7 +190,7 @@ test('the Band II auto-pronunciation preference persists on the device and falls
   assert.equal(fallback.get(), true);
 });
 
-test('the Band II auto-pronunciation toggle waits one second and remembers the choice', () => {
+test('Band II pronunciation stays locked until an answer, then waits one second and remembers the choice', () => {
   const document = {
     head: new FakeElement('head'),
     createElement: tag => new FakeElement(tag),
@@ -245,13 +245,21 @@ test('the Band II auto-pronunciation toggle waits one second and remembers the c
 
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   const toggle = byClass(controller.section, 'efn-practice__auto-speak-toggle');
+  const manualSpeak = byClass(controller.section, 'efn-practice__speak');
   assert.equal(toggle.attributes['aria-pressed'], 'false');
+  assert.equal(manualSpeak.hidden, true);
   assert.equal(timers.size, 0);
 
   toggle.listeners.click();
   assert.deepEqual(preferenceValues, [true]);
   assert.equal(toggle.attributes['aria-pressed'], 'true');
   assert.equal(toggle.classList.values.has('is-active'), true);
+  assert.equal(timers.size, 0);
+  assert.equal(spoken.length, 0);
+
+  const choices = byClass(controller.section, 'efn-practice__choices').querySelectorAll('button');
+  choices[0].listeners.click();
+  assert.equal(manualSpeak.hidden, false);
   assert.equal(timers.size, 1);
   const scheduled = [...timers.values()][0];
   assert.equal(scheduled.delay, 1000);
@@ -266,6 +274,62 @@ test('the Band II auto-pronunciation toggle waits one second and remembers the c
   assert.deepEqual(preferenceValues, [true, false]);
   assert.equal(toggle.attributes['aria-pressed'], 'false');
   assert.equal(toggle.classList.values.has('is-active'), false);
+});
+
+test('a wrong answer is pronounced immediately and advances after four seconds', () => {
+  const document = {
+    head: new FakeElement('head'),
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const timers = [];
+  const spoken = [];
+  class Utterance { constructor(text) { this.text = text; } }
+  const question = {
+    prompt: 'sausage',
+    speakText: 'sausage',
+    choices: ['פאזל', 'נקניקייה'],
+    answer: 'נקניקייה',
+    meta: { record: records[0] }
+  };
+  const controller = panelApi.mount({
+    document,
+    anchor: new FakeElement('div'),
+    blockQuest: true,
+    speechHost: {
+      SpeechSynthesisUtterance: Utterance,
+      speechSynthesis: { cancel() {}, speak: utterance => spoken.push(utterance) }
+    },
+    autoSpeakPreference: { get: () => true, set() {} },
+    autoSpeakDelayMs: 1000,
+    autoAdvanceWrongMs: 4000,
+    setTimeout(callback, delay) {
+      timers.push({ callback, delay });
+      return timers.length;
+    },
+    clearTimeout() {},
+    createSession: () => ({
+      next: () => question,
+      answer: () => ({ correct: false, question, entry: {}, state: {}, willReturn: true, mastered: false }),
+      progress: () => ({ mastered: 0, total: 1 }),
+      summary: () => ({ firstTry: 0, corrected: 0, unresolved: 1 })
+    }),
+    formatFeedback: () => ({ title: 'כמעט', text: 'sausage פירושו נקניקייה' })
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
+  assert.deepEqual(timers.map(timer => timer.delay), [0, 4000]);
+  timers[0].callback();
+  assert.equal(spoken[0].text, 'sausage');
+  assert.equal(byClass(controller.section, 'efn-practice__prompt').classList.values.has('is-pronunciation-flashing'), true);
+  assert.equal(timers[2].delay, 1500);
+  timers[2].callback();
+  assert.equal(spoken.length, 2);
+  assert.equal(spoken[1].text, 'sausage');
+  assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, false);
+  timers[1].callback();
+  assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, true);
 });
 
 test('a correct Band II answer shows a build transition and advances after 1500 ms', () => {
@@ -393,6 +457,13 @@ test('Block Quest rewards grow exponentially and open three milestone chests', (
   assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /×8/);
   assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /אוצר/);
   assert.doesNotMatch(panelApi.questFeedback({ streak: 1, multiplier: 1, reward: 10, chestOpened: false }), /מטבעות/);
+});
+
+test('the full-screen Golden Buzzer fires exactly on card 25', () => {
+  assert.equal(panelApi.isGoldenBuzzerMilestone(24), false);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(25), true);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(26), false);
+  assert.equal(panelApi.isGoldenBuzzerMilestone(50), false);
 });
 
 test('the Core I panel enters a full-screen Block Quest and keeps rewards session-only', () => {
@@ -764,7 +835,8 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.equal(treasureAsset.readUInt32BE(16), 768);
   assert.equal(treasureAsset.readUInt32BE(20), 768);
   assert.equal(treasureAsset[25], 6);
-  assert.match(source, /autoAdvanceCorrectMs: 650/);
+  assert.match(source, /autoAdvanceCorrectMs: 1500/);
+  assert.match(source, /autoAdvanceWrongMs: 4000/);
   assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
   assert.match(source, /description: `\$\{sourcePool\.length\} מילים`/);

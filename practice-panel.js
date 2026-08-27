@@ -54,6 +54,10 @@
     return thresholds.filter(threshold => safeSegment >= Number(threshold)).length;
   }
 
+  function isGoldenBuzzerMilestone(answeredCount, milestone = 25) {
+    return Math.max(0, Math.floor(Number(answeredCount) || 0)) === Math.max(1, Math.floor(Number(milestone) || 25));
+  }
+
   function questFeedback({ streak, multiplier, reward, chestOpened }) {
     let title = streak >= 4
       ? `אגדי ×${multiplier}! +${reward}`
@@ -477,9 +481,26 @@
     checkpoint.append(checkpointBadge, checkpointChest, checkpointTitle, checkpointText, checkpointReward, checkpointActions);
     checkpoint.hidden = true;
 
+    const goldenBuzzer = element(document, 'div', 'efn-practice__golden-buzzer');
+    goldenBuzzer.hidden = true;
+    goldenBuzzer.setAttribute('role', 'status');
+    goldenBuzzer.setAttribute('aria-live', 'assertive');
+    goldenBuzzer.setAttribute('aria-label', 'Golden Buzzer — עשרים וחמישה כרטיסים הושלמו');
+    const goldenBurst = element(document, 'div', 'efn-practice__golden-burst');
+    const goldenBlock = element(document, 'div', 'efn-practice__golden-block', '★');
+    const goldenTitle = element(document, 'div', 'efn-practice__golden-title', 'GOLDEN BUZZER!');
+    const goldenText = element(document, 'div', 'efn-practice__golden-text', '25 כרטיסים הושלמו');
+    const goldenParticles = element(document, 'div', 'efn-practice__golden-particles');
+    for (let index = 0; index < 12; index += 1) {
+      const particle = element(document, 'i', 'efn-practice__golden-particle');
+      particle.style['--particle-index'] = index;
+      goldenParticles.appendChild(particle);
+    }
+    goldenBuzzer.append(goldenBurst, goldenParticles, goldenBlock, goldenTitle, goldenText);
+
     section.append(intro, activity);
     if (config.segmentedUi) section.append(checkpoint);
-    section.append(summary);
+    section.append(summary, goldenBuzzer);
     config.anchor.insertAdjacentElement('afterend', section);
 
     let session = null;
@@ -487,6 +508,8 @@
     let answered = false;
     let autoAdvanceTimer = null;
     let autoSpeakTimer = null;
+    let goldenBuzzerTimer = null;
+    let answeredCardCount = 0;
     let rewardScore = 0;
     let rewardStreak = 0;
     let unlockedChests = 0;
@@ -511,32 +534,82 @@
       autoSpeakTimer = null;
     }
 
-    function speakCurrentQuestion() {
+    function clearGoldenBuzzer() {
+      if (goldenBuzzerTimer != null && cancel) cancel(goldenBuzzerTimer);
+      goldenBuzzerTimer = null;
+      goldenBuzzer.hidden = true;
+      goldenBuzzer.classList.remove('is-active');
+    }
+
+    function showGoldenBuzzer() {
+      clearGoldenBuzzer();
+      goldenBuzzer.hidden = false;
+      void goldenBuzzer.offsetWidth;
+      goldenBuzzer.classList.add('is-active');
+      if (schedule) {
+        goldenBuzzerTimer = schedule(() => {
+          goldenBuzzerTimer = null;
+          goldenBuzzer.hidden = true;
+          goldenBuzzer.classList.remove('is-active');
+        }, Number(config.goldenBuzzerDurationMs) || 2600);
+      }
+    }
+
+    function flashCurrentWord() {
+      prompt.classList.remove('is-pronunciation-flashing');
+      void prompt.offsetWidth;
+      prompt.classList.add('is-pronunciation-flashing');
+    }
+
+    prompt.addEventListener('animationend', () => {
+      prompt.classList.remove('is-pronunciation-flashing');
+    });
+
+    function speakCurrentQuestion(repetitions = 1, emphasize = false, repeatIntervalMs = 1500) {
       if (!currentQuestion?.speakText || !('speechSynthesis' in speechHost)) return;
       speechHost.EFNAnalyticsIgnoreNextAudio = true;
       speechHost.speechSynthesis.cancel();
       audio.duck(true);
+      if (emphasize) flashCurrentWord();
       const Utterance = speechHost.SpeechSynthesisUtterance || globalThis.SpeechSynthesisUtterance;
       if (typeof Utterance !== 'function') {
         audio.duck(false);
         return;
       }
-      const utterance = new Utterance(currentQuestion.speakText);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.82;
-      utterance.onend = () => audio.duck(false);
-      utterance.onerror = () => audio.duck(false);
-      speechHost.speechSynthesis.speak(utterance);
+      let remaining = Math.max(1, Number(repetitions) || 1);
+      const speakNext = () => {
+        const finalUtterance = remaining === 1;
+        const utterance = new Utterance(currentQuestion.speakText);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.82;
+        utterance.onend = () => {
+          if (finalUtterance) audio.duck(false);
+        };
+        utterance.onerror = () => audio.duck(false);
+        speechHost.speechSynthesis.speak(utterance);
+        remaining -= 1;
+        if (remaining > 0 && schedule) {
+          autoSpeakTimer = schedule(() => {
+            autoSpeakTimer = null;
+            speakNext();
+          }, Math.max(0, Number(repeatIntervalMs) || 1500));
+        }
+      };
+      speakNext();
     }
 
-    function scheduleAutoSpeak() {
+    function scheduleAutoSpeak(delayOverride, repetitions = 1, emphasize = false) {
       clearAutoSpeak();
-      if (!autoSpeakEnabled || !schedule || !currentQuestion?.speakText) return;
+      if (!autoSpeakEnabled || !answered || !schedule || !currentQuestion?.speakText) return;
       const scheduledQuestion = currentQuestion;
+      const configuredDelay = delayOverride ?? config.autoSpeakDelayMs ?? 1000;
+      const delay = Number.isFinite(Number(configuredDelay))
+        ? Math.max(0, Number(configuredDelay))
+        : 1000;
       autoSpeakTimer = schedule(() => {
         autoSpeakTimer = null;
-        if (!answered && currentQuestion === scheduledQuestion) speakCurrentQuestion();
-      }, Number(config.autoSpeakDelayMs) || 1000);
+        if (answered && currentQuestion === scheduledQuestion) speakCurrentQuestion(repetitions, emphasize);
+      }, delay);
     }
 
     function measure(event, context = {}) {
@@ -734,7 +807,7 @@
       clue.hidden = !currentQuestion.clue;
       clue.lang = currentQuestion.clueLang || 'en';
       clue.dir = currentQuestion.clueDir || (clue.lang === 'he' ? 'rtl' : 'ltr');
-      speak.hidden = !currentQuestion.speakText || !('speechSynthesis' in speechHost);
+      speak.hidden = true;
       choices.replaceChildren();
       const arranged = avoidRepeatedAnswerPosition(
         currentQuestion.choices,
@@ -758,16 +831,19 @@
       else audio.cue('question');
       const firstChoice = choices.querySelector('[data-first-choice="true"]');
       if (firstChoice) firstChoice.focus({ preventScroll: true });
-      scheduleAutoSpeak();
     }
 
     function submit(value, selectedButton) {
       if (answered) return;
       answered = true;
+      speak.hidden = !currentQuestion?.speakText || !('speechSynthesis' in speechHost);
       const answeredAt = typeof config.now === 'function'
         ? config.now()
         : globalThis.performance?.now?.() ?? Date.now();
       const result = session.answer(value, { responseTimeMs: Math.max(0, answeredAt - questionStartedAt) });
+      answeredCardCount += 1;
+      if (isGoldenBuzzerMilestone(answeredCardCount, config.goldenBuzzerMilestone || 25)) showGoldenBuzzer();
+      scheduleAutoSpeak(result.correct ? undefined : 0, result.correct ? 1 : 2, !result.correct);
       let rewardEvent = null;
       if (config.exponentialFeedback) {
         if (result.correct) {
@@ -817,13 +893,19 @@
         feedbackTitle.textContent = questFeedback({ ...rewardEvent, chestOpened: questState.openedNow });
       }
       feedback.focus({ preventScroll: true });
-      const delay = Number(config.autoAdvanceCorrectMs);
-      if (result.correct && delay > 0 && schedule) {
+      const delay = result.correct
+        ? Number(config.autoAdvanceCorrectMs)
+        : Number(config.autoAdvanceWrongMs);
+      if (delay > 0 && schedule) {
         section.classList.add('is-advancing');
-        transition.hidden = false;
-        if (transition.style?.setProperty) transition.style.setProperty('--advance-duration', `${delay}ms`);
-        else transition.style['--advance-duration'] = `${delay}ms`;
-        audio.cue('correct', { chestOpened: questState.openedNow });
+        transition.hidden = !result.correct;
+        if (result.correct) {
+          if (transition.style?.setProperty) transition.style.setProperty('--advance-duration', `${delay}ms`);
+          else transition.style['--advance-duration'] = `${delay}ms`;
+          audio.cue('correct', { chestOpened: questState.openedNow });
+        } else {
+          audio.cue('wrong');
+        }
         autoAdvanceTimer = schedule(() => {
           autoAdvanceTimer = null;
           advance();
@@ -839,6 +921,8 @@
       previousAnswerIndex = -1;
       skipQuestionCue = true;
       pendingCheckpoint = null;
+      answeredCardCount = 0;
+      clearGoldenBuzzer();
       setPlaying(true);
       audio.start();
       measure('button_click', { target: 'practice-start', label: 'practice-start' });
@@ -880,6 +964,7 @@
     function leave() {
       clearAutoAdvance();
       clearAutoSpeak();
+      clearGoldenBuzzer();
       audio.stop();
       activity.hidden = true;
       checkpoint.hidden = true;
@@ -915,6 +1000,7 @@
     rewardForStreak,
     chestCountForPercent,
     chestCountForSegment,
+    isGoldenBuzzerMilestone,
     questFeedback,
     avoidRepeatedAnswerPosition,
     createQuestAudio
