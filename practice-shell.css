@@ -734,8 +734,9 @@
 }
 .efn-practice--block-quest .efn-practice__choices { grid-auto-rows: minmax(74px, 1fr); gap: clamp(8px, 1.4vw, 15px); }
 .efn-practice--block-quest .efn-practice__choice {
-  display: flex;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  justify-content: stretch;
   padding: clamp(12px, 2vw, 20px);
   border: 4px solid #101a20;
   color: #f6fbfd;
@@ -747,6 +748,17 @@
   font-weight: 700;
   line-height: 1.35;
   letter-spacing: -.012em;
+  text-align: center;
+}
+.efn-practice--block-quest .efn-practice__choices[data-choice-count="2"] .efn-practice__choice {
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  line-height: 1.15;
+}
+.efn-practice--block-quest .efn-practice__choices[data-choice-count="2"] .efn-practice__choice[data-choice-size="medium"] {
+  font-size: clamp(1.65rem, 4.3vw, 2.75rem);
+}
+.efn-practice--block-quest .efn-practice__choices[data-choice-count="2"] .efn-practice__choice[data-choice-size="long"] {
+  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
 }
 .efn-practice--block-quest .efn-practice__choice[lang="en"] {
   font-family: "Trebuchet MS", Arial, sans-serif;

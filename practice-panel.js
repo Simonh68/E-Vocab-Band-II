@@ -816,12 +816,15 @@
         config.random || Math.random
       );
       previousAnswerIndex = arranged.answerIndex;
+      choices.dataset.choiceCount = String(arranged.choices.length);
       arranged.choices.forEach((choice, index) => {
         const button = element(document, 'button', 'efn-practice__choice', choice);
         button.type = 'button';
         button.dataset.analyticsLabel = 'practice-answer';
         button.lang = currentQuestion.choiceLang || 'he';
         button.dir = currentQuestion.choiceDir || (button.lang === 'he' ? 'rtl' : 'ltr');
+        const choiceLength = String(choice || '').trim().length;
+        button.dataset.choiceSize = choiceLength >= 16 ? 'long' : choiceLength >= 11 ? 'medium' : 'short';
         button.addEventListener('click', () => submit(choice, button));
         choices.appendChild(button);
         if (index === 0) button.dataset.firstChoice = 'true';

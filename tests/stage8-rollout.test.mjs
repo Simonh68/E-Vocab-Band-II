@@ -152,6 +152,8 @@ test('the accessible panel mounts and completes a question without a browser dep
     }
   });
   const choices = byClass(controller.section, 'efn-practice__choices').querySelectorAll('button');
+  assert.equal(byClass(controller.section, 'efn-practice__choices').dataset.choiceCount, '2');
+  assert.equal(choices[0].dataset.choiceSize, 'short');
   assert.equal(choices[0].focused, true);
   choices[1].listeners.click();
   const feedback = byClass(controller.section, 'efn-practice__feedback');
