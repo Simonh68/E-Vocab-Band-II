@@ -466,6 +466,18 @@
   white-space: nowrap;
 }
 
+.efn-practice--block-quest .efn-practice__auto-speak-toggle {
+  min-width: 52px;
+  white-space: nowrap;
+}
+
+.efn-practice--block-quest .efn-practice__auto-speak-toggle.is-active {
+  border-color: #8edb75;
+  color: #08150b;
+  background: #78d85e;
+  box-shadow: inset 0 3px #b8f4a7, 0 4px 0 #285f22;
+}
+
 .efn-practice--block-quest .efn-practice__icon-action {
   width: 52px;
   min-width: 52px;
@@ -918,7 +930,8 @@
   .efn-practice--block-quest { border-radius: 4px; }
   .efn-practice--block-quest.is-playing { padding: 6px; border-radius: 0; }
   .efn-practice--block-quest .efn-practice__header { display: grid; grid-template-columns: 1fr auto; align-items: center; }
-  .efn-practice--block-quest .efn-practice__header-actions > .efn-practice__icon-action { flex: 0 0 52px; }
+  .efn-practice--block-quest .efn-practice__header-actions { gap: 4px; }
+  .efn-practice--block-quest .efn-practice__header-actions > .efn-practice__icon-action { flex: 0 0 44px; }
   .efn-practice--block-quest .efn-practice__quiet { min-height: 42px; align-self: center; }
   .efn-practice--block-quest .efn-practice__progress { min-width: 0; }
   .efn-practice--segmented .efn-practice__header { grid-template-columns: 1fr; }

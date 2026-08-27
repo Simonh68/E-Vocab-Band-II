@@ -170,6 +170,104 @@ test('the accessible panel mounts and completes a question without a browser dep
   });
 });
 
+test('the Band II auto-pronunciation preference persists on the device and falls back safely', () => {
+  const storage = new MemoryStorage();
+  const key = 'efn.band2.auto-pronounce.v1';
+  const firstVisit = vocabApi.createBooleanPreference({ localStorage: storage }, key, false);
+  assert.equal(firstVisit.get(), false);
+  assert.equal(firstVisit.set(true), true);
+  assert.equal(vocabApi.createBooleanPreference({ localStorage: storage }, key, false).get(), true);
+  assert.equal(firstVisit.set(false), false);
+  assert.equal(vocabApi.createBooleanPreference({ localStorage: storage }, key, true).get(), false);
+
+  const blockedStorage = {
+    getItem() { throw new Error('blocked'); },
+    setItem() { throw new Error('blocked'); }
+  };
+  const fallback = vocabApi.createBooleanPreference({ localStorage: blockedStorage }, key, false);
+  assert.equal(fallback.get(), false);
+  fallback.set(true);
+  assert.equal(fallback.get(), true);
+});
+
+test('the Band II auto-pronunciation toggle waits one second and remembers the choice', () => {
+  const document = {
+    head: new FakeElement('head'),
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const preferenceValues = [];
+  const spoken = [];
+  const cancelledSpeech = [];
+  const timers = new Map();
+  let timerId = 0;
+  class Utterance {
+    constructor(text) { this.text = text; }
+  }
+  const speechHost = {
+    SpeechSynthesisUtterance: Utterance,
+    speechSynthesis: {
+      cancel() { cancelledSpeech.push(true); },
+      speak(utterance) { spoken.push(utterance); }
+    }
+  };
+  const question = {
+    prompt: 'sausage',
+    speakText: 'sausage',
+    choices: ['נקניקייה', 'פאזל'],
+    answer: 'נקניקייה',
+    meta: { record: records[0] }
+  };
+  const controller = panelApi.mount({
+    document,
+    anchor: new FakeElement('div'),
+    blockQuest: true,
+    speechHost,
+    autoSpeakDelayMs: 1000,
+    autoSpeakPreference: {
+      get: () => false,
+      set: value => preferenceValues.push(value)
+    },
+    setTimeout(callback, delay) {
+      const id = ++timerId;
+      timers.set(id, { callback, delay });
+      return id;
+    },
+    clearTimeout(id) { timers.delete(id); },
+    createSession: () => ({
+      next: () => question,
+      answer: () => ({ correct: true, question, entry: {}, state: {}, willReturn: false, mastered: true }),
+      progress: () => ({ mastered: 0, total: 1 }),
+      summary: () => ({ firstTry: 0, corrected: 0, unresolved: 1 })
+    }),
+    formatFeedback: () => ({ title: '', text: '' })
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  const toggle = byClass(controller.section, 'efn-practice__auto-speak-toggle');
+  assert.equal(toggle.attributes['aria-pressed'], 'false');
+  assert.equal(timers.size, 0);
+
+  toggle.listeners.click();
+  assert.deepEqual(preferenceValues, [true]);
+  assert.equal(toggle.attributes['aria-pressed'], 'true');
+  assert.equal(toggle.classList.values.has('is-active'), true);
+  assert.equal(timers.size, 1);
+  const scheduled = [...timers.values()][0];
+  assert.equal(scheduled.delay, 1000);
+  scheduled.callback();
+  assert.equal(cancelledSpeech.length, 1);
+  assert.equal(spoken.length, 1);
+  assert.equal(spoken[0].text, 'sausage');
+  assert.equal(spoken[0].lang, 'en-US');
+  assert.equal(spoken[0].rate, 0.82);
+
+  toggle.listeners.click();
+  assert.deepEqual(preferenceValues, [true, false]);
+  assert.equal(toggle.attributes['aria-pressed'], 'false');
+  assert.equal(toggle.classList.values.has('is-active'), false);
+});
+
 test('a correct Band II answer shows a build transition and advances after 1500 ms', () => {
   const head = new FakeElement('head');
   const document = {
@@ -338,7 +436,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
 
   const iconActions = controller.section.descendants()
     .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
-  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', '🔊', '▶', '↻', '⏭', '↩']);
+  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '🔊ᴬ', '↩', '🔊', '▶', '↻', '⏭', '↩']);
   assert.ok(
     iconActions.every(node => node.attributes['aria-label'] && node.attributes.title)
   );
@@ -946,11 +1044,14 @@ test('RA-001 has five evidence-backed questions and the reader loads the story p
 });
 
 test('practice code preserves accessibility and sends only start/completion measurements', async () => {
-  const files = ['learning-loop.js', 'practice-segments.js', 'practice-session.js', 'practice-panel.js', 'vocab-practice.js', 'Read-Along/story-practice.js'];
+  const files = ['learning-loop.js', 'practice-segments.js', 'practice-session.js', 'practice-panel.js', 'Read-Along/story-practice.js'];
   const source = (await Promise.all(files.map(file => readFile(new URL(`../${file}`, import.meta.url), 'utf8')))).join('\n');
+  const vocabSource = await readFile(new URL('../vocab-practice.js', import.meta.url), 'utf8');
   const styles = await readFile(new URL('../practice-shell.css', import.meta.url), 'utf8');
   const analytics = await readFile(new URL('../analytics.js', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /\bfetch\s*\(|\bsendBeacon\b|localStorage|sessionStorage|indexedDB|document\.cookie/);
+  assert.doesNotMatch(vocabSource, /\bfetch\s*\(|\bsendBeacon\b|sessionStorage|indexedDB|document\.cookie/);
+  assert.match(vocabSource, /efn\.band2\.auto-pronounce\.v1/);
   assert.match(source, /aria-live/);
   assert.match(source, /dataset\.analyticsIgnore/);
   assert.match(source, /activity_complete/);

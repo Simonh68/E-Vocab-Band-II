@@ -21,6 +21,38 @@
     return decodeURIComponent(String(pathname || '')).replace(/\\/g, '/').replace(/\/+$/, '').toLowerCase();
   }
 
+  function createBooleanPreference(root, key, defaultValue = false) {
+    let fallback = Boolean(defaultValue);
+    const storage = (() => {
+      try {
+        return root?.localStorage || null;
+      } catch {
+        return null;
+      }
+    })();
+    return {
+      get() {
+        try {
+          const stored = storage?.getItem(key);
+          if (stored === 'true') return true;
+          if (stored === 'false') return false;
+        } catch {
+          // Fall back to the current-session value when device storage is blocked.
+        }
+        return fallback;
+      },
+      set(value) {
+        fallback = Boolean(value);
+        try {
+          storage?.setItem(key, String(fallback));
+        } catch {
+          // The preference still works for the current session.
+        }
+        return fallback;
+      }
+    };
+  }
+
   function rolloutFor(pathname, map) {
     const path = normalizedPath(pathname);
     return Object.entries(map || {}).find(([key]) => {
@@ -285,6 +317,7 @@
       })
       : null;
     const navigation = config.progressGroup ? groupNavigationFor(config.progressGroup) : null;
+    const autoSpeakPreference = createBooleanPreference(root, 'efn.band2.auto-pronounce.v1', false);
     if (progressTracker) renderProgress(root, progressTracker.getProgress());
     return panelApi.mount({
       document: root.document,
@@ -316,6 +349,9 @@
       previousGroupLabel: navigation?.previousLabel,
       nextGroupHref: navigation?.nextHref,
       nextGroupLabel: navigation?.nextLabel,
+      autoSpeakDelayMs: 1000,
+      autoSpeakPreference,
+      speechHost: root,
       getOverallProgress: () => progressTracker?.getProgress() || null,
       analyticsActivity: config.analyticsActivity,
       createSession: () => {
@@ -356,6 +392,7 @@
     createMissionSelector,
     createCoverageMission,
     groupNavigationFor,
+    createBooleanPreference,
     questionFactory,
     formatFeedback,
     progressSignalFor,

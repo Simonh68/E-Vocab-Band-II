@@ -290,6 +290,24 @@
     audioToggle.setAttribute('aria-label', 'כיבוי צלילי המשחק');
     audioToggle.setAttribute('title', 'כיבוי צלילי המשחק');
     audioToggle.hidden = !config.blockQuest || !audio.supported;
+    const speechHost = config.speechHost || globalThis;
+    const autoSpeakPreference = config.autoSpeakPreference || null;
+    let autoSpeakEnabled = Boolean(autoSpeakPreference?.get?.());
+    const autoSpeakToggle = element(document, 'button', 'efn-practice__quiet efn-practice__auto-speak-toggle efn-practice__icon-action', '🔊ᴬ');
+    autoSpeakToggle.type = 'button';
+    autoSpeakToggle.dataset.analyticsLabel = 'practice-auto-speak-toggle';
+    autoSpeakToggle.hidden = !config.blockQuest || !('speechSynthesis' in speechHost);
+    function syncAutoSpeakToggle() {
+      if (autoSpeakEnabled) autoSpeakToggle.classList.add('is-active');
+      else autoSpeakToggle.classList.remove('is-active');
+      autoSpeakToggle.setAttribute('aria-pressed', String(autoSpeakEnabled));
+      const label = autoSpeakEnabled
+        ? 'כיבוי השמעה אוטומטית'
+        : 'הפעלת השמעה אוטומטית לאחר שנייה';
+      autoSpeakToggle.setAttribute('aria-label', label);
+      autoSpeakToggle.setAttribute('title', label);
+    }
+    syncAutoSpeakToggle();
     function groupLink(href, label, icon) {
       if (!href) return null;
       const link = element(document, 'a', 'efn-practice__quiet efn-practice__icon-action efn-practice__group-link', icon);
@@ -304,6 +322,7 @@
     if (previousGroup) headerActions.append(previousGroup);
     if (nextGroup) headerActions.append(nextGroup);
     if (config.blockQuest) headerActions.append(audioToggle);
+    if (config.blockQuest) headerActions.append(autoSpeakToggle);
     headerActions.append(exit);
     activityHeader.append(progress, headerActions);
     const questHud = element(document, 'div', 'efn-practice__quest-hud');
@@ -467,6 +486,7 @@
     let currentQuestion = null;
     let answered = false;
     let autoAdvanceTimer = null;
+    let autoSpeakTimer = null;
     let rewardScore = 0;
     let rewardStreak = 0;
     let unlockedChests = 0;
@@ -483,6 +503,40 @@
       if (autoAdvanceTimer == null) return;
       if (cancel) cancel(autoAdvanceTimer);
       autoAdvanceTimer = null;
+    }
+
+    function clearAutoSpeak() {
+      if (autoSpeakTimer == null) return;
+      if (cancel) cancel(autoSpeakTimer);
+      autoSpeakTimer = null;
+    }
+
+    function speakCurrentQuestion() {
+      if (!currentQuestion?.speakText || !('speechSynthesis' in speechHost)) return;
+      speechHost.EFNAnalyticsIgnoreNextAudio = true;
+      speechHost.speechSynthesis.cancel();
+      audio.duck(true);
+      const Utterance = speechHost.SpeechSynthesisUtterance || globalThis.SpeechSynthesisUtterance;
+      if (typeof Utterance !== 'function') {
+        audio.duck(false);
+        return;
+      }
+      const utterance = new Utterance(currentQuestion.speakText);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.82;
+      utterance.onend = () => audio.duck(false);
+      utterance.onerror = () => audio.duck(false);
+      speechHost.speechSynthesis.speak(utterance);
+    }
+
+    function scheduleAutoSpeak() {
+      clearAutoSpeak();
+      if (!autoSpeakEnabled || !schedule || !currentQuestion?.speakText) return;
+      const scheduledQuestion = currentQuestion;
+      autoSpeakTimer = schedule(() => {
+        autoSpeakTimer = null;
+        if (!answered && currentQuestion === scheduledQuestion) speakCurrentQuestion();
+      }, Number(config.autoSpeakDelayMs) || 1000);
     }
 
     function measure(event, context = {}) {
@@ -593,6 +647,7 @@
 
     function showCheckpoint(progressState, questState) {
       clearAutoAdvance();
+      clearAutoSpeak();
       section.classList.remove('is-advancing');
       pendingCheckpoint = null;
       activity.hidden = true;
@@ -628,6 +683,7 @@
 
     function showSummary() {
       clearAutoAdvance();
+      clearAutoSpeak();
       audio.stopBackground();
       audio.cue('summary');
       const state = session.summary();
@@ -652,6 +708,7 @@
 
     function renderQuestion() {
       clearAutoAdvance();
+      clearAutoSpeak();
       section.classList.remove('is-advancing');
       activity.classList.remove('is-question-entering');
       void activity.offsetWidth;
@@ -677,7 +734,7 @@
       clue.hidden = !currentQuestion.clue;
       clue.lang = currentQuestion.clueLang || 'en';
       clue.dir = currentQuestion.clueDir || (clue.lang === 'he' ? 'rtl' : 'ltr');
-      speak.hidden = !currentQuestion.speakText || !('speechSynthesis' in globalThis);
+      speak.hidden = !currentQuestion.speakText || !('speechSynthesis' in speechHost);
       choices.replaceChildren();
       const arranged = avoidRepeatedAnswerPosition(
         currentQuestion.choices,
@@ -701,6 +758,7 @@
       else audio.cue('question');
       const firstChoice = choices.querySelector('[data-first-choice="true"]');
       if (firstChoice) firstChoice.focus({ preventScroll: true });
+      scheduleAutoSpeak();
     }
 
     function submit(value, selectedButton) {
@@ -812,8 +870,16 @@
       audioToggle.setAttribute('aria-label', audioLabel);
       audioToggle.setAttribute('title', audioLabel);
     });
+    autoSpeakToggle.addEventListener('click', () => {
+      autoSpeakEnabled = !autoSpeakEnabled;
+      autoSpeakPreference?.set?.(autoSpeakEnabled);
+      syncAutoSpeakToggle();
+      if (autoSpeakEnabled) scheduleAutoSpeak();
+      else clearAutoSpeak();
+    });
     function leave() {
       clearAutoAdvance();
+      clearAutoSpeak();
       audio.stop();
       activity.hidden = true;
       checkpoint.hidden = true;
@@ -827,16 +893,8 @@
     checkpointExit.addEventListener('click', leave);
     summaryExit.addEventListener('click', leave);
     speak.addEventListener('click', () => {
-      if (!currentQuestion?.speakText || !('speechSynthesis' in globalThis)) return;
-      globalThis.EFNAnalyticsIgnoreNextAudio = true;
-      globalThis.speechSynthesis.cancel();
-      audio.duck(true);
-      const utterance = new SpeechSynthesisUtterance(currentQuestion.speakText);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.82;
-      utterance.onend = () => audio.duck(false);
-      utterance.onerror = () => audio.duck(false);
-      globalThis.speechSynthesis.speak(utterance);
+      clearAutoSpeak();
+      speakCurrentQuestion();
     });
 
     return {
