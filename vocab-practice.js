@@ -129,7 +129,8 @@
     const candidates = incomplete.length ? incomplete : ordered;
     candidates.sort((left, right) => left.signalCount - right.signalCount || left.index - right.index);
     const modes = new Map(candidates.map(item => [String(item.record.serial), item.mode]));
-    return { records: candidates.map(item => item.record), modes };
+    const signalCounts = new Map(candidates.map(item => [String(item.record.serial), item.signalCount]));
+    return { records: candidates.map(item => item.record), modes, signalCounts };
   }
 
   function groupNavigationFor(group, firstGroup = 1, lastGroup = 20) {
@@ -311,6 +312,7 @@
       getOverallProgress: () => progressTracker?.getProgress() || null,
       analyticsActivity: config.analyticsActivity,
       createSession: () => {
+        const overall = progressTracker?.getProgress() || null;
         const mission = createCoverageMission(
           sourcePool,
           progressTracker?.getPracticePlan(),
@@ -323,7 +325,12 @@
             questionFactory,
             adaptive: Boolean(config.adaptive),
             coverageFirst: Boolean(config.coverageFirst),
-            initialModeFor: record => mission.modes.get(String(record.serial)) || 'primary'
+            segmented: Boolean(config.segmented),
+            segmentTotalItems: sourcePool.length,
+            initialCoveredItems: overall?.started || 0,
+            initialMasteredItems: overall?.mastered || 0,
+            initialModeFor: record => mission.modes.get(String(record.serial)) || 'primary',
+            initialSignalCountFor: record => mission.signalCounts.get(String(record.serial)) || 0
           }),
           progressTracker
         );

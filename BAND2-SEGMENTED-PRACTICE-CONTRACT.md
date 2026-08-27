@@ -1,4 +1,4 @@
-# Band II segmented practice — Stage 1 contract
+# Band II segmented practice contract
 
 ## Scope and release state
 
@@ -6,6 +6,17 @@
 - Base: published `main` commit `d40b93447be88d043bb9d8a0e0fc297399018757`.
 - This stage defines and tests the segment model only. No HTML page imports `practice-segments.js`, so the public or local learner experience is unchanged.
 - No push, merge or publication is part of Stage 1.
+
+## Stage 2 pilot delta
+
+- Branch: `codex/band2-segments-stage2-20260827`.
+- Base: local Stage 1 contract commit `65611208a781e91e586bb92c59f39523fef93d65`.
+- The shared session engine now consumes this contract only when `segmented: true` and `coverageFirst: true`.
+- Activation is restricted to Hebrew Core I Groups 02 and 20. The other 18 Core I groups, all Core II groups and all Arabic groups keep their existing route and do not import `practice-segments.js`.
+- A retry that cannot preserve the two-question gap inside the current ten-screen budget is carried across the checkpoint. When a resumed mission has fewer than two remaining authentic screens, non-persisted `depth-gap` questions provide the required spacing; they cannot add progress evidence.
+- The session exposes separate segment, group-coverage and group-mastery counters without changing the current checkpoint presentation. Celebration UI belongs to a later stage.
+- No answer content, identity, network request, analytics field, cookie or new persistent state is added.
+- No push, merge or publication is part of Stage 2.
 
 ## Canonical segment model
 
@@ -59,3 +70,11 @@
 - Coverage completion and mastery completion are distinct states.
 - A 53-item manifest is rejected.
 - All 80 vocabulary pages remain untouched and do not load the dormant segment module.
+
+## Stage 2 automated acceptance
+
+- Only Hebrew Core I Groups 02 and 20 import the segment engine, before the session engine; the other 78 vocabulary pages remain outside the pilot.
+- Perfect 54- and 55-item sessions preserve the exact six-segment plans and present every authentic item once.
+- In-segment and cross-checkpoint corrections retain two intervening question screens, and no segment exceeds ten screens.
+- A one-item resumed mission preserves the correction gap without recording its two `depth-gap` screens as learning evidence.
+- Fresh, partial and repeated-error simulations for both pilot manifests terminate with no pending correction and valid separated counters.

@@ -506,7 +506,7 @@ test('the coverage-first route activates across every Core I group', async () =>
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.equal(rollout.version, '2026-08-26-core1-coverage-first');
+  assert.equal(rollout.version, '2026-08-27-segmented-pilot-stage2');
   assert.equal(Object.keys(rollout.vocabulary).length, 20);
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
@@ -516,6 +516,7 @@ test('the coverage-first route activates across every Core I group', async () =>
     assert.equal(config.missionSize, 55);
     assert.equal(config.adaptive, true);
     assert.equal(config.coverageFirst, true);
+    assert.equal(config.segmented, group === 2 || group === 20);
     assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
     assert.equal(config.progressGroup, group);
   }
@@ -614,6 +615,8 @@ test('coverage planning prioritizes unseen words and leaves mastered words out o
   assert.deepEqual(mission.records.map(record => record.serial), [3, 1]);
   assert.equal(mission.modes.get('3'), 'primary');
   assert.equal(mission.modes.get('1'), 'review');
+  assert.equal(mission.signalCounts.get('3'), 0);
+  assert.equal(mission.signalCounts.get('1'), 1);
 });
 
 test('a perfect coverage-first run asks every word once without scheduled repetition', () => {
@@ -846,7 +849,7 @@ test('RA-001 has five evidence-backed questions and the reader loads the story p
 });
 
 test('practice code preserves accessibility and sends only start/completion measurements', async () => {
-  const files = ['learning-loop.js', 'practice-session.js', 'practice-panel.js', 'vocab-practice.js', 'Read-Along/story-practice.js'];
+  const files = ['learning-loop.js', 'practice-segments.js', 'practice-session.js', 'practice-panel.js', 'vocab-practice.js', 'Read-Along/story-practice.js'];
   const source = (await Promise.all(files.map(file => readFile(new URL(`../${file}`, import.meta.url), 'utf8')))).join('\n');
   const styles = await readFile(new URL('../practice-shell.css', import.meta.url), 'utf8');
   const analytics = await readFile(new URL('../analytics.js', import.meta.url), 'utf8');
@@ -931,15 +934,24 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('coverage-first assets are cache-busted across Core I while preserving the analytics privacy guard', async () => {
+test('segment assets are cache-busted only in the two Core I pilots while preserving the analytics privacy guard', async () => {
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const activeGroup = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
-    assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);
+    const pilot = group === 2 || group === 20;
+    if (pilot) {
+      assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
+      assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
+      assert.match(activeGroup, /stage8-rollout\.js\?v=20260827-segments-stage2/);
+      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-segments-stage2/);
+    } else {
+      assert.doesNotMatch(activeGroup, /practice-segments\.js/);
+      assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);
+      assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-coverage1/);
+      assert.match(activeGroup, /vocab-practice\.js\?v=20260826-coverage1/);
+    }
     assert.match(activeGroup, /practice-panel\.js\?v=20260826-coverage1/);
-    assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-coverage1/);
-    assert.match(activeGroup, /vocab-practice\.js\?v=20260826-coverage1/);
     assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
   }
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);

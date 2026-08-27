@@ -87,7 +87,7 @@
     const segment = plan.segments[number - 1];
     const target = segmentQuestionTarget == null
       ? segment.plannedQuestions
-      : integer(segmentQuestionTarget, 'segmentQuestionTarget', segment.plannedQuestions);
+      : integer(segmentQuestionTarget, 'segmentQuestionTarget', 1);
     if (target > MAX_QUESTIONS_PER_SEGMENT) {
       throw new RangeError(`segmentQuestionTarget cannot exceed ${MAX_QUESTIONS_PER_SEGMENT}.`);
     }
