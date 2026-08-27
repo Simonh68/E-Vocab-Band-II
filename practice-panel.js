@@ -565,7 +565,7 @@
       prompt.classList.remove('is-pronunciation-flashing');
     });
 
-    function speakCurrentQuestion(repetitions = 1, emphasize = false, repeatIntervalMs = 1500) {
+    function speakCurrentQuestion(repetitions = 1, emphasize = false, repeatPauseMs = 1000) {
       if (!currentQuestion?.speakText || !('speechSynthesis' in speechHost)) return;
       speechHost.EFNAnalyticsIgnoreNextAudio = true;
       speechHost.speechSynthesis.cancel();
@@ -583,17 +583,20 @@
         utterance.lang = 'en-US';
         utterance.rate = 0.82;
         utterance.onend = () => {
-          if (finalUtterance) audio.duck(false);
+          if (finalUtterance) {
+            audio.duck(false);
+            return;
+          }
+          if (schedule) {
+            autoSpeakTimer = schedule(() => {
+              autoSpeakTimer = null;
+              speakNext();
+            }, Math.max(0, Number(repeatPauseMs) || 1000));
+          }
         };
         utterance.onerror = () => audio.duck(false);
         speechHost.speechSynthesis.speak(utterance);
         remaining -= 1;
-        if (remaining > 0 && schedule) {
-          autoSpeakTimer = schedule(() => {
-            autoSpeakTimer = null;
-            speakNext();
-          }, Math.max(0, Number(repeatIntervalMs) || 1500));
-        }
       };
       speakNext();
     }

@@ -325,7 +325,8 @@ test('a wrong answer is pronounced immediately and advances after four seconds',
   timers[0].callback();
   assert.equal(spoken[0].text, 'sausage');
   assert.equal(byClass(controller.section, 'efn-practice__prompt').classList.values.has('is-pronunciation-flashing'), true);
-  assert.equal(timers[2].delay, 1500);
+  spoken[0].onend();
+  assert.equal(timers[2].delay, 1000);
   timers[2].callback();
   assert.equal(spoken.length, 2);
   assert.equal(spoken[1].text, 'sausage');

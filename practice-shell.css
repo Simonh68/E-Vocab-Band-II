@@ -744,11 +744,17 @@
     linear-gradient(135deg, #ffffff08 25%, transparent 25%) 0 0 / 20px 20px,
     linear-gradient(180deg, var(--quest-stone-light), var(--quest-stone));
   box-shadow: inset 0 4px #ffffff16, inset 0 -6px #13212b, 0 6px 0 #03090d;
-  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.7rem);
   font-weight: 700;
   line-height: 1.35;
   letter-spacing: -.012em;
   text-align: center;
+}
+.efn-practice--block-quest .efn-practice__choice[data-choice-size="medium"] {
+  font-size: clamp(1.45rem, 2.8vw, 2.35rem);
+}
+.efn-practice--block-quest .efn-practice__choice[data-choice-size="long"] {
+  font-size: clamp(1.3rem, 2.5vw, 2.1rem);
 }
 .efn-practice--block-quest .efn-practice__choices[data-choice-count="2"] .efn-practice__choice {
   font-size: clamp(1.9rem, 5vw, 3.2rem);
@@ -764,6 +770,7 @@
   font-family: "Trebuchet MS", Arial, sans-serif;
   font-weight: 800;
   letter-spacing: 0;
+  text-align: center;
 }
 .efn-practice--block-quest .efn-practice__choice:hover:not(:disabled),
 .efn-practice--block-quest .efn-practice__choice:focus-visible {
