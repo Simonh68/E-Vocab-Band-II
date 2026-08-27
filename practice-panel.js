@@ -607,9 +607,16 @@
       speakNext();
     }
 
-    function scheduleAutoSpeak(delayOverride, repetitions = 1, emphasize = false, onComplete, requireAnswered = true) {
+    function scheduleAutoSpeak(
+      delayOverride,
+      repetitions = 1,
+      emphasize = false,
+      onComplete,
+      requireAnswered = true,
+      requireEnabled = true
+    ) {
       clearAutoSpeak();
-      if (!autoSpeakEnabled || (requireAnswered && !answered) || !schedule || !currentQuestion?.speakText) return;
+      if ((requireEnabled && !autoSpeakEnabled) || (requireAnswered && !answered) || !schedule || !currentQuestion?.speakText) return;
       const scheduledQuestion = currentQuestion;
       const configuredDelay = delayOverride ?? config.autoSpeakDelayMs ?? 1000;
       const delay = Number.isFinite(Number(configuredDelay))
@@ -807,9 +814,11 @@
       activity.classList.add('is-question-entering');
       currentQuestion = session.next();
       if (!currentQuestion) {
+        config.onSessionComplete?.();
         showSummary();
         return;
       }
+      config.onQuestionShown?.(currentQuestion);
       answered = false;
       lastAnswerCorrect = null;
       questionStartedAt = typeof config.now === 'function'
@@ -918,27 +927,30 @@
       }
       feedback.focus({ preventScroll: true });
       const delay = result.correct ? Number(config.autoAdvanceCorrectMs) : Number(config.autoAdvanceWrongMs);
-      if ((autoSpeakEnabled || delay > 0) && schedule) {
+      const canPronounceAnswer = Boolean(currentQuestion?.speakText && 'speechSynthesis' in speechHost);
+      if ((canPronounceAnswer || delay > 0) && schedule) {
         section.classList.add('is-advancing');
         transition.hidden = !result.correct;
         if (result.correct) {
-          const transitionDelay = autoSpeakEnabled ? 2500 : delay;
+          const transitionDelay = canPronounceAnswer ? 2500 : delay;
           if (transition.style?.setProperty) transition.style.setProperty('--advance-duration', `${transitionDelay}ms`);
           else transition.style['--advance-duration'] = `${transitionDelay}ms`;
           audio.cue('correct', { chestOpened: questState.openedNow });
         } else {
           audio.cue('wrong');
         }
-        if (autoSpeakEnabled) {
+        if (canPronounceAnswer) {
           if (result.correct) {
             scheduleAutoSpeak(
               config.correctSpeakDelayMs ?? 500,
               1,
               false,
-              () => advanceAfterPronunciation(config.correctAdvanceAfterSpeechMs ?? 300)
+              () => advanceAfterPronunciation(config.correctAdvanceAfterSpeechMs ?? 300),
+              true,
+              false
             );
           } else {
-            scheduleAutoSpeak(0, 2, true, advanceAfterPronunciation);
+            scheduleAutoSpeak(0, 2, true, advanceAfterPronunciation, true, false);
           }
         } else {
           autoAdvanceTimer = schedule(() => {
@@ -994,19 +1006,8 @@
       autoSpeakEnabled = !autoSpeakEnabled;
       autoSpeakPreference?.set?.(autoSpeakEnabled);
       syncAutoSpeakToggle();
-      if (autoSpeakEnabled) {
-        clearAutoAdvance();
-        if (answered && lastAnswerCorrect) {
-          scheduleAutoSpeak(
-            config.correctSpeakDelayMs ?? 500,
-            1,
-            false,
-            () => advanceAfterPronunciation(config.correctAdvanceAfterSpeechMs ?? 300)
-          );
-        }
-        else if (answered) scheduleAutoSpeak(0, 2, true, advanceAfterPronunciation);
-        else scheduleAutoSpeak(0, 2, true, null, false);
-      }
+      if (answered) return;
+      if (autoSpeakEnabled) scheduleAutoSpeak(0, 2, true, null, false);
       else clearAutoSpeak();
     });
     function leave() {

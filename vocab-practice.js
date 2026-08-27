@@ -53,6 +53,41 @@
     };
   }
 
+  function createStringPreference(root, key) {
+    const storage = (() => {
+      try { return root?.localStorage || null; }
+      catch (_error) { return null; }
+    })();
+    let fallback = null;
+    return {
+      get() {
+        try { return storage?.getItem(key) || fallback; }
+        catch (_error) { return fallback; }
+      },
+      set(value) {
+        fallback = value == null ? null : String(value);
+        try {
+          if (fallback == null) storage?.removeItem?.(key);
+          else storage?.setItem(key, fallback);
+        } catch (_error) {
+          // Keep the current-session fallback when device storage is blocked.
+        }
+        return fallback;
+      },
+      clear() { return this.set(null); }
+    };
+  }
+
+  function resumeCoverageMission(mission, resumeSerial) {
+    if (!mission?.records?.length || resumeSerial == null) return mission;
+    const resumeIndex = mission.records.findIndex(record => String(record.serial) === String(resumeSerial));
+    if (resumeIndex <= 0) return mission;
+    return {
+      ...mission,
+      records: [...mission.records.slice(resumeIndex), ...mission.records.slice(0, resumeIndex)]
+    };
+  }
+
   function rolloutFor(pathname, map) {
     const path = normalizedPath(pathname);
     return Object.entries(map || {}).find(([key]) => {
@@ -318,6 +353,9 @@
       : null;
     const navigation = config.progressGroup ? groupNavigationFor(config.progressGroup) : null;
     const autoSpeakPreference = createBooleanPreference(root, 'efn.band2.auto-pronounce.v1', false);
+    const resumePreference = config.progressGroup
+      ? createStringPreference(root, `efn.band2.resume.v1.${config.progressGroup}`)
+      : null;
     if (progressTracker) renderProgress(root, progressTracker.getProgress());
     return panelApi.mount({
       document: root.document,
@@ -358,16 +396,18 @@
       nextGroupLabel: navigation?.nextLabel,
       autoSpeakDelayMs: 1000,
       autoSpeakPreference,
+      onQuestionShown: question => resumePreference?.set(question?.meta?.record?.serial),
+      onSessionComplete: () => resumePreference?.clear(),
       speechHost: root,
       getOverallProgress: () => progressTracker?.getProgress() || null,
       analyticsActivity: config.analyticsActivity,
       createSession: () => {
         const overall = progressTracker?.getProgress() || null;
-        const mission = createCoverageMission(
+        const mission = resumeCoverageMission(createCoverageMission(
           sourcePool,
           progressTracker?.getPracticePlan(),
           config.sourceLimit || sourcePool.length
-        );
+        ), resumePreference?.get());
         return withProgressTracking(
           sessionApi.createSession(mission.records, {
             limit: mission.records.length,
@@ -400,6 +440,8 @@
     createCoverageMission,
     groupNavigationFor,
     createBooleanPreference,
+    createStringPreference,
+    resumeCoverageMission,
     questionFactory,
     formatFeedback,
     progressSignalFor,

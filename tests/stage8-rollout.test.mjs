@@ -24,6 +24,7 @@ class MemoryStorage {
   constructor() { this.values = new Map(); }
   getItem(key) { return this.values.has(key) ? this.values.get(key) : null; }
   setItem(key, value) { this.values.set(key, String(value)); }
+  removeItem(key) { this.values.delete(key); }
 }
 
 function basicQuestionFactory(record, context) {
@@ -190,6 +191,66 @@ test('the Band II auto-pronunciation preference persists on the device and falls
   assert.equal(fallback.get(), false);
   fallback.set(true);
   assert.equal(fallback.get(), true);
+});
+
+test('Band II remembers the exact current word for each group on the device', () => {
+  const storage = new MemoryStorage();
+  const firstVisit = vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02');
+  firstVisit.set(4);
+  const nextVisit = vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02');
+  const mission = vocabApi.resumeCoverageMission({ records: records.slice(0, 6) }, nextVisit.get());
+  assert.deepEqual(mission.records.map(record => record.serial), [4, 5, 6, 1, 2, 3]);
+  nextVisit.clear();
+  assert.equal(vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02').get(), null);
+});
+
+test('a correct answer is pronounced once even when arrival pronunciation is off', () => {
+  const document = {
+    head: new FakeElement('head'),
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const timers = [];
+  const spoken = [];
+  class Utterance { constructor(text) { this.text = text; } }
+  const question = {
+    prompt: 'sausage',
+    speakText: 'sausage',
+    choices: ['נקניקייה', 'פאזל'],
+    answer: 'נקניקייה',
+    meta: { record: records[0] }
+  };
+  const controller = panelApi.mount({
+    document,
+    anchor: new FakeElement('div'),
+    blockQuest: true,
+    speechHost: {
+      SpeechSynthesisUtterance: Utterance,
+      speechSynthesis: { cancel() {}, speak: utterance => spoken.push(utterance) }
+    },
+    autoSpeakPreference: { get: () => false, set() {} },
+    setTimeout(callback, delay) {
+      timers.push({ callback, delay });
+      return timers.length;
+    },
+    clearTimeout() {},
+    createSession: () => ({
+      next: () => question,
+      answer: () => ({ correct: true, question, entry: {}, state: {}, willReturn: false, mastered: true }),
+      progress: () => ({ mastered: 0, total: 1 }),
+      summary: () => ({ firstTry: 1, corrected: 0, unresolved: 0 })
+    }),
+    formatFeedback: () => ({ title: 'מעולה! ✓', text: '' })
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
+  assert.equal(timers[0].delay, 500);
+  timers[0].callback();
+  assert.equal(spoken.length, 1);
+  spoken[0].onend();
+  assert.equal(timers[1].delay, 300);
+  assert.equal(spoken.length, 1);
 });
 
 test('Band II auto pronunciation sits beside the word, speaks twice on arrival, and remembers the device choice', () => {
