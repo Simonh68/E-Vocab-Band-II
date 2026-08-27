@@ -1,0 +1,61 @@
+# Band II segmented practice — Stage 1 contract
+
+## Scope and release state
+
+- Branch: `codex/band2-segments-stage1-20260827`.
+- Base: published `main` commit `d40b93447be88d043bb9d8a0e0fc297399018757`.
+- This stage defines and tests the segment model only. No HTML page imports `practice-segments.js`, so the public or local learner experience is unchanged.
+- No push, merge or publication is part of Stage 1.
+
+## Canonical segment model
+
+- A complete Band II vocabulary group contains 54 or 55 authentic items. A 53-item manifest is invalid and blocks rollout until its source data is repaired.
+- A perfect 54-item route contains six segments of nine question screens: `9 + 9 + 9 + 9 + 9 + 9`.
+- A perfect 55-item route contains five segments of nine screens and a final segment of ten: `9 + 9 + 9 + 9 + 9 + 10`.
+- Each segment ends with a short graphical checkpoint. Perfect-route checkpoints occur after overall coverage counts `9, 18, 27, 36, 45, 54/55`.
+- Treasure chests open after segments 2, 4 and 6: overall perfect-route coverage `18, 36, 54/55`.
+- A segment never exceeds ten actual question screens. If a missed item cannot return after two other questions within that budget, it is carried into the next segment instead of returning too soon.
+- A checkpoint does not reset group coverage, mastery evidence, score, pending corrections or navigation state.
+
+## Coverage, retry and mastery invariants
+
+- Every unfinished item is presented before any already-correct item can repeat.
+- A correct item does not repeat during the same coverage pass.
+- Only a missed item returns, with exactly two intervening questions whenever it returns within a segment.
+- A tail error is never retried immediately or after only one intervening question; it crosses the checkpoint when necessary.
+- Errors may add question screens to the overall route without a finite total cap, but they may not extend one segment beyond ten screens.
+- Mastered words do not enter a required future mission. An explicit optional replay may be offered only after the group is already complete.
+- Full mastery still requires two distinct successful evidence types for every item. Repeating one evidence type does not satisfy the second depth.
+
+## Progress and completion language
+
+- The learner interface must expose three different facts rather than one overloaded percentage:
+  - short segment progress: segment number, questions answered and current segment target;
+  - full-group coverage: authentic items covered out of 54/55;
+  - full-group mastery: items with two distinct evidence types out of 54/55.
+- Finishing the first complete coverage pass is `coverage_complete`; it is not `mastered`.
+- Only two-depth completion of every group item may display the group mastery checkmark or the final mastery celebration.
+
+## Exit, resume and privacy
+
+- Successful evidence is saved locally immediately, not only at a segment boundary.
+- Leaving during a segment must not discard successful evidence. On return, unseen and unfinished items remain ahead of mastered items, and the learner can continue within one clear action.
+- Pending corrections and the short-segment position may be stored locally or reconstructed deterministically, but no answer content is sent anywhere.
+- No learner identity, answer text, translation, voice, new cookie, server record, analytics field or network request may be added.
+
+## Interface contract for later stages
+
+- Intermediate celebrations are brief, graphical and low-text. They keep a direct continue action into the next segment.
+- Action controls use icons only. Every icon-only control has both an `aria-label` and a matching tooltip.
+- Group navigation remains available in play, at intermediate checkpoints and at final completion.
+- Core I is the first pilot surface. Core II and Arabic receive the same shared behavior only after the pilot passes; Arabic Groups 32 and 36 must first regain their missing authentic items.
+- Read Along and irregular-verbs routes remain separate decisions and are not silently converted by the Core vocabulary rollout.
+
+## Stage 1 automated acceptance
+
+- The pure contract produces the exact six-segment plans and celebration/chest checkpoints for both supported group sizes.
+- Retry placement enforces a two-question gap and the ten-screen segment cap.
+- Segment, group-coverage and group-mastery counters are structurally separate.
+- Coverage completion and mastery completion are distinct states.
+- A 53-item manifest is rejected.
+- All 80 vocabulary pages remain untouched and do not load the dormant segment module.
