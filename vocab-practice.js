@@ -215,6 +215,23 @@
     };
   }
 
+  function renderPageGroupPosition(root, group, total = 20) {
+    const document = root?.document;
+    const current = Number(group);
+    const maximum = Number(total);
+    if (!document || !Number.isInteger(current) || !Number.isInteger(maximum) || current < 1 || current > maximum) return null;
+    const existing = document.querySelector?.('.efn-card-group-position');
+    if (existing) return existing;
+    const header = document.querySelector?.('.activity-head');
+    if (!header || typeof document.createElement !== 'function') return null;
+    const position = document.createElement('div');
+    position.className = 'efn-card-group-position';
+    position.textContent = `קבוצה ${current} / ${maximum}`;
+    position.setAttribute('aria-label', `קבוצה ${current} מתוך ${maximum}`);
+    header.appendChild(position);
+    return position;
+  }
+
   function formatFeedback(result) {
     const record = result.question.meta.record;
     const example = clean(record.ex_en);
@@ -340,6 +357,7 @@
     if (!sessionApi || !panelApi || !Array.isArray(root.EFN_PAGE_WORDS)) return null;
     const config = rolloutFor(root.location?.pathname, root.EFN_STAGE8_ROLLOUT?.vocabulary);
     if (!config) return null;
+    if (config.progressGroup) renderPageGroupPosition(root, config.progressGroup, 20);
     const anchor = root.document.querySelector('.controls, .nav-container');
     if (!anchor || root.document.querySelector('.efn-practice')) return null;
     const base = scriptUrl ? new URL('.', scriptUrl) : new URL('.', root.location.href);
@@ -368,6 +386,9 @@
       ).href,
       treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,
       badge: 'CORE I',
+      groupPositionLabel: config.progressGroup
+        ? `קבוצה ${Number(config.progressGroup)} / 20`
+        : '',
       title: 'האוצר האבוד',
       description: `${sourcePool.length} מילים`,
       privacy: 'נשאר במכשיר.',
@@ -439,6 +460,7 @@
     createMissionSelector,
     createCoverageMission,
     groupNavigationFor,
+    renderPageGroupPosition,
     createBooleanPreference,
     createStringPreference,
     resumeCoverageMission,

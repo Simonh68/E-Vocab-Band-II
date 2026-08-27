@@ -374,7 +374,15 @@
     speak.setAttribute('aria-label', 'השמעת המילה באנגלית');
     speak.setAttribute('title', 'השמעת המילה באנגלית');
     const questionBar = element(document, 'div', 'efn-practice__question-bar');
-    questionBar.append(prompt, autoSpeakToggle, speak);
+    const groupPosition = element(
+      document,
+      'div',
+      'efn-practice__group-position',
+      config.groupPositionLabel || ''
+    );
+    groupPosition.hidden = !config.groupPositionLabel;
+    groupPosition.setAttribute('aria-label', config.groupPositionLabel || '');
+    questionBar.append(groupPosition, prompt, autoSpeakToggle, speak);
     const choices = element(document, 'div', 'efn-practice__choices');
     choices.setAttribute('role', 'group');
     choices.setAttribute('aria-label', 'אפשרויות תשובה');

@@ -204,6 +204,18 @@ test('Band II remembers the exact current word for each group on the device', ()
   assert.equal(vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02').get(), null);
 });
 
+test('the current group is also shown on the flashcards screen', () => {
+  const header = new FakeElement('header');
+  const document = {
+    createElement: tag => new FakeElement(tag),
+    querySelector: selector => selector === '.activity-head' ? header : null
+  };
+  const badge = vocabApi.renderPageGroupPosition({ document }, 2, 20);
+  assert.equal(badge.textContent, 'קבוצה 2 / 20');
+  assert.equal(badge.attributes['aria-label'], 'קבוצה 2 מתוך 20');
+  assert.equal(header.children[0], badge);
+});
+
 test('a correct answer is pronounced once even when arrival pronunciation is off', () => {
   const document = {
     head: new FakeElement('head'),
@@ -581,6 +593,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
     showProgressPercent: true,
     showProgressCount: true,
     treasureChests: [25, 50, 100],
+    groupPositionLabel: 'קבוצה 2 / 20',
     previousGroupHref: 'group-01.html',
     previousGroupLabel: 'לקבוצה הקודמת: 01',
     nextGroupHref: 'group-03.html',
@@ -600,6 +613,10 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   const iconActions = controller.section.descendants()
     .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
   assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', '🔇', '🔊', '▶', '↻', '⏭', '↩']);
+  const groupPosition = byClass(controller.section, 'efn-practice__group-position');
+  assert.equal(groupPosition.textContent, 'קבוצה 2 / 20');
+  assert.equal(groupPosition.hidden, false);
+  assert.equal(byClass(controller.section, 'efn-practice__question-bar').children[0], groupPosition);
   assert.ok(
     iconActions.every(node => node.attributes['aria-label'] && node.attributes.title)
   );
@@ -946,7 +963,10 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(panel, /efn-practice__coin/);
   assert.match(panel, /efn-practice__lost-chest/);
   assert.match(panel, /efn-practice__question-bar/);
+  assert.match(panel, /efn-practice__group-position/);
+  assert.match(source, /קבוצה \$\{Number\(config\.progressGroup\)\} \/ 20/);
   assert.match(styles, /\.efn-practice__coin\s*\{/);
+  assert.match(styles, /\.efn-card-group-position\s*\{/);
   assert.match(styles, /\.efn-practice__lost-chest\s*\{/);
   assert.match(panel, /בונה את השאלה הבאה/);
   assert.match(styles, /Noto Sans Hebrew/);

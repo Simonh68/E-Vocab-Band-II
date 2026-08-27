@@ -3,6 +3,30 @@
   display: none !important;
 }
 
+.efn-card-group-position {
+  order: 3;
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border: 2px solid #4d7184;
+  border-radius: 999px;
+  color: #f0fbff;
+  background: linear-gradient(180deg, #203e4f, #142b38);
+  box-shadow: inset 0 2px #ffffff18, 0 3px 0 #07151d;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Hebrew", Arial, sans-serif;
+  font-size: clamp(.82rem, 2vw, 1rem);
+  font-weight: 850;
+  line-height: 1.1;
+  direction: rtl;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .efn-card-group-position {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .efn-practice {
   width: min(680px, 100%);
   margin: 24px auto 10px;
@@ -691,6 +715,21 @@
   align-items: stretch;
   gap: 10px;
   direction: ltr;
+}
+.efn-practice--block-quest .efn-practice__group-position {
+  grid-column: 1 / -1;
+  justify-self: end;
+  margin: 0 4px -2px 0;
+  padding: 4px 10px;
+  border: 2px solid #5f7887;
+  border-radius: 999px;
+  color: #e9f7ff;
+  background: #142936;
+  box-shadow: inset 0 2px #ffffff12, 0 3px 0 #050d12;
+  font-size: clamp(.78rem, 1.8vw, .95rem);
+  font-weight: 800;
+  line-height: 1.1;
+  direction: rtl;
 }
 .efn-practice--block-quest .efn-practice__prompt {
   display: grid;
