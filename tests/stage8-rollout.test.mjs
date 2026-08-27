@@ -251,14 +251,14 @@ test('Band II auto pronunciation sits beside the word, speaks twice on arrival, 
   const manualSpeak = byClass(controller.section, 'efn-practice__speak');
   assert.ok(questionBar.children.includes(toggle));
   assert.equal(toggle.attributes['aria-pressed'], 'false');
-  assert.equal(toggle.textContent, 'A🔇');
+  assert.equal(toggle.textContent, '🔇');
   assert.equal(manualSpeak.hidden, true);
   assert.equal(timers.size, 0);
 
   toggle.listeners.click();
   assert.deepEqual(preferenceValues, [true]);
   assert.equal(toggle.attributes['aria-pressed'], 'true');
-  assert.equal(toggle.textContent, 'A🔊');
+  assert.equal(toggle.textContent, '🔊');
   assert.equal(toggle.classList.values.has('is-active'), true);
   const arrival = [...timers.values()].find(timer => timer.delay === 0);
   assert.ok(arrival);
@@ -278,7 +278,7 @@ test('Band II auto pronunciation sits beside the word, speaks twice on arrival, 
   assert.equal(manualSpeak.hidden, false);
   assert.equal(timers.size, 1);
   const scheduled = [...timers.values()][0];
-  assert.equal(scheduled.delay, 0);
+  assert.equal(scheduled.delay, 500);
   scheduled.callback();
   assert.equal(cancelledSpeech.length, 2);
   assert.equal(spoken.length, 3);
@@ -287,17 +287,14 @@ test('Band II auto pronunciation sits beside the word, speaks twice on arrival, 
   assert.equal(spoken[2].rate, 0.82);
   spoken[2].onend();
   const repeat = [...timers.values()].find(timer => timer.delay === 700);
-  assert.ok(repeat);
-  repeat.callback();
-  assert.equal(spoken.length, 4);
-  spoken[3].onend();
-  const advanceTimer = [...timers.values()].find(timer => timer.delay === 200);
+  assert.equal(repeat, undefined);
+  const advanceTimer = [...timers.values()].find(timer => timer.delay === 300);
   assert.ok(advanceTimer);
 
   toggle.listeners.click();
   assert.deepEqual(preferenceValues, [true, false]);
   assert.equal(toggle.attributes['aria-pressed'], 'false');
-  assert.equal(toggle.textContent, 'A🔇');
+  assert.equal(toggle.textContent, '🔇');
   assert.equal(toggle.classList.values.has('is-active'), false);
 });
 
@@ -541,7 +538,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
 
   const iconActions = controller.section.descendants()
     .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
-  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', 'A🔇', '🔊', '▶', '↻', '⏭', '↩']);
+  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', '🔇', '🔊', '▶', '↻', '⏭', '↩']);
   assert.ok(
     iconActions.every(node => node.attributes['aria-label'] && node.attributes.title)
   );
@@ -873,6 +870,8 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /autoAdvanceWrongMs: 4000/);
   assert.match(source, /autoSpeakRepeatPauseMs: 700/);
   assert.match(source, /autoAdvanceAfterSpeechMs: 200/);
+  assert.match(source, /correctSpeakDelayMs: 500/);
+  assert.match(source, /correctAdvanceAfterSpeechMs: 300/);
   assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
   assert.match(source, /description: `\$\{sourcePool\.length\} מילים`/);

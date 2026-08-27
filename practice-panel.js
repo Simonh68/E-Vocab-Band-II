@@ -304,7 +304,7 @@
     function syncAutoSpeakToggle() {
       if (autoSpeakEnabled) autoSpeakToggle.classList.add('is-active');
       else autoSpeakToggle.classList.remove('is-active');
-      autoSpeakToggle.textContent = autoSpeakEnabled ? 'A🔊' : 'A🔇';
+      autoSpeakToggle.textContent = autoSpeakEnabled ? '🔊' : '🔇';
       autoSpeakToggle.setAttribute('aria-pressed', String(autoSpeakEnabled));
       const label = autoSpeakEnabled
         ? 'כיבוי השמעה אוטומטית של כל מילה'
@@ -623,12 +623,12 @@
       }, delay);
     }
 
-    function advanceAfterPronunciation() {
+    function advanceAfterPronunciation(delayOverride) {
       if (!schedule) return advance();
       autoAdvanceTimer = schedule(() => {
         autoAdvanceTimer = null;
         advance();
-      }, Number(config.autoAdvanceAfterSpeechMs) || 200);
+      }, Number(delayOverride ?? config.autoAdvanceAfterSpeechMs) || 200);
     }
 
     function measure(event, context = {}) {
@@ -922,7 +922,7 @@
         section.classList.add('is-advancing');
         transition.hidden = !result.correct;
         if (result.correct) {
-          const transitionDelay = autoSpeakEnabled ? 3000 : delay;
+          const transitionDelay = autoSpeakEnabled ? 2500 : delay;
           if (transition.style?.setProperty) transition.style.setProperty('--advance-duration', `${transitionDelay}ms`);
           else transition.style['--advance-duration'] = `${transitionDelay}ms`;
           audio.cue('correct', { chestOpened: questState.openedNow });
@@ -930,7 +930,16 @@
           audio.cue('wrong');
         }
         if (autoSpeakEnabled) {
-          scheduleAutoSpeak(0, 2, !result.correct, advanceAfterPronunciation);
+          if (result.correct) {
+            scheduleAutoSpeak(
+              config.correctSpeakDelayMs ?? 500,
+              1,
+              false,
+              () => advanceAfterPronunciation(config.correctAdvanceAfterSpeechMs ?? 300)
+            );
+          } else {
+            scheduleAutoSpeak(0, 2, true, advanceAfterPronunciation);
+          }
         } else {
           autoAdvanceTimer = schedule(() => {
             autoAdvanceTimer = null;
@@ -987,7 +996,15 @@
       syncAutoSpeakToggle();
       if (autoSpeakEnabled) {
         clearAutoAdvance();
-        if (answered) scheduleAutoSpeak(0, 2, lastAnswerCorrect === false, advanceAfterPronunciation);
+        if (answered && lastAnswerCorrect) {
+          scheduleAutoSpeak(
+            config.correctSpeakDelayMs ?? 500,
+            1,
+            false,
+            () => advanceAfterPronunciation(config.correctAdvanceAfterSpeechMs ?? 300)
+          );
+        }
+        else if (answered) scheduleAutoSpeak(0, 2, true, advanceAfterPronunciation);
         else scheduleAutoSpeak(0, 2, true, null, false);
       }
       else clearAutoSpeak();

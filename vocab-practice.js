@@ -338,6 +338,8 @@
       autoAdvanceWrongMs: 4000,
       autoSpeakRepeatPauseMs: 700,
       autoAdvanceAfterSpeechMs: 200,
+      correctSpeakDelayMs: 500,
+      correctAdvanceAfterSpeechMs: 300,
       goldenBuzzerMilestone: 25,
       goldenBuzzerDurationMs: 2600,
       correctNextLabel: 'הבא עכשיו',
