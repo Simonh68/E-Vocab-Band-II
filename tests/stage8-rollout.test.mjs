@@ -967,6 +967,7 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /קבוצה \$\{Number\(config\.progressGroup\)\} \/ 20/);
   assert.match(styles, /\.efn-practice__coin\s*\{/);
   assert.match(styles, /\.efn-card-group-position\s*\{/);
+  assert.match(styles, /\.efn-practice__auto-speak-toggle\s*\{[^}]*width: 56px;[^}]*height: 56px;[^}]*border-radius: 14px;/s);
   assert.match(styles, /\.efn-practice__lost-chest\s*\{/);
   assert.match(panel, /בונה את השאלה הבאה/);
   assert.match(styles, /Noto Sans Hebrew/);
