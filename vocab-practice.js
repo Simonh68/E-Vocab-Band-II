@@ -289,7 +289,12 @@
     return panelApi.mount({
       document: root.document,
       anchor,
-      stylesheetHref: new URL('practice-shell.css?v=20260826-coverage1', base).href,
+      stylesheetHref: new URL(
+        config.segmentedUi
+          ? 'practice-shell.css?v=20260827-segments-stage3'
+          : 'practice-shell.css?v=20260826-coverage1',
+        base
+      ).href,
       treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,
       badge: 'CORE I',
       title: 'האוצר האבוד',
@@ -305,6 +310,8 @@
       exponentialFeedback: true,
       baseReward: 10,
       treasureChests: [25, 50, 100],
+      segmentedUi: Boolean(config.segmentedUi),
+      treasureChestSegments: config.treasureChestSegments,
       previousGroupHref: navigation?.previousHref,
       previousGroupLabel: navigation?.previousLabel,
       nextGroupHref: navigation?.nextHref,

@@ -291,6 +291,7 @@ test('Block Quest rewards grow exponentially and open three milestone chests', (
   assert.deepEqual([0, 1, 2, 3, 4, 8].map(panelApi.multiplierForStreak), [1, 1, 2, 4, 8, 8]);
   assert.deepEqual([1, 2, 3, 4].map(streak => panelApi.rewardForStreak(streak)), [10, 20, 40, 80]);
   assert.deepEqual([0, 24, 25, 49, 50, 99, 100].map(percent => panelApi.chestCountForPercent(percent)), [0, 0, 1, 1, 2, 2, 3]);
+  assert.deepEqual([0, 1, 2, 3, 4, 5, 6].map(segment => panelApi.chestCountForSegment(segment)), [0, 0, 1, 1, 2, 2, 3]);
   assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /×8/);
   assert.match(panelApi.questFeedback({ streak: 4, multiplier: 8, reward: 80, chestOpened: true }), /אוצר/);
   assert.doesNotMatch(panelApi.questFeedback({ streak: 1, multiplier: 1, reward: 10, chestOpened: false }), /מטבעות/);
@@ -371,6 +372,97 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   exitButtons.at(-1).listeners.click();
   assert.ok(!controller.section.classList.values.has('is-playing'));
   assert.ok(!body.classList.values.has('efn-practice-is-playing'));
+});
+
+test('the segmented pilot pauses at six checkpoints and keeps segment, coverage and mastery separate', () => {
+  const pilotRecords = Array.from({ length: 54 }, (_, index) => ({
+    id: `pilot-${index + 1}`,
+    serial: index + 1,
+    en: `word${index + 1}`,
+    mean_he: `פירוש ${index + 1}`,
+    ex_en: `This is word${index + 1}.`,
+    ex_he: `זהו פירוש ${index + 1}.`
+  }));
+  const head = new FakeElement('head');
+  const body = new FakeElement('body');
+  const document = {
+    head,
+    body,
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const controller = panelApi.mount({
+    document,
+    anchor: new FakeElement('div'),
+    stylesheetHref: 'practice-shell.css?v=20260827-segments-stage3',
+    treasureAssetHref: 'assets/game/treasure-chest-coins-3d.png',
+    blockQuest: true,
+    immersive: true,
+    exponentialFeedback: true,
+    showProgressPercent: true,
+    showProgressCount: true,
+    segmentedUi: true,
+    treasureChestSegments: [2, 4, 6],
+    previousGroupHref: 'group-01.html',
+    previousGroupLabel: 'לקבוצה הקודמת: 01',
+    nextGroupHref: 'group-03.html',
+    nextGroupLabel: 'לקבוצה הבאה: 03',
+    createSession: () => sessionApi.createSession(pilotRecords, {
+      coverageFirst: true,
+      segmented: true,
+      segmentTotalItems: 54,
+      choiceRecords: pilotRecords,
+      questionFactory: basicQuestionFactory
+    }),
+    formatFeedback: vocabApi.formatFeedback,
+    random: () => 0
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  assert.equal(byClass(controller.section, 'efn-practice__progress').dataset.progressKind, 'segment');
+  assert.equal(byClass(controller.section, 'efn-practice__progress-text').textContent, 'מקטע 1/6 · 0/9');
+  assert.equal(byClass(controller.section, 'efn-practice__coverage-progress').textContent, 'כיסוי 0/54');
+  assert.equal(byClass(controller.section, 'efn-practice__mastery-progress').textContent, 'שליטה 0/54');
+
+  const checkpoints = [];
+  for (let segment = 1; segment <= 6; segment += 1) {
+    for (let screen = 0; screen < 9; screen += 1) {
+      const promptText = byClass(controller.section, 'efn-practice__prompt').textContent;
+      const answerText = `פירוש ${Number(promptText.replace('word', ''))}`;
+      const choice = byClass(controller.section, 'efn-practice__choices')
+        .querySelectorAll('button')
+        .find(button => button.textContent === answerText);
+      assert.ok(choice, `correct choice missing for ${promptText}`);
+      choice.listeners.click();
+      byClass(controller.section, 'efn-practice__next').listeners.click();
+    }
+
+    const checkpoint = byClass(controller.section, 'efn-practice__checkpoint');
+    checkpoints.push(Number(checkpoint.dataset.segment));
+    assert.equal(checkpoint.hidden, false);
+    assert.equal(byClass(controller.section, 'efn-practice__checkpoint-text').textContent, `כיסוי ${segment * 9}/54 · שליטה 0/54`);
+    assert.equal(controller.getQuestState().chests, Math.floor(segment / 2));
+    assert.equal(byClass(controller.section, 'efn-practice__checkpoint-reward').hidden, segment % 2 === 1);
+    assert.equal(byClass(controller.section, 'efn-practice__checkpoint-chest').classList.values.has('is-open'), segment % 2 === 0);
+    if (segment < 6) {
+      byClass(controller.section, 'efn-practice__checkpoint-continue').listeners.click();
+      assert.equal(byClass(controller.section, 'efn-practice__progress-text').textContent, `מקטע ${segment + 1}/6 · 0/9`);
+    }
+  }
+
+  assert.deepEqual(checkpoints, [1, 2, 3, 4, 5, 6]);
+  assert.equal(byClass(controller.section, 'efn-practice__checkpoint-continue').attributes['aria-label'], 'לסיכום');
+  byClass(controller.section, 'efn-practice__checkpoint-continue').listeners.click();
+  assert.equal(byClass(controller.section, 'efn-practice__summary').hidden, false);
+  const iconActions = controller.section.descendants()
+    .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
+  assert.ok(iconActions.every(node => node.attributes['aria-label'] === node.attributes.title));
+  const groupLinks = iconActions.filter(node => node.className.split(/\s+/).includes('efn-practice__group-link'));
+  assert.deepEqual(groupLinks.map(node => node.attributes.href), [
+    'group-01.html', 'group-03.html',
+    'group-01.html', 'group-03.html',
+    'group-01.html', 'group-03.html'
+  ]);
 });
 
 test('a wrong answer schedules the same item after exactly two intervening entries', () => {
@@ -506,7 +598,7 @@ test('the coverage-first route activates across every Core I group', async () =>
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.equal(rollout.version, '2026-08-27-segmented-pilot-stage2');
+  assert.equal(rollout.version, '2026-08-27-segmented-pilot-stage3');
   assert.equal(Object.keys(rollout.vocabulary).length, 20);
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
@@ -517,6 +609,11 @@ test('the coverage-first route activates across every Core I group', async () =>
     assert.equal(config.adaptive, true);
     assert.equal(config.coverageFirst, true);
     assert.equal(config.segmented, group === 2 || group === 20);
+    assert.equal(config.segmentedUi, group === 2 || group === 20 ? true : undefined);
+    assert.deepEqual(
+      config.treasureChestSegments ? Array.from(config.treasureChestSegments) : undefined,
+      group === 2 || group === 20 ? [2, 4, 6] : undefined
+    );
     assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
     assert.equal(config.progressGroup, group);
   }
@@ -934,7 +1031,7 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('segment assets are cache-busted only in the two Core I pilots while preserving the analytics privacy guard', async () => {
+test('Stage 3 UI assets are cache-busted only in the two Core I pilots while preserving the analytics privacy guard', async () => {
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
@@ -943,15 +1040,16 @@ test('segment assets are cache-busted only in the two Core I pilots while preser
     if (pilot) {
       assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
       assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
-      assert.match(activeGroup, /stage8-rollout\.js\?v=20260827-segments-stage2/);
-      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-segments-stage2/);
+      assert.match(activeGroup, /practice-panel\.js\?v=20260827-segments-stage3/);
+      assert.match(activeGroup, /stage8-rollout\.js\?v=20260827-segments-stage3/);
+      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-segments-stage3/);
     } else {
       assert.doesNotMatch(activeGroup, /practice-segments\.js/);
       assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);
+      assert.match(activeGroup, /practice-panel\.js\?v=20260826-coverage1/);
       assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-coverage1/);
       assert.match(activeGroup, /vocab-practice\.js\?v=20260826-coverage1/);
     }
-    assert.match(activeGroup, /practice-panel\.js\?v=20260826-coverage1/);
     assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
   }
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);

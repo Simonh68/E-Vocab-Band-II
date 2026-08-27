@@ -114,6 +114,21 @@
   font-variant-numeric: tabular-nums;
 }
 
+.efn-practice__progress-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.efn-practice__progress-fact {
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: .76rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .efn-practice__progress-track {
   display: block;
   width: 100%;
@@ -403,6 +418,7 @@
 }
 
 .efn-practice--block-quest.is-playing .efn-practice__activity,
+.efn-practice--block-quest.is-playing .efn-practice__checkpoint,
 .efn-practice--block-quest.is-playing .efn-practice__summary { width: min(1100px, 100%); min-height: 100%; margin: auto; }
 .efn-practice--block-quest.is-playing .efn-practice__activity {
   display: grid;
@@ -417,6 +433,13 @@
   box-shadow: 0 4px 0 #02090e;
 }
 .efn-practice--block-quest .efn-practice__progress { color: #eaf7f7; }
+.efn-practice--segmented .efn-practice__progress { min-width: min(390px, 52vw); }
+.efn-practice--block-quest .efn-practice__progress-fact {
+  border-color: #87a6b6;
+  color: #eaf7f7;
+  background: #1d3341;
+  box-shadow: inset 0 2px #ffffff12;
+}
 .efn-practice--block-quest .efn-practice__progress-track {
   height: 14px;
   border: 3px solid #081017;
@@ -718,6 +741,72 @@
 }
 .efn-practice__activity.is-question-entering .efn-practice__choices { animation-delay: .06s; }
 
+.efn-practice__checkpoint {
+  text-align: center;
+}
+
+.efn-practice--block-quest.is-playing .efn-practice__checkpoint {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: clamp(20px, 6vw, 70px);
+  border: 5px solid #183f1f;
+  color: #efffe9;
+  background:
+    radial-gradient(circle at 17% 22%, #91e573 0 3px, transparent 4px),
+    radial-gradient(circle at 82% 70%, #ffd550 0 4px, transparent 5px),
+    linear-gradient(135deg, #ffffff08 25%, transparent 25%) 0 0 / 28px 28px,
+    linear-gradient(180deg, #285e31, #132c1b);
+  box-shadow: inset 0 0 0 7px #4d9a52, inset 0 0 0 11px #173d1e;
+}
+
+.efn-practice--block-quest .efn-practice__checkpoint .efn-practice__title {
+  max-width: 28ch;
+  margin: 2px 0;
+  font-size: clamp(1.7rem, 5vw, 2.7rem);
+}
+
+.efn-practice__checkpoint-chest {
+  display: block;
+  width: min(190px, 48vw);
+  height: auto;
+  opacity: .48;
+  filter: grayscale(1) brightness(.72);
+  transform: scale(.94);
+}
+
+.efn-practice__checkpoint-chest.is-open {
+  opacity: 1;
+  filter: drop-shadow(0 10px 9px #0008) drop-shadow(0 0 18px #ffd55088);
+  transform: scale(1.05);
+  animation: quest-reward-pop .28s ease-out;
+}
+
+.efn-practice__checkpoint-text,
+.efn-practice__checkpoint-reward {
+  margin: 0;
+  font-size: clamp(1rem, 2.6vw, 1.3rem);
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.efn-practice__checkpoint-reward {
+  padding: 8px 14px;
+  border: 3px solid #6a420b;
+  color: #231600;
+  background: var(--quest-gold, #ffcf3f);
+  box-shadow: inset 0 3px #fff3a1, 0 4px 0 #3d2304;
+}
+
+.efn-practice__checkpoint-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
 .efn-practice--block-quest.is-playing .efn-practice__summary {
   display: grid;
   align-content: center;
@@ -816,6 +905,7 @@
   .efn-practice--block-quest .efn-practice__question-bar { grid-template-columns: minmax(0, 1fr) 54px; gap: 7px; }
   .efn-practice--block-quest .efn-practice__speak { width: 54px; min-width: 54px; min-height: 70px; }
   .efn-practice--block-quest .efn-practice__choices { grid-template-columns: 1fr; grid-auto-rows: minmax(60px, 1fr); }
+  .efn-practice--segmented .efn-practice__progress { min-width: 0; }
 }
 
 @media (max-width: 520px) {
@@ -831,6 +921,9 @@
   .efn-practice--block-quest .efn-practice__header-actions > .efn-practice__icon-action { flex: 0 0 52px; }
   .efn-practice--block-quest .efn-practice__quiet { min-height: 42px; align-self: center; }
   .efn-practice--block-quest .efn-practice__progress { min-width: 0; }
+  .efn-practice--segmented .efn-practice__header { grid-template-columns: 1fr; }
+  .efn-practice--segmented .efn-practice__header-actions { justify-content: center; }
+  .efn-practice__progress-facts { justify-content: center; }
   .efn-practice--block-quest .efn-practice__speak { width: 52px; }
   .efn-practice__transition { grid-template-columns: 1fr; gap: 5px; }
 }
@@ -868,7 +961,8 @@
   .efn-practice__multiplier,
   .efn-practice__treasure-map { border: 2px solid CanvasText; }
   .efn-practice__choice.is-answer,
-  .efn-practice__chest.is-open { outline: 3px solid Highlight; }
+  .efn-practice__chest.is-open,
+  .efn-practice__checkpoint-chest.is-open { outline: 3px solid Highlight; }
   .efn-practice__choice.is-selected-wrong { text-decoration: line-through; }
   .efn-practice__primary { border: 2px solid ButtonText; }
 }

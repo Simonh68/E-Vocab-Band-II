@@ -18,6 +18,16 @@
 - No answer content, identity, network request, analytics field, cookie or new persistent state is added.
 - No push, merge or publication is part of Stage 2.
 
+## Stage 3 pilot delta
+
+- Branch: `codex/band2-segments-stage3-ui-20260827`.
+- Base: published Stage 2 pilot commit `2c392dcb48132bb646483946e55302c1c830c6e0`.
+- The learner interface now presents the segment number and screen count separately from full-group coverage and mastery in Hebrew Core I Groups 02 and 20 only.
+- Every completed segment pauses at a short graphical checkpoint. A direct icon-only action continues to the next segment or the final summary, and group navigation remains available at the checkpoint and final summary.
+- Treasure chests open by completed segment, after segments 2, 4 and 6. The former percentage thresholds remain unchanged outside the segmented pilot.
+- The checkpoint adds no answer content, persistence, identity, network request or analytics field. The session engine and coverage-first scheduling rules are unchanged.
+- No push, merge or publication is part of Stage 3.
+
 ## Canonical segment model
 
 - A complete Band II vocabulary group contains 54 or 55 authentic items. A 53-item manifest is invalid and blocks rollout until its source data is repaired.
@@ -78,3 +88,11 @@
 - In-segment and cross-checkpoint corrections retain two intervening question screens, and no segment exceeds ten screens.
 - A one-item resumed mission preserves the correction gap without recording its two `depth-gap` screens as learning evidence.
 - Fresh, partial and repeated-error simulations for both pilot manifests terminate with no pending correction and valid separated counters.
+
+## Stage 3 automated acceptance
+
+- Only Groups 02 and 20 load the Stage 3 panel, rollout and practice assets; the other 78 vocabulary pages keep their prior asset route.
+- The pilot panel displays segment, coverage and mastery as three separate facts and pauses after each completed segment.
+- A perfect route shows six checkpoints, uses a ten-screen final segment only for a 55-item group, and opens exactly three chests after segments 2, 4 and 6.
+- Icon-only controls at checkpoints and final completion expose matching `aria-label` and `title` text, with previous/next group navigation in both places.
+- Reduced-motion, forced-colors and analytics privacy safeguards continue to cover the segmented interface.

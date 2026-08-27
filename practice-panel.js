@@ -49,6 +49,11 @@
     return thresholds.filter(threshold => safePercent >= Number(threshold)).length;
   }
 
+  function chestCountForSegment(completedSegment, thresholds = [2, 4, 6]) {
+    const safeSegment = Math.max(0, Math.floor(Number(completedSegment) || 0));
+    return thresholds.filter(threshold => safeSegment >= Number(threshold)).length;
+  }
+
   function questFeedback({ streak, multiplier, reward, chestOpened }) {
     let title = streak >= 4
       ? `אגדי ×${multiplier}! +${reward}`
@@ -200,7 +205,7 @@
     if (!document || !config.anchor || typeof config.createSession !== 'function') return null;
     loadStyles(document, config.stylesheetHref);
 
-    const section = element(document, 'section', `efn-practice${config.theme === 'dark' ? ' efn-practice--dark' : ''}${config.autoAdvanceCorrectMs ? ' efn-practice--fast-feedback' : ''}${config.blockQuest ? ' efn-practice--block-quest' : ''}`);
+    const section = element(document, 'section', `efn-practice${config.theme === 'dark' ? ' efn-practice--dark' : ''}${config.autoAdvanceCorrectMs ? ' efn-practice--fast-feedback' : ''}${config.blockQuest ? ' efn-practice--block-quest' : ''}${config.segmentedUi ? ' efn-practice--segmented' : ''}`);
     section.lang = 'he';
     section.dir = 'rtl';
     section.dataset.analyticsIgnore = 'true';
@@ -247,7 +252,9 @@
       document,
       'span',
       'efn-practice__progress-text',
-      config.showProgressPercent ? (config.blockQuest ? '0%' : 'התקדמות 0%') : '0 מתוך 0 נלמדו'
+      config.segmentedUi
+        ? 'מקטע 1/6 · 0/9'
+        : config.showProgressPercent ? (config.blockQuest ? '0%' : 'התקדמות 0%') : '0 מתוך 0 נלמדו'
     );
     const progressTrack = element(document, 'span', 'efn-practice__progress-track');
     const progressFill = element(document, 'span', 'efn-practice__progress-fill');
@@ -255,6 +262,15 @@
     progressTrack.append(progressFill);
     progress.append(progressText);
     if (config.showProgressPercent) progress.append(progressTrack);
+    const progressFacts = element(document, 'span', 'efn-practice__progress-facts');
+    progressFacts.hidden = !config.segmentedUi;
+    const coverageProgress = element(document, 'span', 'efn-practice__progress-fact efn-practice__coverage-progress', 'כיסוי 0/0');
+    coverageProgress.dataset.progressKind = 'coverage';
+    const masteryProgress = element(document, 'span', 'efn-practice__progress-fact efn-practice__mastery-progress', 'שליטה 0/0');
+    masteryProgress.dataset.progressKind = 'mastery';
+    progressFacts.append(coverageProgress, masteryProgress);
+    progress.append(progressFacts);
+    if (config.segmentedUi) progress.dataset.progressKind = 'segment';
     const exitLabel = config.exitLabel || 'חזרה לכרטיסיות';
     const exit = element(
       document,
@@ -397,13 +413,54 @@
     summaryExit.dataset.analyticsLabel = 'practice-exit';
     summaryExit.setAttribute('aria-label', exitLabel);
     summaryExit.setAttribute('title', exitLabel);
+    const summaryPreviousGroup = config.segmentedUi
+      ? groupLink(config.previousGroupHref, config.previousGroupLabel || 'לקבוצה הקודמת', '⏮')
+      : null;
     const summaryNextGroup = groupLink(config.nextGroupHref, config.nextGroupLabel || 'לקבוצה הבאה', '⏭');
     const summaryActions = element(document, 'div', 'efn-practice__summary-actions');
+    if (summaryPreviousGroup) summaryActions.append(summaryPreviousGroup);
     summaryActions.append(again);
     if (summaryNextGroup) summaryActions.append(summaryNextGroup);
     summaryActions.append(summaryExit);
     summary.append(summaryTitle, summaryReward, summaryText, privacy.cloneNode(true), summaryActions);
-    section.append(intro, activity, summary);
+
+    const checkpoint = element(document, 'div', 'efn-practice__checkpoint');
+    checkpoint.hidden = true;
+    checkpoint.setAttribute('role', 'region');
+    checkpoint.setAttribute('aria-label', 'נקודת ביקורת');
+    const checkpointBadge = element(document, 'div', 'efn-practice__badge', 'נקודת ביקורת');
+    const checkpointChest = element(document, 'img', 'efn-practice__checkpoint-chest');
+    checkpointChest.setAttribute('src', config.treasureAssetHref || '');
+    checkpointChest.setAttribute('alt', '');
+    checkpointChest.setAttribute('aria-hidden', 'true');
+    checkpointChest.setAttribute('draggable', 'false');
+    const checkpointTitle = element(document, 'h3', 'efn-practice__title', 'המקטע הושלם');
+    const checkpointText = element(document, 'p', 'efn-practice__checkpoint-text');
+    const checkpointReward = element(document, 'p', 'efn-practice__checkpoint-reward', 'תיבת אוצר נפתחה!');
+    checkpointReward.hidden = true;
+    const checkpointContinue = element(document, 'button', 'efn-practice__primary efn-practice__icon-action efn-practice__checkpoint-continue', '▶');
+    checkpointContinue.type = 'button';
+    checkpointContinue.dataset.analyticsLabel = 'practice-segment-continue';
+    checkpointContinue.setAttribute('aria-label', 'למקטע הבא');
+    checkpointContinue.setAttribute('title', 'למקטע הבא');
+    const checkpointPreviousGroup = groupLink(config.previousGroupHref, config.previousGroupLabel || 'לקבוצה הקודמת', '⏮');
+    const checkpointNextGroup = groupLink(config.nextGroupHref, config.nextGroupLabel || 'לקבוצה הבאה', '⏭');
+    const checkpointExit = element(document, 'button', 'efn-practice__quiet efn-practice__icon-action', '↩');
+    checkpointExit.type = 'button';
+    checkpointExit.dataset.analyticsLabel = 'practice-exit';
+    checkpointExit.setAttribute('aria-label', exitLabel);
+    checkpointExit.setAttribute('title', exitLabel);
+    const checkpointActions = element(document, 'div', 'efn-practice__checkpoint-actions');
+    if (checkpointPreviousGroup) checkpointActions.append(checkpointPreviousGroup);
+    checkpointActions.append(checkpointContinue);
+    if (checkpointNextGroup) checkpointActions.append(checkpointNextGroup);
+    checkpointActions.append(checkpointExit);
+    checkpoint.append(checkpointBadge, checkpointChest, checkpointTitle, checkpointText, checkpointReward, checkpointActions);
+    checkpoint.hidden = true;
+
+    section.append(intro, activity);
+    if (config.segmentedUi) section.append(checkpoint);
+    section.append(summary);
     config.anchor.insertAdjacentElement('afterend', section);
 
     let session = null;
@@ -416,7 +473,9 @@
     let questionStartedAt = 0;
     let previousAnswerIndex = -1;
     let skipQuestionCue = false;
+    let pendingCheckpoint = null;
     const chestThresholds = config.treasureChests || [25, 50, 100];
+    const segmentChestThresholds = config.treasureChestSegments || [2, 4, 6];
     const schedule = typeof config.setTimeout === 'function' ? config.setTimeout : globalThis.setTimeout?.bind(globalThis);
     const cancel = typeof config.clearTimeout === 'function' ? config.clearTimeout : globalThis.clearTimeout?.bind(globalThis);
 
@@ -455,9 +514,17 @@
       chestNodes.forEach(chest => chest.classList.remove('is-open'));
     }
 
-    function syncQuest(percent, rewardEvent = null) {
+    function syncQuest(progressState, rewardEvent = null) {
       if (!config.blockQuest) return { openedNow: false, unlocked: 0 };
-      const nextCount = chestCountForPercent(percent, chestThresholds);
+      const completedSegment = progressState?.segment
+        ? progressState.segment.answered >= progressState.segment.target
+          ? progressState.segment.number
+          : Math.max(0, progressState.segment.number - 1)
+        : 0;
+      const calculatedCount = config.segmentedUi
+        ? chestCountForSegment(completedSegment, segmentChestThresholds)
+        : chestCountForPercent(progressState?.percent || 0, chestThresholds);
+      const nextCount = Math.max(unlockedChests, calculatedCount);
       const openedNow = nextCount > unlockedChests;
       unlockedChests = nextCount;
       chestNodes.forEach((chest, index) => {
@@ -478,6 +545,26 @@
 
     function syncProgress() {
       const state = session.progress();
+      if (config.segmentedUi && state.segment && state.coverage && state.mastery) {
+        const segmentPercent = state.segment.target
+          ? Math.round((state.segment.answered / state.segment.target) * 100)
+          : 0;
+        const passLabel = state.segment.pass > 1
+          ? `סבב תיקון ${state.segment.pass - 1}`
+          : `מקטע ${state.segment.number}/${state.segment.total}`;
+        progressText.textContent = `${passLabel} · ${state.segment.answered}/${state.segment.target}`;
+        progressFill.style.width = `${segmentPercent}%`;
+        progress.setAttribute('aria-valuemax', String(state.segment.target));
+        progress.setAttribute('aria-valuenow', String(state.segment.answered));
+        progress.setAttribute('aria-valuetext', `${passLabel}, ${state.segment.answered} מתוך ${state.segment.target} שאלות`);
+        coverageProgress.textContent = `כיסוי ${state.coverage.current}/${state.coverage.total}`;
+        coverageProgress.dataset.current = String(state.coverage.current);
+        coverageProgress.dataset.total = String(state.coverage.total);
+        masteryProgress.textContent = `שליטה ${state.mastery.current}/${state.mastery.total}`;
+        masteryProgress.dataset.current = String(state.mastery.current);
+        masteryProgress.dataset.total = String(state.mastery.total);
+        return { ...state, percent: segmentPercent };
+      }
       if (!config.showProgressPercent) {
         progressText.textContent = `${state.mastered} מתוך ${state.total} נלמדו`;
         progress.setAttribute('aria-valuemax', String(state.total));
@@ -504,6 +591,41 @@
       return { ...state, percent };
     }
 
+    function showCheckpoint(progressState, questState) {
+      clearAutoAdvance();
+      section.classList.remove('is-advancing');
+      pendingCheckpoint = null;
+      activity.hidden = true;
+      summary.hidden = true;
+      checkpoint.hidden = false;
+      const segment = progressState.segment;
+      const correctionPass = segment.pass > 1;
+      checkpoint.dataset.segment = String(segment.number);
+      checkpoint.dataset.pass = String(segment.pass);
+      checkpoint.dataset.chestOpened = String(Boolean(questState.openedNow));
+      checkpointTitle.textContent = correctionPass
+        ? 'סבב התיקון הושלם'
+        : `מקטע ${segment.number} מתוך ${segment.total} הושלם`;
+      checkpointText.textContent = `כיסוי ${progressState.coverage.current}/${progressState.coverage.total} · שליטה ${progressState.mastery.current}/${progressState.mastery.total}`;
+      checkpointReward.hidden = !questState.openedNow;
+      if (questState.openedNow) checkpointChest.classList.add('is-open');
+      else checkpointChest.classList.remove('is-open');
+      const continueLabel = progressState.remaining > 0 ? 'למקטע הבא' : 'לסיכום';
+      checkpointContinue.setAttribute('aria-label', continueLabel);
+      checkpointContinue.setAttribute('title', continueLabel);
+      checkpointTitle.tabIndex = -1;
+      checkpointTitle.focus({ preventScroll: true });
+    }
+
+    function advance() {
+      if (pendingCheckpoint) {
+        const checkpointState = pendingCheckpoint;
+        showCheckpoint(checkpointState.progress, checkpointState.quest);
+        return;
+      }
+      renderQuestion();
+    }
+
     function showSummary() {
       clearAutoAdvance();
       audio.stopBackground();
@@ -511,6 +633,7 @@
       const state = session.summary();
       const overall = typeof config.getOverallProgress === 'function' ? config.getOverallProgress() : null;
       activity.hidden = true;
+      checkpoint.hidden = true;
       summary.hidden = false;
       if (config.blockQuest) {
         const allSeen = overall && overall.total > 0 && overall.started >= overall.total;
@@ -618,7 +741,20 @@
       next.setAttribute('aria-label', nextLabel);
       next.setAttribute('title', nextLabel);
       const progressState = syncProgress();
-      const questState = syncQuest(progressState?.percent || 0, rewardEvent);
+      const questState = syncQuest(progressState, rewardEvent);
+      const segmentComplete = Boolean(
+        config.segmentedUi
+        && progressState?.segment
+        && progressState.segment.answered >= progressState.segment.target
+      );
+      if (segmentComplete) {
+        pendingCheckpoint = { progress: progressState, quest: questState };
+        const checkpointLabel = 'לנקודת הביקורת';
+        if (!config.blockQuest) next.textContent = checkpointLabel;
+        next.setAttribute('aria-label', checkpointLabel);
+        next.setAttribute('title', checkpointLabel);
+      }
+      transitionLabel.textContent = segmentComplete ? 'מסיימים את המקטע…' : 'בונה את השאלה הבאה…';
       if (result.correct && rewardEvent) {
         feedbackTitle.textContent = questFeedback({ ...rewardEvent, chestOpened: questState.openedNow });
       }
@@ -632,7 +768,7 @@
         audio.cue('correct', { chestOpened: questState.openedNow });
         autoAdvanceTimer = schedule(() => {
           autoAdvanceTimer = null;
-          renderQuestion();
+          advance();
         }, delay);
       } else if (!result.correct) {
         audio.cue('wrong');
@@ -644,10 +780,12 @@
       resetQuest();
       previousAnswerIndex = -1;
       skipQuestionCue = true;
+      pendingCheckpoint = null;
       setPlaying(true);
       audio.start();
       measure('button_click', { target: 'practice-start', label: 'practice-start' });
       intro.hidden = true;
+      checkpoint.hidden = true;
       summary.hidden = true;
       activity.hidden = false;
       renderQuestion();
@@ -659,6 +797,11 @@
     again.addEventListener('click', begin);
     next.addEventListener('click', () => {
       clearAutoAdvance();
+      advance();
+    });
+    checkpointContinue.addEventListener('click', () => {
+      checkpoint.hidden = true;
+      activity.hidden = false;
       renderQuestion();
     });
     audioToggle.addEventListener('click', () => {
@@ -673,6 +816,7 @@
       clearAutoAdvance();
       audio.stop();
       activity.hidden = true;
+      checkpoint.hidden = true;
       summary.hidden = true;
       intro.hidden = false;
       setPlaying(false);
@@ -680,6 +824,7 @@
     }
 
     exit.addEventListener('click', leave);
+    checkpointExit.addEventListener('click', leave);
     summaryExit.addEventListener('click', leave);
     speak.addEventListener('click', () => {
       if (!currentQuestion?.speakText || !('speechSynthesis' in globalThis)) return;
@@ -711,6 +856,7 @@
     multiplierForStreak,
     rewardForStreak,
     chestCountForPercent,
+    chestCountForSegment,
     questFeedback,
     avoidRepeatedAnswerPosition,
     createQuestAudio
