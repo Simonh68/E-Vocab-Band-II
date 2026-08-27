@@ -71,15 +71,15 @@
 
 ## Coverage-first and group-navigation follow-up
 
-- Local branch: `codex/band2-coverage-navigation-20260826`, based on published `main` commit `ff658fb77459d85776ebffaa7428ca1f015b8d60` with an identical starting tree.
+- The coverage-first and group-navigation fix was published to `main` at content commit `fe81fb5283d2fc40ca17809163c7d7a784851f93`, based directly on `ff658fb77459d85776ebffaa7428ca1f015b8d60`.
 - A perfect run now presents every unfinished item in the group exactly once before repeating a known item. Only a missed item returns, after two intervening questions and without filler repetitions.
 - The next visit selects a different missing learning depth for partially completed words, puts unseen words first, and removes mastered words from the run. Two distinct successful depths are still required for the group mastery checkmark.
 - The in-game counter now shows completed items over the active run, such as `17/55`, and correct answers advance after 650 ms.
 - Previous and next group links are available inside the game and on the summary screen as accessible icon-only `⏮` / `⏭` controls. Navigation wraps within Core I Groups 01–20.
 - Core II, Arabic pages, Read Along, learner-data boundaries and analytics behavior are unchanged.
 - Repository tests: 61/61 passed; JavaScript syntax and `git diff --check` passed. Two-pass simulations across all 20 Core I groups completed every 54/55-item pool once per pass and reached the existing two-depth mastery checkmark after the second pass.
-- The change is local only. It has not been uploaded, merged or published; online visual verification remains pending.
+- Deploy GitHub Pages run `33043738256` and Jekyll site CI run `33043738273` completed successfully. Live verification passed on Group 02 and Group 20: the game exposed the full 55/54-item pools, the count advanced to `1/55` after a correct answer, previous/next group links were available in-game, Group 20 wrapped forward to Group 01, and no horizontal overflow or application-console errors appeared.
 
 ## Next action
 
-Upload the coverage-first branch for visual review only after explicit approval. Publishing to `main` requires a separate explicit approval.
+No further Stage 8 action is pending. Any additional change starts only after a new explicit instruction.
