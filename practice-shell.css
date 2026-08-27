@@ -683,7 +683,7 @@
 }
 .efn-practice--block-quest .efn-practice__question-bar {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 62px;
+  grid-template-columns: minmax(0, 1fr) 62px 62px;
   align-items: stretch;
   gap: 10px;
   direction: ltr;
@@ -1030,7 +1030,7 @@
   .efn-practice--block-quest .efn-practice__score,
   .efn-practice--block-quest .efn-practice__multiplier { min-height: 46px; }
   .efn-practice--block-quest .efn-practice__prompt { min-height: 70px; }
-  .efn-practice--block-quest .efn-practice__question-bar { grid-template-columns: minmax(0, 1fr) 54px; gap: 7px; }
+  .efn-practice--block-quest .efn-practice__question-bar { grid-template-columns: minmax(0, 1fr) 54px 54px; gap: 7px; }
   .efn-practice--block-quest .efn-practice__speak { width: 54px; min-width: 54px; min-height: 70px; }
   .efn-practice--block-quest .efn-practice__choices { grid-template-columns: 1fr; grid-auto-rows: minmax(60px, 1fr); }
   .efn-practice--segmented .efn-practice__progress { min-width: 0; }

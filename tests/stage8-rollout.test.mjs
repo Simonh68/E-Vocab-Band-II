@@ -192,7 +192,7 @@ test('the Band II auto-pronunciation preference persists on the device and falls
   assert.equal(fallback.get(), true);
 });
 
-test('Band II pronunciation stays locked until an answer, then speaks twice and remembers the top toggle', () => {
+test('Band II auto pronunciation sits beside the word, speaks twice on arrival, and remembers the device choice', () => {
   const document = {
     head: new FakeElement('head'),
     createElement: tag => new FakeElement(tag),
@@ -247,7 +247,9 @@ test('Band II pronunciation stays locked until an answer, then speaks twice and 
 
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   const toggle = byClass(controller.section, 'efn-practice__auto-speak-toggle');
+  const questionBar = byClass(controller.section, 'efn-practice__question-bar');
   const manualSpeak = byClass(controller.section, 'efn-practice__speak');
+  assert.ok(questionBar.children.includes(toggle));
   assert.equal(toggle.attributes['aria-pressed'], 'false');
   assert.equal(toggle.textContent, 'A🔇');
   assert.equal(manualSpeak.hidden, true);
@@ -258,8 +260,18 @@ test('Band II pronunciation stays locked until an answer, then speaks twice and 
   assert.equal(toggle.attributes['aria-pressed'], 'true');
   assert.equal(toggle.textContent, 'A🔊');
   assert.equal(toggle.classList.values.has('is-active'), true);
-  assert.equal(timers.size, 0);
-  assert.equal(spoken.length, 0);
+  const arrival = [...timers.values()].find(timer => timer.delay === 0);
+  assert.ok(arrival);
+  arrival.callback();
+  assert.equal(spoken.length, 1);
+  assert.equal(spoken[0].text, 'sausage');
+  spoken[0].onend();
+  const arrivalRepeat = [...timers.values()].find(timer => timer.delay === 700);
+  assert.ok(arrivalRepeat);
+  arrivalRepeat.callback();
+  assert.equal(spoken.length, 2);
+  spoken[1].onend();
+  timers.clear();
 
   const choices = byClass(controller.section, 'efn-practice__choices').querySelectorAll('button');
   choices[0].listeners.click();
@@ -268,17 +280,17 @@ test('Band II pronunciation stays locked until an answer, then speaks twice and 
   const scheduled = [...timers.values()][0];
   assert.equal(scheduled.delay, 0);
   scheduled.callback();
-  assert.equal(cancelledSpeech.length, 1);
-  assert.equal(spoken.length, 1);
-  assert.equal(spoken[0].text, 'sausage');
-  assert.equal(spoken[0].lang, 'en-US');
-  assert.equal(spoken[0].rate, 0.82);
-  spoken[0].onend();
+  assert.equal(cancelledSpeech.length, 2);
+  assert.equal(spoken.length, 3);
+  assert.equal(spoken[2].text, 'sausage');
+  assert.equal(spoken[2].lang, 'en-US');
+  assert.equal(spoken[2].rate, 0.82);
+  spoken[2].onend();
   const repeat = [...timers.values()].find(timer => timer.delay === 700);
   assert.ok(repeat);
   repeat.callback();
-  assert.equal(spoken.length, 2);
-  spoken[1].onend();
+  assert.equal(spoken.length, 4);
+  spoken[3].onend();
   const advanceTimer = [...timers.values()].find(timer => timer.delay === 200);
   assert.ok(advanceTimer);
 
@@ -331,6 +343,12 @@ test('a wrong answer speaks twice with a 700 ms pause and advances 200 ms after 
   });
 
   byClass(controller.section, 'efn-practice__primary').listeners.click();
+  timers[0].callback();
+  spoken[0].onend();
+  timers[1].callback();
+  spoken[1].onend();
+  timers.length = 0;
+  spoken.length = 0;
   byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
   assert.deepEqual(timers.map(timer => timer.delay), [0]);
   timers[0].callback();
@@ -523,7 +541,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
 
   const iconActions = controller.section.descendants()
     .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
-  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', 'A🔇', '↩', '🔊', '▶', '↻', '⏭', '↩']);
+  assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', 'A🔇', '🔊', '▶', '↻', '⏭', '↩']);
   assert.ok(
     iconActions.every(node => node.attributes['aria-label'] && node.attributes.title)
   );

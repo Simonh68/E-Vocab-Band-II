@@ -307,8 +307,8 @@
       autoSpeakToggle.textContent = autoSpeakEnabled ? 'A🔊' : 'A🔇';
       autoSpeakToggle.setAttribute('aria-pressed', String(autoSpeakEnabled));
       const label = autoSpeakEnabled
-        ? 'כיבוי השמעה אוטומטית'
-        : 'הפעלת השמעה אוטומטית לאחר בחירת תשובה';
+        ? 'כיבוי השמעה אוטומטית של כל מילה'
+        : 'הפעלת השמעה אוטומטית של כל מילה';
       autoSpeakToggle.setAttribute('aria-label', label);
       autoSpeakToggle.setAttribute('title', label);
     }
@@ -327,7 +327,6 @@
     if (previousGroup) headerActions.append(previousGroup);
     if (nextGroup) headerActions.append(nextGroup);
     if (config.blockQuest) headerActions.append(audioToggle);
-    if (config.blockQuest) headerActions.append(autoSpeakToggle);
     headerActions.append(exit);
     activityHeader.append(progress, headerActions);
     const questHud = element(document, 'div', 'efn-practice__quest-hud');
@@ -375,7 +374,7 @@
     speak.setAttribute('aria-label', 'השמעת המילה באנגלית');
     speak.setAttribute('title', 'השמעת המילה באנגלית');
     const questionBar = element(document, 'div', 'efn-practice__question-bar');
-    questionBar.append(prompt, speak);
+    questionBar.append(prompt, autoSpeakToggle, speak);
     const choices = element(document, 'div', 'efn-practice__choices');
     choices.setAttribute('role', 'group');
     choices.setAttribute('aria-label', 'אפשרויות תשובה');
@@ -608,9 +607,9 @@
       speakNext();
     }
 
-    function scheduleAutoSpeak(delayOverride, repetitions = 1, emphasize = false, onComplete) {
+    function scheduleAutoSpeak(delayOverride, repetitions = 1, emphasize = false, onComplete, requireAnswered = true) {
       clearAutoSpeak();
-      if (!autoSpeakEnabled || !answered || !schedule || !currentQuestion?.speakText) return;
+      if (!autoSpeakEnabled || (requireAnswered && !answered) || !schedule || !currentQuestion?.speakText) return;
       const scheduledQuestion = currentQuestion;
       const configuredDelay = delayOverride ?? config.autoSpeakDelayMs ?? 1000;
       const delay = Number.isFinite(Number(configuredDelay))
@@ -618,7 +617,7 @@
         : 1000;
       autoSpeakTimer = schedule(() => {
         autoSpeakTimer = null;
-        if (answered && currentQuestion === scheduledQuestion) {
+        if ((!requireAnswered || answered) && currentQuestion === scheduledQuestion) {
           speakCurrentQuestion(repetitions, emphasize, config.autoSpeakRepeatPauseMs ?? 700, onComplete);
         }
       }, delay);
@@ -853,6 +852,7 @@
       syncProgress();
       if (skipQuestionCue) skipQuestionCue = false;
       else audio.cue('question');
+      if (autoSpeakEnabled) scheduleAutoSpeak(0, 2, true, null, false);
       const firstChoice = choices.querySelector('[data-first-choice="true"]');
       if (firstChoice) firstChoice.focus({ preventScroll: true });
     }
@@ -987,7 +987,8 @@
       syncAutoSpeakToggle();
       if (autoSpeakEnabled) {
         clearAutoAdvance();
-        scheduleAutoSpeak(0, 2, lastAnswerCorrect === false, advanceAfterPronunciation);
+        if (answered) scheduleAutoSpeak(0, 2, lastAnswerCorrect === false, advanceAfterPronunciation);
+        else scheduleAutoSpeak(0, 2, true, null, false);
       }
       else clearAutoSpeak();
     });
