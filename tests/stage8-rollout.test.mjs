@@ -274,10 +274,13 @@ test('Band II pronunciation stays locked until an answer, then speaks twice and 
   assert.equal(spoken[0].lang, 'en-US');
   assert.equal(spoken[0].rate, 0.82);
   spoken[0].onend();
-  const repeat = [...timers.values()].find(timer => timer.delay === 1000);
+  const repeat = [...timers.values()].find(timer => timer.delay === 700);
   assert.ok(repeat);
   repeat.callback();
   assert.equal(spoken.length, 2);
+  spoken[1].onend();
+  const advanceTimer = [...timers.values()].find(timer => timer.delay === 200);
+  assert.ok(advanceTimer);
 
   toggle.listeners.click();
   assert.deepEqual(preferenceValues, [true, false]);
@@ -286,7 +289,7 @@ test('Band II pronunciation stays locked until an answer, then speaks twice and 
   assert.equal(toggle.classList.values.has('is-active'), false);
 });
 
-test('a wrong answer is pronounced immediately and advances after four seconds', () => {
+test('a wrong answer speaks twice with a 700 ms pause and advances 200 ms after the second reading', () => {
   const document = {
     head: new FakeElement('head'),
     createElement: tag => new FakeElement(tag),
@@ -329,17 +332,19 @@ test('a wrong answer is pronounced immediately and advances after four seconds',
 
   byClass(controller.section, 'efn-practice__primary').listeners.click();
   byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].listeners.click();
-  assert.deepEqual(timers.map(timer => timer.delay), [0, 4000]);
+  assert.deepEqual(timers.map(timer => timer.delay), [0]);
   timers[0].callback();
   assert.equal(spoken[0].text, 'sausage');
   assert.equal(byClass(controller.section, 'efn-practice__prompt').classList.values.has('is-pronunciation-flashing'), true);
   spoken[0].onend();
-  assert.equal(timers[2].delay, 1000);
-  timers[2].callback();
+  assert.equal(timers[1].delay, 700);
+  timers[1].callback();
   assert.equal(spoken.length, 2);
   assert.equal(spoken[1].text, 'sausage');
   assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, false);
-  timers[1].callback();
+  spoken[1].onend();
+  assert.equal(timers[2].delay, 200);
+  timers[2].callback();
   assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, true);
 });
 
@@ -847,8 +852,9 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.equal(treasureAsset.readUInt32BE(20), 768);
   assert.equal(treasureAsset[25], 6);
   assert.match(source, /autoAdvanceCorrectMs: 1500/);
-  assert.match(source, /autoAdvanceSpokenCorrectMs: 4000/);
   assert.match(source, /autoAdvanceWrongMs: 4000/);
+  assert.match(source, /autoSpeakRepeatPauseMs: 700/);
+  assert.match(source, /autoAdvanceAfterSpeechMs: 200/);
   assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
   assert.match(source, /description: `\$\{sourcePool\.length\} מילים`/);
