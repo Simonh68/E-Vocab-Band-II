@@ -831,21 +831,25 @@ test('correct feedback is brief, positive and contains no pedagogical scheduling
   assert.doesNotMatch(`${feedback.title} ${feedback.text}`, /נחזור|נבדוק|שאלות/);
 });
 
-test('vocabulary questions switch direction and keep the answer among unique choices', () => {
+test('vocabulary questions always show English with four unique Hebrew choices', () => {
   const primary = vocabApi.questionFactory(records[0], { records, mode: 'primary', phase: 'initial', filler: false, seed: 5 });
   const review = vocabApi.questionFactory(records[0], { records, mode: 'review', phase: 'review', filler: false, seed: 8 });
   assert.equal(primary.answer, records[0].mean_he);
-  assert.equal(review.answer, records[0].en);
+  assert.equal(review.answer, records[0].mean_he);
   assert.ok(primary.choices.includes(primary.answer));
   assert.ok(review.choices.includes(review.answer));
+  assert.equal(primary.choices.length, 4);
+  assert.equal(review.choices.length, 4);
   assert.equal(new Set(primary.choices).size, primary.choices.length);
   assert.equal(new Set(review.choices).size, review.choices.length);
   assert.equal(primary.prompt, records[0].en);
   assert.deepEqual(primary.promptParts, [{ text: records[0].en, lang: 'en', dir: 'ltr' }]);
   assert.equal(primary.promptLang, 'en');
   assert.equal(primary.promptDir, 'ltr');
-  assert.equal(review.prompt, records[0].mean_he);
-  assert.deepEqual(review.promptParts, [{ text: records[0].mean_he, lang: 'he', dir: 'rtl' }]);
+  assert.equal(review.prompt, records[0].en);
+  assert.deepEqual(review.promptParts, [{ text: records[0].en, lang: 'en', dir: 'ltr' }]);
+  assert.equal(review.choiceLang, 'he');
+  assert.equal(review.choiceDir, 'rtl');
   assert.equal(review.clue, '');
 });
 
@@ -1069,7 +1073,7 @@ test('adaptive routing opens retrieval after fast consecutive success and contex
   assert.equal(session.debugQueue().find(entry => /word-1-review/.test(entry.key)).mode, 'review');
 });
 
-test('adaptive support temporarily reduces the answer set after two recent errors', () => {
+test('adaptive support keeps four Hebrew choices even after recent errors', () => {
   const session = sessionApi.createSession(records.slice(0, 5), {
     limit: 5,
     adaptive: true,
@@ -1080,7 +1084,9 @@ test('adaptive support temporarily reduces the answer set after two recent error
   question = session.next();
   session.answer(question.choices.find(choice => choice !== question.answer));
   question = session.next();
-  assert.equal(question.choices.length, 2);
+  assert.equal(question.choices.length, 4);
+  assert.equal(question.prompt, records[2].en);
+  assert.ok(question.choices.every(choice => records.some(record => record.mean_he === choice)));
 });
 
 test('an adaptive word is mastered only through two different learning depths', () => {

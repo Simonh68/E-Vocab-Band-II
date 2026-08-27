@@ -130,30 +130,25 @@
   function questionFactory(record, context) {
     const english = clean(record.en);
     const hebrew = clean(record.mean_he);
-    const reverse = context.mode === 'review';
-    const inContext = context.mode === 'context';
-    const answer = reverse || inContext ? english : hebrew;
-    const choices = reverse || inContext
-      ? choicesFor(context.records, answer, item => item.en, context.seed, context.choiceCount)
-      : choicesFor(context.records, answer, item => item.mean_he, context.seed, context.choiceCount);
-    const primary = !reverse && !inContext;
-    const prompt = inContext ? contextPrompt(record) : reverse ? hebrew : english;
+    const answer = hebrew;
+    const choices = choicesFor(context.records, answer, item => item.mean_he, context.seed, 4);
+    const prompt = english;
     return {
       prompt,
-      promptParts: inContext ? null : [{
+      promptParts: [{
         text: prompt,
-        lang: primary ? 'en' : 'he',
-        dir: primary ? 'ltr' : 'rtl'
+        lang: 'en',
+        dir: 'ltr'
       }],
-      promptLang: primary || inContext ? 'en' : 'he',
-      promptDir: primary || inContext ? 'ltr' : 'rtl',
+      promptLang: 'en',
+      promptDir: 'ltr',
       clue: '',
       clueLang: 'en',
       clueDir: 'ltr',
       choices,
       answer,
-      choiceLang: reverse || inContext ? 'en' : 'he',
-      choiceDir: reverse || inContext ? 'ltr' : 'rtl',
+      choiceLang: 'he',
+      choiceDir: 'rtl',
       speakText: english,
       modeLabel: context.phase === 'retry'
         ? 'מסלול תיקון'
