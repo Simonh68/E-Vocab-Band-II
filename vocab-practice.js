@@ -55,7 +55,10 @@
 
   function createStringPreference(root, key) {
     const storage = (() => {
-      try { return root?.localStorage || null; }
+      try {
+        const progress = root?.EFN_CORE1_PROGRESS;
+        return progress?.hasLocalProgressConsent?.(root) ? root?.localStorage || null : null;
+      }
       catch (_error) { return null; }
     })();
     let fallback = null;

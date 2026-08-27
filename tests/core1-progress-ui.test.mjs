@@ -120,6 +120,7 @@ test('the group list injects and updates all twenty Core I badges', () => {
   }
 
   const storage = new MemoryStorage();
+  storage.setItem(progressApi.CONSENT_KEY, progressApi.CONSENT_ACCEPTED);
   const root = { document, localStorage: storage, location: { pathname: '/E-Vocab-Band-II/' } };
   uiApi.mount(root, { progressApi, groupsApi });
   assert.equal(document.querySelectorAll('[data-core1-progress-list][data-group]').length, 20);
@@ -154,6 +155,7 @@ test('a Core I activity page uses all page words, explains local storage, and ca
 
   const expectedSerials = groupsApi.expectedSerials(20);
   const storage = new MemoryStorage();
+  storage.setItem(progressApi.CONSENT_KEY, progressApi.CONSENT_ACCEPTED);
   progressApi.createProgressStore(storage).recordCorrect({
     group: 20,
     serial: expectedSerials[0],

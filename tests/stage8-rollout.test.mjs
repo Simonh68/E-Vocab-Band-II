@@ -195,13 +195,15 @@ test('the Band II auto-pronunciation preference persists on the device and falls
 
 test('Band II remembers the exact current word for each group on the device', () => {
   const storage = new MemoryStorage();
-  const firstVisit = vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02');
+  storage.setItem(progressApi.CONSENT_KEY, progressApi.CONSENT_ACCEPTED);
+  const root = { localStorage: storage, EFN_CORE1_PROGRESS: progressApi };
+  const firstVisit = vocabApi.createStringPreference(root, 'efn.band2.resume.v1.02');
   firstVisit.set(4);
-  const nextVisit = vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02');
+  const nextVisit = vocabApi.createStringPreference(root, 'efn.band2.resume.v1.02');
   const mission = vocabApi.resumeCoverageMission({ records: records.slice(0, 6) }, nextVisit.get());
   assert.deepEqual(mission.records.map(record => record.serial), [4, 5, 6, 1, 2, 3]);
   nextVisit.clear();
-  assert.equal(vocabApi.createStringPreference({ localStorage: storage }, 'efn.band2.resume.v1.02').get(), null);
+  assert.equal(vocabApi.createStringPreference(root, 'efn.band2.resume.v1.02').get(), null);
 });
 
 test('the current group is also shown on the flashcards screen', () => {
@@ -1212,6 +1214,7 @@ test('a 12-word Core I round writes evidence against the full group manifest', a
   assert.equal(groupWords.length, 55);
 
   const storage = new MemoryStorage();
+  storage.setItem(progressApi.CONSENT_KEY, progressApi.CONSENT_ACCEPTED);
   const tracker = vocabApi.createProgressTracker(progressApi, { localStorage: storage }, {
     group: 1,
     expectedSerials: groupWords.map(word => word.serial)

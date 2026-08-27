@@ -4,11 +4,61 @@
   if (root) root.EFN_CORE1_PROGRESS = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, () => {
   const STORAGE_KEY = 'efn.band2.core1.progress.v1';
+  const CONSENT_KEY = 'efn.band2.local-progress-consent.v1';
+  const CONSENT_ACCEPTED = 'accepted';
   const SCHEMA_VERSION = 1;
   const FIRST_GROUP = 1;
   const LAST_GROUP = 20;
   const REQUIRED_SIGNAL_COUNT = 2;
   const ALLOWED_SIGNALS = Object.freeze(['meaning', 'recall', 'context']);
+
+  function localStorageFor(root) {
+    try { return root && root.localStorage ? root.localStorage : null; }
+    catch { return null; }
+  }
+
+  function hasLocalProgressConsent(root) {
+    try { return localStorageFor(root)?.getItem(CONSENT_KEY) === CONSENT_ACCEPTED; }
+    catch { return false; }
+  }
+
+  function acceptLocalProgressConsent(root) {
+    const storage = localStorageFor(root);
+    if (!storage) return false;
+    try {
+      storage.setItem(CONSENT_KEY, CONSENT_ACCEPTED);
+      return storage.getItem(CONSENT_KEY) === CONSENT_ACCEPTED;
+    } catch {
+      return false;
+    }
+  }
+
+  function mountConsentDialog(root) {
+    const document = root && root.document;
+    if (!document?.body || hasLocalProgressConsent(root) || document.querySelector('[data-efn-progress-consent]')) return null;
+    const style = document.createElement('style');
+    style.textContent = '.efn-consent-backdrop{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:18px;background:#062f42c7;backdrop-filter:blur(5px)}.efn-consent-dialog{width:min(520px,100%);padding:25px;border:2px solid #f5c84c;border-radius:24px;color:#123b4a;background:linear-gradient(145deg,#fff,#e8f8fd);box-shadow:0 12px 0 #0f536e,0 30px 70px #001e2ccc;text-align:right;direction:rtl}.efn-consent-dialog h2{margin:0 0 10px;color:#145b75;font-size:clamp(1.45rem,5vw,2rem)}.efn-consent-dialog p{margin:8px 0;line-height:1.55;font-weight:650}.efn-consent-note{color:#426d7d;font-size:.92rem}.efn-consent-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.efn-consent-actions button{min-height:48px;border:1px solid #2a8eb1;border-radius:13px;padding:10px 13px;font:inherit;font-weight:900;cursor:pointer}.efn-consent-accept{color:#fff;background:linear-gradient(145deg,#2a8eb1,#176b8a);box-shadow:0 4px 0 #0f536e}.efn-consent-decline{color:#155f7b;background:#fff;box-shadow:0 4px 0 #a4d3e2}.efn-consent-actions button:focus-visible{outline:3px solid #8b3f00;outline-offset:3px}@media(max-width:480px){.efn-consent-dialog{padding:21px 17px}.efn-consent-actions{grid-template-columns:1fr}}@media(forced-colors:active){.efn-consent-dialog,.efn-consent-actions button{border:2px solid ButtonText}}';
+    const backdrop = document.createElement('div');
+    backdrop.className = 'efn-consent-backdrop';
+    backdrop.dataset.efnProgressConsent = '';
+    backdrop.innerHTML = '<section class="efn-consent-dialog" role="dialog" aria-modal="true" aria-labelledby="efn-consent-title" aria-describedby="efn-consent-description"><h2 id="efn-consent-title">לשמור את ההתקדמות במכשיר?</h2><p id="efn-consent-description">כך לא תצטרכו לחזור על תרגול שכבר הצלחתם בו.</p><p class="efn-consent-note">השמירה מתבצעת רק במכשיר הזה. איננו שומרים שם, אימייל, תשובות שהוקלדו או הקלטות, ואיננו שולחים את ההתקדמות למורה או לשרת.</p><div class="efn-consent-actions"><button class="efn-consent-accept" type="button" data-consent-accept>כן, לשמור במכשיר</button><button class="efn-consent-decline" type="button" data-consent-decline>לא עכשיו</button></div></section>';
+    document.head?.appendChild(style);
+    document.body.appendChild(backdrop);
+    const acceptButton = backdrop.querySelector('[data-consent-accept]');
+    const declineButton = backdrop.querySelector('[data-consent-decline]');
+    acceptButton?.addEventListener('click', () => {
+      if (!acceptLocalProgressConsent(root)) {
+        const note = backdrop.querySelector('.efn-consent-note');
+        if (note) note.textContent = 'הדפדפן חסם שמירה במכשיר. אפשר להמשיך לתרגל, אך ההתקדמות תישמר רק בביקור הנוכחי.';
+        declineButton?.focus();
+        return;
+      }
+      root.location?.reload?.();
+    });
+    declineButton?.addEventListener('click', () => backdrop.remove());
+    acceptButton?.focus();
+    return backdrop;
+  }
 
   function emptyState() {
     return { version: SCHEMA_VERSION, groups: {} };
@@ -251,7 +301,7 @@
   function createBrowserProgressStore(root, options = {}) {
     let storage = null;
     try {
-      storage = root && root.localStorage ? root.localStorage : null;
+      storage = hasLocalProgressConsent(root) ? localStorageFor(root) : null;
     } catch {
       storage = null;
     }
@@ -260,6 +310,8 @@
 
   return {
     STORAGE_KEY,
+    CONSENT_KEY,
+    CONSENT_ACCEPTED,
     SCHEMA_VERSION,
     FIRST_GROUP,
     LAST_GROUP,
@@ -267,8 +319,17 @@
     ALLOWED_SIGNALS,
     nextSignalFor,
     modeForSignal,
+    hasLocalProgressConsent,
+    acceptLocalProgressConsent,
+    mountConsentDialog,
     createProgressStore,
     createBrowserProgressStore,
     fingerprint
   };
 });
+
+if (typeof globalThis !== 'undefined' && globalThis.document) {
+  const mount = () => globalThis.EFN_CORE1_PROGRESS?.mountConsentDialog?.(globalThis);
+  if (globalThis.document.readyState === 'loading') globalThis.document.addEventListener('DOMContentLoaded', mount, { once: true });
+  else mount();
+}
