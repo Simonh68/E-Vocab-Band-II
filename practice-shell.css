@@ -714,8 +714,8 @@
   width: 58px;
   height: 52px;
   object-fit: contain;
-  opacity: .42;
-  filter: grayscale(1) brightness(.68);
+  opacity: .72;
+  filter: saturate(.82) brightness(.76) drop-shadow(0 5px 4px #0009);
   transform: translateY(2px);
   transition: transform .2s ease, filter .2s ease, opacity .2s ease;
 }
@@ -845,6 +845,139 @@
 .efn-practice--block-quest .efn-practice__choice.is-answer { border-color: #a7ef83; color: #f4ffe9; background: linear-gradient(180deg, #3d9d45, #22652d); }
 .efn-practice--block-quest .efn-practice__choice.is-selected-wrong { border-color: #ffb15e; color: #fff1dc; background: linear-gradient(180deg, #7d432d, #512a24); }
 
+/* Heavy voxel pass: deeper block construction and colorful reward states. */
+.efn-practice--block-quest.is-playing {
+  background:
+    radial-gradient(circle at 9% 72%, #f59b2728 0 2%, transparent 7%),
+    radial-gradient(circle at 91% 70%, #7136aa36 0 3%, transparent 9%),
+    linear-gradient(135deg, #ffffff06 25%, transparent 25%) 0 0 / 36px 36px,
+    linear-gradient(315deg, #00000016 25%, transparent 25%) 18px 18px / 36px 36px,
+    linear-gradient(180deg, #11283a 0 50%, #07131d 50% 100%);
+}
+
+.efn-practice--block-quest .efn-practice__header,
+.efn-practice--block-quest .efn-practice__prompt,
+.efn-practice--block-quest .efn-practice__choice,
+.efn-practice--block-quest .efn-practice__treasure-map,
+.efn-practice--block-quest .efn-practice__score,
+.efn-practice--block-quest .efn-practice__multiplier {
+  border-width: 5px;
+  border-color: #080d12;
+  outline: 3px solid #455664;
+  outline-offset: -8px;
+}
+
+.efn-practice--block-quest .efn-practice__header {
+  padding: 12px;
+  background:
+    linear-gradient(135deg, #ffffff08 25%, transparent 25%) 0 0 / 24px 24px,
+    linear-gradient(180deg, #172a39, #09151f);
+  box-shadow: inset 0 5px #526575, inset 0 -7px #02080d, 0 8px 0 #020508, 0 14px 24px #0008;
+}
+
+.efn-practice--block-quest .efn-practice__quiet,
+.efn-practice--block-quest .efn-practice__speak,
+.efn-practice--block-quest .efn-practice__icon-action {
+  border: 4px solid #0a1016;
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, #ffffff0b 25%, transparent 25%) 0 0 / 18px 18px,
+    linear-gradient(180deg, #3b5161 0 50%, #243744 50%);
+  box-shadow: inset 0 4px #718797, inset 0 -6px #111e27, 0 6px 0 #03070a;
+}
+
+.efn-practice--block-quest .efn-practice__progress-track {
+  height: 18px;
+  border-width: 4px;
+  background: repeating-linear-gradient(90deg, #17232c 0 22px, #23323d 22px 44px);
+  box-shadow: inset 0 4px #0009, 0 3px 0 #4b5c68;
+}
+
+.efn-practice--block-quest .efn-practice__progress-fill {
+  background: repeating-linear-gradient(90deg, #74e94e 0 22px, #3fbd35 22px 44px);
+  box-shadow: inset 0 5px #a9ff7c, inset 0 -5px #207421, 0 0 14px #73ef4d66;
+}
+
+.efn-practice--block-quest .efn-practice__quest-hud { gap: clamp(12px, 2vw, 22px); }
+
+.efn-practice--block-quest .efn-practice__score {
+  background:
+    linear-gradient(135deg, #fff2a333 25%, transparent 25%) 0 0 / 22px 22px,
+    linear-gradient(180deg, #ffdc4e 0 50%, #e9aa18 50%);
+  box-shadow: inset 0 6px #fff3a1, inset 0 -7px #9d5c08, 0 8px 0 #03070a, 0 0 20px #ffc52c44;
+}
+
+.efn-practice--block-quest .efn-practice__multiplier {
+  background:
+    linear-gradient(135deg, #ffffff14 25%, transparent 25%) 0 0 / 20px 20px,
+    linear-gradient(180deg, #f47a4f 0 50%, #c7472d 50%);
+  box-shadow: inset 0 6px #ffb18e, inset 0 -7px #7e281d, 0 8px 0 #03070a;
+}
+
+.efn-practice--block-quest .efn-practice__treasure-map {
+  min-height: 86px;
+  padding: 9px 16px;
+  background:
+    linear-gradient(135deg, #ffffff0a 25%, transparent 25%) 0 0 / 24px 24px,
+    linear-gradient(180deg, #12685e, #073b3d);
+  box-shadow: inset 0 7px #2aa592, inset 0 -8px #031d25, 0 8px 0 #020508;
+}
+
+.efn-practice--block-quest .efn-practice__treasure-map::before {
+  border-top: 8px solid #c9ea3d;
+  box-shadow: 0 4px 0 #6d850f, 0 0 10px #dfff49aa;
+  opacity: 1;
+}
+
+.efn-practice--block-quest .efn-practice__island {
+  min-height: 66px;
+  background: linear-gradient(180deg, transparent 0 62%, #4b5963 62% 76%, #1c2830 76% 88%, transparent 88%);
+}
+
+.efn-practice--block-quest .efn-practice__chest {
+  width: 70px;
+  height: 64px;
+  opacity: .72;
+  filter: saturate(.82) brightness(.76) drop-shadow(0 5px 4px #0009);
+}
+
+.efn-practice--block-quest .efn-practice__chest.is-open {
+  filter: saturate(1.2) brightness(1.08) drop-shadow(0 7px 5px #351b05cc) drop-shadow(0 0 13px #ffd63599);
+}
+
+.efn-practice--block-quest .efn-practice__group-position {
+  padding: 6px 14px;
+  border: 4px solid #0b1116;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #344b59 0 50%, #1c303c 50%);
+  box-shadow: inset 0 4px #6d8492, inset 0 -5px #0a151c, 0 5px 0 #03070a;
+}
+
+.efn-practice--block-quest .efn-practice__prompt {
+  min-height: 104px;
+  background:
+    linear-gradient(135deg, #ffffff07 25%, transparent 25%) 0 0 / 28px 28px,
+    linear-gradient(315deg, #00000016 25%, transparent 25%) 14px 14px / 28px 28px,
+    linear-gradient(180deg, #293d4a, #14232e);
+  box-shadow: inset 0 7px #526675, inset 0 -9px #08131b, 0 9px 0 #020508, 0 14px 24px #0007;
+}
+
+.efn-practice--block-quest .efn-practice__choice {
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, #ffffff08 25%, transparent 25%) 0 0 / 24px 24px,
+    linear-gradient(315deg, #00000013 25%, transparent 25%) 12px 12px / 24px 24px,
+    linear-gradient(180deg, #405666 0 50%, #273b49 50%);
+  box-shadow: inset 0 7px #697d8c, inset 0 -9px #13222d, 0 9px 0 #020609;
+}
+
+.efn-practice--block-quest .efn-practice__auto-speak-toggle.is-active {
+  outline: 3px solid #153d1d;
+  outline-offset: -8px;
+  background: linear-gradient(180deg, #65db4b 0 50%, #2f9e30 50%);
+  box-shadow: inset 0 6px #9af87e, inset 0 -7px #176321, 0 7px 0 #061008, 0 0 18px #70e94f77;
+}
+
 .efn-practice--block-quest .efn-practice__feedback {
   min-height: 68px;
   margin: 0;
@@ -964,8 +1097,8 @@
   display: block;
   width: min(190px, 48vw);
   height: auto;
-  opacity: .48;
-  filter: grayscale(1) brightness(.72);
+  opacity: .92;
+  filter: saturate(1.12) drop-shadow(0 8px 8px #0007);
   transform: scale(.94);
 }
 

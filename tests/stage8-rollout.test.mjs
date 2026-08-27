@@ -942,7 +942,7 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /immersive: true/);
   assert.match(source, /exponentialFeedback: true/);
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
-  assert.match(source, /practice-shell\.css\?v=20260826-coverage1/);
+  assert.match(source, /practice-shell\.css\?v=20260827-heavy-voxel1/);
   assert.match(source, /treasure-chest-coins-3d\.png\?v=20260826-stage8-fix1/);
   assert.equal(treasureAsset.subarray(1, 4).toString(), 'PNG');
   assert.equal(treasureAsset.readUInt32BE(16), 768);
@@ -973,6 +973,11 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(styles, /\.efn-card-group-position\s*\{/);
   assert.match(styles, /\.efn-practice__auto-speak-toggle\s*\{[^}]*width: 56px;[^}]*height: 56px;[^}]*border-radius: 14px;/s);
   assert.match(styles, /\.efn-practice__lost-chest\s*\{/);
+  assert.match(styles, /\.efn-practice__checkpoint-chest\s*\{[^}]*opacity: \.92;[^}]*saturate\(1\.12\)/s);
+  assert.doesNotMatch(styles, /\.efn-practice__checkpoint-chest\s*\{[^}]*grayscale\(1\)/s);
+  assert.match(styles, /Heavy voxel pass/);
+  assert.match(styles, /\.efn-practice--block-quest \.efn-practice__chest\s*\{[^}]*opacity: \.72;[^}]*saturate\(\.82\)/s);
+  assert.doesNotMatch(styles, /\.efn-practice--block-quest \.efn-practice__chest\s*\{[^}]*grayscale\(1\)/s);
   assert.match(panel, /בונה את השאלה הבאה/);
   assert.match(styles, /Noto Sans Hebrew/);
   assert.match(styles, /\.efn-practice--block-quest \.efn-practice__title\s*\{[^}]*font-weight: 700;[^}]*text-shadow: none;/s);
