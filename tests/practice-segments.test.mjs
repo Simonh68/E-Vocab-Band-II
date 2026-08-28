@@ -132,7 +132,7 @@ test('the Arabic rollout guard exposes only the two known incomplete manifests',
   ]);
 });
 
-test('Stage 2 loads the segment engine only in Core I pilot Groups 02 and 20', async () => {
+test('Stage 5 loads the segment engine across Hebrew Core I and nowhere else', async () => {
   const HebrewRoot = new URL('../groups/', import.meta.url);
   const ArabicRoot = new URL('../AR/groups/', import.meta.url);
   const HebrewNames = (await readdir(HebrewRoot)).filter(name => /^group-\d{2}\.html$/.test(name));
@@ -142,9 +142,10 @@ test('Stage 2 loads the segment engine only in Core I pilot Groups 02 and 20', a
 
   for (const name of HebrewNames) {
     const html = await readFile(new URL(name, HebrewRoot), 'utf8');
-    const pilot = name === 'group-02.html' || name === 'group-20.html';
-    assert.equal(/practice-segments\.js\?v=20260827-stage2/.test(html), pilot, name);
-    if (pilot) {
+    const group = Number(name.slice(6, 8));
+    const coreI = group >= 1 && group <= 20;
+    assert.equal(/practice-segments\.js\?v=20260827-stage2/.test(html), coreI, name);
+    if (coreI) {
       assert.ok(
         html.indexOf('practice-segments.js') < html.indexOf('practice-session.js'),
         `${name} must load the segment engine before the session engine`

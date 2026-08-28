@@ -665,7 +665,7 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
   assert.ok(!body.classList.values.has('efn-practice-is-playing'));
 });
 
-test('the segmented pilot pauses at six checkpoints and keeps segment, coverage and mastery separate', () => {
+test('the segmented Core I route pauses at six checkpoints and keeps segment, coverage and mastery separate', () => {
   const pilotRecords = Array.from({ length: 54 }, (_, index) => ({
     id: `pilot-${index + 1}`,
     serial: index + 1,
@@ -893,12 +893,12 @@ test('all forty group pages load the dormant rollout bundle', async () => {
   }
 });
 
-test('the coverage-first route activates across every Core I group', async () => {
+test('the segmented coverage-first route activates across every Core I group', async () => {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(await readFile(new URL('../stage8-rollout.js', import.meta.url), 'utf8'), context);
   const rollout = context.window.EFN_STAGE8_ROLLOUT;
-  assert.equal(rollout.version, '2026-08-27-segmented-pilot-stage3');
+  assert.equal(rollout.version, '2026-08-28-core1-segments-stage5');
   assert.equal(Object.keys(rollout.vocabulary).length, 20);
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
@@ -908,12 +908,9 @@ test('the coverage-first route activates across every Core I group', async () =>
     assert.equal(config.missionSize, 55);
     assert.equal(config.adaptive, true);
     assert.equal(config.coverageFirst, true);
-    assert.equal(config.segmented, group === 2 || group === 20);
-    assert.equal(config.segmentedUi, group === 2 || group === 20 ? true : undefined);
-    assert.deepEqual(
-      config.treasureChestSegments ? Array.from(config.treasureChestSegments) : undefined,
-      group === 2 || group === 20 ? [2, 4, 6] : undefined
-    );
+    assert.equal(config.segmented, true);
+    assert.equal(config.segmentedUi, true);
+    assert.deepEqual(Array.from(config.treasureChestSegments), [2, 4, 6]);
     assert.equal(config.analyticsActivity, `band-ii-core-i-group-${id}`);
     assert.equal(config.progressGroup, group);
   }
@@ -1356,25 +1353,16 @@ test('analytics ignores practice clicks and practice audio at runtime', async ()
   assert.equal(payloads.at(-1).event, 'audio_play');
 });
 
-test('celebration assets are cache-busted across Core I while segmented engines remain pilot-only', async () => {
+test('Stage 5 segment and celebration assets are uniform across Core I', async () => {
   const reader = await readFile(new URL('../Read-Along/reader.html', import.meta.url), 'utf8');
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const activeGroup = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
-    const pilot = group === 2 || group === 20;
-    if (pilot) {
-      assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
-      assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
-      assert.match(activeGroup, /practice-panel\.js\?v=20260828-bidi1/);
-      assert.match(activeGroup, /stage8-rollout\.js\?v=20260827-segments-stage3/);
-      assert.match(activeGroup, /vocab-practice\.js\?v=20260828-bidi1/);
-    } else {
-      assert.doesNotMatch(activeGroup, /practice-segments\.js/);
-      assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);
-      assert.match(activeGroup, /practice-panel\.js\?v=20260827-celebrations1/);
-      assert.match(activeGroup, /stage8-rollout\.js\?v=20260826-coverage1/);
-      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-celebrations1/);
-    }
+    assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
+    assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
+    assert.match(activeGroup, /practice-panel\.js\?v=20260828-bidi1/);
+    assert.match(activeGroup, /stage8-rollout\.js\?v=20260828-core1-segments-stage5/);
+    assert.match(activeGroup, /vocab-practice\.js\?v=20260828-bidi1/);
     assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
   }
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);

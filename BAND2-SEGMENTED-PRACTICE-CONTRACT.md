@@ -28,6 +28,16 @@
 - The checkpoint adds no answer content, persistence, identity, network request or analytics field. The session engine and coverage-first scheduling rules are unchanged.
 - No push, merge or publication is part of Stage 3.
 
+## Stage 5 Core I rollout delta
+
+- Branch: `codex/band2-segments-stage5-core1-rollout-20260828`.
+- Base: published Stage 4 acceptance commit `c39fdd947e3458ae3d5e1ef699832501d88a02b4`.
+- The segmented engine and its checkpoint interface now apply uniformly to Hebrew Core I Groups 01–20 after the live pilot passed in Groups 02 and 20.
+- Every Core I group keeps its existing 54/55-item source manifest, coverage-first scheduling, local-progress consent, group navigation and analytics activity name.
+- Hebrew Core II Groups 21–40, all Arabic groups, Read Along and irregular verbs remain outside this rollout.
+- No answer content, identity, network request, analytics field, cookie or new persistent state is added.
+- Development, tests and a local commit are part of Stage 5; push, merge and publication require a separate explicit instruction.
+
 ## Canonical segment model
 
 - A complete Band II vocabulary group contains 54 or 55 authentic items. A 53-item manifest is invalid and blocks rollout until its source data is repaired.
@@ -69,7 +79,7 @@
 - Intermediate celebrations are brief, graphical and low-text. They keep a direct continue action into the next segment.
 - Action controls use icons only. Every icon-only control has both an `aria-label` and a matching tooltip.
 - Group navigation remains available in play, at intermediate checkpoints and at final completion.
-- Core I is the first pilot surface. Core II and Arabic receive the same shared behavior only after the pilot passes; Arabic Groups 32 and 36 must first regain their missing authentic items.
+- Core I is the first full rollout surface after the Groups 02 and 20 pilot passed. Core II and Arabic remain separate later decisions; Arabic Groups 32 and 36 must first regain their missing authentic items.
 - Read Along and irregular-verbs routes remain separate decisions and are not silently converted by the Core vocabulary rollout.
 
 ## Stage 1 automated acceptance
@@ -96,3 +106,11 @@
 - A perfect route shows six checkpoints, uses a ten-screen final segment only for a 55-item group, and opens exactly three chests after segments 2, 4 and 6.
 - Icon-only controls at checkpoints and final completion expose matching `aria-label` and `title` text, with previous/next group navigation in both places.
 - Reduced-motion, forced-colors and analytics privacy safeguards continue to cover the segmented interface.
+
+## Stage 5 automated acceptance
+
+- All Hebrew Core I Groups 01–20 import the segment engine before the shared session engine and use the same Stage 5 rollout configuration.
+- Every Core I configuration enables segmented coverage-first practice, the segmented checkpoint UI and treasure chests after segments 2, 4 and 6.
+- All 20 Core I pages use the same cache-busted segment, session, panel, rollout and vocabulary-practice asset route.
+- Hebrew Core II Groups 21–40 and all Arabic groups do not import the segment engine; Read Along keeps its independent practice route.
+- The existing 54/55-item plans, ten-screen cap, retry carry, separated counters, progress persistence and privacy tests remain green.
