@@ -3,6 +3,11 @@
   display: none !important;
 }
 
+.efn-group-position__fraction {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 .efn-card-group-position {
   order: 3;
   flex: 0 0 auto;

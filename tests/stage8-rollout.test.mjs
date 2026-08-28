@@ -206,14 +206,17 @@ test('Band II remembers the exact current word for each group on the device', ()
   assert.equal(vocabApi.createStringPreference(root, 'efn.band2.resume.v1.02').get(), null);
 });
 
-test('the current group is also shown on the flashcards screen', () => {
+test('the current group uses an isolated LTR fraction on the RTL flashcards screen', () => {
   const header = new FakeElement('header');
   const document = {
     createElement: tag => new FakeElement(tag),
     querySelector: selector => selector === '.activity-head' ? header : null
   };
   const badge = vocabApi.renderPageGroupPosition({ document }, 2, 20);
-  assert.equal(badge.textContent, 'קבוצה 2 / 20');
+  assert.equal(badge.children[0].textContent, 'קבוצה\u00a0');
+  assert.equal(badge.children[1].tagName, 'BDI');
+  assert.equal(badge.children[1].textContent, '2 / 20');
+  assert.equal(badge.children[1].attributes.dir, 'ltr');
   assert.equal(badge.attributes['aria-label'], 'קבוצה 2 מתוך 20');
   assert.equal(header.children[0], badge);
 });
@@ -621,7 +624,10 @@ test('the Core I panel enters a full-screen Block Quest and keeps rewards sessio
     .filter(node => node.className.split(/\s+/).includes('efn-practice__icon-action'));
   assert.deepEqual(iconActions.map(node => node.textContent), ['▶', '⏮', '⏭', '🎵', '↩', '🔇', '🔊', '▶', '↻', '⏭', '↩']);
   const groupPosition = byClass(controller.section, 'efn-practice__group-position');
-  assert.equal(groupPosition.textContent, 'קבוצה 2 / 20');
+  assert.equal(groupPosition.children[0].textContent, 'קבוצה\u00a0');
+  assert.equal(groupPosition.children[1].tagName, 'BDI');
+  assert.equal(groupPosition.children[1].textContent, '2 / 20');
+  assert.equal(groupPosition.children[1].attributes.dir, 'ltr');
   assert.equal(groupPosition.hidden, false);
   assert.equal(byClass(controller.section, 'efn-practice__question-bar').children[0], groupPosition);
   assert.ok(
@@ -956,7 +962,7 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
   assert.match(source, /goldenBuzzerMilestone: 15/);
   assert.doesNotMatch(source, /goldenBuzzerDurationMs/);
-  assert.match(source, /practice-shell\.css\?v=20260827-celebrations1/);
+  assert.match(source, /practice-shell\.css\?v=20260828-bidi1/);
   assert.match(source, /treasure-chest-coins-3d\.png\?v=20260826-stage8-fix1/);
   assert.equal(treasureAsset.subarray(1, 4).toString(), 'PNG');
   assert.equal(treasureAsset.readUInt32BE(16), 768);
@@ -987,6 +993,7 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /קבוצה \$\{Number\(config\.progressGroup\)\} \/ 20/);
   assert.match(styles, /\.efn-practice__coin\s*\{/);
   assert.match(styles, /\.efn-card-group-position\s*\{/);
+  assert.match(styles, /\.efn-group-position__fraction\s*\{[^}]*direction: ltr;[^}]*unicode-bidi: isolate;/s);
   assert.match(styles, /\.efn-practice__auto-speak-toggle\s*\{[^}]*width: 56px;[^}]*height: 56px;[^}]*border-radius: 14px;/s);
   assert.match(styles, /\.efn-practice__lost-chest\s*\{/);
   assert.match(styles, /\.efn-practice__checkpoint-chest\s*\{[^}]*opacity: \.92;[^}]*saturate\(1\.12\)/s);
@@ -1358,9 +1365,9 @@ test('celebration assets are cache-busted across Core I while segmented engines 
     if (pilot) {
       assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
       assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
-      assert.match(activeGroup, /practice-panel\.js\?v=20260827-celebrations1/);
+      assert.match(activeGroup, /practice-panel\.js\?v=20260828-bidi1/);
       assert.match(activeGroup, /stage8-rollout\.js\?v=20260827-segments-stage3/);
-      assert.match(activeGroup, /vocab-practice\.js\?v=20260827-celebrations1/);
+      assert.match(activeGroup, /vocab-practice\.js\?v=20260828-bidi1/);
     } else {
       assert.doesNotMatch(activeGroup, /practice-segments\.js/);
       assert.match(activeGroup, /practice-session\.js\?v=20260826-coverage1/);

@@ -224,7 +224,9 @@
     if (!header || typeof document.createElement !== 'function') return null;
     const position = document.createElement('div');
     position.className = 'efn-card-group-position';
-    position.textContent = `קבוצה ${current} / ${maximum}`;
+    const label = `קבוצה ${current} / ${maximum}`;
+    if (panelApi?.setGroupPositionLabel) panelApi.setGroupPositionLabel(document, position, label);
+    else position.textContent = label;
     position.setAttribute('aria-label', `קבוצה ${current} מתוך ${maximum}`);
     header.appendChild(position);
     return position;
@@ -378,8 +380,8 @@
       anchor,
       stylesheetHref: new URL(
         config.segmentedUi
-          ? 'practice-shell.css?v=20260827-celebrations1'
-          : 'practice-shell.css?v=20260827-celebrations1',
+          ? 'practice-shell.css?v=20260828-bidi1'
+          : 'practice-shell.css?v=20260828-bidi1',
         base
       ).href,
       treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,

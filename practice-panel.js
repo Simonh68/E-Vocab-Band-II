@@ -33,6 +33,20 @@
     });
   }
 
+  function setGroupPositionLabel(document, node, label) {
+    const text = String(label || '');
+    const match = text.match(/^(.*?)\s*(\d+)\s*\/\s*(\d+)\s*$/u);
+    if (!match || !document?.createElement || !node?.replaceChildren) {
+      node.textContent = text;
+      return node;
+    }
+    const prefix = element(document, 'span', 'efn-group-position__label', `${match[1].trim()}\u00a0`);
+    const fraction = element(document, 'bdi', 'efn-group-position__fraction', `${match[2]} / ${match[3]}`);
+    fraction.setAttribute('dir', 'ltr');
+    node.replaceChildren(prefix, fraction);
+    return node;
+  }
+
   function multiplierForStreak(streak) {
     const safeStreak = Math.max(0, Math.floor(Number(streak) || 0));
     if (safeStreak < 2) return 1;
@@ -395,9 +409,9 @@
     const groupPosition = element(
       document,
       'div',
-      'efn-practice__group-position',
-      config.groupPositionLabel || ''
+      'efn-practice__group-position'
     );
+    setGroupPositionLabel(document, groupPosition, config.groupPositionLabel || '');
     groupPosition.hidden = !config.groupPositionLabel;
     groupPosition.setAttribute('aria-label', config.groupPositionLabel || '');
     questionBar.append(groupPosition, prompt, autoSpeakToggle, speak);
@@ -1095,6 +1109,7 @@
     mount,
     loadStyles,
     setTextParts,
+    setGroupPositionLabel,
     multiplierForStreak,
     rewardForStreak,
     chestCountForPercent,
