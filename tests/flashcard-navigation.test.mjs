@@ -134,8 +134,8 @@ test('all 80 English and Arabic group pages load the answer-flash guard', async 
     for (const file of files) {
       const source = await readFile(file, 'utf8');
       const label = path.relative(root, file);
-      const runtimeMatch = source.match(/<script src="([^"?]*flashcard-runtime-en\.js)(?:\?[^"?]*)?"><\/script>/);
-      const styleMatch = source.match(/<link rel="stylesheet" href="([^"?]*flashcard-common-en\.css)(?:\?[^"?]*)?">/);
+      const runtimeMatch = source.match(/<script src="([^"?]*flashcard-runtime-(?:en|ar)\.js)(?:\?[^"?]*)?"><\/script>/);
+      const styleMatch = source.match(/<link rel="stylesheet" href="([^"?]*flashcard-common-en(?:-group01)?\.css)(?:\?[^"?]*)?">/);
       const runtimeSource = runtimeMatch
         ? await readFile(path.resolve(path.dirname(file), runtimeMatch[1]), 'utf8')
         : source;

@@ -1211,9 +1211,7 @@ test('progress tracking preserves response timing for adaptive routing', () => {
 
 test('a 12-word Core I round writes evidence against the full group manifest', async () => {
   const html = await readFile(new URL('../groups/group-01.html', import.meta.url), 'utf8');
-  const match = html.match(/const words=(\[.*?\]);let currentIndex=/s);
-  assert.ok(match, 'Group 01 vocabulary payload was not found');
-  const groupWords = JSON.parse(match[1]);
+  const groupWords = extractWords(html, 'Group 01');
   assert.equal(groupWords.length, 55);
 
   const storage = new MemoryStorage();

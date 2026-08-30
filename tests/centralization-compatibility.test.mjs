@@ -32,7 +32,11 @@ test('both indexes retain links to all 40 group addresses', async () => {
   }
 });
 
-test('the Group 02 pilot assets preserve the extracted baseline blocks exactly', async () => {
+function withoutFinalNewline(content) {
+  return content.endsWith('\n') ? content.slice(0, -1) : content;
+}
+
+test('the shared assets preserve every extracted compatibility family exactly', async () => {
   const assets = {
     spelling: 'flashcard-spelling-en.js',
     style: 'flashcard-common-en.css',
@@ -40,38 +44,75 @@ test('the Group 02 pilot assets preserve the extracted baseline blocks exactly',
   };
   for (const [name, file] of Object.entries(assets)) {
     const content = await readFile(path.join(root, file), 'utf8');
-    const normalized = content.endsWith('\n') ? content.slice(0, -1) : content;
+    const normalized = withoutFinalNewline(content);
     assert.equal(sha256(normalized), manifest.pilotBaseline[`${name}Sha256`], file);
   }
+
+  const group01Style = withoutFinalNewline(
+    await readFile(path.join(root, 'flashcard-common-en-group01.css'), 'utf8')
+  );
+  const arabicSpelling = withoutFinalNewline(
+    await readFile(path.join(root, 'AR/flashcard-spelling-ar.js'), 'utf8')
+  );
+  const arabicRuntime = withoutFinalNewline(
+    await readFile(path.join(root, 'AR/flashcard-runtime-ar.js'), 'utf8')
+  );
+  const arabicRtl = withoutFinalNewline(
+    await readFile(path.join(root, 'AR/flashcard-rtl-ar.css'), 'utf8')
+  );
+  const englishCommon = withoutFinalNewline(
+    await readFile(path.join(root, 'flashcard-common-en.css'), 'utf8')
+  );
+
+  assert.equal(sha256(group01Style), manifest.centralizationVariants.englishGroup01StyleSha256);
+  assert.equal(sha256(arabicSpelling), manifest.centralizationVariants.arabicSpellingSha256);
+  assert.equal(sha256(arabicRuntime), manifest.centralizationVariants.arabicRuntimeSha256);
+  assert.equal(sha256(arabicRtl), manifest.centralizationVariants.arabicRtlSha256);
+  assert.equal(
+    sha256(`${englishCommon}\n${arabicRtl}`),
+    manifest.centralizationVariants.arabicStyleSha256,
+    'the common stylesheet plus the RTL delta reproduces the Arabic baseline exactly'
+  );
 });
 
-test('Groups 02 and 03 preserve blocking execution order and isolate the micro-wave to two URLs', async () => {
-  const pilotPaths = ['groups/group-02.html', 'groups/group-03.html'];
-  const orderedMarkers = [
-    'flashcard-spelling-en.js?v=20260830-central-pilot1',
-    'core1-progress.js?v=20260826-coverage1',
-    'flashcard-common-en.css?v=20260830-central-pilot1',
-    '<script>const words=',
-    'flashcard-runtime-en.js?v=20260830-central-pilot1',
-    'flashcard-navigation.js?v=20260830-answer-flash1',
-    'window.EFN_PAGE_WORDS=words;',
-    'learning-loop.js?v=20260825-stage8'
-  ];
-
-  for (const pilotPath of pilotPaths) {
-    const source = await readFile(path.join(root, pilotPath), 'utf8');
+test('all 80 group pages preserve blocking execution order through their exact asset family', async () => {
+  for (const relativePath of GROUP_PATHS) {
+    const source = await readFile(path.join(root, relativePath), 'utf8');
+    const isArabic = relativePath.startsWith('AR/');
+    const isEnglishGroup01 = relativePath === 'groups/group-01.html';
+    const orderedMarkers = isArabic
+      ? [
+          'flashcard-spelling-ar.js?v=20260830-central-all1',
+          'flashcard-common-en.css?v=20260830-central-pilot1',
+          'flashcard-rtl-ar.css?v=20260830-central-all1',
+          '<script>const words=',
+          'flashcard-runtime-ar.js?v=20260830-central-all1',
+          'flashcard-navigation.js?v=20260830-answer-flash1'
+        ]
+      : [
+          'flashcard-spelling-en.js?v=20260830-central-pilot1',
+          isEnglishGroup01
+            ? 'flashcard-common-en-group01.css?v=20260830-central-all1'
+            : 'flashcard-common-en.css?v=20260830-central-pilot1',
+          '<script>const words=',
+          'flashcard-runtime-en.js?v=20260830-central-pilot1',
+          'flashcard-navigation.js?v=20260830-answer-flash1',
+          'window.EFN_PAGE_WORDS=words;',
+          'learning-loop.js'
+        ];
     let cursor = -1;
     for (const marker of orderedMarkers) {
       const index = source.indexOf(marker);
-      assert.ok(index > cursor, `${pilotPath} order: ${marker}`);
+      assert.ok(index > cursor, `${relativePath} order: ${marker}`);
       cursor = index;
     }
-    assert.doesNotMatch(source, /flashcard-(?:spelling-en|runtime-en)\.js[^>]+(?:async|defer|type="module")/);
-  }
-
-  for (const relativePath of GROUP_PATHS.filter(file => !pilotPaths.includes(file))) {
-    const other = await readFile(path.join(root, relativePath), 'utf8');
-    assert.doesNotMatch(other, /20260830-central-pilot1/, relativePath);
+    assert.doesNotMatch(
+      source,
+      /flashcard-(?:spelling-(?:en|ar)|runtime-(?:en|ar))\.js[^>]+(?:async|defer|type="module")/,
+      relativePath
+    );
+    assert.doesNotMatch(source, /window\.addEventListener\("DOMContentLoaded",/, relativePath);
+    assert.doesNotMatch(source, /;let currentIndex=0;/, relativePath);
   }
 });
 
@@ -80,6 +121,7 @@ test('the existing local-storage and session-storage contracts remain named exac
     'core1-progress.js',
     'vocab-practice.js',
     'flashcard-runtime-en.js',
+    'AR/flashcard-runtime-ar.js',
     'index.html',
     'AR/index.html',
     'Read-Along/index.html',
@@ -92,6 +134,7 @@ test('the existing local-storage and session-storage contracts remain named exac
   assert.match(sources['vocab-practice.js'], /efn\.band2\.auto-pronounce\.v1/);
   assert.match(sources['vocab-practice.js'], /efn\.band2\.resume\.v1\.\$\{config\.progressGroup\}/);
   assert.match(sources['flashcard-runtime-en.js'], /evocab-band-ii-auto-audio/);
+  assert.match(sources['AR/flashcard-runtime-ar.js'], /evocab-band-ii-auto-audio/);
   assert.match(sources['index.html'], /evocab-band-ii-core/);
   assert.match(sources['AR/index.html'], /evocab-band-ii-core/);
   assert.match(sources['Read-Along/index.html'], /ra-level/);

@@ -487,5 +487,12 @@
     "spellingSha256": "9d7a18c62c67257c210f374efdea05fb2a1fa37bc4ac836ddb86ac9f8bc26145",
     "styleSha256": "dc1ba9eca8f8816324020f01fa38619bc0875b155265e51d511f08c06a3d7649",
     "runtimeSha256": "38d0d4855f691ab84289c50933a36731b8dff840fef9179df85c3cdde8f489d1"
+  },
+  "centralizationVariants": {
+    "englishGroup01StyleSha256": "d83dce1ace27c32a1d02d32e6f3ed97003bcf8d15bbbe5b0947d54bb078a56c4",
+    "arabicSpellingSha256": "f9d1a99adf63b7434be1df2bc320d3d8e7de716312932326a29fd734c2d2640f",
+    "arabicStyleSha256": "0f4c7b0445e4988b47cd3b0926eb6cafb4dcd2d519aeee03eeff929a4028a9e0",
+    "arabicRuntimeSha256": "448dbfcc812f518bf3db0ffb4344b905e255a83b0da17b24abda7003f4234e2e",
+    "arabicRtlSha256": "c67012592fda5ef5a317c713d5125d1bf2bfed39aaaa89adf4e496c6257a9596"
   }
 }
