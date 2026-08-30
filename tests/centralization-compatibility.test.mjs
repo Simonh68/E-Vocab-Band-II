@@ -45,9 +45,8 @@ test('the Group 02 pilot assets preserve the extracted baseline blocks exactly',
   }
 });
 
-test('Group 02 preserves blocking execution order and isolates the pilot to one URL', async () => {
-  const pilotPath = 'groups/group-02.html';
-  const source = await readFile(path.join(root, pilotPath), 'utf8');
+test('Groups 02 and 03 preserve blocking execution order and isolate the micro-wave to two URLs', async () => {
+  const pilotPaths = ['groups/group-02.html', 'groups/group-03.html'];
   const orderedMarkers = [
     'flashcard-spelling-en.js?v=20260830-central-pilot1',
     'core1-progress.js?v=20260826-coverage1',
@@ -58,15 +57,19 @@ test('Group 02 preserves blocking execution order and isolates the pilot to one 
     'window.EFN_PAGE_WORDS=words;',
     'learning-loop.js?v=20260825-stage8'
   ];
-  let cursor = -1;
-  for (const marker of orderedMarkers) {
-    const index = source.indexOf(marker);
-    assert.ok(index > cursor, `Group 02 order: ${marker}`);
-    cursor = index;
-  }
-  assert.doesNotMatch(source, /flashcard-(?:spelling-en|runtime-en)\.js[^>]+(?:async|defer|type="module")/);
 
-  for (const relativePath of GROUP_PATHS.filter(file => file !== pilotPath)) {
+  for (const pilotPath of pilotPaths) {
+    const source = await readFile(path.join(root, pilotPath), 'utf8');
+    let cursor = -1;
+    for (const marker of orderedMarkers) {
+      const index = source.indexOf(marker);
+      assert.ok(index > cursor, `${pilotPath} order: ${marker}`);
+      cursor = index;
+    }
+    assert.doesNotMatch(source, /flashcard-(?:spelling-en|runtime-en)\.js[^>]+(?:async|defer|type="module")/);
+  }
+
+  for (const relativePath of GROUP_PATHS.filter(file => !pilotPaths.includes(file))) {
     const other = await readFile(path.join(root, relativePath), 'utf8');
     assert.doesNotMatch(other, /20260830-central-pilot1/, relativePath);
   }
