@@ -134,10 +134,19 @@ test('all 80 English and Arabic group pages load the answer-flash guard', async 
     for (const file of files) {
       const source = await readFile(file, 'utf8');
       const label = path.relative(root, file);
-      assert.match(source, /transition:transform \.6s cubic-bezier/, label);
-      assert.match(source, /function updateCard\(\)/, label);
+      const runtimeMatch = source.match(/<script src="([^"?]*flashcard-runtime-en\.js)(?:\?[^"?]*)?"><\/script>/);
+      const styleMatch = source.match(/<link rel="stylesheet" href="([^"?]*flashcard-common-en\.css)(?:\?[^"?]*)?">/);
+      const runtimeSource = runtimeMatch
+        ? await readFile(path.resolve(path.dirname(file), runtimeMatch[1]), 'utf8')
+        : source;
+      const styleSource = styleMatch
+        ? await readFile(path.resolve(path.dirname(file), styleMatch[1]), 'utf8')
+        : source;
+      assert.match(styleSource, /transition:transform \.6s cubic-bezier/, label);
+      assert.match(runtimeSource, /function updateCard\(\)/, label);
       assert.equal(source.split(expectedPath).length - 1, 1, label);
-      assert.ok(source.indexOf(expectedPath) > source.indexOf('function updateCard()'), label);
+      const runtimePosition = runtimeMatch ? source.indexOf(runtimeMatch[0]) : source.indexOf('function updateCard()');
+      assert.ok(source.indexOf(expectedPath) > runtimePosition, label);
     }
   }
 });

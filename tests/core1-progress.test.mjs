@@ -98,6 +98,48 @@ test('device progress survives a new store instance', () => {
   assert.equal(restored.storage, 'device');
 });
 
+test('an existing version 1 payload remains readable and preserves mastered progress', () => {
+  const legacy = {
+    version: 1,
+    groups: {
+      '02': {
+        fingerprint: 'core1:12.456.887',
+        words: {
+          '12': { signals: ['meaning'] },
+          '456': {
+            signals: ['meaning', 'recall'],
+            masteredAt: '2026-08-27T08:00:00.000Z'
+          }
+        },
+        updatedAt: '2026-08-27T08:00:00.000Z',
+        completedAt: null
+      }
+    }
+  };
+  const serialized = JSON.stringify(legacy);
+  const storage = new MemoryStorage({ [progressApi.STORAGE_KEY]: serialized });
+  const store = progressApi.createProgressStore(storage, { now: fixedNow });
+
+  assert.deepEqual(store.getGroupProgress({ group: 2, expectedSerials: [456, 12, 887] }), {
+    group: 2,
+    status: 'in_progress',
+    started: 2,
+    mastered: 1,
+    total: 3,
+    percentage: 50,
+    checked: false,
+    storage: 'device',
+    updatedAt: '2026-08-27T08:00:00.000Z',
+    completedAt: null
+  });
+  assert.equal(storage.getItem(progressApi.STORAGE_KEY), serialized);
+
+  store.recordCorrect({ group: 2, serial: 12, signal: 'recall', expectedSerials: [456, 12, 887] });
+  const updated = JSON.parse(storage.getItem(progressApi.STORAGE_KEY));
+  assert.deepEqual(updated.groups['02'].words['456'], legacy.groups['02'].words['456']);
+  assert.deepEqual(updated.groups['02'].words['12'].signals, ['meaning', 'recall']);
+});
+
 test('a changed group membership cannot inherit a false completion checkmark', () => {
   const storage = new MemoryStorage();
   const store = progressApi.createProgressStore(storage, { now: fixedNow });

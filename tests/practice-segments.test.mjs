@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
+import { extractWords } from './helpers/band2-compatibility.mjs';
 
 const require = createRequire(import.meta.url);
 require('../learning-loop.js');
@@ -29,9 +30,7 @@ function questionFactory(record, context) {
 async function groupWords(root, group) {
   const id = String(group).padStart(2, '0');
   const html = await readFile(new URL(`group-${id}.html`, root), 'utf8');
-  const match = html.match(/const words=(\[.*?\]);let currentIndex=/s);
-  assert.ok(match, `Group ${id} vocabulary payload was not found`);
-  return JSON.parse(match[1]);
+  return extractWords(html, `Group ${id}`);
 }
 
 test('a perfect 54-item group is six nine-question segments', () => {

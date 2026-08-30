@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { extractWords } from './helpers/band2-compatibility.mjs';
 
 const require = createRequire(import.meta.url);
 const progressApi = require('../core1-progress.js');
@@ -81,9 +82,7 @@ test('all Core I manifests exactly match their current activity serials', async 
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const html = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
-    const match = html.match(/const words=(\[.*?\]);let currentIndex=/s);
-    assert.ok(match, `Group ${id} vocabulary payload was not found`);
-    const serials = JSON.parse(match[1]).map(word => word.serial);
+    const serials = extractWords(html, `Group ${id}`).map(word => word.serial);
     assert.ok(serials.length >= 54 && serials.length <= 55);
     assert.deepEqual(groupsApi.expectedSerials(group), serials);
   }

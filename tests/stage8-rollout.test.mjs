@@ -3,6 +3,7 @@ import { createRequire } from 'node:module';
 import { readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 import vm from 'node:vm';
+import { extractWords } from './helpers/band2-compatibility.mjs';
 
 const require = createRequire(import.meta.url);
 require('../learning-loop.js');
@@ -930,9 +931,7 @@ test('each Core I coverage mission includes every unfinished authentic item', as
   for (let group = 1; group <= 20; group += 1) {
     const id = String(group).padStart(2, '0');
     const html = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
-    const match = html.match(/const words=(\[.*?\]);let currentIndex=/s);
-    assert.ok(match, `Group ${id} vocabulary payload was not found`);
-    const words = JSON.parse(match[1]);
+    const words = extractWords(html, `Group ${id}`);
     const config = rollout.vocabulary[`groups/group-${id}.html`];
     const mission = vocabApi.createCoverageMission(words, null, config.sourceLimit);
     assert.equal(mission.records.length, words.length);
