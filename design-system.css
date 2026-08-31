@@ -326,11 +326,39 @@ footer a {
 }
 
 .word {
+  max-width: 100%;
   color: var(--efn-ink);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .translation {
+  min-width: 0;
+  max-width: 100%;
   color: #126b67;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.word-wrap,
+.translation-row,
+.details-grid,
+.example-box,
+.family-box {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.word-wrap {
+  width: 100%;
+}
+
+.example-en,
+.example-he,
+.family-word,
+.synonyms {
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .controls .btn {
@@ -380,6 +408,16 @@ footer a {
   .face {
     padding: 22px;
     border-radius: 20px;
+  }
+
+  .word {
+    font-size: clamp(1.7rem, 9.5vw, 3.2rem);
+    line-height: 1.16;
+  }
+
+  .translation {
+    font-size: clamp(1.5rem, 8vw, 2.7rem);
+    line-height: 1.2;
   }
 }
 
