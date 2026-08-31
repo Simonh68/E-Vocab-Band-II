@@ -1130,11 +1130,15 @@
 .efn-practice__transition-blocks i:nth-child(3) { animation-delay: .18s; }
 .efn-practice__transition-blocks i:nth-child(4) { animation-delay: .27s; }
 .efn-practice__transition-blocks i:nth-child(5) { animation-delay: .36s; }
-.efn-practice__activity.is-question-entering .efn-practice__prompt,
-.efn-practice__activity.is-question-entering .efn-practice__choices {
-  animation: quest-question-enter .34s ease-out both;
+.efn-practice__activity.is-question-entering,
+.efn-practice__checkpoint.is-panel-entering,
+.efn-practice__summary.is-panel-entering {
+  animation: quest-question-enter .42s cubic-bezier(.2, .72, .24, 1) both;
 }
-.efn-practice__activity.is-question-entering .efn-practice__choices { animation-delay: .06s; }
+.efn-practice__activity.is-question-leaving {
+  pointer-events: none;
+  animation: quest-question-leave var(--feedback-fade-duration, 280ms) ease-in both;
+}
 
 .efn-practice__checkpoint {
   text-align: center;
@@ -1258,8 +1262,13 @@
 }
 
 @keyframes quest-question-enter {
-  from { opacity: .35; transform: translateY(8px); filter: brightness(.7); }
-  to { opacity: 1; transform: translateY(0); filter: brightness(1); }
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quest-question-leave {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 @keyframes quest-world-drift {

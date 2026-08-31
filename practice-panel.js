@@ -584,6 +584,44 @@
       autoSpeakTimer = null;
     }
 
+    function restartEntryAnimation(node, className) {
+      node.classList.remove(className);
+      void node.offsetWidth;
+      node.classList.add(className);
+    }
+
+    function stopFeedbackSpeech() {
+      clearAutoSpeak();
+      speechHost.speechSynthesis?.cancel?.();
+      audio.duck(false);
+      prompt.classList.remove('is-pronunciation-flashing');
+    }
+
+    function scheduleFeedbackTransition(delay) {
+      if (!schedule) return false;
+      const holdMs = Math.max(0, Number(delay) || 0);
+      const reducedMotion = Boolean(speechHost.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+      const fadeMs = reducedMotion ? 0 : Math.max(0, Number(config.feedbackTransitionFadeMs) || 0);
+      if (activity.style?.setProperty) activity.style.setProperty('--feedback-fade-duration', `${fadeMs}ms`);
+      else activity.style['--feedback-fade-duration'] = `${fadeMs}ms`;
+      autoAdvanceTimer = schedule(() => {
+        autoAdvanceTimer = null;
+        stopFeedbackSpeech();
+        activity.classList.remove('is-question-entering');
+        if (fadeMs <= 0) {
+          advance();
+          return;
+        }
+        activity.classList.add('is-question-leaving');
+        autoAdvanceTimer = schedule(() => {
+          autoAdvanceTimer = null;
+          activity.classList.remove('is-question-leaving');
+          advance();
+        }, fadeMs);
+      }, holdMs);
+      return true;
+    }
+
     function clearGoldenBuzzer() {
       celebrationOpen = false;
       goldenBuzzer.hidden = true;
@@ -799,6 +837,7 @@
       clearAutoAdvance();
       clearAutoSpeak();
       section.classList.remove('is-advancing');
+      activity.classList.remove('is-question-leaving');
       pendingCheckpoint = null;
       activity.hidden = true;
       summary.hidden = true;
@@ -818,6 +857,7 @@
       const continueLabel = progressState.remaining > 0 ? 'למקטע הבא' : 'לסיכום';
       checkpointContinue.setAttribute('aria-label', continueLabel);
       checkpointContinue.setAttribute('title', continueLabel);
+      restartEntryAnimation(checkpoint, 'is-panel-entering');
       checkpointTitle.tabIndex = -1;
       checkpointTitle.focus({ preventScroll: true });
     }
@@ -845,6 +885,7 @@
       audio.cue('summary');
       const state = session.summary();
       const overall = typeof config.getOverallProgress === 'function' ? config.getOverallProgress() : null;
+      activity.classList.remove('is-question-leaving');
       activity.hidden = true;
       checkpoint.hidden = true;
       summary.hidden = false;
@@ -859,6 +900,7 @@
       }
       summaryReward.textContent = `האוצר שלך: ${rewardScore} מטבעות · ${unlockedChests} מתוך ${chestNodes.length} תיבות נפתחו.`;
       measure('activity_complete', { outcome: config.analyticsActivity });
+      restartEntryAnimation(summary, 'is-panel-entering');
       summaryTitle.tabIndex = -1;
       summaryTitle.focus({ preventScroll: true });
     }
@@ -867,9 +909,7 @@
       clearAutoAdvance();
       clearAutoSpeak();
       section.classList.remove('is-advancing');
-      activity.classList.remove('is-question-entering');
-      void activity.offsetWidth;
-      activity.classList.add('is-question-entering');
+      activity.classList.remove('is-question-entering', 'is-question-leaving');
       currentQuestion = session.next();
       if (!currentQuestion) {
         config.onSessionComplete?.();
@@ -920,6 +960,7 @@
       if (skipQuestionCue) skipQuestionCue = false;
       else audio.cue('question');
       if (autoSpeakEnabled) scheduleAutoSpeak(0, 2, true, null, false);
+      restartEntryAnimation(activity, 'is-question-entering');
       const firstChoice = choices.querySelector('[data-first-choice="true"]');
       if (firstChoice) firstChoice.focus({ preventScroll: true });
     }
@@ -986,7 +1027,27 @@
       feedback.focus({ preventScroll: true });
       const delay = result.correct ? Number(config.autoAdvanceCorrectMs) : Number(config.autoAdvanceWrongMs);
       const canPronounceAnswer = Boolean(currentQuestion?.speakText && 'speechSynthesis' in speechHost);
-      if ((canPronounceAnswer || delay > 0) && schedule) {
+      const timedFeedbackTransition = Boolean(config.timedFeedbackTransitions && delay > 0 && schedule);
+      if (timedFeedbackTransition) {
+        section.classList.add('is-advancing');
+        next.hidden = true;
+        transition.hidden = false;
+        if (transition.style?.setProperty) transition.style.setProperty('--advance-duration', `${delay}ms`);
+        else transition.style['--advance-duration'] = `${delay}ms`;
+        if (result.correct) audio.cue('correct', { chestOpened: questState.openedNow });
+        else audio.cue('wrong');
+        if (canPronounceAnswer) {
+          scheduleAutoSpeak(
+            result.correct ? config.correctSpeakDelayMs ?? 500 : 0,
+            result.correct ? 1 : 2,
+            !result.correct,
+            null,
+            true,
+            false
+          );
+        }
+        scheduleFeedbackTransition(delay);
+      } else if ((canPronounceAnswer || delay > 0) && schedule) {
         section.classList.add('is-advancing');
         transition.hidden = !result.correct;
         if (result.correct) {

@@ -380,8 +380,8 @@
       anchor,
       stylesheetHref: new URL(
         config.segmentedUi
-          ? 'practice-shell.css?v=20260828-bidi1'
-          : 'practice-shell.css?v=20260828-bidi1',
+          ? 'practice-shell.css?v=20260831-feedback-transition1'
+          : 'practice-shell.css?v=20260831-feedback-transition1',
         base
       ).href,
       treasureAssetHref: new URL('assets/game/treasure-chest-coins-3d.png?v=20260826-stage8-fix1', base).href,
@@ -394,11 +394,11 @@
       privacy: 'נשאר במכשיר.',
       startLabel: 'מתחילים לשחק',
       autoAdvanceCorrectMs: 1500,
-      autoAdvanceWrongMs: 4000,
+      autoAdvanceWrongMs: 3000,
+      timedFeedbackTransitions: true,
+      feedbackTransitionFadeMs: 280,
       autoSpeakRepeatPauseMs: 700,
-      autoAdvanceAfterSpeechMs: 200,
       correctSpeakDelayMs: 500,
-      correctAdvanceAfterSpeechMs: 300,
       goldenBuzzerMilestone: 15,
       correctNextLabel: 'הבא עכשיו',
       showProgressPercent: true,

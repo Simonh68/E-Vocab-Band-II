@@ -442,7 +442,7 @@ test('a wrong answer speaks twice with a 700 ms pause and advances 200 ms after 
   assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, true);
 });
 
-test('a correct Band II answer shows a build transition and advances after 1500 ms', () => {
+test('a correct Band II answer holds for 1500 ms, fades, and raises the next question', () => {
   const head = new FakeElement('head');
   const document = {
     head,
@@ -456,20 +456,22 @@ test('a correct Band II answer shows a build transition and advances after 1500 
   ];
   let nextIndex = 0;
   let correctSignals = 0;
-  let scheduled = null;
-  let cancelled = null;
+  const timers = [];
+  const cancelled = [];
   const controller = panelApi.mount({
     document,
     anchor,
     stylesheetHref: 'practice-shell.css',
     autoAdvanceCorrectMs: 1500,
+    timedFeedbackTransitions: true,
+    feedbackTransitionFadeMs: 280,
     correctNextLabel: 'הבא עכשיו',
     showProgressPercent: true,
     setTimeout(callback, delay) {
-      scheduled = { callback, delay };
-      return 17;
+      timers.push({ callback, delay });
+      return timers.length;
     },
-    clearTimeout(id) { cancelled = id; },
+    clearTimeout(id) { cancelled.push(id); },
     createSession: () => ({
       next: () => questions[nextIndex++] || null,
       answer: selectedAnswer => {
@@ -495,18 +497,90 @@ test('a correct Band II answer shows a build transition and advances after 1500 
   choices[0].listeners.click();
   assert.equal(byClass(controller.section, 'efn-practice__feedback-title').textContent, 'מעולה! ✓');
   assert.equal(byClass(controller.section, 'efn-practice__next').textContent, 'הבא עכשיו');
+  assert.equal(byClass(controller.section, 'efn-practice__next').hidden, true);
   assert.equal(byClass(controller.section, 'efn-practice__progress').attributes['aria-valuenow'], '25');
   assert.equal(byClass(controller.section, 'efn-practice__progress-fill').style.width, '25%');
   const transition = byClass(controller.section, 'efn-practice__transition');
   assert.equal(transition.hidden, false);
   assert.equal(transition.style['--advance-duration'], '1500ms');
-  assert.equal(scheduled.delay, 1500);
-  scheduled.callback();
+  assert.equal(timers[0].delay, 1500);
+  timers[0].callback();
+  assert.equal(nextIndex, 1);
+  assert.equal(controller.section.children[1].classList.values.has('is-question-leaving'), true);
+  assert.equal(timers[1].delay, 280);
+  timers[1].callback();
   assert.equal(nextIndex, 2);
-  assert.equal(cancelled, null);
+  assert.deepEqual(cancelled, []);
   assert.equal(byClass(controller.section, 'efn-practice__feedback').hidden, true);
   assert.equal(transition.hidden, true);
+  assert.equal(controller.section.children[1].classList.values.has('is-question-entering'), true);
   assert.equal(byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[0].focused, true);
+});
+
+test('a wrong Band II answer holds for 3000 ms, fades, and raises the final slide', () => {
+  const document = {
+    head: new FakeElement('head'),
+    createElement: tag => new FakeElement(tag),
+    querySelector: () => null
+  };
+  const timers = [];
+  const spoken = [];
+  let cancelledSpeech = 0;
+  class Utterance { constructor(text) { this.text = text; } }
+  const question = {
+    prompt: 'advance',
+    speakText: 'advance',
+    choices: ['התקדמות; קידום', 'הרס'],
+    answer: 'התקדמות; קידום',
+    meta: { record: records[0] }
+  };
+  let nextCalls = 0;
+  const controller = panelApi.mount({
+    document,
+    anchor: new FakeElement('div'),
+    speechHost: {
+      SpeechSynthesisUtterance: Utterance,
+      speechSynthesis: {
+        cancel() { cancelledSpeech += 1; },
+        speak: utterance => spoken.push(utterance)
+      }
+    },
+    autoAdvanceWrongMs: 3000,
+    timedFeedbackTransitions: true,
+    feedbackTransitionFadeMs: 280,
+    setTimeout(callback, delay) {
+      timers.push({ callback, delay });
+      return timers.length;
+    },
+    clearTimeout() {},
+    createSession: () => ({
+      next: () => (++nextCalls === 1 ? question : null),
+      answer: () => ({ correct: false, question, entry: {}, state: {}, willReturn: true, mastered: false }),
+      progress: () => ({ mastered: 0, total: 1 }),
+      summary: () => ({ firstTry: 0, corrected: 0, unresolved: 1, total: 1 })
+    }),
+    formatFeedback: () => ({ title: 'לא נכון', text: 'התשובה הנכונה מוצגת.' })
+  });
+
+  byClass(controller.section, 'efn-practice__primary').listeners.click();
+  byClass(controller.section, 'efn-practice__choices').querySelectorAll('button')[1].listeners.click();
+  const transition = byClass(controller.section, 'efn-practice__transition');
+  assert.equal(byClass(controller.section, 'efn-practice__next').hidden, true);
+  assert.equal(transition.hidden, false);
+  assert.equal(transition.style['--advance-duration'], '3000ms');
+  assert.deepEqual(timers.map(timer => timer.delay), [0, 3000]);
+  timers[0].callback();
+  assert.equal(spoken[0].text, 'advance');
+  timers[1].callback();
+  assert.equal(nextCalls, 1);
+  assert.equal(cancelledSpeech, 2);
+  assert.equal(controller.section.children[1].classList.values.has('is-question-leaving'), true);
+  assert.equal(timers[2].delay, 280);
+  timers[2].callback();
+  const summary = byClass(controller.section, 'efn-practice__summary');
+  assert.equal(nextCalls, 2);
+  assert.equal(summary.hidden, false);
+  assert.equal(summary.classList.values.has('is-panel-entering'), true);
 });
 
 test('the correct answer never repeats the same display position twice in a row', () => {
@@ -958,18 +1032,18 @@ test('stage 7 preserves Block Quest rewards and adds paced audiovisual feedback'
   assert.match(source, /treasureChests: \[25, 50, 100\]/);
   assert.match(source, /goldenBuzzerMilestone: 15/);
   assert.doesNotMatch(source, /goldenBuzzerDurationMs/);
-  assert.match(source, /practice-shell\.css\?v=20260828-bidi1/);
+  assert.match(source, /practice-shell\.css\?v=20260831-feedback-transition1/);
   assert.match(source, /treasure-chest-coins-3d\.png\?v=20260826-stage8-fix1/);
   assert.equal(treasureAsset.subarray(1, 4).toString(), 'PNG');
   assert.equal(treasureAsset.readUInt32BE(16), 768);
   assert.equal(treasureAsset.readUInt32BE(20), 768);
   assert.equal(treasureAsset[25], 6);
   assert.match(source, /autoAdvanceCorrectMs: 1500/);
-  assert.match(source, /autoAdvanceWrongMs: 4000/);
+  assert.match(source, /autoAdvanceWrongMs: 3000/);
+  assert.match(source, /timedFeedbackTransitions: true/);
+  assert.match(source, /feedbackTransitionFadeMs: 280/);
   assert.match(source, /autoSpeakRepeatPauseMs: 700/);
-  assert.match(source, /autoAdvanceAfterSpeechMs: 200/);
   assert.match(source, /correctSpeakDelayMs: 500/);
-  assert.match(source, /correctAdvanceAfterSpeechMs: 300/);
   assert.match(source, /badge: 'CORE I'/);
   assert.match(source, /האוצר האבוד/);
   assert.match(source, /description: `\$\{sourcePool\.length\} מילים`/);
@@ -1357,9 +1431,9 @@ test('Stage 5 segment and celebration assets are uniform across Core I', async (
     const activeGroup = await readFile(new URL(`../groups/group-${id}.html`, import.meta.url), 'utf8');
     assert.match(activeGroup, /practice-segments\.js\?v=20260827-stage2/);
     assert.match(activeGroup, /practice-session\.js\?v=20260827-segments-stage2/);
-    assert.match(activeGroup, /practice-panel\.js\?v=20260828-bidi1/);
+    assert.match(activeGroup, /practice-panel\.js\?v=20260831-feedback-transition1/);
     assert.match(activeGroup, /stage8-rollout\.js\?v=20260828-core1-segments-stage5/);
-    assert.match(activeGroup, /vocab-practice\.js\?v=20260828-bidi1/);
+    assert.match(activeGroup, /vocab-practice\.js\?v=20260831-feedback-transition1/);
     assert.match(activeGroup, /analytics\.js\?v=[^"<]+/);
   }
   assert.match(reader, /story-practice\.js\?v=20260825-stage9/);
