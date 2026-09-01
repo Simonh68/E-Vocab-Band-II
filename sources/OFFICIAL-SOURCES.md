@@ -22,3 +22,5 @@ The Lexical Band II document states that no part of the curriculum may be reprod
 ## Data-use note
 
 For the E‑Vocab Band II project, vocabulary data should be checked against the official Lexical Band II source and kept distinct from the separate Module E Lists A–D dataset.
+
+The same spelling may appear in more than one source occurrence. Each occurrence must keep record-level English and Hebrew sense metadata plus links to the other serial numbers; it must not be merged or reinterpreted from spelling or POS alone. See [`data/RECORD-SENSES.md`](../data/RECORD-SENSES.md).
