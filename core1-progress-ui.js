@@ -129,7 +129,7 @@
         badges.push(existing);
         continue;
       }
-      const link = document.querySelector?.(`a[href="groups/group-${String(group).padStart(2, '0')}.html"]`);
+      const link = document.querySelector?.(`a[href^="groups/group-${String(group).padStart(2, '0')}.html"]`);
       const container = link?.closest?.('.group');
       if (!container) continue;
       if (!container.className.split(/\s+/).includes('group--with-progress')) {
