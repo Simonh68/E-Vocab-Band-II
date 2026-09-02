@@ -65,11 +65,16 @@
     const scope = document.createElement("span");
     scope.textContent = "English for Noar · Project-owned material: learning through the live site only · No downloading, extraction, copying or redistribution · Third-party rights reserved";
 
+    const hebrewScope = document.createElement("span");
+    hebrewScope.lang = "he";
+    hebrewScope.dir = "rtl";
+    hebrewScope.textContent = "גרסת מסד הנתונים שעברה הגהה לשונית והשבחה פדגוגית מוגנת בזכויות יוצרים · השימוש מותר ללמידה דרך האתר החי בלבד · אין להעתיק או להפיץ · הנוסח העברי הוא הקובע";
+
     const link = document.createElement("a");
     link.href = copyrightUrl;
     link.textContent = "Copyright notice";
 
-    notice.append(title, scope, link);
+    notice.append(title, hebrewScope, scope, link);
     document.body.appendChild(notice);
   };
 

@@ -50,8 +50,29 @@ test("limits project-owned material to learning through the live site", async ()
 
 test("every HTML page loads the shared ownership layer through analytics", async () => {
   const analytics = await readFile(path.join(root, "analytics.js"), "utf8");
-  assert.match(analytics, /ownership\.js\?v=3/);
+  assert.match(analytics, /ownership\.js\?v=4/);
   for (const file of await htmlFiles(root)) {
     assert.match(await readFile(file, "utf8"), /analytics\.js/, path.relative(root, file));
   }
+});
+
+test("documents the pedagogically enhanced database and Hebrew precedence", async () => {
+  const [policy, guide, runtime, about] = await Promise.all([
+    readFile(path.join(root, "copyright.html"), "utf8"),
+    readFile(path.join(root, "teacher-guide.html"), "utf8"),
+    readFile(path.join(root, "ownership.js"), "utf8"),
+    readFile(path.join(root, "Read-Along", "about.html"), "utf8"),
+  ]);
+  assert.match(policy, /הגהה לשונית והשבחה פדגוגית מקיפה/);
+  assert.match(policy, /הבחנה בין משמעויות של ערכים זהים/);
+  assert.match(policy, /הבחירה, הסידור, הסיווג, הארגון, ההצגה והמבנה הפדגוגי/);
+  assert.match(policy, /אין להעתיק, לחלץ, לשחזר, לאסוף, להפיץ או לפרסם/);
+  for (const source of [policy, guide, runtime, about]) {
+    assert.match(source, /הנוסח העברי.*(?:קובע|הקובע)/);
+    assert.match(source, /אין להעתיק|No licence is granted/);
+  }
+  assert.match(about, /גרסת מסד הנתונים של E‑Vocab Band II/);
+  assert.match(about, /הגהה לשונית והשבחה פדגוגית מקיפה/);
+  assert.match(about, /השימוש מותר ללמידה בלבד ורק באמצעות האתר החי/);
+  assert.match(about, /href="\.\.\/copyright\.html"/);
 });
