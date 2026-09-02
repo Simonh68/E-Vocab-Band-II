@@ -63,7 +63,7 @@
     title.textContent = `© 2026 ${owner} · כל הזכויות שמורות`;
 
     const scope = document.createElement("span");
-    scope.textContent = "English for Noar · Original code, design, stories and learning materials protected · Third-party rights reserved";
+    scope.textContent = "English for Noar · Project-owned material: learning through the live site only · No downloading, extraction, copying or redistribution · Third-party rights reserved";
 
     const link = document.createElement("a");
     link.href = copyrightUrl;

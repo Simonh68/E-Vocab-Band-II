@@ -31,9 +31,26 @@ test("declares the exact owner and third-party boundary", async () => {
   assert.match(policy, /תכני צד שלישי/);
 });
 
+test("limits project-owned material to learning through the live site", async () => {
+  const [notice, policy, runtime, guide] = await Promise.all([
+    readFile(path.join(root, "COPYRIGHT.md"), "utf8"),
+    readFile(path.join(root, "copyright.html"), "utf8"),
+    readFile(path.join(root, "ownership.js"), "utf8"),
+    readFile(path.join(root, "teacher-guide.html"), "utf8"),
+  ]);
+  for (const source of [notice, policy, guide]) {
+    assert.match(source, /only through the live|רק באמצעות הממשק החי/);
+    assert.match(source, /learning|למידה/);
+  }
+  assert.match(policy, /לא ניתן רישיון להוריד, לחלץ, להעתיק, לבצע איסוף אוטומטי/);
+  assert.match(policy, /another database, application, service or product/);
+  assert.match(runtime, /learning through the live site only/);
+  assert.match(runtime, /No downloading, extraction, copying or redistribution/);
+});
+
 test("every HTML page loads the shared ownership layer through analytics", async () => {
   const analytics = await readFile(path.join(root, "analytics.js"), "utf8");
-  assert.match(analytics, /ownership\.js\?v=2/);
+  assert.match(analytics, /ownership\.js\?v=3/);
   for (const file of await htmlFiles(root)) {
     assert.match(await readFile(file, "utf8"), /analytics\.js/, path.relative(root, file));
   }

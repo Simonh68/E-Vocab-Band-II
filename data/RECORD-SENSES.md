@@ -4,7 +4,7 @@ The same displayed English entry may occur more than once in Lexical Band II. Ea
 
 ## Required fields
 
-Every row in the two source workbooks, every object in `pedagogical-content.json`, and every English activity record carries these fields:
+Every row in the two private source workbooks, every object in `pedagogical-content.json`, and every English activity record carries these fields:
 
 | Field | Meaning |
 |---|---|

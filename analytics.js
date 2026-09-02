@@ -218,7 +218,7 @@
   const source = document.currentScript?.src;
   if (!source || document.querySelector("script[data-efn-ownership-loader]")) return;
   const script = document.createElement("script");
-  script.src = new URL("ownership.js?v=2", source).href;
+  script.src = new URL("ownership.js?v=3", source).href;
   script.dataset.efnOwnershipLoader = "true";
   document.head.appendChild(script);
 })();

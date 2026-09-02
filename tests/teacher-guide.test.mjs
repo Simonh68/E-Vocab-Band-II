@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 
 const guide = readFileSync(new URL('../teacher-guide.html', import.meta.url), 'utf8');
@@ -24,6 +24,7 @@ test('teacher guide has a complete, accessible table of contents', () => {
     'sharing-previews',
     'privacy-progress',
     'classroom-use',
+    'online-use-licence',
     'available-now',
     'future-resources',
     'about-editor'
@@ -31,6 +32,22 @@ test('teacher guide has a complete, accessible table of contents', () => {
     assert.match(guide, new RegExp(`href="#${id}"`));
     assert.match(guide, new RegExp(`id="${id}"`));
   }
+});
+
+test('teacher guide does not expose the private source workbooks', () => {
+  assert.doesNotMatch(guide, /\.xlsx\b/i);
+  assert.doesNotMatch(guide, /\bdownload\b[^<]*(?:Core I|Core II).*workbook/i);
+  assert.match(guide, /project workbooks are not public files and are not available for download or direct access/);
+  const publicDataFiles = readdirSync(new URL('../data/', import.meta.url));
+  assert.deepEqual(publicDataFiles.filter((file) => file.toLowerCase().endsWith('.xlsx')), []);
+});
+
+test('teacher guide states the online learning-only licence', () => {
+  assert.match(guide, /only for learning, including teacher-led learning/);
+  assert.match(guide, /only through the live E‑Vocab Band II website interface/);
+  assert.match(guide, /No licence is granted to download, extract, copy, scrape, reproduce, distribute, republish, modify/);
+  assert.match(guide, /incorporate any project-owned content or data into another database, application, service or product/);
+  assert.match(guide, /href="copyright\.html">copyright and limited-use licence<\/a>/);
 });
 
 test('teacher guide documents privacy and local-progress boundaries', () => {
