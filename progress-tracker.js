@@ -4,7 +4,7 @@
 
   const STORE_KEY = 'efn.vocab.progress.v1';
   const CONSENT_KEY = 'efn.band2.local-progress-consent.v1';
-  const REPORT_URL = 'https://simonh68.github.io/E-Vocab-Band-II/progress-report.html';
+  const REPORT_URL = 'https://englishfornoar.co.il/my-progress';
   const path = location.pathname;
 
   const storage = {
