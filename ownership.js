@@ -84,3 +84,12 @@
     render();
   }
 })();
+
+(() => {
+  if (document.querySelector('script[data-efn-progress-loader]')) return;
+  const source = document.currentScript?.src || location.href;
+  const script = document.createElement('script');
+  script.src = new URL('progress-tracker.js?v=20260903-1', source).href;
+  script.dataset.efnProgressLoader = 'true';
+  document.head.appendChild(script);
+})();
