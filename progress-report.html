@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>דוח ההתקדמות שלי | English for Noar</title>
+<meta name="description" content="דוח התקדמות מקומי ומאוחד ל-Core I, Core II ו-Band III.">
+<style>
+:root{--ink:#15283d;--muted:#65758a;--bg:#f3f7fb;--card:#fff;--core1:#176b8a;--core1soft:#e4f5fb;--core2:#6d38a8;--core2soft:#f0e8fb;--band3:#27734c;--band3soft:#e6f5ec}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#f8fbfe,#edf4fa);color:var(--ink);font-family:Arial,"Noto Sans Hebrew",sans-serif}.wrap{width:min(1050px,calc(100% - 24px));margin:0 auto;padding:24px 0 54px}.hero{padding:22px;border-radius:24px;background:#0e3151;color:#fff;box-shadow:0 8px 24px #0e315133}.hero h1{margin:0 0 7px;font-size:clamp(1.8rem,5vw,2.7rem)}.hero p{margin:0;line-height:1.55;color:#dceaf6}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 14px;border:1px solid #aac0d3;border-radius:12px;background:#fff;color:#16324a;font:inherit;font-weight:850;text-decoration:none;cursor:pointer}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.summary div{padding:15px;border-radius:17px;background:#fff;box-shadow:0 4px 15px #16324a12;text-align:center}.summary strong{display:block;font-size:1.45rem}.section{margin-top:18px;padding:18px;border-radius:22px;background:#fff;box-shadow:0 5px 18px #16324a14;border-top:6px solid var(--accent)}.section.core1{--accent:var(--core1);--soft:var(--core1soft)}.section.core2{--accent:var(--core2);--soft:var(--core2soft)}.section.band3{--accent:var(--band3);--soft:var(--band3soft)}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}.section h2{margin:0;color:var(--accent)}.section-note{margin:5px 0 0;color:var(--muted);font-size:.92rem;line-height:1.5}.section-total{padding:7px 10px;border-radius:999px;background:var(--soft);color:var(--accent);font-weight:900}.groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}.group{padding:12px;border-radius:15px;background:var(--soft);border:1px solid color-mix(in srgb,var(--accent) 30%,#fff);min-width:0}.group-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.group-name{font-weight:900;color:var(--accent)}.status{font-weight:950}.bar{height:8px;margin:9px 0 6px;border-radius:999px;background:#fff;overflow:hidden}.bar i{display:block;height:100%;width:var(--pct);background:var(--accent);border-radius:inherit}.meta{font-size:.82rem;color:#4c5d70}.empty{color:#78889a}.privacy{margin:18px 0 0;padding:14px 16px;border-radius:16px;background:#fff8dc;color:#664f00;line-height:1.55;font-size:.9rem}.share-status{min-height:1.4em;margin:8px 0 0;color:#d8eafb;font-size:.88rem}@media(max-width:760px){.groups{grid-template-columns:repeat(2,minmax(0,1fr))}.summary{grid-template-columns:1fr}.wrap{width:min(100% - 18px,1050px);padding-top:12px}.section{padding:14px}}@media(max-width:370px){.groups{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="hero">
+<h1>📊 דוח ההתקדמות שלי</h1>
+<p>דוח אחד לכל מסלול אוצר המילים. הנתונים נקראים מהמכשיר הזה בלבד.</p>
+<div class="actions"><button class="btn" id="share" type="button">שתף דוח</button><a class="btn" href="./">Band II</a><a class="btn" href="https://simonh68.github.io/module-e-vocab/">Band III</a></div>
+<div class="share-status" id="shareStatus" role="status" aria-live="polite"></div>
+</section>
+<div class="summary" id="summary"></div>
+<section class="section core1"><div class="section-head"><div><h2>Core I</h2><p class="section-note">כאן האחוז מבוסס על ראיות השליטה שנשמרות בתרגול Core I.</p></div><span class="section-total" id="core1Total"></span></div><div class="groups" id="core1Groups"></div></section>
+<section class="section core2"><div class="section-head"><div><h2>Core II</h2><p class="section-note">כאן האחוז מציג כיסוי כרטיסים שנצפו במכשיר, ולא ציון שליטה.</p></div><span class="section-total" id="core2Total"></span></div><div class="groups" id="core2Groups"></div></section>
+<section class="section band3"><div class="section-head"><div><h2>Band III</h2><p class="section-note">A–D הן רשימות מקבילות, לא רמות קושי. האחוז מציג כיסוי כרטיסים שנצפו במכשיר.</p></div><span class="section-total" id="band3Total"></span></div><div class="groups" id="band3Groups"></div></section>
+<p class="privacy">פרטיות: הדוח אינו מבקש שם תלמיד ואינו שולח את ההתקדמות לשרת או למורה. אם משתפים את הדוח, השיתוף נעשה רק בעקבות פעולה מפורשת של המשתמש.</p>
+</main>
+<script>
+(() => {
+const CORE1_KEY='efn.band2.core1.progress.v1', GENERIC_KEY='efn.vocab.progress.v1';
+const get=k=>{try{return localStorage.getItem(k)}catch{return null}};
+const parse=s=>{try{return JSON.parse(s||'null')}catch{return null}};
+const core1=parse(get(CORE1_KEY)); const generic=parse(get(GENERIC_KEY))||{groups:{}};
+const result={core1:[],core2:[],band3:[]};
+for(let n=1;n<=20;n++){
+ const key=String(n).padStart(2,'0'), g=core1?.groups?.[key];
+ let serials=[]; if(typeof g?.fingerprint==='string'&&g.fingerprint.startsWith('core1:')) serials=g.fingerprint.slice(6).split('.').filter(Boolean);
+ const total=serials.length||55; let mastered=0,evidence=0,started=0;
+ serials.forEach(s=>{const sig=Array.isArray(g?.words?.[s]?.signals)?[...new Set(g.words[s].signals)]:[];if(sig.length)started++;if(sig.length>=2)mastered++;evidence+=Math.min(2,sig.length)});
+ const pct=serials.length?Math.round(evidence/(total*2)*100):0;
+ result.core1.push({label:`Group ${key}`,pct,done:mastered===total&&total>0,detail:serials.length?`${mastered}/${total} מילים בשליטה`:'אין נתונים עדיין'});
+}
+for(let n=21;n<=40;n++){
+ const key=`core2-${String(n).padStart(2,'0')}`,g=generic.groups?.[key],total=Number(g?.total)||55,seen=Array.isArray(g?.seen)?g.seen.length:0,pct=Math.min(100,Math.round(seen/total*100));
+ result.core2.push({label:`Group ${String(n).padStart(2,'0')}`,pct,done:seen>=total&&total>0,detail:seen?`${seen}/${total} כרטיסים נצפו`:'אין נתונים עדיין'});
+}
+['A','B','C','D'].forEach(letter=>[1,2,3].forEach(n=>{const label=`${letter}${n}`,g=generic.groups?.[`band3-${label}`],total=Number(g?.total)||80,seen=Array.isArray(g?.seen)?g.seen.length:0,pct=Math.min(100,Math.round(seen/total*100));result.band3.push({label,pct,done:seen>=total&&total>0,detail:seen?`${seen}/${total} כרטיסים נצפו`:'אין נתונים עדיין'});}));
+function render(section,items){
+ const box=document.getElementById(section+'Groups'); let done=0;
+ items.forEach(item=>{if(item.done)done++;const el=document.createElement('article');el.className='group';el.style.setProperty('--pct',item.pct+'%');el.innerHTML=`<div class="group-top"><span class="group-name">${item.label}</span><span class="status">${item.done?'✓':item.pct?'◐':'○'}</span></div><div class="bar" aria-hidden="true"><i></i></div><div class="meta">${item.pct}% · ${item.detail}</div>`;box.appendChild(el)});
+ document.getElementById(section+'Total').textContent=`${done}/${items.length} הושלמו`;return done;
+}
+const d1=render('core1',result.core1),d2=render('core2',result.core2),d3=render('band3',result.band3);
+document.getElementById('summary').innerHTML=`<div><strong>${d1}/20</strong>Core I</div><div><strong>${d2}/20</strong>Core II</div><div><strong>${d3}/12</strong>Band III</div>`;
+function shareText(){
+ const lines=['English for Noar — דוח התקדמות',`Core I: ${d1}/20 קבוצות הושלמו`,`Core II: ${d2}/20 קבוצות עם כיסוי מלא`,`Band III: ${d3}/12 קבוצות עם כיסוי מלא`];
+ [...result.core1,...result.core2,...result.band3].filter(x=>x.pct>0).forEach(x=>lines.push(`${x.label}: ${x.pct}%`));return lines.join('\n');
+}
+document.getElementById('share').addEventListener('click',async()=>{const text=shareText(),status=document.getElementById('shareStatus');try{if(navigator.share)await navigator.share({title:'דוח ההתקדמות שלי',text});else{await navigator.clipboard.writeText(text);status.textContent='הדוח הועתק ללוח.'}}catch(err){if(err?.name!=='AbortError')status.textContent='לא ניתן לשתף מהמכשיר הזה.'}});
+})();
+</script>
+<script src="analytics.js"></script>
+</body></html>
