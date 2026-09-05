@@ -95,7 +95,7 @@ test('all 80 group pages preserve blocking execution order through their exact a
             ? 'flashcard-common-en-group01.css?v=20260830-central-all1'
             : 'flashcard-common-en.css?v=20260830-central-pilot1',
           '<script>const words=',
-          'flashcard-runtime-en.js?v=20260830-central-pilot1',
+          'flashcard-runtime-en.js?v=20260905-feedback-all1',
           'flashcard-navigation.js?v=20260830-answer-flash1',
           'window.EFN_PAGE_WORDS=words;',
           'learning-loop.js'
