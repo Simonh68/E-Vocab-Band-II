@@ -116,3 +116,27 @@ test('Band II feedback click emits one precise payload for the visible card and 
   });
   assert.equal(wrap.dataset.analyticsIgnore, 'true');
 });
+
+test('Band II uses the approved youth feedback graphics in all 40 groups', async () => {
+  const ui = await readFile(path.join(root, 'feedback-youth-ui.js'), 'utf8');
+
+  assert.match(ui, /gap:44px/);
+  assert.match(ui, /data-feedback-tone="positive"/);
+  assert.match(ui, /data-feedback-tone="negative"/);
+  assert.match(ui, /#176b45/);
+  assert.match(ui, /#a33d4c/);
+  assert.match(ui, /ack\.textContent = '✓'/);
+  assert.match(ui, /2000/);
+  assert.doesNotMatch(ui, /💬|תודה/);
+  assert.doesNotMatch(ui, /fetch\(|api\/analytics|button_click/);
+
+  for (let index = 1; index <= 40; index += 1) {
+    const groupId = String(index).padStart(2, '0');
+    const html = await readFile(path.join(root, `groups/group-${groupId}.html`), 'utf8');
+    assert.match(
+      html,
+      /flashcard-runtime-en\.js\?v=20260905-feedback-all1"><\/script><script src="\.\.\/feedback-youth-ui\.js\?v=20260905-1"/,
+      `group-${groupId}`,
+    );
+  }
+});
