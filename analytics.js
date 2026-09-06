@@ -1,4 +1,39 @@
 (() => {
+  if (location.hostname !== 'simonh68.github.io' || !location.pathname.startsWith('/E-Vocab-Band-II/')) return;
+  if (typeof location.replace !== 'function') return;
+  const read = {};
+  const exactKeys = [
+    'efn.band2.core1.progress.v1',
+    'efn.vocab.progress.v1',
+    'efn.band2.local-progress-consent.v1',
+    'evocab-band-ii-core',
+    'evocab-band-ii-auto-audio',
+    'ra-group',
+    'ra-last-story',
+    'ra-level',
+  ];
+  try {
+    for (const key of exactKeys) {
+      const value = localStorage.getItem(key);
+      if (value !== null) read[key] = value;
+    }
+  } catch {}
+  const relative = location.pathname.slice('/E-Vocab-Band-II/'.length);
+  const isReadAlong = relative === 'Read-Along' || relative.startsWith('Read-Along/');
+  const base = isReadAlong ? '/read-along/' : '/band-ii/';
+  const suffix = isReadAlong ? relative.slice('Read-Along/'.length) : relative;
+  try {
+    const bytes = new TextEncoder().encode(JSON.stringify({ v: 1, source: 'band2', values: read }));
+    let binary = '';
+    bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+    window.name = `efn-domain-migration:${btoa(binary)}`;
+  } catch { window.name = ''; }
+  window.__EFN_DOMAIN_MIGRATING = true;
+  location.replace(`https://englishfornoar.co.il${base}${suffix}${location.search}${location.hash}`);
+})();
+
+(() => {
+  if (window.__EFN_DOMAIN_MIGRATING) return;
   const endpoint = 'https://englishfornoar.co.il/api/analytics';
   const visitorStorageKey = 'efn-anonymous-browser-v1';
   const roleStorageKey = 'efn-traffic-role-v1';
@@ -79,7 +114,12 @@
     const host = location.hostname.toLowerCase();
     const path = location.pathname.toLowerCase();
     if (host === 'englishfornoar.co.il' || host === 'www.englishfornoar.co.il') {
-      return path.startsWith('/word-forge') ? 'english-basic' : 'home';
+      if (path.startsWith('/read-along')) return 'read-along';
+      if (path.startsWith('/band-ii/ar')) return 'band-ii-ar';
+      if (path.startsWith('/band-ii')) return 'band-ii';
+      if (path.startsWith('/module-e-vocab/play')) return 'module-e';
+      if (path.startsWith('/word-forge') || path.startsWith('/diagnostic') || path.startsWith('/english-basic')) return 'english-basic';
+      return 'home';
     }
     if (path.includes('/module-e-vocab')) return 'module-e';
     if (path.includes('/e-vocab-band-ii/read-along')) return 'read-along';
