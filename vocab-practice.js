@@ -136,6 +136,7 @@
     const answer = hebrew;
     const choices = choicesFor(context.records, answer, item => item.mean_he, context.seed, 4);
     const prompt = english;
+    const example = context.mode === 'context' ? clean(record.ex_en) : '';
     return {
       prompt,
       promptParts: [{
@@ -145,14 +146,15 @@
       }],
       promptLang: 'en',
       promptDir: 'ltr',
-      clue: '',
+      // Context evidence must include the approved sentence, not just the word.
+      clue: example,
       clueLang: 'en',
       clueDir: 'ltr',
       choices,
       answer,
       choiceLang: 'he',
       choiceDir: 'rtl',
-      speakText: english,
+      speakText: example ? `${english}. ${example}` : english,
       modeLabel: context.phase === 'retry'
         ? 'מסלול תיקון'
         : context.mode === 'context'
